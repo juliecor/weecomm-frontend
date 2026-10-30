@@ -2,8 +2,8 @@ import "server-only"
 import { ApiError, api } from "./api"
 
 /**
- * Johndorf's public project pages, read from Laravel. The site is Johndorf's,
- * so the realty is fixed here; the admin's other realties don't have public
+ * The site's public project pages, read from Laravel. The site belongs to one
+ * realty (SITE_REALTY), so it is fixed here; other realties don't have public
  * pages on this domain.
  */
 import { SITE_REALTY } from "./public-projects-types"

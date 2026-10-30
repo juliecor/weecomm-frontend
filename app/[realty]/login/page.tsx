@@ -2,7 +2,7 @@ import type { Metadata } from "next"
 import Link from "next/link"
 import { redirect } from "next/navigation"
 import { Check, CircleCheck, Info, Lock, MapPin } from "lucide-react"
-import { COMPANY, STATS } from "@/lib/johndorf/company"
+import { COMPANY } from "@/lib/site/company"
 import { SITE_REALTY } from "@/lib/public-projects-types"
 import { currentRealtyUser, realtyBySlug } from "@/lib/realty-auth"
 import { realtyIcons } from "@/lib/realty-icon"
@@ -16,13 +16,14 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   return { title: `Sign in · ${realty.name}`, robots: { index: false, follow: false }, icons: realtyIcons(realty.slug, realty.kind) }
 }
 
-/** Johndorf's side of the page: its head office and facts from its own site (lib/johndorf/company.ts, nothing invented). */
-const JOHNDORF = {
-  photo: "/johndorf/site/tower.jpg",
-  caption: "Johndorf Tower, Cebu Business Park · head office",
+/** Wee Comm's side of the page: its signature project and facts from its own site (lib/site/company.ts, nothing invented). */
+const WEECOMM = {
+  photo: "/weecomm/projects/baron-lvxe/1.jpg",
+  caption: "Baron Lvxe, San Juan · the signature line",
   facts: [
-    { value: String(COMPANY.founded), label: "Founded in Iligan City" },
-    ...STATS.filter((s) => s.label !== "Years of building homes" && !s.label.startsWith("PropertyGuru")).map((s) => ({ value: `${s.value}${s.suffix}`, label: s.label })),
+    { value: String(COMPANY.founded), label: "Founded in San Juan" },
+    { value: "16", label: "Communities" },
+    { value: "7", label: "Cities across the Philippines" },
   ],
 }
 
@@ -35,9 +36,9 @@ export default async function RealtyLoginPage({ params, searchParams }: Props) {
   if (session?.user.realty.slug === slug) redirect(`/${slug}/dashboard`)
 
   const accent = realty.accent_color ?? "#1f2937"
-  // Johndorf's own page, and the pages of realties accredited under it, wear Johndorf's photo and facts.
-  const brand = slug === SITE_REALTY || realty.kind === "broker" ? JOHNDORF : null
-  const short = slug === SITE_REALTY ? "Johndorf" : realty.name
+  // Wee Comm's own page, and the pages of realties accredited under it, wear Wee Comm's photo and facts.
+  const brand = slug === SITE_REALTY || realty.kind === "broker" ? WEECOMM : null
+  const short = slug === SITE_REALTY ? COMPANY.short : realty.name
   const notice = query.registered
     ? "Your realty is registered. Sign in to open your dashboard."
     : query.applied

@@ -1,8 +1,8 @@
-/** Shapes of Johndorf's public project pages as the API returns them. Safe to import from client components. */
+/** Shapes of the site's public project pages as the API returns them. Safe to import from client components. */
 import type { SiteMapData } from "@/components/site-map/geometry"
 
-/** The realty whose site jvconline.ph is (its landing is at /). */
-export const SITE_REALTY = "johndorf"
+/** The realty whose site this is (its landing is at /). */
+export const SITE_REALTY = "weecomm"
 
 export type PublicProjectCard = {
   slug: string
@@ -38,7 +38,7 @@ export type PublicProject = {
   unit_types: PublicUnitType[]
   updates: PublicUpdate[]
   total_photos: number
-  /** The clickable site plan, once Johndorf has drawn the lots on it: status only, no prices. */
+  /** The clickable site plan, once the developer has drawn the lots on it: status only, no prices. */
   site_map?: SiteMapData | null
 }
 

@@ -4,11 +4,11 @@ import { useEffect, useState } from "react"
 import Link from "next/link"
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion"
 import { ArrowDown, ArrowLeft, MapPin } from "lucide-react"
-import { ease, serif } from "../../johndorf/home/ui"
+import { ease, serif } from "../../site/ui"
 import { Photo } from "@/components/photo"
 
 /** Full-screen opening: the project's own renders crossfading, its name set large. */
-export function ProjectHero({ name, place, status, photos, lots }: { name: string; place: string; status?: string; photos: string[]; lots?: { available: number; total: number } }) {
+export function ProjectHero({ name, place, status, photos, lots, more = { href: "#homes", label: "See the homes" } }: { name: string; place: string; status?: string; photos: string[]; lots?: { available: number; total: number }; more?: { href: string; label: string } }) {
   const reduce = useReducedMotion()
   const [i, setI] = useState(0)
   useEffect(() => {
@@ -18,15 +18,15 @@ export function ProjectHero({ name, place, status, photos, lots }: { name: strin
   }, [photos.length, reduce])
 
   return (
-    <section className="relative flex min-h-[92vh] items-end overflow-hidden bg-[#160c0a] text-white">
+    <section className="relative flex min-h-[92vh] items-end overflow-hidden bg-[#0b0b0f] text-white">
       <AnimatePresence initial={false}>
         <motion.div key={photos[i] ?? "none"} initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 1.4 }} className="absolute inset-0">
           {photos[i] && (
-            <Photo src={photos[i]} sizes="100vw" loading={i === 0 ? "eager" : "lazy"} fetchPriority={i === 0 ? "high" : "auto"} className={`h-full w-full object-cover ${reduce ? "" : "jd-kenburns"}`} />
+            <Photo src={photos[i]} sizes="100vw" loading={i === 0 ? "eager" : "lazy"} fetchPriority={i === 0 ? "high" : "auto"} className={`h-full w-full object-cover ${reduce ? "" : "wc-kenburns"}`} />
           )}
         </motion.div>
       </AnimatePresence>
-      <div aria-hidden className="absolute inset-0 bg-gradient-to-t from-[#160c0a] via-[#160c0a]/45 to-[#160c0a]/25" />
+      <div aria-hidden className="absolute inset-0 bg-gradient-to-t from-[#0b0b0f] via-[#0b0b0f]/45 to-[#0b0b0f]/25" />
 
       <div className="relative mx-auto w-full max-w-[1400px] px-5 pb-14 pt-32 sm:px-8 sm:pb-20">
         <motion.div initial={reduce ? false : { opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, ease }}>
@@ -38,7 +38,7 @@ export function ProjectHero({ name, place, status, photos, lots }: { name: strin
           {name}
         </motion.h1>
         <motion.div initial={reduce ? false : { opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.9, delay: 0.3, ease }} className="mt-6 flex flex-wrap items-center gap-x-6 gap-y-3">
-          <p className="inline-flex items-center gap-2 text-base text-white/85 sm:text-lg"><MapPin className="h-4 w-4 text-[#f0b6b1]" /> {place}</p>
+          <p className="inline-flex items-center gap-2 text-base text-white/85 sm:text-lg"><MapPin className="h-4 w-4 text-[#fbd14d]" /> {place}</p>
           {status && <span className="rounded-sm border border-white/30 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.16em] text-white/85">{status}</span>}
           {lots && (
             <span className="inline-flex items-center gap-2 rounded-sm bg-white/10 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.16em] text-white/90 backdrop-blur">
@@ -49,18 +49,18 @@ export function ProjectHero({ name, place, status, photos, lots }: { name: strin
         <div className="mt-10 flex flex-wrap items-center justify-between gap-4">
           <div className="flex flex-wrap items-center gap-3">
             {lots && (
-              <a href="#site-plan" className="inline-flex items-center gap-2 rounded-sm bg-white px-5 py-2.5 text-[11px] font-semibold uppercase tracking-[0.16em] text-[#2a1d1b] hover:bg-[#f0b6b1]">
+              <a href="#site-plan" className="inline-flex items-center gap-2 rounded-sm bg-[#15151c] px-5 py-2.5 text-[11px] font-semibold uppercase tracking-[0.16em] text-[#f3f1ea] hover:bg-[#fbd14d]">
                 <MapPin className="h-3.5 w-3.5" /> Pick a lot on the map
               </a>
             )}
-            <a href="#homes" className="inline-flex items-center gap-2 text-[11px] font-semibold uppercase tracking-[0.2em] text-white/60 hover:text-white">
-              <ArrowDown className="h-3.5 w-3.5 animate-bounce" /> See the homes
+            <a href={more.href} className="inline-flex items-center gap-2 text-[11px] font-semibold uppercase tracking-[0.2em] text-white/60 hover:text-white">
+              <ArrowDown className="h-3.5 w-3.5 animate-bounce" /> {more.label}
             </a>
           </div>
           {photos.length > 1 && (
             <div className="flex gap-1.5">
               {photos.map((_, n) => (
-                <button key={n} type="button" aria-label={`Photo ${n + 1}`} onClick={() => setI(n)} className={`h-1 rounded-sm transition-all ${n === i ? "w-8 bg-white" : "w-3 bg-white/40 hover:bg-white/70"}`} />
+                <button key={n} type="button" aria-label={`Photo ${n + 1}`} onClick={() => setI(n)} className={`h-1 rounded-sm transition-all ${n === i ? "w-8 bg-[#15151c]" : "w-3 bg-white/40 hover:bg-white/70"}`} />
               ))}
             </div>
           )}

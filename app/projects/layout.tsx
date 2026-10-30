@@ -1,8 +1,8 @@
-import { JohndorfShell, johndorfMetadata } from "../johndorf/shell"
+import { SiteShell, siteMetadata } from "../site/shell"
 
-export const metadata = johndorfMetadata
+export const metadata = siteMetadata
 
-/** /projects and /projects/<slug> in Johndorf's look. */
+/** /projects and /projects/<slug> in the site's look. */
 export default function ProjectsLayout({ children }: { children: React.ReactNode }) {
-  return <JohndorfShell>{children}</JohndorfShell>
+  return <SiteShell>{children}</SiteShell>
 }

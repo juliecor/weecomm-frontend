@@ -6,6 +6,7 @@ import { ArrowLeft, FilePlus2 } from "lucide-react"
 import { ApiError, api } from "@/lib/api"
 import { longDate, php, phpExact, shortDate, sqm } from "@/lib/format"
 import type { Quotation, QuotationInput } from "@/lib/quotation"
+import { assistantName } from "@/lib/assistant-name"
 import { requireRealtyUser } from "@/lib/realty-auth"
 import { DownloadPdf, PrintOnOpen } from "../report/report-tools"
 import { BuyerName } from "./buyer-name"
@@ -26,7 +27,7 @@ function readInput(q: string | undefined): QuotationInput | null {
   }
 }
 
-// The title is the PDF's file name: "Johndorf quotation for Rosa Cruz".
+// The title is the PDF's file name: "Weecomm quotation for Rosa Cruz".
 export async function generateMetadata({ params, searchParams }: Props): Promise<Metadata> {
   const { realty } = await params
   const input = readInput((await searchParams).q)
@@ -89,7 +90,7 @@ export default async function QuotationPage({ params, searchParams }: Props) {
       ) : (
         <div className="mx-auto max-w-xl rounded-2xl bg-white px-6 py-12 text-center">
           <h1 className={`${heading} text-2xl`}>This quotation can&apos;t be made</h1>
-          <p className="mt-3 text-[#5a554d]">{problem || "Ask Johndorf AI to work the payments out again."}</p>
+          <p className="mt-3 text-[#5a554d]">{problem || `Ask ${assistantName(user.realty.name)} to work the payments out again.`}</p>
         </div>
       )}
       {quote && print === "1" && <PrintOnOpen />}

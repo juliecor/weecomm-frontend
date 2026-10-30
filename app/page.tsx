@@ -1,26 +1,23 @@
 import type { Metadata } from "next"
-import { JohndorfLanding } from "./johndorf/home/landing"
-import { JohndorfShell, johndorfMetadata } from "./johndorf/shell"
 import { publicProjects } from "@/lib/public-projects"
-
-const description = "Homes and communities for every Filipino family — across Cebu, Cagayan de Oro, Davao, Iligan and Butuan, since 1986."
-const image = { url: "/johndorf/site/palmava.jpg", width: 1440, height: 810, alt: "Palmava by Johndorf" }
+import { COMPANY } from "@/lib/site/company"
+import { Landing } from "./site/home/landing"
+import { SiteShell, siteMetadata } from "./site/shell"
 
 // Shared by link, so it carries its own preview.
 export const metadata: Metadata = {
-  ...johndorfMetadata,
-  title: { absolute: "Johndorf Ventures Corporation — Always there." },
-  description,
-  openGraph: { title: "Johndorf Ventures Corporation — Always there.", description, siteName: "Johndorf Ventures Corporation", images: [image] },
-  twitter: { card: "summary_large_image", title: "Johndorf Ventures Corporation — Always there.", description, images: [image.url] },
+  ...siteMetadata,
+  title: { absolute: `${COMPANY.name} · ${COMPANY.tagline}` },
 }
 
-/** jvconline.ph — Johndorf's site. The landing page (lib/johndorf/company.ts); the Montierra map, login and dashboard live under /johndorf. */
-export default async function HomePage() {
-  const projects = await publicProjects()
+type Props = { searchParams: Promise<{ project?: string }> }
+
+/** The site's front door: Wee Comm's landing page. ?project=<slug> pre-fills the inquiry form (from a project page). */
+export default async function HomePage({ searchParams }: Props) {
+  const [projects, { project }] = await Promise.all([publicProjects(), searchParams])
   return (
-    <JohndorfShell>
-      <JohndorfLanding projects={projects} />
-    </JohndorfShell>
+    <SiteShell>
+      <Landing projects={projects} preselect={project} />
+    </SiteShell>
   )
 }

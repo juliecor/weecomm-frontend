@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react"
 import Link from "next/link"
 import { LayoutDashboard, LogIn } from "lucide-react"
+import { SITE_REALTY } from "@/lib/public-projects-types"
 
 type Session = { name: string; dashboard: string } | null
 
@@ -30,7 +31,7 @@ export function AccountLink({ className, signIn = "Sign in", dashboard = "Dashbo
       {icon && <LayoutDashboard className="h-4 w-4" />} {dashboard}
     </Link>
   ) : (
-    <Link href="/johndorf/login" onClick={onClick} className={className}>
+    <Link href={`/${SITE_REALTY}/login`} onClick={onClick} className={className}>
       {icon && <LogIn className="h-4 w-4" />} {signIn}
     </Link>
   )

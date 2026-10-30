@@ -3,7 +3,7 @@ import Link from "next/link"
 import { ArrowRight, CalendarClock, Check, Link2Off, Lock, MapPin, UserCheck } from "lucide-react"
 import { ApiError, api } from "@/lib/api"
 import { longDate } from "@/lib/format"
-import { COMPANY } from "@/lib/johndorf/company"
+import { COMPANY } from "@/lib/site/company"
 import { SITE_REALTY } from "@/lib/public-projects-types"
 import { type PublicRealty, realtyBySlug } from "@/lib/realty-auth"
 import { realtyIcons } from "@/lib/realty-icon"
@@ -18,17 +18,17 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 }
 
 /**
- * Johndorf's side of the page: its head office and facts from its own site
- * (lib/johndorf/company.ts — nothing invented). Other realties get their
+ * Wee Comm's side of the page: its signature project and facts from its own site
+ * (lib/site/company.ts, nothing invented). Other realties get their
  * colour and logo; facts only appear once a realty has given us real ones.
  */
-const JOHNDORF = {
-  photo: "/johndorf/site/tower.jpg",
-  caption: "Johndorf Tower, Cebu Business Park · head office",
+const WEECOMM = {
+  photo: "/weecomm/projects/baron-lvxe/1.jpg",
+  caption: "Baron Lvxe, San Juan · the signature line",
   facts: [
-    { value: String(COMPANY.founded), label: "Founded in Iligan City" },
-    { value: "50+", label: "Communities" },
-    { value: "5", label: "Cities in Visayas & Mindanao" },
+    { value: String(COMPANY.founded), label: "Founded in San Juan" },
+    { value: "16", label: "Communities" },
+    { value: "7", label: "Cities across the Philippines" },
   ],
 }
 
@@ -56,9 +56,9 @@ export default async function JoinPage({ params }: Props) {
   }
 
   const accent = realty.accent_color ?? "#1f2937"
-  // Johndorf's own page, and the pages of realties accredited under it, wear Johndorf's photo and facts.
-  const brand = slug === SITE_REALTY || realty.kind === "broker" ? JOHNDORF : null
-  const short = slug === SITE_REALTY ? "Johndorf" : realty.name
+  // Wee Comm's own page, and the pages of realties accredited under it, wear Wee Comm's photo and facts.
+  const brand = slug === SITE_REALTY || realty.kind === "broker" ? WEECOMM : null
+  const short = slug === SITE_REALTY ? COMPANY.short : realty.name
 
   return (
     <main style={{ ["--accent" as string]: accent }} className="min-h-screen bg-[#f6f4f0] text-[#17150f] lg:grid lg:grid-cols-[minmax(0,1.05fr)_minmax(0,1fr)]">

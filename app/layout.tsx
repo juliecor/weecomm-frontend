@@ -13,11 +13,11 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL ?? "https://jvconline.ph"),
-  title: "jvconline",
-  description: "Realty companies across the Philippines.",
-  // Johndorf's mark on every page; a realty's own pages (sign-in, dashboard, offers) set the realty's.
-  icons: { icon: "/johndorf/mark.png", apple: "/johndorf/mark.png" },
+  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL ?? "https://weecomm.ph"),
+  title: "Wee Comm",
+  description: "Wee Community Developers, Inc. · Beyond Ordinary™",
+  // Wee Comm's mark on every page; another realty's own pages (sign-in, dashboard, offers) set theirs.
+  icons: { icon: "/weecomm/mark.png", apple: "/weecomm/mark.png" },
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {

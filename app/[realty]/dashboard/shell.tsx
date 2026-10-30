@@ -114,7 +114,7 @@ export function DashboardShell({ slug, user, counts, superAdmin, signOutAction, 
   const publicLink = (
     <Link
       href={isSite ? "/" : `/${slug}/login`}
-      title={isSite ? (counts ? `${counts.publicProjects} project pages live` : "Johndorf's website") : staff ? "Share it with your agents" : "Where you sign in"}
+      title={isSite ? (counts ? `${counts.publicProjects} project pages live` : `${realty.name}'s website`) : staff ? "Share it with your agents" : "Where you sign in"}
       className="inline-flex shrink-0 items-center gap-1 rounded-full border border-[#e6e2db] px-2.5 py-1 text-xs font-semibold text-[#2b2823] outline-none transition hover:border-[#17150f] focus-visible:ring-2 focus-visible:ring-[var(--accent)]"
     >
       {isSite ? "Public site" : "Sign-in page"} <ArrowUpRight className="h-3.5 w-3.5" />

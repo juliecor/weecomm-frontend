@@ -3,12 +3,12 @@
 import { useState } from "react"
 import { AnimatePresence, motion } from "framer-motion"
 import { Camera } from "lucide-react"
-import { ease } from "../../johndorf/home/ui"
+import { ease } from "../../site/ui"
 import type { PublicUpdate } from "@/lib/public-projects-types"
 import { Lightbox } from "./lightbox"
 import { Photo } from "@/components/photo"
 
-/** Construction progress month by month — Johndorf's own photos, newest first. */
+/** Construction progress month by month — Wee Comm's own photos, newest first. */
 export function Updates({ months }: { months: PublicUpdate[] }) {
   const ordered = [...months].reverse()
   const [key, setKey] = useState(ordered[0]?.month)
@@ -25,10 +25,10 @@ export function Updates({ months }: { months: PublicUpdate[] }) {
               key={m.month}
               type="button"
               onClick={() => setKey(m.month)}
-              className={`shrink-0 rounded-sm px-4 py-2 text-[12px] font-semibold tracking-wide transition ${m.month === current.month ? "bg-[#2a1d1b] text-white" : "border border-[#2a1d1b]/15 bg-white text-[#4b3b37] hover:border-[#b4241c] hover:text-[#b4241c]"}`}
+              className={`shrink-0 rounded-sm px-4 py-2 text-[12px] font-semibold tracking-wide transition ${m.month === current.month ? "bg-[#f3f1ea] text-white" : "border border-[#f3f1ea]/15 bg-[#15151c] text-[#d2d1d8] hover:border-[#f8b800] hover:text-[#f8b800]"}`}
             >
               {m.label}
-              <span className={`ml-2 text-[10px] ${m.month === current.month ? "text-white/60" : "text-[#a8968f]"}`}>{m.photos.length}</span>
+              <span className={`ml-2 text-[10px] ${m.month === current.month ? "text-white/60" : "text-[#8f8e99]"}`}>{m.photos.length}</span>
             </button>
           ))}
         </div>
@@ -36,12 +36,12 @@ export function Updates({ months }: { months: PublicUpdate[] }) {
 
       <AnimatePresence mode="wait">
         <motion.div key={current.month} initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -8 }} transition={{ duration: 0.45, ease }} className="mt-8">
-          <p className="mb-5 inline-flex items-center gap-2 text-sm text-[#6b5a56]">
-            <Camera className="h-4 w-4 text-[#b4241c]" /> {current.photos.length} photo{current.photos.length === 1 ? "" : "s"} from {current.label}
+          <p className="mb-5 inline-flex items-center gap-2 text-sm text-[#b3b2bc]">
+            <Camera className="h-4 w-4 text-[#f8b800]" /> {current.photos.length} photo{current.photos.length === 1 ? "" : "s"} from {current.label}
           </p>
           <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-4">
             {current.photos.map((p, n) => (
-              <button key={p} type="button" onClick={() => setI(n)} className="group relative overflow-hidden rounded-none bg-[#ece5e2]" aria-label={`Photo ${n + 1}, ${current.label}`}>
+              <button key={p} type="button" onClick={() => setI(n)} className="group relative overflow-hidden rounded-none bg-[#2a2a33]" aria-label={`Photo ${n + 1}, ${current.label}`}>
                 <Photo src={p} sizes="(min-width: 1400px) 340px, (min-width: 1024px) 25vw, (min-width: 640px) 33vw, 50vw" className="aspect-video w-full object-cover transition duration-700 group-hover:scale-[1.04]" />
               </button>
             ))}

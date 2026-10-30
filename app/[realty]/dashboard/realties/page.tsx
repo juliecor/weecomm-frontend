@@ -39,7 +39,7 @@ export default async function RealtiesPage({ params }: { params: Promise<{ realt
   if (!isDeveloperStaff(user)) redirect(`/${slug}/dashboard`)
   const { pending, brokers, invited, rejected, agreement_ready } = await api<Overview>("/realty/realties", { token })
   // The website's own developer also takes the form there, without an invite (jvconline.ph/accreditation).
-  const openForm = slug === SITE_REALTY ? `${process.env.NEXT_PUBLIC_SITE_URL ?? "https://jvconline.ph"}/accreditation` : null
+  const openForm = slug === SITE_REALTY ? `${process.env.NEXT_PUBLIC_SITE_URL ?? "https://weecomm.ph"}/accreditation` : null
 
   return (
     <div>
