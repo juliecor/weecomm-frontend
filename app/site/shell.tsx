@@ -2,6 +2,7 @@ import type { Metadata } from "next"
 import { Fraunces, Manrope } from "next/font/google"
 import { COMPANY } from "@/lib/site/company"
 import "./site.css"
+import { SmoothScroll } from "./smooth-scroll"
 
 /**
  * Wee Comm's look: an editorial serif for headlines, a clean sans for everything else,
@@ -33,6 +34,7 @@ export function SiteShell({ children }: { children: React.ReactNode }) {
         <div className="wc-grain absolute inset-0 opacity-[0.07] mix-blend-soft-light" />
         <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(12,16,32,0)_0%,rgba(8,11,24,0.55)_100%)]" />
       </div>
+      <SmoothScroll />
       {children}
     </div>
   )

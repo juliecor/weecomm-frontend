@@ -87,9 +87,11 @@
   }
 }
 
-/* Anchor links glide to their section. */
-html {
-  scroll-behavior: smooth;
+/* Anchor links glide to their section on phones; elsewhere the inertia scroll does it. */
+@media (pointer: coarse) {
+  html {
+    scroll-behavior: smooth;
+  }
 }
 
 /* A fine film grain over the backdrop, so the dark has texture instead of being a flat fill. */
@@ -158,5 +160,25 @@ html {
   }
   .wc-shine {
     color: #f8b800;
+  }
+}
+
+/* The ring around the city you point at. */
+@keyframes wc-pulse {
+  0% {
+    transform: scale(0.5);
+    opacity: 0.9;
+  }
+  100% {
+    transform: scale(1.4);
+    opacity: 0;
+  }
+}
+.wc-pulse {
+  animation: wc-pulse 1.6s ease-out infinite;
+}
+@media (prefers-reduced-motion: reduce) {
+  .wc-pulse {
+    animation: none;
   }
 }

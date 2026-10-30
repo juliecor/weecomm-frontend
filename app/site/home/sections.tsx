@@ -4,9 +4,10 @@ import Image from "next/image"
 import Link from "next/link"
 import { ArrowRight, ArrowUpRight, BadgeCheck, Handshake, Landmark, Play, ScrollText, Users, Wallet } from "lucide-react"
 import { Photo } from "@/components/photo"
+import { FootprintMap } from "./footprint-map"
 import type { PublicProjectCard } from "@/lib/public-projects-types"
-import { AWARDS, COMPANY, FOOTPRINT, FOUNDER, GUIDE, LEADERS, MISSION, NEWS, PARTNERS, PRINCIPLE, SIGNATURE, VALUES, VISION } from "@/lib/site/company"
-import { Chapter, Hex, Reveal, Ticker, TriLine, serif } from "../ui"
+import { AWARDS, COMPANY, FOUNDER, GUIDE, LEADERS, MISSION, NEWS, PARTNERS, PRINCIPLE, SIGNATURE, STATS, VALUES, VISION } from "@/lib/site/company"
+import { Chapter, Count, Hex, Reveal, Ticker, TriLine, serif } from "../ui"
 
 /** The Baron line in San Juan, oldest to newest, down the page with each year set large. */
 export function Signature({ projects }: { projects: PublicProjectCard[] }) {
@@ -86,39 +87,12 @@ export function Story() {
 }
 
 /** Where the communities are: the company's own milestone map, and the cities in a list. */
-export function Footprint() {
-  const built = FOOTPRINT.filter((c) => !c.upcoming)
-  const next = FOOTPRINT.filter((c) => c.upcoming)
+export function Footprint({ projects }: { projects: PublicProjectCard[] }) {
   return (
     <Chapter id="footprint" n="04" title="Metro Manila to Mindanao, and growing" kicker="Wee Comm began in San Juan and grew into Mandaluyong, Quezon City, Rizal, Iloilo, Cagayan de Oro and Davao. Las Piñas and Bacolod are next." className="bg-white/[0.03]">
-      <div className="grid gap-10 md:grid-cols-[1.2fr_1fr] md:items-start">
-        <Reveal>
-          <div className="relative overflow-hidden rounded-sm bg-transparent">
-            <Image src="/weecomm/site/footprint-dark.jpg" alt="Wee Comm's projects across the Philippines" width={2200} height={1238} className="h-auto w-full" />
-            <p className="absolute bottom-3 right-4 text-[10px] font-semibold uppercase tracking-[0.18em] text-white/40">Milestones map · Wee Comm</p>
-          </div>
-        </Reveal>
-        <Reveal delay={0.1}>
-          <ul className="border-t border-white/10">
-            {built.map((c) => (
-              <li key={c.city} className="flex items-center justify-between gap-4 border-b border-white/10 py-3 text-[15px]">
-                <span className="inline-flex items-center gap-3">
-                  <span aria-hidden className="wc-hex inline-block h-2.5 w-[9px] bg-[#f8b800]" /> {c.city}
-                </span>
-                <span className={`${serif} text-xl text-white/80`}>{c.projects}</span>
-              </li>
-            ))}
-            {next.map((c) => (
-              <li key={c.city} className="flex items-center justify-between gap-4 border-b border-white/10 py-3 text-[15px] text-white/55">
-                <span className="inline-flex items-center gap-3">
-                  <span aria-hidden className="wc-hex inline-block h-2.5 w-[9px] border border-[#f8b800]" /> {c.city}
-                </span>
-                <span className="text-[11px] font-semibold uppercase tracking-[0.16em] text-white/35">upcoming</span>
-              </li>
-            ))}
-          </ul>
-        </Reveal>
-      </div>
+      <Reveal>
+        <FootprintMap projects={projects} />
+      </Reveal>
     </Chapter>
   )
 }
@@ -291,5 +265,30 @@ export function News() {
       </ol>
       <TriLine className="mt-10 opacity-60" />
     </Chapter>
+  )
+}
+
+/** The company in figures, counting up as they come into view. */
+export function Figures({ projects }: { projects: number }) {
+  const year = new Date().getFullYear()
+  const items: { value: React.ReactNode; label: string; note: string }[] = [
+    { value: <Count to={projects} />, label: "Communities", note: STATS[0].note },
+    { value: <Count to={STATS[1].value} />, label: STATS[1].label, note: STATS[1].note },
+    { value: STATS[2].value, label: STATS[2].label, note: STATS[2].note },
+    { value: <Count to={STATS[3].value} suffix="+" />, label: STATS[3].label, note: STATS[3].note },
+    { value: <Count to={year - COMPANY.founded} />, label: "Years of building", note: `since ${COMPANY.founded}` },
+  ]
+  return (
+    <section aria-label="Wee Comm in figures" className="border-y border-white/[0.08] bg-white/[0.03]">
+      <dl className="mx-auto grid max-w-[1440px] grid-cols-2 divide-white/10 px-5 sm:px-8 md:grid-cols-5 md:divide-x">
+        {items.map((it, i) => (
+          <Reveal key={it.label} delay={i * 0.06} className="py-8 md:px-6 md:py-10 md:first:pl-0 md:last:pr-0">
+            <dd className={`${serif} text-5xl font-medium tracking-tight text-white sm:text-6xl`}>{it.value}</dd>
+            <dt className="mt-2 text-[11px] font-semibold uppercase tracking-[0.2em] text-[#f8b800]">{it.label}</dt>
+            <p className="mt-1 text-sm text-white/50">{it.note}</p>
+          </Reveal>
+        ))}
+      </dl>
+    </section>
   )
 }

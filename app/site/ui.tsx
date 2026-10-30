@@ -1,6 +1,7 @@
 "use client"
 
-import { motion } from "framer-motion"
+import { motion, useInView, useReducedMotion } from "framer-motion"
+import { useEffect, useRef, useState } from "react"
 
 import { BLUE, GOLD, INK, RED, ease, serif } from "./tokens"
 
@@ -69,5 +70,31 @@ export function Ticker({ items, className = "", slow = false }: { items: string[
         ))}
       </div>
     </div>
+  )
+}
+
+/** A figure that counts up from zero when it scrolls into view. */
+export function Count({ to, suffix = "", className = "" }: { to: number; suffix?: string; className?: string }) {
+  const ref = useRef<HTMLSpanElement>(null)
+  const inView = useInView(ref, { once: true, margin: "-40px" })
+  const reduce = useReducedMotion()
+  const [v, setV] = useState(0)
+  useEffect(() => {
+    if (!inView || reduce) return
+    let raf = 0
+    const t0 = performance.now()
+    const tick = (t: number) => {
+      const p = Math.min(1, (t - t0) / 1800)
+      setV(Math.round(to * (1 - Math.pow(1 - p, 3))))
+      if (p < 1) raf = requestAnimationFrame(tick)
+    }
+    raf = requestAnimationFrame(tick)
+    return () => cancelAnimationFrame(raf)
+  }, [inView, to, reduce])
+  return (
+    <span ref={ref} className={className}>
+      {(reduce ? to : v).toLocaleString("en-PH")}
+      {suffix}
+    </span>
   )
 }

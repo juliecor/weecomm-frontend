@@ -6,7 +6,8 @@ import { Communities } from "./communities"
 import { Footer } from "./footer"
 import { Hero } from "./hero"
 import { Inquire } from "./inquire"
-import { Awards, Footprint, GuideTeaser, Leaders, News, Partners, Signature, Story } from "./sections"
+import { Reel } from "./reel"
+import { Awards, Figures, Footprint, GuideTeaser, Leaders, News, Partners, Signature, Story } from "./sections"
 
 /** The front door: the opening, then ten numbered chapters in Wee Comm's own words and photos, ending on the inquiry form. */
 export function Landing({ projects, preselect }: { projects: PublicProjectCard[]; preselect?: string }) {
@@ -14,10 +15,12 @@ export function Landing({ projects, preselect }: { projects: PublicProjectCard[]
     <div id="top" className="relative">
       <SiteHeader />
       <Hero />
+      <Reel projects={projects} />
+      <Figures projects={projects.length} />
       <Communities projects={projects} />
       <Signature projects={projects} />
       <Story />
-      <Footprint />
+      <Footprint projects={projects} />
       <Leaders />
       <Awards />
       <Partners />

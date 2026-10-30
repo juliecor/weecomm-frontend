@@ -40,8 +40,8 @@ function HexRing({ className = "", id }: { className?: string; id: string }) {
 
 /**
  * The opening: "Beyond" drawn in outline over "Ordinary™" in gold, beside the company's own facades
- * cut as the logo's hexagon, with the next one waiting in a smaller hexagon. The facade also glows,
- * blurred, behind the whole scene; the scene leans gently with the mouse and drifts as you scroll.
+ * cut as the logo's hexagon, with the next one waiting in a smaller hexagon. Behind it all, the company's
+ * own drone footage, dimmed; the scene leans gently with the mouse and drifts as you scroll.
  */
 export function Hero() {
   const reduce = useReducedMotion()
@@ -81,16 +81,20 @@ export function Hero() {
 
   return (
     <section ref={ref} onMouseMove={onMove} onMouseLeave={() => (mx.set(0), my.set(0))} className="relative overflow-hidden bg-transparent text-white">
-      {/* The facade, blurred into an atmosphere behind the scene, changing with the slide. */}
+      {/* Behind the scene: Wee Comm's own film, the drone shots of its towers, muted and dimmed into an atmosphere.
+          With reduced motion it's the facade of the slide, blurred, instead. */}
       <div aria-hidden className="pointer-events-none absolute inset-0 overflow-hidden">
-        <motion.div style={{ x: glowX, y: glowY }} className="absolute -inset-[12%]">
-          <AnimatePresence initial={false}>
-            <motion.div key={slide.src} initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 2.2 }} className="absolute inset-0">
-              <Photo src={slide.src} alt="" sizes="480px" className="h-full w-full object-cover opacity-45 blur-[60px] saturate-[1.5]" />
-            </motion.div>
-          </AnimatePresence>
+        <motion.div style={{ x: glowX, y: glowY }} className="absolute -inset-[6%]">
+          {reduce ? (
+            <Photo src={slide.src} alt="" sizes="480px" className="h-full w-full object-cover opacity-45 blur-[60px] saturate-[1.5]" />
+          ) : (
+            <video autoPlay muted loop playsInline preload="metadata" poster="/weecomm/video/hero.jpg" className="h-full w-full object-cover opacity-[0.55] saturate-[1.15]">
+              <source src="/weecomm/video/hero.mp4" type="video/mp4" />
+            </video>
+          )}
         </motion.div>
-        <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(12,16,32,0.25)_0%,rgba(12,16,32,0.45)_55%,#0c1020_100%)]" />
+        <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(12,16,32,0.92)_0%,rgba(12,16,32,0.7)_45%,rgba(12,16,32,0.35)_100%)]" />
+        <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(12,16,32,0.3)_0%,rgba(12,16,32,0.2)_50%,#0c1020_100%)]" />
       </div>
 
       <div className="relative mx-auto grid min-h-[100svh] max-w-[1440px] items-center gap-12 px-5 pb-16 pt-28 sm:px-8 lg:grid-cols-[1.05fr_1fr] lg:gap-10 lg:pt-32">
