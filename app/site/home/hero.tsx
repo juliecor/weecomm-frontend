@@ -88,13 +88,13 @@ export function Hero() {
           {reduce ? (
             <Photo src={slide.src} alt="" sizes="480px" className="h-full w-full object-cover opacity-45 blur-[60px] saturate-[1.5]" />
           ) : (
-            <video autoPlay muted loop playsInline preload="metadata" poster="/weecomm/video/hero.jpg" className="h-full w-full object-cover opacity-[0.55] saturate-[1.15]">
+            <video autoPlay muted loop playsInline preload="metadata" poster="/weecomm/video/hero.jpg" className="h-full w-full object-cover opacity-[0.85] saturate-[1.1]">
               <source src="/weecomm/video/hero.mp4" type="video/mp4" />
             </video>
           )}
         </motion.div>
-        <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(12,16,32,0.92)_0%,rgba(12,16,32,0.7)_45%,rgba(12,16,32,0.35)_100%)]" />
-        <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(12,16,32,0.3)_0%,rgba(12,16,32,0.2)_50%,#0c1020_100%)]" />
+        <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(12,16,32,0.72)_0%,rgba(12,16,32,0.4)_45%,rgba(12,16,32,0.08)_100%)]" />
+        <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(12,16,32,0.25)_0%,rgba(12,16,32,0)_45%,rgba(12,16,32,0.55)_80%,#0c1020_100%)]" />
       </div>
 
       <div className="relative mx-auto grid min-h-[100svh] max-w-[1440px] items-center gap-12 px-5 pb-16 pt-28 sm:px-8 lg:grid-cols-[1.05fr_1fr] lg:gap-10 lg:pt-32">
