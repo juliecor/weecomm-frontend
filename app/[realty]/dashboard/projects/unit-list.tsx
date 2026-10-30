@@ -42,25 +42,25 @@ export function UnitList({ slug, projectId, units, staff, initialQuery = "" }: {
       {units.length > 0 && (
         <div className="flex flex-col gap-3 lg:flex-row lg:items-center">
           <label className="relative block flex-1">
-            <Search className="pointer-events-none absolute left-3.5 top-1/2 h-4 w-4 -translate-y-1/2 text-[#8a847a]" />
-            <input type="search" value={q} onChange={(e) => reset(() => setQ(e.target.value))} placeholder="Search a unit: Block 24, Unit 101…" aria-label="Search units" className="block w-full border border-[#d9d4cb] bg-white py-2.5 pl-10 pr-3 text-[15px] outline-none focus:border-[var(--accent)]" />
+            <Search className="pointer-events-none absolute left-3.5 top-1/2 h-4 w-4 -translate-y-1/2 text-[#7a8099]" />
+            <input type="search" value={q} onChange={(e) => reset(() => setQ(e.target.value))} placeholder="Search a unit: Block 24, Unit 101…" aria-label="Search units" className="block w-full border border-[#d6dae6] bg-white py-2.5 pl-10 pr-3 text-[15px] outline-none focus:border-[var(--accent)]" />
           </label>
           <div className="flex flex-wrap gap-2">
-            <div role="group" aria-label="Status" className="flex overflow-hidden rounded-xl border border-[#d9d4cb] bg-white">
+            <div role="group" aria-label="Status" className="flex overflow-hidden rounded-xl border border-[#d6dae6] bg-white">
               {STATUSES.map((st) => (
                 <button
                   key={st.value}
                   type="button"
                   aria-pressed={status === st.value}
                   onClick={() => reset(() => setStatus(st.value))}
-                  className={`px-3 py-2 text-sm font-bold transition ${status === st.value ? "bg-[#17150f] text-white" : "text-[#5a554d] hover:bg-[#f6f4f0] hover:text-[#17150f]"}`}
+                  className={`px-3 py-2 text-sm font-bold transition ${status === st.value ? "bg-[#0f1222] text-white" : "text-[#4a5070] hover:bg-[#f3f5fa] hover:text-[#0f1222]"}`}
                 >
-                  {st.label} <span className={`tabular-nums ${status === st.value ? "text-white/70" : "text-[#a39d92]"}`}>{count(st.value)}</span>
+                  {st.label} <span className={`tabular-nums ${status === st.value ? "text-white/70" : "text-[#9aa0b5]"}`}>{count(st.value)}</span>
                 </button>
               ))}
             </div>
             {types.length > 1 && (
-              <select value={type} onChange={(e) => reset(() => setType(e.target.value))} aria-label="Unit type" className={`rounded-xl border bg-white px-3 py-2 text-sm outline-none focus:border-[var(--accent)] ${type ? "border-[#17150f] font-bold" : "border-[#d9d4cb] font-semibold text-[#5a554d]"}`}>
+              <select value={type} onChange={(e) => reset(() => setType(e.target.value))} aria-label="Unit type" className={`rounded-xl border bg-white px-3 py-2 text-sm outline-none focus:border-[var(--accent)] ${type ? "border-[#0f1222] font-bold" : "border-[#d6dae6] font-semibold text-[#4a5070]"}`}>
                 <option value="">All types</option>
                 {types.map((t) => (
                   <option key={t} value={t}>
@@ -74,7 +74,7 @@ export function UnitList({ slug, projectId, units, staff, initialQuery = "" }: {
       )}
 
       {filtered && (
-        <p className="mt-3 flex items-center gap-3 text-sm font-semibold text-[#5a554d]">
+        <p className="mt-3 flex items-center gap-3 text-sm font-semibold text-[#4a5070]">
           {matches.length} of {units.length} units
           <button type="button" onClick={() =>
               reset(() => {
@@ -88,7 +88,7 @@ export function UnitList({ slug, projectId, units, staff, initialQuery = "" }: {
         </p>
       )}
 
-      <ul className="mt-2 divide-y divide-[#e6e2db]">
+      <ul className="mt-2 divide-y divide-[#e2e5ef]">
         {matches.slice(0, shown).map((u) => (
           <UnitRow key={u.id} slug={slug} projectId={projectId} unit={u} staff={staff} />
         ))}
@@ -105,14 +105,14 @@ export function UnitList({ slug, projectId, units, staff, initialQuery = "" }: {
       </ul>
 
       {matches.length > shown && (
-        <div className="mt-4 flex flex-wrap items-center gap-3 border-t border-[#e6e2db] pt-4">
-          <button type="button" onClick={() => setShown((n) => n + PAGE)} className="rounded-xl border border-[#d9d4cb] bg-white px-5 py-2.5 text-sm font-bold text-[#17150f] transition hover:border-[#17150f]">
+        <div className="mt-4 flex flex-wrap items-center gap-3 border-t border-[#e2e5ef] pt-4">
+          <button type="button" onClick={() => setShown((n) => n + PAGE)} className="rounded-xl border border-[#d6dae6] bg-white px-5 py-2.5 text-sm font-bold text-[#0f1222] transition hover:border-[#0f1222]">
             Show {Math.min(PAGE, matches.length - shown)} more
           </button>
-          <button type="button" onClick={() => setShown(matches.length)} className="px-2 py-2.5 text-sm font-semibold text-[#6b665d] hover:text-[#17150f]">
+          <button type="button" onClick={() => setShown(matches.length)} className="px-2 py-2.5 text-sm font-semibold text-[#5b6283] hover:text-[#0f1222]">
             Show all {matches.length}
           </button>
-          <span className="text-sm text-[#8a847a]">
+          <span className="text-sm text-[#7a8099]">
             Showing {shown} of {matches.length}
           </span>
         </div>

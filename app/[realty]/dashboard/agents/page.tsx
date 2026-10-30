@@ -58,12 +58,12 @@ export default async function RealtyAgentsPage({ params }: { params: Promise<{ r
                     <p className="font-semibold">{i.name}</p>
                     {i.expired ? <Tag tone="bad">Link expired</Tag> : <Tag tone="warn">Invited</Tag>}
                   </div>
-                  <p className="mt-0.5 text-sm text-[#8a847a]">
+                  <p className="mt-0.5 text-sm text-[#7a8099]">
                     {i.email ?? "no email yet"}
                     {i.phone && (
                       <>
                         {" · "}
-                        <a href={`tel:${i.phone}`} className="hover:text-[#17150f] hover:underline">
+                        <a href={`tel:${i.phone}`} className="hover:text-[#0f1222] hover:underline">
                           {i.phone}
                         </a>
                       </>
@@ -78,7 +78,7 @@ export default async function RealtyAgentsPage({ params }: { params: Promise<{ r
                     title={`Delete ${i.name}'s invitation?`}
                     body="Their link stops working. You can make a new invite for them later."
                     success="Invitation deleted"
-                    className="rounded-xl border border-[#d9d4cb] bg-white px-3 py-2 text-xs font-bold text-[#17150f] hover:border-red-400 hover:text-red-700"
+                    className="rounded-xl border border-[#d6dae6] bg-white px-3 py-2 text-xs font-bold text-[#0f1222] hover:border-red-400 hover:text-red-700"
                   />
                 </div>
               </Row>
@@ -103,12 +103,12 @@ export default async function RealtyAgentsPage({ params }: { params: Promise<{ r
             <Row key={a.id}>
               <div className="min-w-0">
                 <p className="font-semibold">{a.name}</p>
-                <p className="mt-0.5 truncate text-sm text-[#8a847a]">
+                <p className="mt-0.5 truncate text-sm text-[#7a8099]">
                   {a.email}
                   {a.phone && (
                     <>
                       {" · "}
-                      <a href={`tel:${a.phone}`} className="hover:text-[#17150f] hover:underline">
+                      <a href={`tel:${a.phone}`} className="hover:text-[#0f1222] hover:underline">
                         {a.phone}
                       </a>
                     </>
@@ -116,7 +116,7 @@ export default async function RealtyAgentsPage({ params }: { params: Promise<{ r
                 </p>
               </div>
               <div className="flex shrink-0 flex-wrap items-center gap-x-4 gap-y-2">
-                <p className="text-xs text-[#8a847a]">{a.offers_count} active offer{a.offers_count === 1 ? "" : "s"} · joined {shortDate(a.joined_at)}</p>
+                <p className="text-xs text-[#7a8099]">{a.offers_count} active offer{a.offers_count === 1 ? "" : "s"} · joined {shortDate(a.joined_at)}</p>
                 <DeleteButton
                   action={deleteAgent.bind(null, slug, a.id)}
                   title={`Delete ${a.name}?`}
@@ -153,12 +153,12 @@ function ApplicationRow({ slug, application: a }: { slug: string; application: A
             <p className="font-semibold">{a.name}</p>
             {a.status === "pending" ? <Tag tone="warn">Pending</Tag> : <Tag tone="bad">Rejected</Tag>}
           </div>
-          <p className="mt-0.5 text-sm text-[#8a847a]">
+          <p className="mt-0.5 text-sm text-[#7a8099]">
             {a.email}
             {a.phone && (
               <>
                 {" · "}
-                <a href={`tel:${a.phone}`} className="hover:text-[#17150f] hover:underline">
+                <a href={`tel:${a.phone}`} className="hover:text-[#0f1222] hover:underline">
                   {a.phone}
                 </a>
               </>

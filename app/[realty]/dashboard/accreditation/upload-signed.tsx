@@ -64,12 +64,12 @@ export function UploadSignedCopy({ slug, again }: { slug: string; again: boolean
       ) : (
         <label
           htmlFor="signed-copy"
-          className="inline-flex cursor-pointer items-center gap-2 rounded-xl border border-[#17150f] bg-white px-5 py-3 text-[15px] font-bold text-[#17150f] hover:bg-[#f6f4f0] peer-focus-visible:ring-2 peer-focus-visible:ring-[var(--accent)]/40"
+          className="inline-flex cursor-pointer items-center gap-2 rounded-xl border border-[#0f1222] bg-white px-5 py-3 text-[15px] font-bold text-[#0f1222] hover:bg-[#f3f5fa] peer-focus-visible:ring-2 peer-focus-visible:ring-[var(--accent)]/40"
         >
           <Paperclip className="h-5 w-5" /> {again ? "Upload a new copy" : "Choose the scanned agreement"}
         </label>
       )}
-      <p className="mt-2 text-xs text-[#8a847a]">One PDF with every page is best. Up to 20 MB.</p>
+      <p className="mt-2 text-xs text-[#7a8099]">One PDF with every page is best. Up to 20 MB.</p>
       {error && <p className="mt-2 text-sm font-semibold text-red-700">{error}</p>}
     </div>
   )

@@ -64,7 +64,7 @@ export function ContactButtons({ phone, email, via, limit }: { phone: string | n
           href={href}
           target={key === "whatsapp" ? "_blank" : undefined}
           rel={key === "whatsapp" ? "noreferrer" : undefined}
-          className={`${link} ${key === via ? "border-[var(--accent)] bg-[var(--accent)] text-white hover:brightness-110" : "border-[#d9d4cb] bg-white text-[#17150f] hover:border-[#17150f]"}`}
+          className={`${link} ${key === via ? "border-[var(--accent)] bg-[var(--accent)] text-white hover:brightness-110" : "border-[#d6dae6] bg-white text-[#0f1222] hover:border-[#0f1222]"}`}
         >
           <Icon className="h-4 w-4" /> {label}
         </a>

@@ -13,8 +13,8 @@ export type AccreditationDocumentRow = { kind: string; name: string; label: stri
 type Props = { submit: (fd: FormData) => Promise<AccreditationState>; developer: string; email: string; documents: AccreditationDocumentRow[]; civilStatuses: string[]; agreement: (AgreementDoc & { signed_copy_days: number }) | null; today: string; adultBy: string }
 
 const MAX_FILE = 10 * 1024 * 1024
-const inputBase = "block w-full border bg-white px-3.5 py-3 text-[15px] text-[#17150f] outline-none transition placeholder:text-[#b3ada3] focus:border-[var(--accent)] focus:ring-2 focus:ring-[var(--accent)]/15 disabled:bg-[#f6f4f0] disabled:text-[#a39d92]"
-const input = (error?: string) => `${inputBase} ${error ? "border-red-500 bg-red-50/40" : "border-[#d9d4cb]"}`
+const inputBase = "block w-full border bg-white px-3.5 py-3 text-[15px] text-[#0f1222] outline-none transition placeholder:text-[#b3ada3] focus:border-[var(--accent)] focus:ring-2 focus:ring-[var(--accent)]/15 disabled:bg-[#f3f5fa] disabled:text-[#9aa0b5]"
+const input = (error?: string) => `${inputBase} ${error ? "border-red-500 bg-red-50/40" : "border-[#d6dae6]"}`
 /** The typed signature has to be the representative's name: case and extra spaces don't matter. */
 const sameName = (a: string, b: string) => a.trim().replace(/\s+/g, " ").toLowerCase() === b.trim().replace(/\s+/g, " ").toLowerCase()
 
@@ -210,7 +210,7 @@ export function AccreditationForm({ submit: send, developer, email, documents, c
             <input name="citizenship" maxLength={80} defaultValue="Filipino" onChange={(e) => setParty((p) => ({ ...p, citizenship: e.target.value }))} className={input(err("citizenship"))} />
           </Field>
           <div data-invalid={!!err("gender")} className="flex flex-col justify-end pb-1">
-            <span className="mb-2.5 block text-xs font-bold uppercase tracking-[0.12em] text-[#5a554d]">
+            <span className="mb-2.5 block text-xs font-bold uppercase tracking-[0.12em] text-[#4a5070]">
               Sex <span className="text-[var(--accent)]">*</span>
             </span>
             <div className="flex flex-wrap gap-x-12 gap-y-3">
@@ -267,8 +267,8 @@ export function AccreditationForm({ submit: send, developer, email, documents, c
 
       {/* REQUIRED DOCUMENTS */}
       <Section title="Required documents" note="A PDF or a clear photo, up to 10 MB each.">
-        {!type && <p className="mb-4 border-l-4 border-[#e6e2db] bg-[#faf8f5] px-4 py-3 text-sm text-[#6b665d]">Choose Corporation or Sole Proprietor above to see which documents are required for you.</p>}
-        <ul className="divide-y divide-[#e6e2db] border-y border-[#e6e2db]">
+        {!type && <p className="mb-4 border-l-4 border-[#e2e5ef] bg-[#f8f9fc] px-4 py-3 text-sm text-[#5b6283]">Choose Corporation or Sole Proprietor above to see which documents are required for you.</p>}
+        <ul className="divide-y divide-[#e2e5ef] border-y border-[#e2e5ef]">
           {documents.map((doc) => {
             const picked = files[doc.kind]
             const must = required(doc)
@@ -276,8 +276,8 @@ export function AccreditationForm({ submit: send, developer, email, documents, c
             return (
               <li key={doc.kind} data-invalid={!!problem} className="flex flex-col gap-3 py-5 sm:flex-row sm:items-start sm:justify-between sm:gap-8">
                 <div className="min-w-0 sm:max-w-[60%]">
-                  <p className="text-[15px] leading-relaxed text-[#17150f]">{doc.label}</p>
-                  <p className={`mt-1.5 text-xs font-bold uppercase tracking-[0.12em] ${must ? "text-[var(--accent)]" : "text-[#8a847a]"}`}>{must ? "Required for you" : doc.required_for ? "Not needed for you" : "Optional"}</p>
+                  <p className="text-[15px] leading-relaxed text-[#0f1222]">{doc.label}</p>
+                  <p className={`mt-1.5 text-xs font-bold uppercase tracking-[0.12em] ${must ? "text-[var(--accent)]" : "text-[#7a8099]"}`}>{must ? "Required for you" : doc.required_for ? "Not needed for you" : "Optional"}</p>
                 </div>
                 <div className="sm:w-[40%] sm:text-right">
                   {/* One file input for the life of the row: it holds the chosen file, so it must never unmount. */}
@@ -319,7 +319,7 @@ export function AccreditationForm({ submit: send, developer, email, documents, c
       {/* THE AGREEMENT */}
       {agreement && (
         <Section title="Accreditation agreement" note={`Read it, then sign it below. Once ${developer} accepts your accreditation, you print it from your dashboard, sign every page, have it notarized and upload it within ${agreement.signed_copy_days} days.`}>
-          <div tabIndex={0} aria-label="The accreditation agreement" className="max-h-[28rem] overflow-y-auto border border-[#d9d4cb] bg-[#faf8f5] px-5 py-6 outline-none focus-visible:ring-2 focus-visible:ring-[var(--accent)]/40 sm:px-8">
+          <div tabIndex={0} aria-label="The accreditation agreement" className="max-h-[28rem] overflow-y-auto border border-[#d6dae6] bg-[#f8f9fc] px-5 py-6 outline-none focus-visible:ring-2 focus-visible:ring-[var(--accent)]/40 sm:px-8">
             <AgreementDocument doc={agreement} fill={party} signing={false} />
           </div>
 
@@ -342,9 +342,9 @@ export function AccreditationForm({ submit: send, developer, email, documents, c
 
       {/* DATA PRIVACY */}
       <Section title="Data privacy" note="Please read how your details are used before you send the form.">
-        <div className="space-y-3 border border-[#d9d4cb] bg-[#faf8f5] px-5 py-5 text-[15px] leading-relaxed text-[#3d3a34] sm:px-7">
+        <div className="space-y-3 border border-[#d6dae6] bg-[#f8f9fc] px-5 py-5 text-[15px] leading-relaxed text-[#2f3450] sm:px-7">
           <p>
-            <strong className="text-[#17150f]">{developer}</strong> collects the details and documents in this form: your firm&apos;s registration, tax and PRC details, the representative&apos;s personal and contact details, and the files you attach.
+            <strong className="text-[#0f1222]">{developer}</strong> collects the details and documents in this form: your firm&apos;s registration, tax and PRC details, the representative&apos;s personal and contact details, and the files you attach.
           </p>
           <p>They are used only to review your accreditation, set up your realty&apos;s dashboard and sign-in, prepare the accreditation agreement, and contact you about your accreditation.</p>
           <p>Only {developer}&apos;s accreditation team can see them. Your tax numbers are stored encrypted and your documents are kept private.</p>
@@ -374,7 +374,7 @@ export function AccreditationForm({ submit: send, developer, email, documents, c
           {pending ? <LoaderCircle className="h-5 w-5 animate-spin" /> : <Send className="h-5 w-5" />}
           {pending ? "Sending your form…" : "Submit"}
         </button>
-        <p className="mt-4 text-center text-xs leading-relaxed text-[#8a847a]">
+        <p className="mt-4 text-center text-xs leading-relaxed text-[#7a8099]">
           Your details and documents are private. Only {developer}&apos;s accreditation team can see them, and they are used to review your accreditation.
         </p>
       </div>
@@ -385,8 +385,8 @@ export function AccreditationForm({ submit: send, developer, email, documents, c
 function Section({ title, note, children }: { title: string; note?: string; children: React.ReactNode }) {
   return (
     <section>
-      <h2 className="text-center text-sm font-bold uppercase tracking-[0.2em] text-[#6b665d]">{title}</h2>
-      {note && <p className="mx-auto mt-2 max-w-lg text-center text-sm text-[#8a847a]">{note}</p>}
+      <h2 className="text-center text-sm font-bold uppercase tracking-[0.2em] text-[#5b6283]">{title}</h2>
+      {note && <p className="mx-auto mt-2 max-w-lg text-center text-sm text-[#7a8099]">{note}</p>}
       <div className="mt-7">{children}</div>
     </section>
   )
@@ -399,11 +399,11 @@ function Grid({ children }: { children: React.ReactNode }) {
 function Field({ label, required, hint, error, wide, children }: { label: string; required?: boolean; hint?: string; error?: string; wide?: boolean; children: React.ReactNode }) {
   return (
     <label data-invalid={!!error} className={`block ${wide ? "sm:col-span-2" : ""}`}>
-      <span className="block text-xs font-bold uppercase leading-snug tracking-[0.12em] text-[#5a554d]">
+      <span className="block text-xs font-bold uppercase leading-snug tracking-[0.12em] text-[#4a5070]">
         {label} {required && <span className="text-[var(--accent)]">*</span>}
       </span>
       <span className="mt-1.5 block">{children}</span>
-      {error ? <span className="mt-1.5 block text-sm font-semibold text-red-700">{error}</span> : hint ? <span className="mt-1.5 block text-xs text-[#8a847a]">{hint}</span> : null}
+      {error ? <span className="mt-1.5 block text-sm font-semibold text-red-700">{error}</span> : hint ? <span className="mt-1.5 block text-xs text-[#7a8099]">{hint}</span> : null}
     </label>
   )
 }

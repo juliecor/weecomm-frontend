@@ -34,11 +34,11 @@ export function PendingStatus({ waiting }: { waiting: boolean }) {
 
   return (
     <div>
-      <button type="button" onClick={check} disabled={checking} className="inline-flex w-full items-center justify-center gap-2 border border-[#17150f] bg-white px-6 py-3.5 text-base font-bold text-[#17150f] transition hover:bg-[#17150f] hover:text-white disabled:opacity-60">
+      <button type="button" onClick={check} disabled={checking} className="inline-flex w-full items-center justify-center gap-2 border border-[#0f1222] bg-white px-6 py-3.5 text-base font-bold text-[#0f1222] transition hover:bg-[#0f1222] hover:text-white disabled:opacity-60">
         {checking ? <LoaderCircle className="h-5 w-5 animate-spin" /> : <RefreshCw className="h-5 w-5" />}
         Check again
       </button>
-      <p aria-live="polite" className="mt-2 text-center text-xs text-[#8a847a]">
+      <p aria-live="polite" className="mt-2 text-center text-xs text-[#7a8099]">
         {checkedAt ? `Checked at ${checkedAt.toLocaleTimeString("en-PH", { hour: "numeric", minute: "2-digit" })}. Still pending.` : "This page checks for you every few seconds."}
       </p>
     </div>

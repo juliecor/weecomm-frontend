@@ -7,7 +7,7 @@ import { Alert, Label } from "@/components/form"
 import { type FormState, createUnit, updateUnit } from "./actions"
 import type { Unit } from "./types"
 
-const fileInput = "mt-1.5 block w-full text-sm text-[#6b665d] file:mr-3 file:rounded-md file:border-0 file:bg-[var(--accent)] file:px-3 file:py-2 file:text-sm file:font-semibold file:text-white"
+const fileInput = "mt-1.5 block w-full text-sm text-[#5b6283] file:mr-3 file:rounded-md file:border-0 file:bg-[var(--accent)] file:px-3 file:py-2 file:text-sm file:font-semibold file:text-white"
 
 /**
  * Add a unit (no `unit`) or edit one. `onDone` closes the editor or the add
@@ -85,12 +85,12 @@ export function UnitForm({ slug, projectId, unit, onDone }: { slug: string; proj
           {unit ? "Save unit" : "Add unit"}
         </button>
         {!unit && onDone && (
-          <button type="submit" disabled={pending} onClick={() => (another.current = true)} className="inline-flex items-center justify-center gap-2 rounded-xl border border-[#d9d4cb] bg-white px-5 py-3 text-[15px] font-bold text-[#17150f] transition hover:border-[#17150f] disabled:opacity-60">
+          <button type="submit" disabled={pending} onClick={() => (another.current = true)} className="inline-flex items-center justify-center gap-2 rounded-xl border border-[#d6dae6] bg-white px-5 py-3 text-[15px] font-bold text-[#0f1222] transition hover:border-[#0f1222] disabled:opacity-60">
             Save and add another
           </button>
         )}
         {onDone && (
-          <button type="button" onClick={onDone} className={unit ? btn.ghost : "px-3 py-3 text-[15px] font-semibold text-[#6b665d] transition hover:text-[#17150f]"}>Cancel</button>
+          <button type="button" onClick={onDone} className={unit ? btn.ghost : "px-3 py-3 text-[15px] font-semibold text-[#5b6283] transition hover:text-[#0f1222]"}>Cancel</button>
         )}
       </div>
     </form>

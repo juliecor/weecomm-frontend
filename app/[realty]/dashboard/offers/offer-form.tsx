@@ -89,18 +89,18 @@ export function OfferForm({ slug, projects, initialProject, initialUnit, initial
         <p className="flex items-center gap-2 text-sm font-bold uppercase tracking-[0.14em] text-amber-800">
           <Clock className="h-4 w-4" /> Sent for approval
         </p>
-        <p className="mt-2 text-lg font-bold text-[#17150f]">Your custom terms are with {realtyName}&apos;s admins.</p>
-        <p className="mt-1 text-sm text-[#5a554d]">You&apos;ll get an email when they approve them. Until then the buyer can&apos;t open the link{state.emailOnApproval ? "; it will be emailed to them as soon as it's approved" : ""}.</p>
+        <p className="mt-2 text-lg font-bold text-[#0f1222]">Your custom terms are with {realtyName}&apos;s admins.</p>
+        <p className="mt-1 text-sm text-[#4a5070]">You&apos;ll get an email when they approve them. Until then the buyer can&apos;t open the link{state.emailOnApproval ? "; it will be emailed to them as soon as it's approved" : ""}.</p>
         {state.username && state.password && (
-          <p className="mt-3 text-sm font-semibold text-[#17150f]">
+          <p className="mt-3 text-sm font-semibold text-[#0f1222]">
             Buyer&apos;s login: <span className="font-mono">{state.username}</span> / <span className="font-mono">{state.password}</span>. Send it with the link once it&apos;s approved.
           </p>
         )}
         <div className="mt-4 flex flex-wrap gap-2">
-          <Link href={`/${slug}/dashboard/offers/${state.id}`} className="inline-flex items-center rounded-xl bg-[#17150f] px-4 py-2.5 text-sm font-bold text-white hover:bg-[#3d3a34]">
+          <Link href={`/${slug}/dashboard/offers/${state.id}`} className="inline-flex items-center rounded-xl bg-[#0f1222] px-4 py-2.5 text-sm font-bold text-white hover:bg-[#2f3450]">
             Track this offer
           </Link>
-          <Link href={`/${slug}/dashboard/offers`} className="inline-flex items-center rounded-xl border border-[#d9d4cb] bg-white px-4 py-2.5 text-sm font-bold text-[#17150f] hover:border-[#17150f]">
+          <Link href={`/${slug}/dashboard/offers`} className="inline-flex items-center rounded-xl border border-[#d6dae6] bg-white px-4 py-2.5 text-sm font-bold text-[#0f1222] hover:border-[#0f1222]">
             All offers
           </Link>
         </div>
@@ -112,21 +112,21 @@ export function OfferForm({ slug, projects, initialProject, initialUnit, initial
     return (
       <div className="rounded-xl border border-emerald-300 bg-emerald-50 p-6">
         <p className="text-sm font-bold uppercase tracking-[0.14em] text-emerald-700">Offer ready</p>
-        <p className="mt-2 text-lg font-bold text-[#17150f]">{state.emailed ? `Emailed to ${state.emailed}` : "Send this link to the buyer"}</p>
+        <p className="mt-2 text-lg font-bold text-[#0f1222]">{state.emailed ? `Emailed to ${state.emailed}` : "Send this link to the buyer"}</p>
         {state.emailed && <p className="mt-1 text-sm text-slate-600">You can also copy the link below and send it by Viber or text.</p>}
-        <p className="rounded-xl mt-3 break-all border border-emerald-200 bg-white px-3.5 py-2.5 font-mono text-sm text-[#17150f]">{state.url}</p>
+        <p className="rounded-xl mt-3 break-all border border-emerald-200 bg-white px-3.5 py-2.5 font-mono text-sm text-[#0f1222]">{state.url}</p>
         {state.username && state.password && (
           <div className="rounded-xl mt-4 border border-emerald-200 bg-white p-4">
-            <p className="mb-3 flex items-center gap-2 text-xs font-bold uppercase tracking-[0.14em] text-[#17150f]">
+            <p className="mb-3 flex items-center gap-2 text-xs font-bold uppercase tracking-[0.14em] text-[#0f1222]">
               <KeyRound className="h-4 w-4 text-[var(--accent)]" /> The buyer opens it with
             </p>
             <LoginCard buyer={state.buyer ?? ""} realty={realtyName} url={state.url} username={state.username} password={state.password} />
-            <p className="mt-3 text-xs text-[#6b665d]">Send the link and the login by Viber or text. The emailed offer doesn&apos;t include the login.</p>
+            <p className="mt-3 text-xs text-[#5b6283]">Send the link and the login by Viber or text. The emailed offer doesn&apos;t include the login.</p>
           </div>
         )}
         <div className="mt-4 flex flex-wrap gap-2">
           <CopyButton text={state.url} className="bg-white" />
-          <a href={state.url} target="_blank" rel="noreferrer" className="inline-flex items-center gap-1.5 rounded-xl border border-[#d9d4cb] bg-white px-3.5 py-2.5 text-sm font-bold text-[#17150f] hover:border-[#17150f]">
+          <a href={state.url} target="_blank" rel="noreferrer" className="inline-flex items-center gap-1.5 rounded-xl border border-[#d6dae6] bg-white px-3.5 py-2.5 text-sm font-bold text-[#0f1222] hover:border-[#0f1222]">
             Open <ExternalLink className="h-3.5 w-3.5" />
           </a>
           <Link href={state.id ? `/${slug}/dashboard/offers/${state.id}` : `/${slug}/dashboard/offers`} className="inline-flex items-center rounded-xl bg-[var(--accent)] px-4 py-2.5 text-sm font-bold text-white hover:brightness-110">
@@ -144,8 +144,8 @@ export function OfferForm({ slug, projects, initialProject, initialUnit, initial
   const mapBlock = showMap && lotsOnMap && project?.site_map && (
     <div className="rounded-2xl border border-[#e8eaed] bg-white shadow-[0_2px_12px_-2px_rgba(23,21,15,0.06)] p-3">
       {pickable > 0 ? (
-        <p className="mb-2 text-sm text-[#5a554d]">
-          <b className="text-[#17150f]">Tap or click the lot the buyer wants.</b> {pickable} {pickable === 1 ? "lot can" : "lots can"} be offered. Faded lots are reserved or sold.
+        <p className="mb-2 text-sm text-[#4a5070]">
+          <b className="text-[#0f1222]">Tap or click the lot the buyer wants.</b> {pickable} {pickable === 1 ? "lot can" : "lots can"} be offered. Faded lots are reserved or sold.
         </p>
       ) : (
         <p className="rounded-xl mb-2 border-l-4 border-amber-400 bg-amber-50 px-3 py-2 text-sm text-amber-900">
@@ -154,12 +154,12 @@ export function OfferForm({ slug, projects, initialProject, initialUnit, initial
       )}
       <SiteMapViewer map={project.site_map} alt={`${project.name} site plan`} selectedId={unit?.id} canPick={(l) => units.some((u) => u.id === l.id)} onPick={(l) => setUnitId(l.id)} maxHeight="55vh" />
       {unit && (
-        <p className="mt-3 flex flex-wrap items-center gap-x-2 border-t border-[#efece7] pt-3 text-[15px]">
-          <span className="text-[#6b665d]">Chosen:</span>
-          <b className="text-[#17150f]">{unit.name}</b>
-          <span className="text-[#6b665d]">·</span>
-          <b className="tabular-nums text-[#17150f]">{php(price)}</b>
-          {unit.price_from_model && <span className="text-sm text-[#6b665d]">({unit.unit_type} model price)</span>}
+        <p className="mt-3 flex flex-wrap items-center gap-x-2 border-t border-[#eceef5] pt-3 text-[15px]">
+          <span className="text-[#5b6283]">Chosen:</span>
+          <b className="text-[#0f1222]">{unit.name}</b>
+          <span className="text-[#5b6283]">·</span>
+          <b className="tabular-nums text-[#0f1222]">{php(price)}</b>
+          {unit.price_from_model && <span className="text-sm text-[#5b6283]">({unit.unit_type} model price)</span>}
         </p>
       )}
     </div>
@@ -227,8 +227,8 @@ export function OfferForm({ slug, projects, initialProject, initialUnit, initial
           </label>
 
           {custom && (
-            <div className="rounded-xl space-y-4 border-l-4 border-[var(--accent)] bg-[#fbfaf8] p-4">
-              <div className="flex items-start gap-2.5 text-sm text-[#3d3a34]">
+            <div className="rounded-xl space-y-4 border-l-4 border-[var(--accent)] bg-[#fafbfd] p-4">
+              <div className="flex items-start gap-2.5 text-sm text-[#2f3450]">
                 {isStaff ? <BadgeCheck className="mt-0.5 h-4 w-4 shrink-0 text-emerald-700" /> : <Clock className="mt-0.5 h-4 w-4 shrink-0 text-amber-700" />}
                 <p>
                   {isStaff ? "You're an admin, so your custom terms are approved right away." : `Custom terms need approval from ${realtyName}'s admins. The buyer can open the offer once it's approved, and you'll get an email.`} The
@@ -260,11 +260,11 @@ export function OfferForm({ slug, projects, initialProject, initialUnit, initial
               <span className="mt-1 block text-xs text-slate-500">Needed to email the offer and requirement reminders.</span>
             </label>
           </div>
-          <div className="rounded-xl border border-[#e0dcd5] bg-[#faf8f5] p-4 sm:p-5">
-            <p className="flex items-center gap-2 text-sm font-bold text-[#17150f]">
+          <div className="rounded-xl border border-[#dde1ec] bg-[#f8f9fc] p-4 sm:p-5">
+            <p className="flex items-center gap-2 text-sm font-bold text-[#0f1222]">
               <KeyRound className="h-4 w-4 text-[var(--accent)]" /> Buyer&apos;s login
             </p>
-            <p className="mb-4 mt-1 text-sm text-[#5a554d]">The offer is private: the buyer types these to open the link. You send them by Viber or text.</p>
+            <p className="mb-4 mt-1 text-sm text-[#4a5070]">The offer is private: the buyer types these to open the link. You send them by Viber or text.</p>
             <LoginFields
               username={username}
               password={password}

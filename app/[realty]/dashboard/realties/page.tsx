@@ -49,7 +49,7 @@ export default async function RealtiesPage({ params }: { params: Promise<{ realt
         lede={`Realties accredited under ${user.realty.name} sell your projects and units through their own agents. Invite one by email, read its form, then accept it.`}
         action={
           agreement_ready && (
-            <Link href={`/${slug}/dashboard/realties/agreement`} className="inline-flex items-center gap-2 rounded-xl border border-[#17150f] bg-white px-4 py-2.5 text-sm font-bold text-[#17150f] transition hover:bg-[#f6f4f0]">
+            <Link href={`/${slug}/dashboard/realties/agreement`} className="inline-flex items-center gap-2 rounded-xl border border-[#0f1222] bg-white px-4 py-2.5 text-sm font-bold text-[#0f1222] transition hover:bg-[#f3f5fa]">
               <FileSignature className="h-4 w-4" /> Accreditation agreement
             </Link>
           )
@@ -60,9 +60,9 @@ export default async function RealtiesPage({ params }: { params: Promise<{ realt
         <div className="rounded-xl mt-8 flex flex-col gap-3 border-2 border-amber-300 bg-amber-50 p-5 sm:flex-row sm:items-center sm:justify-between">
           <div>
             <p className="text-lg font-bold">Set up the accreditation agreement</p>
-            <p className="mt-1 text-sm text-[#3d3a34]">Add who signs for {user.realty.name}, your office address and the commission rates. Until then, realties send the form without agreeing to it.</p>
+            <p className="mt-1 text-sm text-[#2f3450]">Add who signs for {user.realty.name}, your office address and the commission rates. Until then, realties send the form without agreeing to it.</p>
           </div>
-          <Link href={`/${slug}/dashboard/realties/agreement`} className="inline-flex shrink-0 items-center justify-center gap-2 rounded-xl bg-[#17150f] px-4 py-2.5 text-sm font-bold text-white hover:bg-[#3d3a34]">
+          <Link href={`/${slug}/dashboard/realties/agreement`} className="inline-flex shrink-0 items-center justify-center gap-2 rounded-xl bg-[#0f1222] px-4 py-2.5 text-sm font-bold text-white hover:bg-[#2f3450]">
             <FileSignature className="h-4 w-4" /> Set it up
           </Link>
         </div>
@@ -73,11 +73,11 @@ export default async function RealtiesPage({ params }: { params: Promise<{ realt
           <InviteRealtyForm slug={slug} />
         </div>
         {openForm && (
-          <div className="mt-5 flex flex-wrap items-center gap-x-3 gap-y-2 border-t border-[#e6e2db] pt-4 text-sm text-[#5a554d]">
-            <Globe className="h-4 w-4 shrink-0 text-[#8a847a]" />
+          <div className="mt-5 flex flex-wrap items-center gap-x-3 gap-y-2 border-t border-[#e2e5ef] pt-4 text-sm text-[#4a5070]">
+            <Globe className="h-4 w-4 shrink-0 text-[#7a8099]" />
             <span>
               Realties can also send the form from the website, no invite needed:{" "}
-              <a href={openForm} target="_blank" rel="noreferrer" className="font-semibold text-[#17150f] underline-offset-4 hover:underline">
+              <a href={openForm} target="_blank" rel="noreferrer" className="font-semibold text-[#0f1222] underline-offset-4 hover:underline">
                 {openForm.replace(/^https?:\/\//, "")}
               </a>
             </span>
@@ -98,11 +98,11 @@ export default async function RealtiesPage({ params }: { params: Promise<{ realt
                     <Tag>{TYPE_LABEL[a.business_type]}</Tag>
                     {a.source === "website" && <Tag tone="accent">From website</Tag>}
                   </div>
-                  <p className="mt-0.5 text-sm text-[#6b665d]">
+                  <p className="mt-0.5 text-sm text-[#5b6283]">
                     {a.representative_name} · {a.email} · sent {shortDate(a.submitted_at)} · {a.documents_count} document{a.documents_count === 1 ? "" : "s"}
                   </p>
                 </div>
-                <Link href={`/${slug}/dashboard/realties/${a.id}`} className="inline-flex items-center border border-[#17150f] rounded-xl bg-[#17150f] px-4 py-2.5 text-sm font-bold text-white transition hover:bg-[#3d3a34]">
+                <Link href={`/${slug}/dashboard/realties/${a.id}`} className="inline-flex items-center border border-[#0f1222] rounded-xl bg-[#0f1222] px-4 py-2.5 text-sm font-bold text-white transition hover:bg-[#2f3450]">
                   Review
                 </Link>
               </Row>
@@ -121,7 +121,7 @@ export default async function RealtiesPage({ params }: { params: Promise<{ realt
                     <p className="font-semibold">{i.email}</p>
                     {i.expired ? <Tag tone="bad">Link expired</Tag> : <Tag tone="warn">Invited</Tag>}
                   </div>
-                  <p className="mt-0.5 text-sm text-[#8a847a]">
+                  <p className="mt-0.5 text-sm text-[#7a8099]">
                     invited {shortDate(i.invited_at)}
                     {i.invited_by && <> by {i.invited_by}</>} · {i.expired ? "expired" : "works until"} {shortDate(i.expires_at)}
                   </p>
@@ -133,7 +133,7 @@ export default async function RealtiesPage({ params }: { params: Promise<{ realt
                     title={`Delete the invite to ${i.email}?`}
                     body="Their link stops working. You can invite the same email again later."
                     success="Invite deleted"
-                    className="rounded-xl border border-[#d9d4cb] bg-white px-3 py-2 text-xs font-bold text-[#17150f] hover:border-red-400 hover:text-red-700"
+                    className="rounded-xl border border-[#d6dae6] bg-white px-3 py-2 text-xs font-bold text-[#0f1222] hover:border-red-400 hover:text-red-700"
                   />
                 </div>
               </Row>
@@ -153,18 +153,18 @@ export default async function RealtiesPage({ params }: { params: Promise<{ realt
                   {b.period?.signed_copy.status === "submitted" && <Tag tone="accent">Signed copy to check</Tag>}
                   {b.period?.signed_copy.overdue && <Tag tone="warn">Signed copy late</Tag>}
                 </div>
-                <p className="mt-0.5 text-sm text-[#6b665d]">
+                <p className="mt-0.5 text-sm text-[#5b6283]">
                   jvconline.ph/{b.slug}/login · accredited {shortDate(b.accredited_at)}
                   {b.period && periodNote(b.period)}
                 </p>
-                <p className="mt-0.5 truncate text-sm text-[#8a847a]">{[b.contact_name, b.email, b.phone].filter(Boolean).join(" · ")}</p>
+                <p className="mt-0.5 truncate text-sm text-[#7a8099]">{[b.contact_name, b.email, b.phone].filter(Boolean).join(" · ")}</p>
               </div>
-              <div className="flex shrink-0 flex-wrap items-center gap-x-5 gap-y-2 text-sm text-[#6b665d]">
+              <div className="flex shrink-0 flex-wrap items-center gap-x-5 gap-y-2 text-sm text-[#5b6283]">
                 <span>
-                  <strong className="font-bold tabular-nums text-[#17150f]">{b.agents_count}</strong> agent{b.agents_count === 1 ? "" : "s"}
+                  <strong className="font-bold tabular-nums text-[#0f1222]">{b.agents_count}</strong> agent{b.agents_count === 1 ? "" : "s"}
                 </span>
                 <span>
-                  <strong className="font-bold tabular-nums text-[#17150f]">{b.offers_count}</strong> offer{b.offers_count === 1 ? "" : "s"}
+                  <strong className="font-bold tabular-nums text-[#0f1222]">{b.offers_count}</strong> offer{b.offers_count === 1 ? "" : "s"}
                 </span>
                 {b.accreditation_id && (
                   <Link href={`/${slug}/dashboard/realties/${b.accreditation_id}`} className="font-bold text-[var(--accent)] hover:underline">
@@ -176,7 +176,7 @@ export default async function RealtiesPage({ params }: { params: Promise<{ realt
                   title={`Delete ${b.name}?`}
                   body={`${b.name}'s ${b.agents_count} agent${b.agents_count === 1 ? "" : "s"} and staff lose their sign-in for good, and its accreditation form is removed. A realty that has sold offers can't be deleted. This can't be undone.`}
                   success={`${b.name} deleted`}
-                  className="rounded-xl border border-[#d9d4cb] bg-white px-3 py-2 text-xs font-bold text-[#17150f] hover:border-red-400 hover:text-red-700"
+                  className="rounded-xl border border-[#d6dae6] bg-white px-3 py-2 text-xs font-bold text-[#0f1222] hover:border-red-400 hover:text-red-700"
                 />
               </div>
             </Row>
@@ -200,10 +200,10 @@ export default async function RealtiesPage({ params }: { params: Promise<{ realt
                     <Tag tone="bad">Not accepted</Tag>
                     {r.source === "website" && <Tag>From website</Tag>}
                   </div>
-                  <p className="mt-0.5 text-sm text-[#8a847a]">
+                  <p className="mt-0.5 text-sm text-[#7a8099]">
                     {r.email} · {shortDate(r.reviewed_at)}
                   </p>
-                  {r.review_note && <p className="mt-1 text-sm text-[#3d3a34]">&ldquo;{r.review_note}&rdquo;</p>}
+                  {r.review_note && <p className="mt-1 text-sm text-[#2f3450]">&ldquo;{r.review_note}&rdquo;</p>}
                 </div>
                 <div className="flex shrink-0 items-center gap-4">
                   <Link href={`/${slug}/dashboard/realties/${r.id}`} className="text-sm font-bold text-[var(--accent)] hover:underline">
@@ -214,7 +214,7 @@ export default async function RealtiesPage({ params }: { params: Promise<{ realt
                     title={`Delete ${r.firm_name}'s form?`}
                     body="The form and the files they attached are removed. This can't be undone."
                     success="Form deleted"
-                    className="rounded-xl border border-[#d9d4cb] bg-white px-3 py-2 text-xs font-bold text-[#17150f] hover:border-red-400 hover:text-red-700"
+                    className="rounded-xl border border-[#d6dae6] bg-white px-3 py-2 text-xs font-bold text-[#0f1222] hover:border-red-400 hover:text-red-700"
                   />
                 </div>
               </Row>

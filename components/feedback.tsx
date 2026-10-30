@@ -107,7 +107,7 @@ export function Feedback() {
           <div
             key={t.id}
             role={t.kind === "error" ? "alert" : "status"}
-            className={`pointer-events-auto flex w-full max-w-md animate-[jv-toast-in_0.22s_ease-out] items-start gap-3 border-l-4 bg-[#17150f] py-3 pl-4 pr-2 text-[15px] font-semibold text-white shadow-[0_18px_40px_-12px_rgba(0,0,0,0.45)] ${t.kind === "error" ? "border-red-500" : t.kind === "info" ? "border-sky-400" : "border-emerald-400"}`}
+            className={`pointer-events-auto flex w-full max-w-md animate-[jv-toast-in_0.22s_ease-out] items-start gap-3 border-l-4 bg-[#0f1222] py-3 pl-4 pr-2 text-[15px] font-semibold text-white shadow-[0_18px_40px_-12px_rgba(0,0,0,0.45)] ${t.kind === "error" ? "border-red-500" : t.kind === "info" ? "border-sky-400" : "border-emerald-400"}`}
           >
             {t.kind === "error" ? <AlertCircle className="mt-0.5 h-5 w-5 shrink-0 text-red-400" /> : t.kind === "info" ? <Info className="mt-0.5 h-5 w-5 shrink-0 text-sky-300" /> : <CheckCircle2 className="mt-0.5 h-5 w-5 shrink-0 text-emerald-400" />}
             <span className="min-w-0 flex-1 leading-snug">{t.text}</span>
@@ -140,14 +140,14 @@ function ConfirmBox({ q }: { q: Question | null }) {
         answer(false)
       }}
       onClick={(e) => e.target === e.currentTarget && answer(false)}
-      className={`rounded-2xl fixed inset-0 m-auto h-fit w-[calc(100%-2rem)] max-w-md border-t-4 bg-white p-0 text-[#17150f] shadow-2xl backdrop:bg-[#17150f]/55 ${q?.danger ? "border-red-600" : "border-[var(--accent,#17150f)]"}`}
+      className={`rounded-2xl fixed inset-0 m-auto h-fit w-[calc(100%-2rem)] max-w-md border-t-4 bg-white p-0 text-[#0f1222] shadow-2xl backdrop:bg-[#0f1222]/55 ${q?.danger ? "border-red-600" : "border-[var(--accent,#0f1222)]"}`}
     >
       {q && (
         <div className="p-6">
           <h2 id="jv-confirm-title" className="text-xl font-bold tracking-tight">
             {q.title}
           </h2>
-          {q.body && <p className="mt-2 text-[15px] leading-relaxed text-[#5a554d]">{q.body}</p>}
+          {q.body && <p className="mt-2 text-[15px] leading-relaxed text-[#4a5070]">{q.body}</p>}
           {q.copy !== undefined && (
             <textarea
               readOnly
@@ -155,19 +155,19 @@ function ConfirmBox({ q }: { q: Question | null }) {
               value={q.copy}
               onFocus={(e) => e.currentTarget.select()}
               aria-label="Text to copy"
-              className="rounded-xl mt-4 block w-full resize-none break-all border border-[#d9d4cb] bg-[#faf8f5] px-3 py-2.5 font-mono text-sm outline-none focus:border-[var(--accent,#17150f)]"
+              className="rounded-xl mt-4 block w-full resize-none break-all border border-[#d6dae6] bg-[#f8f9fc] px-3 py-2.5 font-mono text-sm outline-none focus:border-[var(--accent,#0f1222)]"
             />
           )}
           <div className="mt-6 flex flex-wrap justify-end gap-2">
             {q.copy === undefined && (
-              <button type="button" onClick={() => answer(false)} className="rounded-xl border border-[#d9d4cb] bg-white px-5 py-2.5 text-sm font-bold text-[#17150f] transition hover:border-[#17150f]">
+              <button type="button" onClick={() => answer(false)} className="rounded-xl border border-[#d6dae6] bg-white px-5 py-2.5 text-sm font-bold text-[#0f1222] transition hover:border-[#0f1222]">
                 {q.cancel ?? "Cancel"}
               </button>
             )}
             <button
               type="button"
               onClick={() => answer(true)}
-              className={`px-5 py-2.5 text-sm font-bold text-white transition hover:brightness-110 ${q.danger ? "bg-red-700" : "bg-[var(--accent,#17150f)]"}`}
+              className={`px-5 py-2.5 text-sm font-bold text-white transition hover:brightness-110 ${q.danger ? "bg-red-700" : "bg-[var(--accent,#0f1222)]"}`}
             >
               {q.confirm ?? "OK"}
             </button>

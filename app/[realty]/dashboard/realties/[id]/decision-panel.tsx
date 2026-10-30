@@ -65,15 +65,15 @@ export function DecisionPanel(p: Props) {
       {!login.emailed && login.temporary_password && (
         <dl className="mt-3 space-y-1.5 text-sm">
           <div className="flex flex-wrap gap-x-3">
-            <dt className="w-40 text-[#6b665d]">Sign-in page</dt>
+            <dt className="w-40 text-[#5b6283]">Sign-in page</dt>
             <dd className="font-semibold">{login.login_url}</dd>
           </div>
           <div className="flex flex-wrap gap-x-3">
-            <dt className="w-40 text-[#6b665d]">Username</dt>
+            <dt className="w-40 text-[#5b6283]">Username</dt>
             <dd className="font-semibold">{login.username}</dd>
           </div>
           <div className="flex flex-wrap items-center gap-x-3">
-            <dt className="w-40 text-[#6b665d]">Temporary password</dt>
+            <dt className="w-40 text-[#5b6283]">Temporary password</dt>
             <dd className="flex items-center gap-2">
               <code className="rounded bg-white px-2 py-1 font-mono text-[15px] font-bold tracking-wide">{login.temporary_password}</code>
               <CopyButton text={login.temporary_password} label="Copy" className="bg-white" />
@@ -93,7 +93,7 @@ export function DecisionPanel(p: Props) {
             <BadgeCheck className="h-5 w-5" />
           </span>
           <div className="min-w-0 flex-1">
-            <p className="font-[family-name:var(--font-outfit),var(--font-geist-sans)] text-[19px] font-bold tracking-tight text-emerald-950">Accepted{p.reviewedBy ? ` by ${p.reviewedBy}` : ""}</p>
+            <p className="font-[family-name:var(--font-display),var(--font-geist-sans)] text-[19px] font-bold tracking-tight text-emerald-950">Accepted{p.reviewedBy ? ` by ${p.reviewedBy}` : ""}</p>
             <p className="mt-0.5 text-sm text-emerald-900">{p.reviewedAt ? shortDate(p.reviewedAt) : ""}{p.realty ? "" : " · The realty was set up."}</p>
             {p.realty && (
               <dl className="mt-3 space-y-1 text-sm text-emerald-950">
@@ -140,7 +140,7 @@ export function DecisionPanel(p: Props) {
   return (
     <section className="mt-6 rounded-2xl border-2 border-amber-300 bg-amber-50 p-5 sm:p-6">
       <p className="text-xl font-bold tracking-tight">Waiting for your decision</p>
-      <p className="mt-1 text-sm text-[#3d3a34]">
+      <p className="mt-1 text-sm text-[#2f3450]">
         Read the form in <a href="#details" className="font-bold text-[var(--accent)] hover:underline">Details</a> and the files in <a href="#documents" className="font-bold text-[var(--accent)] hover:underline">Documents</a>. Accepting makes <strong>{p.firm}</strong> an accredited realty with its own sign-in, and emails <strong>{p.loginEmail}</strong> a username and a temporary password.
       </p>
 
@@ -149,7 +149,7 @@ export function DecisionPanel(p: Props) {
           <button type="button" onClick={() => setMode("accept")} className="rounded-xl inline-flex items-center gap-1.5 bg-emerald-700 px-4 py-2.5 text-sm font-bold text-white hover:bg-emerald-800">
             <Check className="h-4 w-4" strokeWidth={3} /> Accept
           </button>
-          <button type="button" onClick={() => setMode("reject")} className="inline-flex items-center gap-1.5 rounded-xl border border-[#d9d4cb] bg-white px-4 py-2.5 text-sm font-bold text-[#17150f] hover:border-red-400 hover:text-red-700">
+          <button type="button" onClick={() => setMode("reject")} className="inline-flex items-center gap-1.5 rounded-xl border border-[#d6dae6] bg-white px-4 py-2.5 text-sm font-bold text-[#0f1222] hover:border-red-400 hover:text-red-700">
             <X className="h-4 w-4" /> Turn down
           </button>
         </div>
@@ -157,8 +157,8 @@ export function DecisionPanel(p: Props) {
 
       {mode === "accept" && (
         <div className="rounded-xl mt-4 border border-emerald-300 bg-emerald-50/40 p-4">
-          <p className="text-xs font-bold uppercase tracking-[0.12em] text-[#5a554d]">How long is {p.firm} accredited?</p>
-          <p className="mt-1 text-sm text-[#6b665d]">From today. You can renew, extend or end it later. When it ends they can&apos;t make new offers.</p>
+          <p className="text-xs font-bold uppercase tracking-[0.12em] text-[#4a5070]">How long is {p.firm} accredited?</p>
+          <p className="mt-1 text-sm text-[#5b6283]">From today. You can renew, extend or end it later. When it ends they can&apos;t make new offers.</p>
           <div className="mt-3">
             <TermChoice value={term} onChange={setTerm} from={p.today} today={p.today} />
           </div>
@@ -166,7 +166,7 @@ export function DecisionPanel(p: Props) {
             <button type="button" onClick={accept} disabled={pending || !until} className="rounded-xl inline-flex items-center gap-1.5 bg-emerald-700 px-4 py-2.5 text-sm font-bold text-white hover:bg-emerald-800 disabled:opacity-60">
               {pending ? <LoaderCircle className="h-4 w-4 animate-spin" /> : <Check className="h-4 w-4" strokeWidth={3} />} {until ? `Accept until ${shortDate(until)} and email the login` : "Accept"}
             </button>
-            <button type="button" disabled={pending} onClick={() => setMode("idle")} className="px-2 py-2.5 text-sm font-semibold text-[#8a847a] hover:text-[#17150f]">
+            <button type="button" disabled={pending} onClick={() => setMode("idle")} className="px-2 py-2.5 text-sm font-semibold text-[#7a8099] hover:text-[#0f1222]">
               Cancel
             </button>
           </div>
@@ -182,14 +182,14 @@ export function DecisionPanel(p: Props) {
           }}
         >
           <label className="block">
-            <span className="text-xs font-bold uppercase tracking-[0.12em] text-[#5a554d]">Why not? (kept on record, not emailed)</span>
-            <textarea autoFocus required rows={3} maxLength={500} value={note} onChange={(e) => setNote(e.target.value)} placeholder="e.g. The PRC registration is unreadable." className="mt-1.5 block w-full rounded-xl border border-[#d9d4cb] bg-white px-3.5 py-2.5 text-[15px] outline-none focus:border-[var(--accent)] focus:ring-2 focus:ring-[var(--accent)]/15" />
+            <span className="text-xs font-bold uppercase tracking-[0.12em] text-[#4a5070]">Why not? (kept on record, not emailed)</span>
+            <textarea autoFocus required rows={3} maxLength={500} value={note} onChange={(e) => setNote(e.target.value)} placeholder="e.g. The PRC registration is unreadable." className="mt-1.5 block w-full rounded-xl border border-[#d6dae6] bg-white px-3.5 py-2.5 text-[15px] outline-none focus:border-[var(--accent)] focus:ring-2 focus:ring-[var(--accent)]/15" />
           </label>
           <div className="flex gap-2">
             <button type="submit" disabled={pending} className="rounded-xl inline-flex items-center gap-1.5 bg-red-700 px-4 py-2.5 text-sm font-bold text-white hover:bg-red-800 disabled:opacity-60">
               {pending && <LoaderCircle className="h-4 w-4 animate-spin" />} Turn down
             </button>
-            <button type="button" disabled={pending} onClick={() => setMode("idle")} className="px-2 py-2.5 text-sm font-semibold text-[#8a847a] hover:text-[#17150f]">
+            <button type="button" disabled={pending} onClick={() => setMode("idle")} className="px-2 py-2.5 text-sm font-semibold text-[#7a8099] hover:text-[#0f1222]">
               Cancel
             </button>
           </div>

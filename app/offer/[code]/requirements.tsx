@@ -5,11 +5,11 @@ import { AlertCircle, Camera, Check, CheckCircle2, ChevronDown, Clock, FileText,
 import { INCOME_SOURCES, type Requirement, STATE_LABEL, fileSize } from "@/lib/requirements-types"
 import { type ReqResult, removeDocument, submitDetails, uploadDocuments } from "./actions"
 
-const input = "mt-1.5 block w-full border border-[#d9d4cb] bg-white px-3.5 py-3 text-[15px] text-[#17150f] outline-none transition placeholder:text-[#b3ada3] focus:border-[var(--accent)] focus:ring-2 focus:ring-[var(--accent)]/15"
-const label = "text-xs font-bold uppercase tracking-[0.1em] text-[#5a554d]"
+const input = "mt-1.5 block w-full border border-[#d6dae6] bg-white px-3.5 py-3 text-[15px] text-[#0f1222] outline-none transition placeholder:text-[#b3ada3] focus:border-[var(--accent)] focus:ring-2 focus:ring-[var(--accent)]/15"
+const label = "text-xs font-bold uppercase tracking-[0.1em] text-[#4a5070]"
 
 const STATE_STYLE = {
-  missing: "border-[#d9d4cb] text-[#6b665d]",
+  missing: "border-[#d6dae6] text-[#5b6283]",
   review: "border-amber-300 bg-amber-50 text-amber-800",
   approved: "border-emerald-300 bg-emerald-50 text-emerald-800",
   rejected: "border-red-300 bg-red-50 text-red-700",
@@ -60,28 +60,28 @@ export function RequirementsSection({ code, initial, detailsAt: initialDetailsAt
   return (
     <div ref={root}>
       {/* Progress */}
-      <div className="border border-[#e0dcd5] bg-white p-5 sm:p-6">
+      <div className="border border-[#dde1ec] bg-white p-5 sm:p-6">
         <div className="flex flex-wrap items-baseline justify-between gap-2">
           <p className="text-lg font-bold">{allApproved ? "All set. Your requirements are approved." : `${done} of ${total} done`}</p>
-          <p className="text-sm text-[#6b665d]">{allApproved ? "Your agent will contact you for the next step." : "Required items for your reservation"}</p>
+          <p className="text-sm text-[#5b6283]">{allApproved ? "Your agent will contact you for the next step." : "Required items for your reservation"}</p>
         </div>
         <div className="mt-3 flex h-2.5 gap-1">
           {Array.from({ length: total }, (_, i) => (
-            <span key={i} className={`flex-1 ${i < done ? "bg-[var(--accent)]" : "bg-[#ebe7e1]"}`} />
+            <span key={i} className={`flex-1 ${i < done ? "bg-[var(--accent)]" : "bg-[#e8ebf3]"}`} />
           ))}
         </div>
       </div>
 
       {/* Step 1: details */}
-      <div className="mt-4 border border-[#e0dcd5] bg-white">
+      <div className="mt-4 border border-[#dde1ec] bg-white">
         <div className="flex flex-wrap items-center justify-between gap-4 p-5 sm:p-6">
           <div className="flex items-start gap-3.5">
-            <span className={`flex h-10 w-10 shrink-0 items-center justify-center ${detailsAt ? "bg-emerald-600 text-white" : "bg-[#f3f0eb] text-[#17150f]"}`}>
+            <span className={`flex h-10 w-10 shrink-0 items-center justify-center ${detailsAt ? "bg-emerald-600 text-white" : "bg-[#f3f0eb] text-[#0f1222]"}`}>
               {detailsAt ? <Check className="h-5 w-5" strokeWidth={3} /> : <UserRound className="h-5 w-5" />}
             </span>
             <div>
               <p className="text-lg font-bold">Your details</p>
-              <p className="text-sm text-[#5a554d]">{detailsAt ? `Sent ${new Date(detailsAt).toLocaleDateString("en-PH", { month: "long", day: "numeric", year: "numeric" })}. Your agent has them.` : "Personal info, address, work and income. About 5 minutes."}</p>
+              <p className="text-sm text-[#4a5070]">{detailsAt ? `Sent ${new Date(detailsAt).toLocaleDateString("en-PH", { month: "long", day: "numeric", year: "numeric" })}. Your agent has them.` : "Personal info, address, work and income. About 5 minutes."}</p>
             </div>
           </div>
           <button
@@ -89,7 +89,7 @@ export function RequirementsSection({ code, initial, detailsAt: initialDetailsAt
             onClick={() => setEditing((v) => !v)}
             aria-expanded={editing}
             {...(guided && !detailsAt && !editing ? { "data-pulse": "" } : {})}
-            className={`inline-flex items-center gap-2 px-4 py-2.5 text-sm font-bold transition ${detailsAt ? "border border-[#d9d4cb] text-[#17150f] hover:border-[#17150f]" : "bg-[var(--accent)] text-white hover:brightness-110"} ${guided && !detailsAt && !editing ? "jv-pulse" : ""}`}
+            className={`inline-flex items-center gap-2 px-4 py-2.5 text-sm font-bold transition ${detailsAt ? "border border-[#d6dae6] text-[#0f1222] hover:border-[#0f1222]" : "bg-[var(--accent)] text-white hover:brightness-110"} ${guided && !detailsAt && !editing ? "jv-pulse" : ""}`}
           >
             {editing ? "Close" : detailsAt ? "Update my details" : "Fill in my details"}
             <ChevronDown className={`h-4 w-4 transition ${editing ? "rotate-180" : ""}`} />
@@ -117,12 +117,12 @@ export function RequirementsSection({ code, initial, detailsAt: initialDetailsAt
         ))}
       </ul>
       {reqs.length > shown.length && (
-        <p className="mt-3 text-sm text-[#8a847a]">
+        <p className="mt-3 text-sm text-[#7a8099]">
           {reqs.length - shown.length} other item{reqs.length - shown.length === 1 ? "" : "s"} on {realtyName}&apos;s list {reqs.length - shown.length === 1 ? "doesn't" : "don't"} apply to you, going by your details.
         </p>
       )}
 
-      <p className="mt-6 flex items-start gap-2 text-xs leading-relaxed text-[#8a847a]">
+      <p className="mt-6 flex items-start gap-2 text-xs leading-relaxed text-[#7a8099]">
         <Lock className="mt-0.5 h-3.5 w-3.5 shrink-0" />
         Your documents go only to {realtyName} and your agent, for this purchase. They&apos;re stored privately and never shown on this page.
       </p>
@@ -159,14 +159,14 @@ function DocumentItem({ code, req, onChange, guided }: { code: string; req: Requ
   const pulse = guided && req.needed === "required" && (req.state === "missing" || req.state === "rejected")
 
   return (
-    <li {...(pulse ? { "data-pulse": "" } : {})} className={`border bg-white p-5 sm:p-6 ${req.state === "rejected" ? "border-red-300" : "border-[#e0dcd5]"} ${pulse ? "jv-pulse" : ""}`}>
+    <li {...(pulse ? { "data-pulse": "" } : {})} className={`border bg-white p-5 sm:p-6 ${req.state === "rejected" ? "border-red-300" : "border-[#dde1ec]"} ${pulse ? "jv-pulse" : ""}`}>
       <div className="flex flex-wrap items-start justify-between gap-3">
         <div className="w-full min-w-0 sm:w-auto sm:flex-1">
           <div className="flex flex-wrap items-center gap-2">
             <p className="text-lg font-bold">{req.name}</p>
-            <span className={`text-[11px] font-bold uppercase tracking-[0.12em] ${req.needed === "required" ? "text-[var(--accent)]" : "text-[#8a847a]"}`}>{req.needed === "required" ? "Required" : "If it applies to you"}</span>
+            <span className={`text-[11px] font-bold uppercase tracking-[0.12em] ${req.needed === "required" ? "text-[var(--accent)]" : "text-[#7a8099]"}`}>{req.needed === "required" ? "Required" : "If it applies to you"}</span>
           </div>
-          {req.help && <p className="mt-1 text-[15px] leading-relaxed text-[#5a554d]">{req.help}</p>}
+          {req.help && <p className="mt-1 text-[15px] leading-relaxed text-[#4a5070]">{req.help}</p>}
         </div>
         {/* On a phone the status sits above the title, so the text gets the full width. */}
         <span className={`order-first inline-flex items-center gap-1.5 border px-2.5 py-1 text-xs font-bold sm:order-none ${STATE_STYLE[req.state]}`}>
@@ -178,16 +178,16 @@ function DocumentItem({ code, req, onChange, guided }: { code: string; req: Requ
       {req.state === "rejected" && req.note && <p className="mt-3 border-l-4 border-red-400 bg-red-50 px-3.5 py-2.5 text-sm font-semibold text-red-800">Your agent says: {req.note}</p>}
 
       {req.files.length > 0 && (
-        <ul className="mt-4 divide-y divide-[#ebe7e1] border-y border-[#ebe7e1]">
+        <ul className="mt-4 divide-y divide-[#e8ebf3] border-y border-[#e8ebf3]">
           {req.files.map((f) => (
             <li key={f.id} className="flex items-center gap-3 py-2.5 text-sm">
-              <FileText className="h-4 w-4 shrink-0 text-[#8a847a]" />
+              <FileText className="h-4 w-4 shrink-0 text-[#7a8099]" />
               <span className="min-w-0 flex-1 truncate font-medium">{f.name}</span>
-              <span className="shrink-0 text-xs text-[#8a847a]">
+              <span className="shrink-0 text-xs text-[#7a8099]">
                 {fileSize(f.size)} · {f.status === "pending" ? "sent" : f.status === "approved" ? "approved" : "sent back"}
               </span>
               {f.status === "pending" && (
-                <button type="button" onClick={() => remove(f.id)} disabled={pending} aria-label={`Remove ${f.name}`} className="shrink-0 p-1 text-[#8a847a] hover:text-red-700 disabled:opacity-40">
+                <button type="button" onClick={() => remove(f.id)} disabled={pending} aria-label={`Remove ${f.name}`} className="shrink-0 p-1 text-[#7a8099] hover:text-red-700 disabled:opacity-40">
                   <X className="h-4 w-4" />
                 </button>
               )}
@@ -198,12 +198,12 @@ function DocumentItem({ code, req, onChange, guided }: { code: string; req: Requ
 
       {canUpload && (
         <div className="mt-4 flex flex-wrap items-center gap-3">
-          <label className={`inline-flex cursor-pointer items-center gap-2 px-4 py-3 text-sm font-bold transition ${req.state === "missing" || req.state === "rejected" ? "bg-[#17150f] text-white hover:bg-[#3d3a34]" : "border border-[#d9d4cb] text-[#17150f] hover:border-[#17150f]"} ${pending ? "pointer-events-none opacity-60" : ""}`}>
+          <label className={`inline-flex cursor-pointer items-center gap-2 px-4 py-3 text-sm font-bold transition ${req.state === "missing" || req.state === "rejected" ? "bg-[#0f1222] text-white hover:bg-[#2f3450]" : "border border-[#d6dae6] text-[#0f1222] hover:border-[#0f1222]"} ${pending ? "pointer-events-none opacity-60" : ""}`}>
             {pending ? <LoaderCircle className="h-4 w-4 animate-spin" /> : <Camera className="h-4 w-4" />}
             {pending ? "Sending…" : req.files.length ? "Add another file" : "Upload photo or PDF"}
             <input ref={fileRef} type="file" accept="image/*,application/pdf" multiple className="sr-only" onChange={(e) => upload(e.target.files)} disabled={pending} />
           </label>
-          <span className="text-xs text-[#8a847a]">Photo or PDF, up to 10 MB each. Make sure every corner is visible.</span>
+          <span className="text-xs text-[#7a8099]">Photo or PDF, up to 10 MB each. Make sure every corner is visible.</span>
         </div>
       )}
       {error && (
@@ -256,8 +256,8 @@ function DetailsForm({ code, prefill, realtyName, update, onDone, guided }: { co
 
   return (
     <Pulse.Provider value={{ guided, filled }}>
-    <form ref={form} onSubmit={submit} onInput={sync} onChange={sync} className="space-y-6 border-t border-[#e0dcd5] bg-[#fbfaf8] p-5 sm:p-6">
-      <p className="text-sm text-[#5a554d]">
+    <form ref={form} onSubmit={submit} onInput={sync} onChange={sync} className="space-y-6 border-t border-[#dde1ec] bg-[#fafbfd] p-5 sm:p-6">
+      <p className="text-sm text-[#4a5070]">
         {update ? "Fill in the form again to replace what you sent. " : ""}For required information that doesn&apos;t apply to you, write <strong>N/A</strong>.
       </p>
       <Group title="Personal profile">
@@ -295,8 +295,8 @@ function DetailsForm({ code, prefill, realtyName, update, onDone, guided }: { co
         <Field name="employer" text="Employer or business name" req={false} error={fields.employer} />
         <Field name="position" text="Position or line of work" req={false} error={fields.position} />
       </Group>
-      <fieldset className="border-t border-[#ebe7e1] pt-5">
-        <legend className="pr-3 text-sm font-bold text-[#17150f]">Co-borrower</legend>
+      <fieldset className="border-t border-[#e8ebf3] pt-5">
+        <legend className="pr-3 text-sm font-bold text-[#0f1222]">Co-borrower</legend>
         <label className="mt-3 flex items-center gap-3 text-[15px]">
           <input type="checkbox" name="co_borrower" checked={co} onChange={(e) => setCo(e.target.checked)} className="h-5 w-5 accent-[var(--accent)]" />
           I&apos;ll have a co-borrower
@@ -309,7 +309,7 @@ function DetailsForm({ code, prefill, realtyName, update, onDone, guided }: { co
         )}
       </fieldset>
 
-      <label {...(guided && !filled.has("consent") ? { "data-pulse": "" } : {})} className={`flex items-start gap-3 border p-4 text-sm leading-relaxed ${fields.consent ? "border-red-400 bg-red-50" : "border-[#e0dcd5] bg-white"} ${guided && !filled.has("consent") ? "jv-pulse" : ""}`}>
+      <label {...(guided && !filled.has("consent") ? { "data-pulse": "" } : {})} className={`flex items-start gap-3 border p-4 text-sm leading-relaxed ${fields.consent ? "border-red-400 bg-red-50" : "border-[#dde1ec] bg-white"} ${guided && !filled.has("consent") ? "jv-pulse" : ""}`}>
         <input type="checkbox" name="consent" required className="mt-0.5 h-5 w-5 shrink-0 accent-[var(--accent)]" />
         <span>
           I agree that {realtyName} may collect and use my personal information and documents to process this purchase and my financing, under the Data Privacy Act of 2012 (RA 10173).
@@ -337,7 +337,7 @@ function Field({ name, text, type = "text", req = true, def, ph, span, error }: 
     <label className={`block ${span ? "sm:col-span-2" : ""}`}>
       <span className={label}>
         {text}
-        {req ? <span className="text-[var(--accent)]"> *</span> : <span className="font-semibold normal-case tracking-normal text-[#a39d92]"> (optional)</span>}
+        {req ? <span className="text-[var(--accent)]"> *</span> : <span className="font-semibold normal-case tracking-normal text-[#9aa0b5]"> (optional)</span>}
       </span>
       <input name={name} type={type} required={req} defaultValue={def ?? ""} placeholder={ph} {...(pulse ? { "data-pulse": "" } : {})} className={`${input} ${error ? "border-red-400" : ""} ${pulse ? "jv-pulse" : ""}`} />
       {error && <span className="mt-1 block text-xs font-semibold text-red-700">{error}</span>}
@@ -368,8 +368,8 @@ function Select({ name, text, options, req = true, value, onChange, error }: Sel
 
 function Group({ title, children }: { title: string; children: React.ReactNode }) {
   return (
-    <fieldset className="border-t border-[#ebe7e1] pt-5">
-      <legend className="pr-3 text-sm font-bold text-[#17150f]">{title}</legend>
+    <fieldset className="border-t border-[#e8ebf3] pt-5">
+      <legend className="pr-3 text-sm font-bold text-[#0f1222]">{title}</legend>
       <div className="mt-3 grid gap-4 sm:grid-cols-2">{children}</div>
     </fieldset>
   )

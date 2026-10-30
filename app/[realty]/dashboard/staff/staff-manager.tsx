@@ -53,10 +53,10 @@ type Info = Record<string, { label: string; text: string }>
 /** Each section's icon, the same as in the menu. */
 const ICON: Record<string, typeof FileText> = { offers: FileText, approvals: BadgeCheck, projects: Building2, agents: Users, realties: Handshake, requirements: ClipboardCheck, ai: Sparkles, tasks: ListChecks }
 
-const box = "block w-full rounded-xl border border-[#d9d4cb] bg-white px-3.5 py-3 text-[15px] text-[#17150f] outline-none transition focus:border-[var(--accent)] focus:ring-2 focus:ring-[var(--accent)]/15"
+const box = "block w-full rounded-xl border border-[#d6dae6] bg-white px-3.5 py-3 text-[15px] text-[#0f1222] outline-none transition focus:border-[var(--accent)] focus:ring-2 focus:ring-[var(--accent)]/15"
 const input = `mt-1.5 ${box}`
-const label = "text-xs font-bold uppercase tracking-[0.12em] text-[#6b665d]"
-const action = "inline-flex items-center gap-1.5 rounded-xl border border-[#d9d4cb] bg-white px-2.5 py-2 text-sm sm:px-3 font-bold text-[#17150f] transition hover:border-[#17150f] disabled:opacity-50"
+const label = "text-xs font-bold uppercase tracking-[0.12em] text-[#5b6283]"
+const action = "inline-flex items-center gap-1.5 rounded-xl border border-[#d6dae6] bg-white px-2.5 py-2 text-sm sm:px-3 font-bold text-[#0f1222] transition hover:border-[#0f1222] disabled:opacity-50"
 const initials = (name: string) =>
   name
     .split(/\s+/)
@@ -81,10 +81,10 @@ export function StaffManager({ slug, realty, loginUrl, sections, info, staff }: 
     <div>
       <div className="flex flex-wrap items-end justify-between gap-3">
         <div>
-          <h2 className={`${display} flex items-center gap-3 text-[21px] tracking-tight text-[#17150f] before:h-6 before:w-1 before:rounded-full before:bg-[var(--accent)]`}>
-            Staff accounts <span className="text-[#a39d92]">{staff.length}</span>
+          <h2 className={`${display} flex items-center gap-3 text-[21px] tracking-tight text-[#0f1222] before:h-6 before:w-1 before:rounded-full before:bg-[var(--accent)]`}>
+            Staff accounts <span className="text-[#9aa0b5]">{staff.length}</span>
           </h2>
-          <p className="mt-1 pl-4 text-sm text-[#6b665d]">
+          <p className="mt-1 pl-4 text-sm text-[#5b6283]">
             {admins} full admin{admins === 1 ? "" : "s"} · {staff.length - admins} with chosen sections. Click a person to see and change what they can open.
           </p>
         </div>
@@ -177,27 +177,27 @@ function StaffCard({ slug, member: m, sections, info, onReset }: { slug: string;
         type="button"
         onClick={() => setOpen((o) => !o)}
         aria-expanded={open}
-        className="relative flex w-full flex-wrap items-center gap-x-4 gap-y-3 p-4 pr-12 text-left outline-none transition hover:bg-[#fbfaf8] focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-[var(--accent)] sm:flex-nowrap sm:p-6"
+        className="relative flex w-full flex-wrap items-center gap-x-4 gap-y-3 p-4 pr-12 text-left outline-none transition hover:bg-[#fafbfd] focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-[var(--accent)] sm:flex-nowrap sm:p-6"
       >
         <span className="relative shrink-0">
           {m.photo ? (
             // eslint-disable-next-line @next/next/no-img-element
-            <img src={m.photo} alt="" className="h-12 w-12 rounded-full object-cover ring-4 ring-[#f3f1ed] sm:h-16 sm:w-16" />
+            <img src={m.photo} alt="" className="h-12 w-12 rounded-full object-cover ring-4 ring-[#f1f3f8] sm:h-16 sm:w-16" />
           ) : (
-            <span aria-hidden className={`flex h-12 w-12 items-center justify-center rounded-full text-base font-bold sm:h-16 sm:w-16 sm:text-lg text-white ring-4 ring-[#f3f1ed] ${full ? "bg-[var(--accent)]" : "bg-[#17150f]"}`}>
+            <span aria-hidden className={`flex h-12 w-12 items-center justify-center rounded-full text-base font-bold sm:h-16 sm:w-16 sm:text-lg text-white ring-4 ring-[#f1f3f8] ${full ? "bg-[var(--accent)]" : "bg-[#0f1222]"}`}>
               {initials(m.name)}
             </span>
           )}
-          <span title={off ? "Turned off" : "Active"} className={`absolute bottom-0.5 right-0.5 h-4 w-4 rounded-full border-[3px] border-white ${off ? "bg-[#a39d92]" : "bg-emerald-500"}`} />
+          <span title={off ? "Turned off" : "Active"} className={`absolute bottom-0.5 right-0.5 h-4 w-4 rounded-full border-[3px] border-white ${off ? "bg-[#9aa0b5]" : "bg-emerald-500"}`} />
         </span>
         <div className="min-w-0 flex-1">
           <p className="flex flex-wrap items-center gap-2">
-            <span className={`${display} text-[20px] leading-tight tracking-tight text-[#17150f]`}>{m.name}</span>
+            <span className={`${display} text-[20px] leading-tight tracking-tight text-[#0f1222]`}>{m.name}</span>
             {m.is_you && <Tag>You</Tag>}
             {off && <Tag tone="bad">Turned off</Tag>}
             {m.must_change_password && !off && <Tag tone="warn">Chooses a password at sign-in</Tag>}
           </p>
-          <p className="mt-1 flex flex-wrap gap-x-4 gap-y-0.5 text-sm text-[#6b665d]">
+          <p className="mt-1 flex flex-wrap gap-x-4 gap-y-0.5 text-sm text-[#5b6283]">
             <span className="inline-flex min-w-0 items-center gap-1.5">
               <Mail className="h-3.5 w-3.5 shrink-0" /> <span className="truncate">{m.email}</span>
             </span>
@@ -207,13 +207,13 @@ function StaffCard({ slug, member: m, sections, info, onReset }: { slug: string;
               </span>
             )}
           </p>
-          <p className="mt-1.5 text-xs font-medium text-[#8a847a]">
+          <p className="mt-1.5 text-xs font-medium text-[#7a8099]">
             {m.last_login_at ? `Last signed in ${timeAgo(m.last_login_at)}` : "Hasn't signed in yet"}
             {m.offers > 0 && ` · ${m.offers} offer${m.offers === 1 ? "" : "s"} sent`}
           </p>
         </div>
         <span className="flex w-full shrink-0 flex-col items-start gap-2 pl-16 sm:w-auto sm:items-end sm:pl-0">
-          <span className={`inline-flex items-center gap-1.5 rounded-full px-3 py-1.5 text-xs font-bold ${full ? "bg-[color-mix(in_srgb,var(--accent)_10%,white)] text-[var(--accent)]" : "bg-[#f3f1ed] text-[#3d3a34]"}`}>
+          <span className={`inline-flex items-center gap-1.5 rounded-full px-3 py-1.5 text-xs font-bold ${full ? "bg-[color-mix(in_srgb,var(--accent)_10%,white)] text-[var(--accent)]" : "bg-[#f1f3f8] text-[#2f3450]"}`}>
             {full ? <ShieldCheck className="h-4 w-4" /> : <KeyRound className="h-3.5 w-3.5" />}
             {full ? "Full admin" : `Staff · ${count} of ${sections.length} sections`}
           </span>
@@ -231,7 +231,7 @@ function StaffCard({ slug, member: m, sections, info, onReset }: { slug: string;
                 <span
                   key={x}
                   title={`${info[x]?.label ?? x}${can ? "" : ": not allowed"}`}
-                  className={`flex h-6 w-6 items-center justify-center rounded-md ${can ? "bg-[color-mix(in_srgb,var(--accent)_12%,white)] text-[var(--accent)]" : "bg-[#f3f1ed] text-[#c9c4bb]"}`}
+                  className={`flex h-6 w-6 items-center justify-center rounded-md ${can ? "bg-[color-mix(in_srgb,var(--accent)_12%,white)] text-[var(--accent)]" : "bg-[#f1f3f8] text-[#c2c7d6]"}`}
                 >
                   <Icon className="h-3.5 w-3.5" strokeWidth={2.25} />
                 </span>
@@ -239,19 +239,19 @@ function StaffCard({ slug, member: m, sections, info, onReset }: { slug: string;
             })}
           </span>
         </span>
-        <ChevronDown aria-hidden className={`absolute right-4 top-4 h-5 w-5 shrink-0 text-[#8a847a] transition sm:static ${open ? "rotate-180" : ""}`} />
+        <ChevronDown aria-hidden className={`absolute right-4 top-4 h-5 w-5 shrink-0 text-[#7a8099] transition sm:static ${open ? "rotate-180" : ""}`} />
       </button>
 
       {open && (
         <>
           {/* What they can open */}
-          <div className="border-t border-[#f0eeea] bg-[#fbfaf8] px-5 py-4 sm:px-6">
+          <div className="border-t border-[#eef0f6] bg-[#fafbfd] px-5 py-4 sm:px-6">
             <div className="flex flex-wrap items-center justify-between gap-3">
-              <p className="text-[11px] font-bold uppercase tracking-[0.1em] text-[#6b665d]">What {m.is_you ? "you" : name} can open</p>
-              <button type="button" role="switch" aria-checked={full} onClick={fullAdmin} disabled={locked} className="group inline-flex items-center gap-2.5 text-sm font-bold text-[#17150f] disabled:cursor-default">
-                <ShieldCheck className={`h-4 w-4 ${full ? "text-[var(--accent)]" : "text-[#a39d92]"}`} />
+              <p className="text-[11px] font-bold uppercase tracking-[0.1em] text-[#5b6283]">What {m.is_you ? "you" : name} can open</p>
+              <button type="button" role="switch" aria-checked={full} onClick={fullAdmin} disabled={locked} className="group inline-flex items-center gap-2.5 text-sm font-bold text-[#0f1222] disabled:cursor-default">
+                <ShieldCheck className={`h-4 w-4 ${full ? "text-[var(--accent)]" : "text-[#9aa0b5]"}`} />
                 Full admin
-                <span className={`relative h-6 w-11 rounded-full transition ${full ? "bg-[var(--accent)]" : "bg-[#d9d4cb] group-enabled:group-hover:bg-[#c9c4bb]"} ${locked ? "opacity-60" : ""}`}>
+                <span className={`relative h-6 w-11 rounded-full transition ${full ? "bg-[var(--accent)]" : "bg-[#d6dae6] group-enabled:group-hover:bg-[#c2c7d6]"} ${locked ? "opacity-60" : ""}`}>
                   <span className={`absolute top-0.5 h-5 w-5 rounded-full bg-white shadow transition-all ${full ? "left-[22px]" : "left-0.5"}`} />
                 </span>
               </button>
@@ -269,21 +269,21 @@ function StaffCard({ slug, member: m, sections, info, onReset }: { slug: string;
                     disabled={locked || full}
                     title={info[s]?.text}
                     className={`flex min-w-0 items-center gap-2 rounded-xl border p-2 text-left sm:gap-3 sm:p-2.5 transition disabled:cursor-default ${
-                      on ? "border-[color-mix(in_srgb,var(--accent)_30%,white)] bg-white shadow-[0_1px_3px_rgba(23,21,15,0.06)]" : "border-dashed border-[#d9d4cb] bg-transparent"
-                    } ${locked || full ? "" : on ? "hover:border-[var(--accent)]" : "hover:border-[#17150f] hover:bg-white"}`}
+                      on ? "border-[color-mix(in_srgb,var(--accent)_30%,white)] bg-white shadow-[0_1px_3px_rgba(23,21,15,0.06)]" : "border-dashed border-[#d6dae6] bg-transparent"
+                    } ${locked || full ? "" : on ? "hover:border-[var(--accent)]" : "hover:border-[#0f1222] hover:bg-white"}`}
                   >
-                    <span className={`flex h-8 w-8 shrink-0 items-center justify-center rounded-lg sm:h-9 sm:w-9 ${on ? "bg-[var(--accent)] text-white" : "bg-[#efece7] text-[#a39d92]"}`}>
+                    <span className={`flex h-8 w-8 shrink-0 items-center justify-center rounded-lg sm:h-9 sm:w-9 ${on ? "bg-[var(--accent)] text-white" : "bg-[#eceef5] text-[#9aa0b5]"}`}>
                       <Icon className="h-[18px] w-[18px]" strokeWidth={2} />
                     </span>
-                    <span className={`min-w-0 flex-1 text-[13px] font-bold leading-tight sm:text-sm ${on ? "text-[#17150f]" : "text-[#8a847a]"}`}>{info[s]?.label ?? s}</span>
-                    <span className={`hidden h-5 w-5 shrink-0 items-center justify-center rounded-full min-[400px]:flex ${on ? "bg-emerald-500 text-white" : "border-2 border-[#d9d4cb]"}`}>
+                    <span className={`min-w-0 flex-1 text-[13px] font-bold leading-tight sm:text-sm ${on ? "text-[#0f1222]" : "text-[#7a8099]"}`}>{info[s]?.label ?? s}</span>
+                    <span className={`hidden h-5 w-5 shrink-0 items-center justify-center rounded-full min-[400px]:flex ${on ? "bg-emerald-500 text-white" : "border-2 border-[#d6dae6]"}`}>
                       {on && <Check className="h-3 w-3" strokeWidth={3.5} />}
                     </span>
                   </button>
                 )
               })}
             </div>
-            <p className="mt-3 text-xs text-[#8a847a]">
+            <p className="mt-3 text-xs text-[#7a8099]">
               {m.is_you
                 ? "Your own access is changed by another full admin."
                 : full
@@ -293,9 +293,9 @@ function StaffCard({ slug, member: m, sections, info, onReset }: { slug: string;
           </div>
 
           {/* The account */}
-          <div className="flex flex-wrap items-center justify-end gap-2 border-t border-[#f0eeea] px-5 py-3 sm:px-6">
+          <div className="flex flex-wrap items-center justify-end gap-2 border-t border-[#eef0f6] px-5 py-3 sm:px-6">
             {m.is_you ? (
-              <p className="mr-auto text-sm text-[#6b665d]">
+              <p className="mr-auto text-sm text-[#5b6283]">
                 Change your photo, name and password on{" "}
                 <Link href={`/${slug}/dashboard/account`} className="font-bold text-[var(--accent)] hover:underline">
                   My account
@@ -309,11 +309,11 @@ function StaffCard({ slug, member: m, sections, info, onReset }: { slug: string;
                   onClick={remove}
                   disabled={busy}
                   aria-label={`Delete ${m.name}'s account`}
-                  className="mr-auto inline-flex items-center rounded-xl px-2.5 py-2 text-[#a39d92] transition hover:bg-red-50 hover:text-red-700 disabled:opacity-50"
+                  className="mr-auto inline-flex items-center rounded-xl px-2.5 py-2 text-[#9aa0b5] transition hover:bg-red-50 hover:text-red-700 disabled:opacity-50"
                 >
                   <Trash2 className="h-4 w-4" />
                 </button>
-                {busy && <LoaderCircle className="h-4 w-4 animate-spin text-[#8a847a]" />}
+                {busy && <LoaderCircle className="h-4 w-4 animate-spin text-[#7a8099]" />}
                 <button type="button" onClick={onReset} disabled={busy} className={action}>
                   <KeyRound className="h-4 w-4" /> Reset password
                 </button>
@@ -337,7 +337,7 @@ function AccessPicker({ value, onChange, sections, info }: { value: Access; onCh
     if (!on && s === "offers") next = next.filter((x) => x !== "approvals")
     onChange({ access: "sections", sections: sections.filter((x) => next.includes(x)) })
   }
-  const option = (on: boolean) => `rounded-xl flex cursor-pointer items-start gap-3 border-2 p-4 transition ${on ? "border-[var(--accent)] bg-white" : "border-[#e0dcd5] bg-white hover:border-[#17150f]"}`
+  const option = (on: boolean) => `rounded-xl flex cursor-pointer items-start gap-3 border-2 p-4 transition ${on ? "border-[var(--accent)] bg-white" : "border-[#dde1ec] bg-white hover:border-[#0f1222]"}`
 
   return (
     <fieldset className="space-y-3">
@@ -346,24 +346,24 @@ function AccessPicker({ value, onChange, sections, info }: { value: Access; onCh
         <input type="radio" name="access" checked={value.access === "full"} onChange={() => onChange({ access: "full", sections: value.sections })} className="mt-1 h-4 w-4 accent-[var(--accent)]" />
         <span>
           <span className="block font-bold">Full admin</span>
-          <span className="block text-sm text-[#5a554d]">Everything, including adding and changing staff accounts.</span>
+          <span className="block text-sm text-[#4a5070]">Everything, including adding and changing staff accounts.</span>
         </span>
       </label>
       <label className={option(value.access === "sections")}>
         <input type="radio" name="access" checked={value.access === "sections"} onChange={() => onChange({ access: "sections", sections: value.sections.length ? value.sections : ["offers"] })} className="mt-1 h-4 w-4 accent-[var(--accent)]" />
         <span>
           <span className="block font-bold">Only what I choose</span>
-          <span className="block text-sm text-[#5a554d]">Everyone sees the Overview and the projects. Tick what else they can use:</span>
+          <span className="block text-sm text-[#4a5070]">Everyone sees the Overview and the projects. Tick what else they can use:</span>
         </span>
       </label>
       {value.access === "sections" && (
         <div className="grid gap-2 pl-1 sm:grid-cols-2">
           {sections.map((s) => (
-            <label key={s} className="rounded-xl flex cursor-pointer items-start gap-2.5 border border-[#e6e2db] bg-[#faf8f5] p-3 text-sm">
+            <label key={s} className="rounded-xl flex cursor-pointer items-start gap-2.5 border border-[#e2e5ef] bg-[#f8f9fc] p-3 text-sm">
               <input type="checkbox" checked={value.sections.includes(s)} onChange={(e) => tick(s, e.target.checked)} className="mt-0.5 h-4 w-4 accent-[var(--accent)]" />
               <span>
-                <span className="block font-bold text-[#17150f]">{info[s]?.label ?? s}</span>
-                <span className="block text-xs leading-snug text-[#6b665d]">{info[s]?.text}</span>
+                <span className="block font-bold text-[#0f1222]">{info[s]?.label ?? s}</span>
+                <span className="block text-xs leading-snug text-[#5b6283]">{info[s]?.text}</span>
               </span>
             </label>
           ))}
@@ -382,11 +382,11 @@ function PasswordField({ value, onChange, error }: { value: string; onChange: (v
       <span className="mt-1.5 flex gap-2">
         <span className="relative block flex-1">
           <input type={shown ? "text" : "password"} required minLength={8} value={value} onChange={(e) => onChange(e.target.value)} autoComplete="new-password" className={`${box} pr-11 font-mono`} />
-          <button type="button" onClick={() => setShown((s) => !s)} aria-label={shown ? "Hide password" : "Show password"} className="absolute inset-y-0 right-0 flex w-11 items-center justify-center text-[#8a847a] hover:text-[#17150f]">
+          <button type="button" onClick={() => setShown((s) => !s)} aria-label={shown ? "Hide password" : "Show password"} className="absolute inset-y-0 right-0 flex w-11 items-center justify-center text-[#7a8099] hover:text-[#0f1222]">
             {shown ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
           </button>
         </span>
-        <button type="button" onClick={() => onChange(suggestPassword(10))} title="Suggest a new one" className="rounded-xl inline-flex items-center gap-1.5 border border-[#d9d4cb] bg-white px-3 text-sm font-bold text-[#17150f] hover:border-[#17150f]">
+        <button type="button" onClick={() => onChange(suggestPassword(10))} title="Suggest a new one" className="rounded-xl inline-flex items-center gap-1.5 border border-[#d6dae6] bg-white px-3 text-sm font-bold text-[#0f1222] hover:border-[#0f1222]">
           <RefreshCw className="h-4 w-4" /> New
         </button>
       </span>
@@ -409,13 +409,13 @@ function Credentials({ realty, loginUrl, name, email, password, mustChange, onDo
   }
   return (
     <div>
-      <p className="text-[15px] text-[#3d3a34]">Send {name.split(" ")[0]} these sign-in details by Viber, text or email. The password isn&apos;t shown again.</p>
-      <pre className="rounded-xl mt-4 whitespace-pre-wrap border border-[#e0dcd5] bg-[#faf8f5] p-4 font-mono text-sm text-[#17150f]">{text}</pre>
+      <p className="text-[15px] text-[#2f3450]">Send {name.split(" ")[0]} these sign-in details by Viber, text or email. The password isn&apos;t shown again.</p>
+      <pre className="rounded-xl mt-4 whitespace-pre-wrap border border-[#dde1ec] bg-[#f8f9fc] p-4 font-mono text-sm text-[#0f1222]">{text}</pre>
       <div className="mt-5 flex flex-wrap gap-2">
         <button type="button" onClick={copy} className="inline-flex items-center gap-1.5 rounded-xl bg-[var(--accent)] px-4 py-2.5 text-sm font-bold text-white transition hover:brightness-110">
           {copied ? <Check className="h-4 w-4" /> : <Copy className="h-4 w-4" />} {copied ? "Copied" : "Copy sign-in details"}
         </button>
-        <button type="button" onClick={onDone} className="rounded-xl border border-[#d9d4cb] bg-white px-4 py-2.5 text-sm font-bold text-[#17150f] hover:border-[#17150f]">
+        <button type="button" onClick={onDone} className="rounded-xl border border-[#d6dae6] bg-white px-4 py-2.5 text-sm font-bold text-[#0f1222] hover:border-[#0f1222]">
           Done
         </button>
       </div>
@@ -469,7 +469,7 @@ function AddForm({ slug, realty, loginUrl, sections, info, onDone }: { slug: str
         </label>
         <div className="sm:col-span-2">
           <PasswordField value={password} onChange={setPassword} error={result?.errors?.password} />
-          <label className="mt-3 flex items-start gap-2.5 text-sm text-[#3d3a34]">
+          <label className="mt-3 flex items-start gap-2.5 text-sm text-[#2f3450]">
             <input type="checkbox" checked={mustChange} onChange={(e) => setMustChange(e.target.checked)} className="mt-0.5 h-4 w-4 accent-[var(--accent)]" />
             Ask them to choose their own password when they first sign in
           </label>
@@ -508,9 +508,9 @@ function ResetForm({ slug, realty, loginUrl, member, onDone }: { slug: string; r
       }}
       className="space-y-5"
     >
-      <p className="text-[15px] text-[#3d3a34]">{member.name} is signed out everywhere and uses this password next time.</p>
+      <p className="text-[15px] text-[#2f3450]">{member.name} is signed out everywhere and uses this password next time.</p>
       <PasswordField value={password} onChange={setPassword} />
-      <label className="flex items-start gap-2.5 text-sm text-[#3d3a34]">
+      <label className="flex items-start gap-2.5 text-sm text-[#2f3450]">
         <input type="checkbox" checked={mustChange} onChange={(e) => setMustChange(e.target.checked)} className="mt-0.5 h-4 w-4 accent-[var(--accent)]" />
         Ask them to choose their own password when they sign in
       </label>

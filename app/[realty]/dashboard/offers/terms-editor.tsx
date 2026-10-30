@@ -35,8 +35,8 @@ export function toMilestones(rows: TermRow[], price: number): MilestoneInput[] {
 
 export const termsTotal = (rows: TermRow[]) => rows.reduce((s, r) => s + (Number(r.amount) || 0), 0)
 
-const input = "block w-full rounded-xl border border-[#d9d4cb] bg-white px-3 py-2.5 text-[15px] text-[#17150f] outline-none focus:border-[var(--accent)] focus:ring-2 focus:ring-[var(--accent)]/15"
-const label = "mb-1 block text-[11px] font-bold uppercase tracking-[0.1em] text-[#6b665d]"
+const input = "block w-full rounded-xl border border-[#d6dae6] bg-white px-3 py-2.5 text-[15px] text-[#0f1222] outline-none focus:border-[var(--accent)] focus:ring-2 focus:ring-[var(--accent)]/15"
+const label = "mb-1 block text-[11px] font-bold uppercase tracking-[0.1em] text-[#5b6283]"
 
 export function TermsEditor({ rows, setRows, price }: { rows: TermRow[]; setRows: (fn: (rs: TermRow[]) => TermRow[]) => void; price: number }) {
   const total = termsTotal(rows)
@@ -70,12 +70,12 @@ export function TermsEditor({ rows, setRows, price }: { rows: TermRow[]; setRows
               aria-label={`Remove payment ${i + 1}`}
               disabled={rows.length === 1}
               onClick={() => setRows((rs) => rs.filter((x) => x.id !== r.id))}
-              className="flex h-[46px] w-full items-center justify-center text-[#a39d92] hover:bg-[#f6f4f0] hover:text-red-700 disabled:opacity-30 sm:w-11"
+              className="flex h-[46px] w-full items-center justify-center text-[#9aa0b5] hover:bg-[#f3f5fa] hover:text-red-700 disabled:opacity-30 sm:w-11"
             >
               <Trash2 className="h-4 w-4" />
             </button>
             {months >= 2 && Number(r.amount) > 0 && (
-              <p className="text-xs font-semibold text-[#5a554d] sm:col-span-5">
+              <p className="text-xs font-semibold text-[#4a5070] sm:col-span-5">
                 {months} payments of about {php(Math.floor((Number(r.amount) / months) * 100) / 100)} a month{r.days.trim() === "" ? ", from completion" : `, the first ${r.days === "0" ? "on the purchase date" : `${r.days} days after purchase`}`}
               </p>
             )}
@@ -83,7 +83,7 @@ export function TermsEditor({ rows, setRows, price }: { rows: TermRow[]; setRows
         )
       })}
       <div className="flex flex-wrap items-center gap-3">
-        <button type="button" onClick={() => setRows((rs) => [...rs, termRow()])} className="inline-flex items-center gap-1.5 rounded-xl border border-[#d9d4cb] bg-white px-3 py-2 text-sm font-bold text-[#17150f] hover:border-[#17150f]">
+        <button type="button" onClick={() => setRows((rs) => [...rs, termRow()])} className="inline-flex items-center gap-1.5 rounded-xl border border-[#d6dae6] bg-white px-3 py-2 text-sm font-bold text-[#0f1222] hover:border-[#0f1222]">
           <Plus className="h-4 w-4" /> Add payment
         </button>
         <span className={`text-sm font-bold ${Math.abs(diff) < 0.01 ? "text-emerald-700" : "text-amber-700"}`}>

@@ -40,20 +40,20 @@ const initials = (name: string) =>
 const pesoShort = (n: number) => (n >= 1_000_000 ? `₱${(Math.round(n / 100_000) / 10).toLocaleString("en-PH")}M` : n >= 1000 ? `₱${Math.round(n / 1000).toLocaleString("en-PH")}K` : php(n))
 
 const card = "min-w-0 overflow-hidden rounded-2xl border border-[#e8eaed] bg-white shadow-[0_2px_12px_-2px_rgba(23,21,15,0.06)]"
-const cardHead = "flex flex-wrap items-center justify-between gap-x-4 gap-y-2 border-b border-[#f0eeea] px-5 py-4"
+const cardHead = "flex flex-wrap items-center justify-between gap-x-4 gap-y-2 border-b border-[#eef0f6] px-5 py-4"
 const cardTitle = "flex items-center gap-3"
-const outfit = "font-[family-name:var(--font-outfit),var(--font-geist-sans)]"
+const outfit = "font-[family-name:var(--font-display),var(--font-geist-sans)]"
 
-/** A card's title: a dark tile with its icon, the title in Outfit and a line under it. */
+/** A card's title: a dark tile with its icon, the title in the brand serif and a line under it. */
 function Title({ icon: Icon, title, sub }: { icon: typeof Activity; title: string; sub?: string }) {
   return (
     <>
-      <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-[#17150f] text-white">
+      <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-[#0f1222] text-white">
         <Icon className="h-5 w-5" strokeWidth={2} />
       </span>
       <span>
-        <span className={`${outfit} block text-[19px] font-bold leading-tight tracking-tight text-[#17150f]`}>{title}</span>
-        {sub && <span className="block text-[13px] text-[#6b665d]">{sub}</span>}
+        <span className={`${outfit} block text-[19px] font-bold leading-tight tracking-tight text-[#0f1222]`}>{title}</span>
+        {sub && <span className="block text-[13px] text-[#5b6283]">{sub}</span>}
       </span>
     </>
   )
@@ -61,11 +61,11 @@ function Title({ icon: Icon, title, sub }: { icon: typeof Activity; title: strin
 
 /** A section's heading, with the accent bar on its left. */
 function SectionLabel({ children }: { children: React.ReactNode }) {
-  return <h2 className={`${outfit} flex items-center gap-3 pt-2 text-[21px] font-bold tracking-tight text-[#17150f] before:h-6 before:w-1 before:rounded-full before:bg-[var(--accent)]`}>{children}</h2>
+  return <h2 className={`${outfit} flex items-center gap-3 pt-2 text-[21px] font-bold tracking-tight text-[#0f1222] before:h-6 before:w-1 before:rounded-full before:bg-[var(--accent)]`}>{children}</h2>
 }
 
 const RECENT_ICON = { offer: Send, answer: MessageSquare, interested: CheckCircle2, reservation: Wallet, reserved: Home, sold: BadgeCheck } as const
-const RECENT_TONE = { offer: "bg-[#f3f1ed] text-[#5a554d]", answer: "bg-[#f3f1ed] text-[#5a554d]", interested: "bg-emerald-50 text-emerald-700", reservation: "bg-amber-50 text-amber-700", reserved: "bg-amber-50 text-amber-700", sold: "bg-red-50 text-red-700" } as const
+const RECENT_TONE = { offer: "bg-[#f1f3f8] text-[#4a5070]", answer: "bg-[#f1f3f8] text-[#4a5070]", interested: "bg-emerald-50 text-emerald-700", reservation: "bg-amber-50 text-amber-700", reserved: "bg-amber-50 text-amber-700", sold: "bg-red-50 text-red-700" } as const
 
 /**
  * The realty dashboard's first page: what needs doing now, the realty's statistics (inventory, six months
@@ -106,7 +106,7 @@ export default async function RealtyOverviewPage({ params }: { params: Promise<{
       note: thisMonth ? `${thisMonth.offers} sent this month${lastMonth ? ` · ${lastMonth.offers} last month` : ""}` : "links sent to buyers",
       href: `${base}/offers`,
       icon: FileText,
-      tone: "#17150f",
+      tone: "#0f1222",
     },
     { label: "Available", value: a.inventory.available.toLocaleString("en-PH"), note: `of ${totalUnits.toLocaleString("en-PH")} units and lots in ${stats.projects} projects`, href: `${base}/projects`, icon: Building2, tone: "#10b981" },
     { label: "Reserved", value: a.inventory.reserved.toLocaleString("en-PH"), note: a.reservations.value_held ? `${pesoShort(a.reservations.value_held)} in homes held` : "homes held for buyers", href: `${base}/offers`, icon: Home, tone: "#f59e0b" },
@@ -119,10 +119,10 @@ export default async function RealtyOverviewPage({ params }: { params: Promise<{
       <header className="flex flex-wrap items-end justify-between gap-x-8 gap-y-4">
         <div>
           <p className="text-xs font-bold uppercase tracking-[0.2em] text-[var(--accent)]">{staff ? "Admin statistics" : "Your statistics"}</p>
-          <h1 className={`${display} mt-2 text-3xl tracking-tight text-[#17150f] sm:text-4xl`}>
+          <h1 className={`${display} mt-2 text-3xl tracking-tight text-[#0f1222] sm:text-4xl`}>
             {greeting()}, {user.name.split(" ")[0]}.
           </h1>
-          <p className="mt-2 text-[15px] text-[#5a554d]">
+          <p className="mt-2 text-[15px] text-[#4a5070]">
             {today} · {staff ? `${realty.name} at a glance.` : "Your sales at a glance."}
           </p>
         </div>
@@ -136,9 +136,9 @@ export default async function RealtyOverviewPage({ params }: { params: Promise<{
       {/* What needs doing */}
       {todo.length > 0 ? (
         <section className="flex flex-wrap items-center gap-2 rounded-2xl border border-[#e8eaed] border-l-4 border-l-[var(--accent)] bg-white px-4 py-3 shadow-[0_2px_12px_-2px_rgba(23,21,15,0.06)]">
-          <p className="mr-2 text-sm font-bold text-[#17150f]">Needs you now</p>
+          <p className="mr-2 text-sm font-bold text-[#0f1222]">Needs you now</p>
           {todo.map(({ n, label, href, icon: Icon }) => (
-            <Link key={label} href={href} className="inline-flex items-center gap-2 rounded-full border border-[#e6e2db] bg-[#faf9f7] px-3 py-1.5 text-sm font-semibold text-[#17150f] transition hover:border-[var(--accent)]">
+            <Link key={label} href={href} className="inline-flex items-center gap-2 rounded-full border border-[#e2e5ef] bg-[#f9fafd] px-3 py-1.5 text-sm font-semibold text-[#0f1222] transition hover:border-[var(--accent)]">
               <Icon className="h-4 w-4 text-[var(--accent)]" />
               <span className="tabular-nums">{n}</span> {label}
             </Link>
@@ -157,14 +157,14 @@ export default async function RealtyOverviewPage({ params }: { params: Promise<{
         {kpis.map(({ label, value, note, href, icon: Icon, tone }) => (
           <Link key={label} href={href} className={`${card} group flex flex-col p-5 outline-none transition hover:-translate-y-0.5 hover:shadow-[0_8px_24px_-6px_rgba(23,21,15,0.14)] focus-visible:ring-2 focus-visible:ring-[var(--accent)]`}>
             <div className="flex items-center gap-3">
-              <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-[#17150f]" style={{ color: tone === "#17150f" ? "#ffffff" : tone }}>
+              <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-[#0f1222]" style={{ color: tone === "#0f1222" ? "#ffffff" : tone }}>
                 <Icon className="h-5 w-5" strokeWidth={2} />
               </span>
-              <p className="min-w-0 flex-1 text-[11px] font-bold uppercase leading-tight tracking-[0.1em] text-[#6b665d]">{label}</p>
-              <ArrowUpRight className="hidden h-4 w-4 shrink-0 text-[#c9c4bb] transition group-hover:text-[var(--accent)] sm:block" />
+              <p className="min-w-0 flex-1 text-[11px] font-bold uppercase leading-tight tracking-[0.1em] text-[#5b6283]">{label}</p>
+              <ArrowUpRight className="hidden h-4 w-4 shrink-0 text-[#c2c7d6] transition group-hover:text-[var(--accent)] sm:block" />
             </div>
-            <p className={`${display} mt-4 text-[34px] leading-none tabular-nums tracking-tight text-[#17150f] sm:text-[40px]`}>{value}</p>
-            <p className="mt-3 border-t border-[#f0eeea] pt-3 text-[13px] font-medium text-[#6b665d]">{note}</p>
+            <p className={`${display} mt-4 text-[34px] leading-none tabular-nums tracking-tight text-[#0f1222] sm:text-[40px]`}>{value}</p>
+            <p className="mt-3 border-t border-[#eef0f6] pt-3 text-[13px] font-medium text-[#5b6283]">{note}</p>
           </Link>
         ))}
       </div>
@@ -205,7 +205,7 @@ export default async function RealtyOverviewPage({ params }: { params: Promise<{
             </h2>
           </div>
           <div className="p-5">
-            {a.funnel[0]?.n ? <Funnel steps={a.funnel} /> : <p className="py-6 text-center text-[15px] text-[#8a847a]">No offers yet. The steps fill in as buyers open, answer and reserve.</p>}
+            {a.funnel[0]?.n ? <Funnel steps={a.funnel} /> : <p className="py-6 text-center text-[15px] text-[#7a8099]">No offers yet. The steps fill in as buyers open, answer and reserve.</p>}
           </div>
         </section>
         <section className={card}>
@@ -217,7 +217,7 @@ export default async function RealtyOverviewPage({ params }: { params: Promise<{
               Offers
             </Link>
           </div>
-          <dl className="grid grid-cols-2 gap-px bg-[#efece7]">
+          <dl className="grid grid-cols-2 gap-px bg-[#eceef5]">
             {[
               { label: "To confirm", value: a.reservations.to_confirm.toLocaleString("en-PH"), note: developerStaff ? "proof or payment waiting for you" : "waiting for Johndorf to confirm", hot: a.reservations.to_confirm > 0 },
               { label: "Confirmed", value: a.reservations.confirmed.toLocaleString("en-PH"), note: "buyers who reserved" },
@@ -225,9 +225,9 @@ export default async function RealtyOverviewPage({ params }: { params: Promise<{
               { label: "Value held", value: pesoShort(a.reservations.value_held), note: "price of the homes reserved or sold" },
             ].map((r) => (
               <div key={r.label} className="rounded-xl bg-white p-5">
-                <dt className="text-xs font-bold uppercase tracking-[0.1em] text-[#8a847a]">{r.label}</dt>
-                <dd className={`${display} mt-1.5 text-2xl tabular-nums sm:text-3xl ${r.hot ? "text-[var(--accent)]" : "text-[#17150f]"}`}>{r.value}</dd>
-                <dd className="mt-0.5 text-[13px] text-[#6b665d]">{r.note}</dd>
+                <dt className="text-xs font-bold uppercase tracking-[0.1em] text-[#7a8099]">{r.label}</dt>
+                <dd className={`${display} mt-1.5 text-2xl tabular-nums sm:text-3xl ${r.hot ? "text-[var(--accent)]" : "text-[#0f1222]"}`}>{r.value}</dd>
+                <dd className="mt-0.5 text-[13px] text-[#5b6283]">{r.note}</dd>
               </div>
             ))}
           </dl>
@@ -244,24 +244,24 @@ export default async function RealtyOverviewPage({ params }: { params: Promise<{
               <Title icon={MapPin} title="Projects" sub="Busiest first" />
             </h2>
           </div>
-          <ul className="divide-y divide-[#efece7]">
+          <ul className="divide-y divide-[#eceef5]">
             {a.projects.map((p) => {
               const taken = p.reserved + p.sold
               return (
                 <li key={p.id}>
-                  <Link href={`${base}/projects/${p.id}#site-map`} className="grid items-center gap-x-6 gap-y-2 px-5 py-3.5 transition hover:bg-[#faf9f7] sm:grid-cols-[minmax(0,1.2fr)_minmax(0,2fr)_auto]">
+                  <Link href={`${base}/projects/${p.id}#site-map`} className="grid items-center gap-x-6 gap-y-2 px-5 py-3.5 transition hover:bg-[#f9fafd] sm:grid-cols-[minmax(0,1.2fr)_minmax(0,2fr)_auto]">
                     <div className="min-w-0">
-                      <p className="truncate text-[15px] font-bold text-[#17150f]">{p.name}</p>
-                      {p.location && <p className="truncate text-[13px] text-[#6b665d]">{p.location}</p>}
+                      <p className="truncate text-[15px] font-bold text-[#0f1222]">{p.name}</p>
+                      {p.location && <p className="truncate text-[13px] text-[#5b6283]">{p.location}</p>}
                     </div>
                     <div>
                       <StackBar available={p.available} reserved={p.reserved} sold={p.sold} />
-                      <p className="mt-1.5 text-[13px] tabular-nums text-[#6b665d]">
+                      <p className="mt-1.5 text-[13px] tabular-nums text-[#5b6283]">
                         <b className="text-emerald-700">{p.available.toLocaleString("en-PH")}</b> available · <b className="text-amber-700">{p.reserved}</b> reserved · <b className="text-red-700">{p.sold}</b> sold
                       </p>
                     </div>
-                    <p className="text-right text-sm tabular-nums text-[#6b665d]">
-                      <b className="text-[15px] text-[#17150f]">{p.units ? Math.round((taken / p.units) * 1000) / 10 : 0}%</b> taken
+                    <p className="text-right text-sm tabular-nums text-[#5b6283]">
+                      <b className="text-[15px] text-[#0f1222]">{p.units ? Math.round((taken / p.units) * 1000) / 10 : 0}%</b> taken
                     </p>
                   </Link>
                 </li>
@@ -283,24 +283,24 @@ export default async function RealtyOverviewPage({ params }: { params: Promise<{
                 Team
               </Link>
             </div>
-            <ol className="divide-y divide-[#efece7]">
+            <ol className="divide-y divide-[#eceef5]">
               {a.agents.map((ag, i) => (
                 <li key={ag.name} className="flex items-center gap-3 px-5 py-3">
-                  <span className={`w-5 shrink-0 text-center text-sm font-bold tabular-nums ${i === 0 ? "text-[var(--accent)]" : "text-[#a39d92]"}`}>{i + 1}</span>
+                  <span className={`w-5 shrink-0 text-center text-sm font-bold tabular-nums ${i === 0 ? "text-[var(--accent)]" : "text-[#9aa0b5]"}`}>{i + 1}</span>
                   {ag.photo ? (
                     // eslint-disable-next-line @next/next/no-img-element
                     <img src={ag.photo} alt="" className="h-9 w-9 shrink-0 rounded-full object-cover" />
                   ) : (
-                    <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-[#17150f] text-xs font-bold text-white">{initials(ag.name)}</span>
+                    <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-[#0f1222] text-xs font-bold text-white">{initials(ag.name)}</span>
                   )}
-                  <p className="min-w-0 flex-1 truncate text-[15px] font-semibold text-[#17150f]">{ag.name}</p>
-                  <dl className="flex shrink-0 gap-3 text-right text-[12px] tabular-nums text-[#6b665d] sm:gap-4 sm:text-[13px]">
+                  <p className="min-w-0 flex-1 truncate text-[15px] font-semibold text-[#0f1222]">{ag.name}</p>
+                  <dl className="flex shrink-0 gap-3 text-right text-[12px] tabular-nums text-[#5b6283] sm:gap-4 sm:text-[13px]">
                     <div>
-                      <dd className="text-[15px] font-bold text-[#17150f]">{ag.offers}</dd>
+                      <dd className="text-[15px] font-bold text-[#0f1222]">{ag.offers}</dd>
                       <dt>offers</dt>
                     </div>
                     <div>
-                      <dd className="text-[15px] font-bold text-[#17150f]">{ag.interested}</dd>
+                      <dd className="text-[15px] font-bold text-[#0f1222]">{ag.interested}</dd>
                       <dt>interested</dt>
                     </div>
                     <div>
@@ -320,7 +320,7 @@ export default async function RealtyOverviewPage({ params }: { params: Promise<{
             </h2>
           </div>
           {a.recent.length ? (
-            <ol className="divide-y divide-[#efece7]">
+            <ol className="divide-y divide-[#eceef5]">
               {a.recent.map((e, i) => {
                 const Icon = RECENT_ICON[e.kind]
                 const body = (
@@ -329,16 +329,16 @@ export default async function RealtyOverviewPage({ params }: { params: Promise<{
                       <Icon className="h-4 w-4" />
                     </span>
                     <span className="min-w-0 flex-1">
-                      <span className="line-clamp-2 text-[15px] font-semibold leading-snug text-[#17150f] sm:line-clamp-1">{e.text}</span>
-                      {e.detail && <span className="block truncate text-[13px] text-[#6b665d]">{e.detail}</span>}
+                      <span className="line-clamp-2 text-[15px] font-semibold leading-snug text-[#0f1222] sm:line-clamp-1">{e.text}</span>
+                      {e.detail && <span className="block truncate text-[13px] text-[#5b6283]">{e.detail}</span>}
                     </span>
-                    <span className="shrink-0 text-xs text-[#8a847a]">{timeAgo(e.at)}</span>
+                    <span className="shrink-0 text-xs text-[#7a8099]">{timeAgo(e.at)}</span>
                   </>
                 )
                 return (
                   <li key={i}>
                     {e.offer_id ? (
-                      <Link href={`${base}/offers/${e.offer_id}`} className="flex items-center gap-3 px-5 py-3 transition hover:bg-[#faf9f7]">
+                      <Link href={`${base}/offers/${e.offer_id}`} className="flex items-center gap-3 px-5 py-3 transition hover:bg-[#f9fafd]">
                         {body}
                       </Link>
                     ) : (
@@ -349,7 +349,7 @@ export default async function RealtyOverviewPage({ params }: { params: Promise<{
               })}
             </ol>
           ) : (
-            <p className="px-5 py-8 text-center text-[15px] text-[#8a847a]">Nothing yet. Offers, buyers&apos; answers and reservations show up here.</p>
+            <p className="px-5 py-8 text-center text-[15px] text-[#7a8099]">Nothing yet. Offers, buyers&apos; answers and reservations show up here.</p>
           )}
         </section>
       </div>
@@ -365,30 +365,30 @@ export default async function RealtyOverviewPage({ params }: { params: Promise<{
               All offers <ArrowRight className="h-4 w-4" />
             </Link>
           </div>
-          <ul className="divide-y divide-[#efece7]">
+          <ul className="divide-y divide-[#eceef5]">
             {leads.map((l) => (
               <li key={l.id} className="flex flex-col gap-4 px-5 py-4 sm:flex-row sm:items-center sm:justify-between">
                 <div className="flex min-w-0 gap-4">
-                  <span aria-hidden className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-[#17150f] text-sm font-bold text-white">
+                  <span aria-hidden className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-[#0f1222] text-sm font-bold text-white">
                     {initials(l.name)}
                   </span>
                   <div className="min-w-0">
                     <div className="flex flex-wrap items-center gap-2">
-                      <Link href={`${base}/offers/${l.offer_id}`} className="text-[17px] font-bold text-[#17150f] hover:text-[var(--accent)]">
+                      <Link href={`${base}/offers/${l.offer_id}`} className="text-[17px] font-bold text-[#0f1222] hover:text-[var(--accent)]">
                         {l.name}
                       </Link>
                       <LeadTag kind={l.kind} label={l.label} />
                       {l.new && <NewTag />}
                     </div>
-                    <p className="mt-0.5 text-sm text-[#6b665d]">
+                    <p className="mt-0.5 text-sm text-[#5b6283]">
                       {[l.project, l.unit].filter(Boolean).join(" · ")} · {timeAgo(l.created_at)}
                     </p>
-                    {l.message && <p className="mt-2 line-clamp-2 max-w-2xl border-l-2 border-[#e6e2db] pl-3 text-[15px] text-[#3d3a34]">&ldquo;{l.message}&rdquo;</p>}
+                    {l.message && <p className="mt-2 line-clamp-2 max-w-2xl border-l-2 border-[#e2e5ef] pl-3 text-[15px] text-[#2f3450]">&ldquo;{l.message}&rdquo;</p>}
                   </div>
                 </div>
                 <div className="flex shrink-0 flex-wrap items-center gap-2 sm:pl-4">
                   {l.kind !== "not_interested" && <ContactButtons phone={l.phone} email={l.email} via={l.contact_via} limit={1} />}
-                  <Link href={`${base}/offers/${l.offer_id}`} className="inline-flex items-center rounded-xl border border-[#d9d4cb] bg-white px-3.5 py-2.5 text-sm font-bold text-[#17150f] transition hover:border-[#17150f]">
+                  <Link href={`${base}/offers/${l.offer_id}`} className="inline-flex items-center rounded-xl border border-[#d6dae6] bg-white px-3.5 py-2.5 text-sm font-bold text-[#0f1222] transition hover:border-[#0f1222]">
                     View
                   </Link>
                 </div>
@@ -425,20 +425,20 @@ export default async function RealtyOverviewPage({ params }: { params: Promise<{
               <Title icon={Building2} title="Company" sub="Shown on offers and the website" />
             </span>
           </h2>
-          <dl className="divide-y divide-[#efece7] text-[15px]">
+          <dl className="divide-y divide-[#eceef5] text-[15px]">
             {[
               slug === SITE_REALTY
-                ? { icon: Globe, label: "Website", value: <Link href="/" target="_blank" className="font-semibold text-[#17150f] hover:text-[var(--accent)]">jvconline.ph</Link> }
-                : { icon: Globe, label: "Sign-in page", value: <Link href={`/${slug}/login`} target="_blank" className="font-semibold text-[#17150f] hover:text-[var(--accent)]">jvconline.ph/{slug}/login</Link> },
+                ? { icon: Globe, label: "Website", value: <Link href="/" target="_blank" className="font-semibold text-[#0f1222] hover:text-[var(--accent)]">jvconline.ph</Link> }
+                : { icon: Globe, label: "Sign-in page", value: <Link href={`/${slug}/login`} target="_blank" className="font-semibold text-[#0f1222] hover:text-[var(--accent)]">jvconline.ph/{slug}/login</Link> },
               { icon: UserRound, label: "Contact", value: realty.contact_name },
               { icon: Mail, label: "Email", value: realty.email },
               { icon: Phone, label: "Phone", value: realty.phone },
               { icon: MapPin, label: "Address", value: realty.address },
             ].map(({ icon: Icon, label, value }) => (
               <div key={label} className="flex items-center gap-3 px-5 py-3">
-                <Icon className="h-4 w-4 shrink-0 text-[#a39d92]" strokeWidth={1.9} />
-                <dt className="w-24 shrink-0 text-sm text-[#8a847a]">{label}</dt>
-                <dd className={`min-w-0 flex-1 truncate text-right ${value ? "text-[#17150f]" : "text-[#c9c4bb]"}`}>{value ?? "Not set"}</dd>
+                <Icon className="h-4 w-4 shrink-0 text-[#9aa0b5]" strokeWidth={1.9} />
+                <dt className="w-24 shrink-0 text-sm text-[#7a8099]">{label}</dt>
+                <dd className={`min-w-0 flex-1 truncate text-right ${value ? "text-[#0f1222]" : "text-[#c2c7d6]"}`}>{value ?? "Not set"}</dd>
               </div>
             ))}
           </dl>

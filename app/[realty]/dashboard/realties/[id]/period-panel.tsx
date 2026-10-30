@@ -90,22 +90,22 @@ export function PeriodPanel({
     <>
       <Panel title="Accreditation period" aside={<Tag tone={PERIOD_TAG[p.state].tone}>{PERIOD_TAG[p.state].label}</Tag>} className="!mt-0">
         <div className="pt-1">
-          <p className={`font-[family-name:var(--font-outfit),var(--font-geist-sans)] text-2xl font-bold tracking-tight ${p.state === "expired" || p.state === "ended" ? "text-red-800" : p.state === "ending" ? "text-amber-800" : "text-[#17150f]"}`}>{headline}</p>
-          <p className="mt-1 text-[15px] text-[#5a554d]">
+          <p className={`font-[family-name:var(--font-display),var(--font-geist-sans)] text-2xl font-bold tracking-tight ${p.state === "expired" || p.state === "ended" ? "text-red-800" : p.state === "ending" ? "text-amber-800" : "text-[#0f1222]"}`}>{headline}</p>
+          <p className="mt-1 text-[15px] text-[#4a5070]">
             {p.from ? `Started ${longDate(p.from)}` : "Accepted before accreditations had an end date."}
             {p.state === "open" && " Set an end date to start the reminders."}
           </p>
           {(p.state === "expired" || p.state === "ended") && (
             <p className="rounded-xl mt-3 border-l-4 border-red-600 bg-red-50 px-4 py-2.5 text-[15px] font-semibold text-red-800">{firm} can&apos;t make new offers. Offers they already made carry on.</p>
           )}
-          {p.state === "ended" && p.end_note && <p className="mt-2 text-[15px] text-[#3d3a34]">Why: &ldquo;{p.end_note}&rdquo;</p>}
+          {p.state === "ended" && p.end_note && <p className="mt-2 text-[15px] text-[#2f3450]">Why: &ldquo;{p.end_note}&rdquo;</p>}
 
           <div className="mt-5 flex flex-wrap gap-2">
-            <button type="button" onClick={() => setDialog("renew")} className="inline-flex items-center gap-1.5 rounded-xl bg-[#17150f] px-4 py-2.5 text-sm font-bold text-white hover:bg-[#3d3a34]">
+            <button type="button" onClick={() => setDialog("renew")} className="inline-flex items-center gap-1.5 rounded-xl bg-[#0f1222] px-4 py-2.5 text-sm font-bold text-white hover:bg-[#2f3450]">
               <RotateCw className="h-4 w-4" /> {p.state === "open" ? "Set an end date" : running ? "Extend or renew" : "Renew"}
             </button>
             {(running || p.state === "open") && (
-              <button type="button" onClick={() => setDialog("end")} className="inline-flex items-center gap-1.5 rounded-xl border border-[#d9d4cb] bg-white px-4 py-2.5 text-sm font-bold text-[#17150f] hover:border-red-400 hover:text-red-700">
+              <button type="button" onClick={() => setDialog("end")} className="inline-flex items-center gap-1.5 rounded-xl border border-[#d6dae6] bg-white px-4 py-2.5 text-sm font-bold text-[#0f1222] hover:border-red-400 hover:text-red-700">
                 <Ban className="h-4 w-4" /> End now
               </button>
             )}
@@ -115,7 +115,7 @@ export function PeriodPanel({
 
       <Panel title="Signed agreement" aside="Printed, signed on every page, notarized and uploaded by the realty" className="!mt-0 lg:col-span-2">
         <div className="space-y-4 pt-1">
-          <p className="text-[15px] text-[#3d3a34]">
+          <p className="text-[15px] text-[#2f3450]">
             {agreed ? (
               <>
                 Agreed online by <strong>{agreed.name}</strong> on {longDate(agreed.at)}.
@@ -145,7 +145,7 @@ export function PeriodPanel({
                   type="button"
                   disabled={pending}
                   onClick={() => setSendBack((v) => !v)}
-                  className="inline-flex items-center gap-1.5 rounded-xl border border-[#d9d4cb] bg-white px-4 py-2.5 text-sm font-bold text-[#17150f] hover:border-red-400 hover:text-red-700"
+                  className="inline-flex items-center gap-1.5 rounded-xl border border-[#d6dae6] bg-white px-4 py-2.5 text-sm font-bold text-[#0f1222] hover:border-red-400 hover:text-red-700"
                 >
                   <Undo2 className="h-4 w-4" /> Send back
                 </button>
@@ -166,7 +166,7 @@ export function PeriodPanel({
                   }}
                 >
                   <label className="block">
-                    <span className="text-xs font-bold uppercase tracking-[0.12em] text-[#5a554d]">What should they fix? (they see this)</span>
+                    <span className="text-xs font-bold uppercase tracking-[0.12em] text-[#4a5070]">What should they fix? (they see this)</span>
                     <textarea
                       autoFocus
                       required
@@ -175,7 +175,7 @@ export function PeriodPanel({
                       value={returnNote}
                       onChange={(e) => setReturnNote(e.target.value)}
                       placeholder="e.g. Page 2 has no signature."
-                      className="mt-1.5 block w-full rounded-xl border border-[#d9d4cb] bg-white px-3.5 py-2.5 text-[15px] outline-none focus:border-[var(--accent)]"
+                      className="mt-1.5 block w-full rounded-xl border border-[#d6dae6] bg-white px-3.5 py-2.5 text-[15px] outline-none focus:border-[var(--accent)]"
                     />
                   </label>
                   <button type="submit" disabled={pending} className="rounded-xl inline-flex items-center gap-1.5 bg-red-700 px-4 py-2.5 text-sm font-bold text-white hover:bg-red-800 disabled:opacity-60">
@@ -192,7 +192,7 @@ export function PeriodPanel({
             </div>
           )}
           {certificate && (
-            <p className="flex flex-wrap items-center gap-x-3 gap-y-1 text-[15px] text-[#3d3a34]">
+            <p className="flex flex-wrap items-center gap-x-3 gap-y-1 text-[15px] text-[#2f3450]">
               <span>
                 Certificate No. <strong>{certificate.number}</strong> issued {shortDate(certificate.issued_at)}
                 {certificate.status !== "valid" && ` (${certificate.status === "replaced" ? "replaced" : certificate.status === "expired" ? "expired" : "no longer valid"})`}.
@@ -208,7 +208,7 @@ export function PeriodPanel({
             </p>
           )}
           {(copy.status === "missing" || copy.status === null) && (
-            <p className={`text-[15px] ${copy.overdue ? "font-bold text-red-700" : "text-[#5a554d]"}`}>
+            <p className={`text-[15px] ${copy.overdue ? "font-bold text-red-700" : "text-[#4a5070]"}`}>
               {copy.overdue ? `Not uploaded yet: it was due ${longDate(copy.due)}.` : copy.due ? `Not uploaded yet · due ${longDate(copy.due)}.` : "Not uploaded yet."}
             </p>
           )}
@@ -222,7 +222,7 @@ export function PeriodPanel({
       </Panel>
 
       <Modal open={dialog === "renew"} onClose={close} eyebrow="Accreditation" title={p.state === "open" ? `Set ${firm}'s end date` : `Renew ${firm}`}>
-        <p className="text-[15px] text-[#5a554d]">{base === today ? "Counted from today." : `Counted from ${longDate(base)}, the day after it ends now, so no days are lost.`} The reminder goes out again 30 days before the new end.</p>
+        <p className="text-[15px] text-[#4a5070]">{base === today ? "Counted from today." : `Counted from ${longDate(base)}, the day after it ends now, so no days are lost.`} The reminder goes out again 30 days before the new end.</p>
         <div className="mt-4">
           <TermChoice value={term} onChange={setTerm} from={base} today={today} />
         </div>
@@ -232,18 +232,18 @@ export function PeriodPanel({
             type="button"
             disabled={pending || !newEnd}
             onClick={() => run(() => renewAccreditation(slug, id, term), `Accredited until ${shortDate(newEnd)}`, close)}
-            className="inline-flex items-center gap-1.5 rounded-xl bg-[#17150f] px-4 py-2.5 text-sm font-bold text-white hover:bg-[#3d3a34] disabled:opacity-60"
+            className="inline-flex items-center gap-1.5 rounded-xl bg-[#0f1222] px-4 py-2.5 text-sm font-bold text-white hover:bg-[#2f3450] disabled:opacity-60"
           >
             {pending ? <LoaderCircle className="h-4 w-4 animate-spin" /> : <CalendarClock className="h-4 w-4" />} {newEnd ? `Accredit until ${shortDate(newEnd)}` : "Pick a date"}
           </button>
-          <button type="button" onClick={close} className="px-3 py-2.5 text-sm font-semibold text-[#8a847a] hover:text-[#17150f]">
+          <button type="button" onClick={close} className="px-3 py-2.5 text-sm font-semibold text-[#7a8099] hover:text-[#0f1222]">
             Cancel
           </button>
         </div>
       </Modal>
 
       <Modal open={dialog === "end"} onClose={close} eyebrow="Accreditation" title={`End ${firm}'s accreditation now?`}>
-        <p className="text-[15px] text-[#5a554d]">From today they can&apos;t make new offers. Offers they already made carry on. You can renew it later.</p>
+        <p className="text-[15px] text-[#4a5070]">From today they can&apos;t make new offers. Offers they already made carry on. You can renew it later.</p>
         <form
           className="mt-4 space-y-3"
           onSubmit={(e) => {
@@ -259,7 +259,7 @@ export function PeriodPanel({
           }}
         >
           <label className="block">
-            <span className="text-xs font-bold uppercase tracking-[0.12em] text-[#5a554d]">Why? (kept on record, and they see it)</span>
+            <span className="text-xs font-bold uppercase tracking-[0.12em] text-[#4a5070]">Why? (kept on record, and they see it)</span>
             <textarea
               autoFocus
               required
@@ -268,7 +268,7 @@ export function PeriodPanel({
               value={note}
               onChange={(e) => setNote(e.target.value)}
               placeholder="e.g. Advertised our projects without approval."
-              className="mt-1.5 block w-full rounded-xl border border-[#d9d4cb] bg-white px-3.5 py-2.5 text-[15px] outline-none focus:border-[var(--accent)]"
+              className="mt-1.5 block w-full rounded-xl border border-[#d6dae6] bg-white px-3.5 py-2.5 text-[15px] outline-none focus:border-[var(--accent)]"
             />
           </label>
           {error && <p className="text-sm font-semibold text-red-700">{error}</p>}
@@ -276,7 +276,7 @@ export function PeriodPanel({
             <button type="submit" disabled={pending} className="rounded-xl inline-flex items-center gap-1.5 bg-red-700 px-4 py-2.5 text-sm font-bold text-white hover:bg-red-800 disabled:opacity-60">
               {pending ? <LoaderCircle className="h-4 w-4 animate-spin" /> : <Ban className="h-4 w-4" />} End accreditation now
             </button>
-            <button type="button" onClick={close} className="px-3 py-2.5 text-sm font-semibold text-[#8a847a] hover:text-[#17150f]">
+            <button type="button" onClick={close} className="px-3 py-2.5 text-sm font-semibold text-[#7a8099] hover:text-[#0f1222]">
               Cancel
             </button>
           </div>
@@ -288,7 +288,7 @@ export function PeriodPanel({
 
 function FileLink({ href }: { href: string }) {
   return (
-    <a href={href} target="_blank" rel="noreferrer" className="inline-flex items-center gap-1.5 rounded-xl border border-[#17150f] bg-white px-4 py-2.5 text-sm font-bold text-[#17150f] hover:bg-[#f6f4f0]">
+    <a href={href} target="_blank" rel="noreferrer" className="inline-flex items-center gap-1.5 rounded-xl border border-[#0f1222] bg-white px-4 py-2.5 text-sm font-bold text-[#0f1222] hover:bg-[#f3f5fa]">
       <ExternalLink className="h-4 w-4" /> Open the file
     </a>
   )

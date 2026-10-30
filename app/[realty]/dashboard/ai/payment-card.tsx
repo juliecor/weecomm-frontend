@@ -35,24 +35,24 @@ export function PaymentCard({ slug, card: p }: { slug: string; card: Payment }) 
     <div className="mt-4 rounded-2xl border border-[#e8eaed] bg-white shadow-[0_2px_12px_-2px_rgba(23,21,15,0.06)]">
       <div className="border-b border-[#efebe5] px-4 py-3">
         <p className="text-xs font-bold uppercase tracking-[0.12em] text-[var(--accent)]">Payments · {p.terms}</p>
-        <p className="mt-0.5 text-base font-bold text-[#17150f]">
+        <p className="mt-0.5 text-base font-bold text-[#0f1222]">
           {p.unit ? p.unit.name : "A price of " + php(p.price)}
-          {p.project && <span className="font-semibold text-[#6b665d]"> · {p.project.name}</span>}
+          {p.project && <span className="font-semibold text-[#5b6283]"> · {p.project.name}</span>}
         </p>
       </div>
 
       <div className="px-4 pt-4">
         {monthly ? (
-          <p className="text-[#17150f]">
+          <p className="text-[#0f1222]">
             <span className="text-2xl font-bold tabular-nums">{phpExact(monthly.monthly as number)}</span>
-            <span className="ml-1.5 text-sm font-semibold text-[#5a554d]">
+            <span className="ml-1.5 text-sm font-semibold text-[#4a5070]">
               a month for {monthly.months} months · {monthly.label.toLowerCase()}
             </span>
           </p>
         ) : (
-          <p className="text-2xl font-bold tabular-nums text-[#17150f]">{phpExact(total)}</p>
+          <p className="text-2xl font-bold tabular-nums text-[#0f1222]">{phpExact(total)}</p>
         )}
-        <p className="mt-0.5 text-sm text-[#6b665d]">
+        <p className="mt-0.5 text-sm text-[#5b6283]">
           Price {php(p.price)} · from {shortDate(p.purchase_date)}
         </p>
 
@@ -69,10 +69,10 @@ export function PaymentCard({ slug, card: p }: { slug: string; card: Payment }) 
           <li key={i} className="flex items-start gap-3 py-2.5">
             <span aria-hidden className="mt-1.5 h-2.5 w-2.5 shrink-0" style={{ background: shade(i) }} />
             <div className="min-w-0 flex-1">
-              <p className="text-sm font-bold text-[#17150f]">
-                {r.label} <span className="font-semibold text-[#8a847a]">{r.percent}%</span>
+              <p className="text-sm font-bold text-[#0f1222]">
+                {r.label} <span className="font-semibold text-[#7a8099]">{r.percent}%</span>
               </p>
-              <p className="text-xs text-[#6b665d]">
+              <p className="text-xs text-[#5b6283]">
                 {r.months && r.monthly
                   ? `${r.months} × ${phpExact(r.monthly)}, ${shortDate(r.date as string)} – ${shortDate(r.end_date as string)}${r.last_month && r.last_month !== r.monthly ? ` (last ${phpExact(r.last_month)})` : ""}`
                   : r.date
@@ -80,10 +80,10 @@ export function PaymentCard({ slug, card: p }: { slug: string; card: Payment }) 
                     : "On turnover (date not announced yet)"}
               </p>
             </div>
-            <p className="shrink-0 text-sm font-bold tabular-nums text-[#17150f]">{phpExact(r.amount)}</p>
+            <p className="shrink-0 text-sm font-bold tabular-nums text-[#0f1222]">{phpExact(r.amount)}</p>
           </li>
         ))}
-        <li className="flex items-center justify-between py-2.5 text-sm font-bold text-[#17150f]">
+        <li className="flex items-center justify-between py-2.5 text-sm font-bold text-[#0f1222]">
           <span>Total</span>
           <span className="tabular-nums">{phpExact(total)}</span>
         </li>
@@ -99,7 +99,7 @@ export function PaymentCard({ slug, card: p }: { slug: string; card: Payment }) 
           href={quotationHref(slug, { unit_id: p.unit?.id, project_id: p.unit ? undefined : p.project?.id, price: p.unit ? undefined : p.price, plan_id: p.plan_id ?? undefined, milestones: p.plan_id ? undefined : p.milestones, purchase_date: p.purchase_date, buyer: p.buyer ?? undefined })}
           target="_blank"
           rel="noreferrer"
-          className="inline-flex flex-1 items-center justify-center gap-1.5 rounded-xl border border-[#d9d4cb] bg-white px-4 py-2.5 text-sm font-bold text-[#17150f] transition hover:border-[#17150f] sm:flex-none"
+          className="inline-flex flex-1 items-center justify-center gap-1.5 rounded-xl border border-[#d6dae6] bg-white px-4 py-2.5 text-sm font-bold text-[#0f1222] transition hover:border-[#0f1222] sm:flex-none"
         >
           <FileText className="h-4 w-4" /> Quotation PDF
         </a>

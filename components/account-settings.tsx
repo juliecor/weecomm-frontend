@@ -9,9 +9,9 @@ export type Account = { name: string; email: string; photo_url?: string | null; 
 export type AccountState = { error?: string; errors?: Record<string, string>; ok?: number }
 type Action = (prev: AccountState, form: FormData) => Promise<AccountState>
 
-const box = "block w-full rounded-xl border border-[#d9d4cb] bg-white px-3.5 py-3 text-[15px] text-[#17150f] outline-none transition focus:border-[var(--accent)] focus:ring-2 focus:ring-[var(--accent)]/15"
+const box = "block w-full rounded-xl border border-[#d6dae6] bg-white px-3.5 py-3 text-[15px] text-[#0f1222] outline-none transition focus:border-[var(--accent)] focus:ring-2 focus:ring-[var(--accent)]/15"
 const input = `mt-1.5 ${box}`
-const label = "text-xs font-bold uppercase tracking-[0.12em] text-[#6b665d]"
+const label = "text-xs font-bold uppercase tracking-[0.12em] text-[#5b6283]"
 
 const initials = (name: string) =>
   name
@@ -36,12 +36,12 @@ export function AccountSettings({ account, buyersSee, save, changePassword }: { 
           // eslint-disable-next-line @next/next/no-img-element
           <img src={account.photo_url} alt="" className="h-16 w-16 shrink-0 rounded-full object-cover ring-2 ring-[var(--accent)]/25" />
         ) : (
-          <span aria-hidden className="flex h-16 w-16 shrink-0 items-center justify-center rounded-full bg-[#17150f] text-2xl font-bold text-white">{initials(account.name)}</span>
+          <span aria-hidden className="flex h-16 w-16 shrink-0 items-center justify-center rounded-full bg-[#0f1222] text-2xl font-bold text-white">{initials(account.name)}</span>
         )}
         <div className="min-w-0">
-          <p className="truncate text-xl font-bold tracking-tight text-[#17150f]">{account.name}</p>
-          <p className="truncate text-sm text-[#6b665d]">{account.email}</p>
-          <p className="mt-1.5 flex flex-wrap items-center gap-x-2 gap-y-1 text-xs font-semibold text-[#8a847a]">
+          <p className="truncate text-xl font-bold tracking-tight text-[#0f1222]">{account.name}</p>
+          <p className="truncate text-sm text-[#5b6283]">{account.email}</p>
+          <p className="mt-1.5 flex flex-wrap items-center gap-x-2 gap-y-1 text-xs font-semibold text-[#7a8099]">
             <span className="px-2 py-0.5 font-bold uppercase tracking-[0.12em] text-[var(--accent)]" style={{ backgroundColor: "color-mix(in srgb, var(--accent) 10%, white)" }}>{roleLabel(account)}</span>
             {account.realty && <span>{account.realty}</span>}
           </p>
@@ -68,12 +68,12 @@ function Details({ account, buyersSee, save }: { account: Account; buyersSee?: s
 
   return (
     <section className="mt-6 rounded-2xl border border-[#e8eaed] bg-white shadow-[0_2px_12px_-2px_rgba(23,21,15,0.06)]">
-      <header className="flex items-center gap-2.5 border-b border-[#e6e2db] px-5 py-4">
+      <header className="flex items-center gap-2.5 border-b border-[#e2e5ef] px-5 py-4">
         <UserRound className="h-5 w-5 text-[var(--accent)]" />
-        <h2 className="text-lg font-bold text-[#17150f]">Your details</h2>
+        <h2 className="text-lg font-bold text-[#0f1222]">Your details</h2>
       </header>
       <form action={action} className="space-y-5 p-5">
-        {buyersSee && <p className="rounded-xl border-l-4 border-[var(--accent)] bg-[#faf8f5] px-3.5 py-2.5 text-sm text-[#3d3a34]">{buyersSee}</p>}
+        {buyersSee && <p className="rounded-xl border-l-4 border-[var(--accent)] bg-[#f8f9fc] px-3.5 py-2.5 text-sm text-[#2f3450]">{buyersSee}</p>}
         <div className="grid gap-5 sm:grid-cols-2">
           <label className="block sm:col-span-2">
             <span className={label}>Full name</span>
@@ -116,12 +116,12 @@ function Password({ changePassword }: { changePassword: Action }) {
 
   return (
     <section className="mt-6 rounded-2xl border border-[#e8eaed] bg-white shadow-[0_2px_12px_-2px_rgba(23,21,15,0.06)]">
-      <header className="flex items-center gap-2.5 border-b border-[#e6e2db] px-5 py-4">
+      <header className="flex items-center gap-2.5 border-b border-[#e2e5ef] px-5 py-4">
         <KeyRound className="h-5 w-5 text-[var(--accent)]" />
-        <h2 className="text-lg font-bold text-[#17150f]">Password</h2>
+        <h2 className="text-lg font-bold text-[#0f1222]">Password</h2>
       </header>
       <form action={action} className="space-y-5 p-5">
-        <p className="text-sm text-[#5a554d]">At least 8 characters. Changing it signs you out everywhere else, like on another phone or computer.</p>
+        <p className="text-sm text-[#4a5070]">At least 8 characters. Changing it signs you out everywhere else, like on another phone or computer.</p>
         <div className="grid gap-5 sm:grid-cols-2">
           <label className="block sm:col-span-2">
             <span className={label}>Current password</span>
@@ -139,7 +139,7 @@ function Password({ changePassword }: { changePassword: Action }) {
           </label>
         </div>
         {state.error && <p role="alert" className="text-sm font-bold text-red-700">{state.error}</p>}
-        <button type="submit" disabled={pending} className="inline-flex items-center gap-2 rounded-xl bg-[#17150f] px-5 py-3 text-[15px] font-bold text-white transition hover:bg-black disabled:opacity-60">
+        <button type="submit" disabled={pending} className="inline-flex items-center gap-2 rounded-xl bg-[#0f1222] px-5 py-3 text-[15px] font-bold text-white transition hover:bg-black disabled:opacity-60">
           {pending && <LoaderCircle className="h-4 w-4 animate-spin" />} Change password
         </button>
       </form>
@@ -152,7 +152,7 @@ function PasswordInput(props: React.InputHTMLAttributes<HTMLInputElement>) {
   return (
     <span className="relative mt-1.5 block">
       <input {...props} type={shown ? "text" : "password"} className={`${box} pr-12`} />
-      <button type="button" onClick={() => setShown((s) => !s)} aria-label={shown ? "Hide password" : "Show password"} className="absolute inset-y-0 right-0 flex w-12 items-center justify-center text-[#8a847a] transition hover:text-[#17150f]">
+      <button type="button" onClick={() => setShown((s) => !s)} aria-label={shown ? "Hide password" : "Show password"} className="absolute inset-y-0 right-0 flex w-12 items-center justify-center text-[#7a8099] transition hover:text-[#0f1222]">
         {shown ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
       </button>
     </span>

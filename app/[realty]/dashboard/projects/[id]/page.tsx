@@ -74,7 +74,7 @@ export default async function ProjectPage({ params, searchParams }: Props) {
 
   return (
     <div>
-      <Link href={`/${slug}/dashboard/projects`} className="mb-5 inline-flex items-center gap-1.5 text-sm font-semibold text-[#6b665d] hover:text-[#17150f]">
+      <Link href={`/${slug}/dashboard/projects`} className="mb-5 inline-flex items-center gap-1.5 text-sm font-semibold text-[#5b6283] hover:text-[#0f1222]">
         <ArrowLeft className="h-4 w-4" /> Projects
       </Link>
 
@@ -98,11 +98,11 @@ export default async function ProjectPage({ params, searchParams }: Props) {
               </div>
               <h1 className="mt-1.5 text-3xl font-bold tracking-tight sm:text-4xl">{project.name}</h1>
               {project.location && (
-                <p className="mt-1 inline-flex items-center gap-1.5 text-[15px] font-semibold text-[#3d3a34]">
+                <p className="mt-1 inline-flex items-center gap-1.5 text-[15px] font-semibold text-[#2f3450]">
                   <MapPin className="h-4 w-4 text-[var(--accent)]" /> {project.location}
                 </p>
               )}
-              <p className="mt-1 text-sm text-[#6b665d]">{[priceRange(units), project.completion_date ? `turnover ${longDate(project.completion_date)}` : null].filter(Boolean).join(" · ") || "No prices yet"}</p>
+              <p className="mt-1 text-sm text-[#5b6283]">{[priceRange(units), project.completion_date ? `turnover ${longDate(project.completion_date)}` : null].filter(Boolean).join(" · ") || "No prices yet"}</p>
             </div>
             <div className="flex flex-wrap gap-2">
               {priced > 0 && (
@@ -122,18 +122,18 @@ export default async function ProjectPage({ params, searchParams }: Props) {
 
       <dl className="mt-4 grid grid-cols-3 gap-3 sm:gap-4 lg:grid-cols-6">
         {[
-          { label: "Units", value: units.length, href: "#units", color: "#17150f" },
+          { label: "Units", value: units.length, href: "#units", color: "#0f1222" },
           { label: "Available", value: by("available"), href: "#units", color: "#059669" },
           { label: "Reserved", value: by("reserved"), href: "#units", color: "#d97706" },
           { label: "Sold", value: by("sold"), href: "#units", color: "#dc2626" },
-          { label: "Plans", value: project.payment_plans.length, href: "#plans", color: "#17150f" },
-          { label: "Offers", value: project.offers_count ?? 0, href: `/${slug}/dashboard/offers`, color: "#17150f" },
+          { label: "Plans", value: project.payment_plans.length, href: "#plans", color: "#0f1222" },
+          { label: "Offers", value: project.offers_count ?? 0, href: `/${slug}/dashboard/offers`, color: "#0f1222" },
         ].map((st) => (
-          <a key={st.label} href={st.href} className="block rounded-2xl border border-[#e8eaed] bg-white shadow-[0_2px_12px_-2px_rgba(23,21,15,0.06)] px-4 py-3 outline-none transition hover:border-[#17150f] focus-visible:ring-2 focus-visible:ring-[var(--accent)] sm:px-5 sm:py-4" style={{ boxShadow: `inset 0 3px 0 ${st.color}` }}>
+          <a key={st.label} href={st.href} className="block rounded-2xl border border-[#e8eaed] bg-white shadow-[0_2px_12px_-2px_rgba(23,21,15,0.06)] px-4 py-3 outline-none transition hover:border-[#0f1222] focus-visible:ring-2 focus-visible:ring-[var(--accent)] sm:px-5 sm:py-4" style={{ boxShadow: `inset 0 3px 0 ${st.color}` }}>
             <dd className="text-2xl font-bold tabular-nums tracking-tight sm:text-3xl" style={{ color: st.color }}>
               {st.value.toLocaleString("en-PH")}
             </dd>
-            <dt className="mt-0.5 text-[13px] font-semibold text-[#6b665d] sm:text-sm">{st.label}</dt>
+            <dt className="mt-0.5 text-[13px] font-semibold text-[#5b6283] sm:text-sm">{st.label}</dt>
           </a>
         ))}
       </dl>
@@ -170,7 +170,7 @@ export default async function ProjectPage({ params, searchParams }: Props) {
                     <div className="overflow-x-auto">
                       <table className="w-full min-w-[520px] text-[15px]">
                         <thead>
-                          <tr className="border-b border-[#e6e2db] text-left text-xs font-bold uppercase tracking-[0.12em] text-[#8a847a]">
+                          <tr className="border-b border-[#e2e5ef] text-left text-xs font-bold uppercase tracking-[0.12em] text-[#7a8099]">
                             <th className="py-2.5 pr-3 font-bold">Type</th>
                             <th className="py-2.5 pr-3 text-right font-bold">Units</th>
                             <th className="py-2.5 pr-3 text-right font-bold">Available</th>
@@ -179,7 +179,7 @@ export default async function ProjectPage({ params, searchParams }: Props) {
                             <th className="py-2.5 text-right font-bold">Price</th>
                           </tr>
                         </thead>
-                        <tbody className="divide-y divide-[#e6e2db]">
+                        <tbody className="divide-y divide-[#e2e5ef]">
                           {types.map((t) => (
                             <tr key={t.type}>
                               <td className="py-3 pr-3 font-bold">{t.type}</td>
@@ -187,7 +187,7 @@ export default async function ProjectPage({ params, searchParams }: Props) {
                               <td className="py-3 pr-3 text-right font-semibold tabular-nums text-emerald-700">{t.available}</td>
                               <td className="py-3 pr-3 text-right tabular-nums text-amber-700">{t.reserved || "—"}</td>
                               <td className="py-3 pr-3 text-right tabular-nums">{t.sold || "—"}</td>
-                              <td className="py-3 text-right font-semibold tabular-nums">{t.price ?? <span className="font-normal text-[#a39d92]">on request</span>}</td>
+                              <td className="py-3 text-right font-semibold tabular-nums">{t.price ?? <span className="font-normal text-[#9aa0b5]">on request</span>}</td>
                             </tr>
                           ))}
                         </tbody>
@@ -235,7 +235,7 @@ export default async function ProjectPage({ params, searchParams }: Props) {
             badge: project.payment_plans.length,
             content: (
               <Panel className="!mt-6" title={`Payment plans · ${project.payment_plans.length}`} aside={staff ? <AddPlan slug={slug} projectId={project.id} projectName={project.name} /> : undefined}>
-                <ul className="grid gap-x-10 divide-y divide-[#e6e2db] sm:grid-cols-2 sm:divide-y-0">
+                <ul className="grid gap-x-10 divide-y divide-[#e2e5ef] sm:grid-cols-2 sm:divide-y-0">
                   {project.payment_plans.map((plan) => (
                     <PlanCard key={plan.id} slug={slug} projectId={project.id} plan={plan} staff={staff} />
                   ))}

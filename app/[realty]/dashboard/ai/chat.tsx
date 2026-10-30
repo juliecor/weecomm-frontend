@@ -74,11 +74,11 @@ export function AssistantChat({ slug, name, firstName, isAgent, chats: initialCh
 
   const list = (
     <div className="flex h-full flex-col overflow-hidden rounded-2xl border border-[#e8eaed] bg-white shadow-[0_2px_12px_-2px_rgba(23,21,15,0.06)]">
-      <div className="flex items-center justify-between gap-2 border-b border-[#f0eeea] px-4 py-3.5">
-        <p className={`${display} flex items-center gap-2 text-[17px] text-[#17150f]`}>
-          Your chats {chats.length > 0 && <span className="rounded-full bg-[#f1eee9] px-2 py-0.5 text-xs font-bold tabular-nums text-[#6b665d]">{chats.length}</span>}
+      <div className="flex items-center justify-between gap-2 border-b border-[#eef0f6] px-4 py-3.5">
+        <p className={`${display} flex items-center gap-2 text-[17px] text-[#0f1222]`}>
+          Your chats {chats.length > 0 && <span className="rounded-full bg-[#eff1f7] px-2 py-0.5 text-xs font-bold tabular-nums text-[#5b6283]">{chats.length}</span>}
         </p>
-        <button type="button" onClick={() => setShowList(false)} aria-label="Close chats" className="p-1 text-[#6b665d] lg:hidden">
+        <button type="button" onClick={() => setShowList(false)} aria-label="Close chats" className="p-1 text-[#5b6283] lg:hidden">
           <X className="h-5 w-5" />
         </button>
       </div>
@@ -92,20 +92,20 @@ export function AssistantChat({ slug, name, firstName, isAgent, chats: initialCh
           <li key={c.id} className="group relative">
             <Link
               href={`${base}?chat=${c.id}`}
-              className={`flex items-start gap-2.5 rounded-xl py-2.5 pl-3 pr-9 transition ${c.id === chatId ? "bg-[color-mix(in_srgb,var(--accent)_9%,white)] shadow-[inset_3px_0_0_var(--accent)]" : "hover:bg-[#f6f4f0]"}`}
+              className={`flex items-start gap-2.5 rounded-xl py-2.5 pl-3 pr-9 transition ${c.id === chatId ? "bg-[color-mix(in_srgb,var(--accent)_9%,white)] shadow-[inset_3px_0_0_var(--accent)]" : "hover:bg-[#f3f5fa]"}`}
             >
-              <MessageSquare className={`mt-0.5 h-4 w-4 shrink-0 ${c.id === chatId ? "text-[var(--accent)]" : "text-[#a39d92]"}`} />
+              <MessageSquare className={`mt-0.5 h-4 w-4 shrink-0 ${c.id === chatId ? "text-[var(--accent)]" : "text-[#9aa0b5]"}`} />
               <span className="min-w-0">
-                <span className={`block truncate text-sm ${c.id === chatId ? "font-bold text-[#17150f]" : "font-semibold text-[#3d3a34]"}`}>{c.title}</span>
-                <span className="block text-xs text-[#8a847a]">{timeAgo(c.updated_at)}</span>
+                <span className={`block truncate text-sm ${c.id === chatId ? "font-bold text-[#0f1222]" : "font-semibold text-[#2f3450]"}`}>{c.title}</span>
+                <span className="block text-xs text-[#7a8099]">{timeAgo(c.updated_at)}</span>
               </span>
             </Link>
-            <button type="button" onClick={() => remove(c.id, c.title)} aria-label={`Delete "${c.title}"`} className="absolute right-1.5 top-1/2 -translate-y-1/2 rounded-lg p-1.5 text-[#a39d92] opacity-100 transition hover:bg-red-50 hover:text-red-700 lg:opacity-0 lg:group-hover:opacity-100">
+            <button type="button" onClick={() => remove(c.id, c.title)} aria-label={`Delete "${c.title}"`} className="absolute right-1.5 top-1/2 -translate-y-1/2 rounded-lg p-1.5 text-[#9aa0b5] opacity-100 transition hover:bg-red-50 hover:text-red-700 lg:opacity-0 lg:group-hover:opacity-100">
               <Trash2 className="h-4 w-4" />
             </button>
           </li>
         ))}
-        {chats.length === 0 && <li className="px-3 py-6 text-sm text-[#8a847a]">Your questions and answers will be kept here.</li>}
+        {chats.length === 0 && <li className="px-3 py-6 text-sm text-[#7a8099]">Your questions and answers will be kept here.</li>}
       </ul>
     </div>
   )
@@ -116,25 +116,25 @@ export function AssistantChat({ slug, name, firstName, isAgent, chats: initialCh
       <aside className="hidden w-72 shrink-0 lg:block">{list}</aside>
       {showList && (
         <div className="fixed inset-0 z-50 flex lg:hidden">
-          <button type="button" aria-label="Close chats" onClick={() => setShowList(false)} className="absolute inset-0 bg-[#17150f]/40" />
+          <button type="button" aria-label="Close chats" onClick={() => setShowList(false)} className="absolute inset-0 bg-[#0f1222]/40" />
           <div className="relative h-full w-[86%] max-w-[320px]">{list}</div>
         </div>
       )}
 
       <section className="flex h-[calc(100dvh-6rem)] min-w-0 flex-1 flex-col overflow-hidden rounded-2xl border border-[#e8eaed] bg-white shadow-[0_2px_12px_-2px_rgba(23,21,15,0.06)] sm:h-[calc(100dvh-7rem)] lg:h-full">
-        <header className="flex items-center gap-3 border-b border-[#f0eeea] px-4 py-3 sm:px-6">
+        <header className="flex items-center gap-3 border-b border-[#eef0f6] px-4 py-3 sm:px-6">
           <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-[var(--accent)] text-white shadow-[0_6px_16px_-6px_var(--accent)]">
             <Sparkles className="h-5 w-5" />
           </span>
           <div className="min-w-0 flex-1">
-            <h1 className={`${display} text-[19px] leading-tight tracking-tight text-[#17150f]`}>{name}</h1>
-            <p className="truncate text-xs text-[#6b665d]">Answers from your dashboard&apos;s live data</p>
+            <h1 className={`${display} text-[19px] leading-tight tracking-tight text-[#0f1222]`}>{name}</h1>
+            <p className="truncate text-xs text-[#5b6283]">Answers from your dashboard&apos;s live data</p>
           </div>
-          <button type="button" onClick={() => setShowList(true)} className="rounded-xl inline-flex items-center gap-1.5 border border-[#d9d4cb] px-3 py-2 text-sm font-bold lg:hidden">
+          <button type="button" onClick={() => setShowList(true)} className="rounded-xl inline-flex items-center gap-1.5 border border-[#d6dae6] px-3 py-2 text-sm font-bold lg:hidden">
             <MessageSquare className="h-4 w-4" /> Chats
           </button>
           {messages.length > 0 && (
-            <button type="button" onClick={startNew} disabled={pending} className="hidden items-center gap-1.5 rounded-xl border border-[#d9d4cb] px-3 py-2 text-sm font-bold transition hover:border-[#17150f] disabled:opacity-50 sm:inline-flex">
+            <button type="button" onClick={startNew} disabled={pending} className="hidden items-center gap-1.5 rounded-xl border border-[#d6dae6] px-3 py-2 text-sm font-bold transition hover:border-[#0f1222] disabled:opacity-50 sm:inline-flex">
               <Plus className="h-4 w-4" /> New chat
             </button>
           )}
@@ -146,11 +146,11 @@ export function AssistantChat({ slug, name, firstName, isAgent, chats: initialCh
               <span className="flex h-16 w-16 items-center justify-center rounded-2xl bg-[var(--accent)] text-white shadow-[0_10px_28px_-10px_var(--accent)]">
                 <Sparkles className="h-8 w-8" />
               </span>
-              <h2 className={`${display} mt-5 text-[26px] leading-tight tracking-tight text-[#17150f] sm:text-[34px]`}>Hi {firstName}, what do you want to know?</h2>
-              <p className="mt-2 max-w-xl text-[15px] text-[#5a554d]">
+              <h2 className={`${display} mt-5 text-[26px] leading-tight tracking-tight text-[#0f1222] sm:text-[34px]`}>Hi {firstName}, what do you want to know?</h2>
+              <p className="mt-2 max-w-xl text-[15px] text-[#4a5070]">
                 Ask about projects, units and prices, payment plans, {isAgent ? "your offers and your buyers" : "offers, buyers and agents"}. Type or tap the mic. {name} looks it up in your dashboard as you ask.
               </p>
-              <button type="button" onClick={() => ask(TODAY)} className="group mt-6 flex w-full items-center gap-4 rounded-2xl bg-[#17150f] px-4 py-4 text-left text-white shadow-[0_10px_30px_-14px_rgba(23,21,15,0.6)] transition hover:bg-black sm:px-6 sm:py-5">
+              <button type="button" onClick={() => ask(TODAY)} className="group mt-6 flex w-full items-center gap-4 rounded-2xl bg-[#0f1222] px-4 py-4 text-left text-white shadow-[0_10px_30px_-14px_rgba(23,21,15,0.6)] transition hover:bg-black sm:px-6 sm:py-5">
                 <span className="rounded-xl flex h-11 w-11 shrink-0 items-center justify-center bg-[var(--accent)]">
                   <BellRing className="h-5 w-5" />
                 </span>
@@ -167,12 +167,12 @@ export function AssistantChat({ slug, name, firstName, isAgent, chats: initialCh
                 )}
                 <ArrowRight className="hidden h-5 w-5 shrink-0 transition group-hover:translate-x-0.5 sm:block" />
               </button>
-              <p className="mt-5 w-full text-left text-[11px] font-bold uppercase tracking-[0.12em] text-[#8a847a]">Or try one of these</p>
+              <p className="mt-5 w-full text-left text-[11px] font-bold uppercase tracking-[0.12em] text-[#7a8099]">Or try one of these</p>
               <div className="mt-2 grid w-full gap-2 sm:grid-cols-2 xl:grid-cols-3">
                 {(isAgent ? AGENT_IDEAS : STAFF_IDEAS).map((idea) => (
-                  <button key={idea} type="button" onClick={() => ask(idea)} className="group flex items-center justify-between gap-3 rounded-xl border border-[#e8eaed] bg-[#fbfaf8] px-4 py-3.5 text-left text-sm font-semibold text-[#3d3a34] transition hover:-translate-y-0.5 hover:border-[var(--accent)] hover:bg-white hover:text-[#17150f] hover:shadow-[0_6px_18px_-8px_rgba(23,21,15,0.2)]">
+                  <button key={idea} type="button" onClick={() => ask(idea)} className="group flex items-center justify-between gap-3 rounded-xl border border-[#e8eaed] bg-[#fafbfd] px-4 py-3.5 text-left text-sm font-semibold text-[#2f3450] transition hover:-translate-y-0.5 hover:border-[var(--accent)] hover:bg-white hover:text-[#0f1222] hover:shadow-[0_6px_18px_-8px_rgba(23,21,15,0.2)]">
                     {idea}
-                    <ArrowRight className="h-4 w-4 shrink-0 text-[#c9c4bb] transition group-hover:text-[var(--accent)]" />
+                    <ArrowRight className="h-4 w-4 shrink-0 text-[#c2c7d6] transition group-hover:text-[var(--accent)]" />
                   </button>
                 ))}
               </div>

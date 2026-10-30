@@ -4,8 +4,8 @@ import { useActionState, useState } from "react"
 import { ArrowRight, Check, Eye, EyeOff, LoaderCircle } from "lucide-react"
 import { type JoinState, joinRealty } from "./actions"
 
-const field = "mt-1.5 block w-full border border-[#d9d4cb] bg-white px-4 py-3.5 text-[15px] text-[#17150f] outline-none transition placeholder:text-[#b3ada3] focus:border-[var(--accent)] focus:ring-2 focus:ring-[var(--accent)]/15"
-const label = "text-xs font-bold uppercase tracking-[0.12em] text-[#5a554d]"
+const field = "mt-1.5 block w-full border border-[#d6dae6] bg-white px-4 py-3.5 text-[15px] text-[#0f1222] outline-none transition placeholder:text-[#b3ada3] focus:border-[var(--accent)] focus:ring-2 focus:ring-[var(--accent)]/15"
+const label = "text-xs font-bold uppercase tracking-[0.12em] text-[#4a5070]"
 
 /** Name, login email, contact number and password, with the number and password rules ticked off as they type. */
 export function JoinForm({ token, name, email, phone: invitedPhone }: { token: string; name: string; email: string | null; phone: string | null }) {
@@ -28,12 +28,12 @@ export function JoinForm({ token, name, email, phone: invitedPhone }: { token: s
       <label className="block">
         <span className={label}>Your full name</span>
         <input name="name" required defaultValue={state.name ?? name} autoComplete="name" className={field} />
-        <span className="mt-1 block text-xs text-[#8a847a]">Buyers see this on the offers you send.</span>
+        <span className="mt-1 block text-xs text-[#7a8099]">Buyers see this on the offers you send.</span>
       </label>
       <label className="block">
         <span className={label}>Email</span>
         <input name="email" type="email" required defaultValue={state.email ?? email ?? ""} autoComplete="username" placeholder="you@example.com" className={field} />
-        <span className="mt-1 block text-xs text-[#8a847a]">You&apos;ll sign in with this.</span>
+        <span className="mt-1 block text-xs text-[#7a8099]">You&apos;ll sign in with this.</span>
       </label>
       <label className="block">
         <span className={label}>Contact number</span>
@@ -52,7 +52,7 @@ export function JoinForm({ token, name, email, phone: invitedPhone }: { token: s
           onChange={(e) => setPhone(e.target.value.replace(/\D/g, "").slice(0, 11))}
           className={field}
         />
-        <span className="mt-1 block text-xs text-[#8a847a]">Your Philippine mobile number, so the team can reach you.</span>
+        <span className="mt-1 block text-xs text-[#7a8099]">Your Philippine mobile number, so the team can reach you.</span>
         <Checklist rules={phoneRules} className="mt-2" />
       </label>
       <label className="block">
@@ -72,7 +72,7 @@ export function JoinForm({ token, name, email, phone: invitedPhone }: { token: s
             type="button"
             onClick={() => setShow((s) => !s)}
             aria-label={show ? "Hide password" : "Show password"}
-            className="absolute inset-y-0 right-0 flex w-12 items-center justify-center text-[#8a847a] hover:text-[#17150f]"
+            className="absolute inset-y-0 right-0 flex w-12 items-center justify-center text-[#7a8099] hover:text-[#0f1222]"
           >
             {show ? <EyeOff className="h-5 w-5" /> : <Eye className="h-5 w-5" />}
           </button>
@@ -115,7 +115,7 @@ function Checklist({ rules, className = "" }: { rules: { ok: boolean; text: stri
   return (
     <ul className={`flex flex-wrap gap-x-5 gap-y-1.5 ${className}`}>
       {rules.map((r) => (
-        <li key={r.text} className={`flex items-center gap-1.5 text-sm font-semibold transition ${r.ok ? "text-emerald-700" : "text-[#a39d92]"}`}>
+        <li key={r.text} className={`flex items-center gap-1.5 text-sm font-semibold transition ${r.ok ? "text-emerald-700" : "text-[#9aa0b5]"}`}>
           <span className={`flex h-4 w-4 items-center justify-center ${r.ok ? "bg-emerald-600 text-white" : "border border-[#cfc9bf]"}`}>{r.ok && <Check className="h-3 w-3" strokeWidth={3} />}</span>
           {r.text}
         </li>

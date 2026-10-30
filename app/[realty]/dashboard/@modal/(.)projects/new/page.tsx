@@ -11,7 +11,7 @@ export default async function NewProjectModal({ params }: { params: Promise<{ re
 
   return (
     <RouteModal eyebrow={user.realty.name} title="Add a project">
-      <p className="-mt-1 mb-6 max-w-2xl text-[15px] text-[#5a554d]">Start with the basics. After you create it you can add units, payment plans, and the public page.</p>
+      <p className="-mt-1 mb-6 max-w-2xl text-[15px] text-[#4a5070]">Start with the basics. After you create it you can add units, payment plans, and the public page.</p>
       <ProjectForm slug={slug} />
     </RouteModal>
   )

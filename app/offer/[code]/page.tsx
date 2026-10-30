@@ -1,4 +1,5 @@
 import type { Metadata } from "next"
+import { brandFonts } from "@/lib/brand-fonts"
 import Link from "next/link"
 import { cache } from "react"
 import { ArrowRight, ArrowUpRight, Bath, Lock, BedDouble, CalendarDays, Car, Check, Info, Layers, Mail, MapPin, Phone, Ruler, SquareDashed, Tag as TagIcon } from "lucide-react"
@@ -122,11 +123,11 @@ export default async function OfferPage({ params, searchParams }: Props) {
 
   if (!offer) {
     return (
-      <main className="flex min-h-screen items-center justify-center bg-[#ece9e4] px-4 text-[#17150f]">
-        <div className="max-w-md border border-[#e0dcd5] bg-white p-10 text-center">
-          <p className="text-xs font-bold uppercase tracking-[0.18em] text-[#8a847a]">Sales offer</p>
+      <main className={`${brandFonts} flex min-h-screen items-center justify-center bg-[#ece9e4] px-4 text-[#0f1222]`}>
+        <div className="max-w-md border border-[#dde1ec] bg-white p-10 text-center">
+          <p className="text-xs font-bold uppercase tracking-[0.18em] text-[#7a8099]">Sales offer</p>
           <h1 className="mt-3 text-2xl font-bold">Offer unavailable</h1>
-          <p className="mt-3 text-[15px] text-[#5a554d]">{problem}</p>
+          <p className="mt-3 text-[15px] text-[#4a5070]">{problem}</p>
         </div>
       </main>
     )
@@ -174,14 +175,14 @@ export default async function OfferPage({ params, searchParams }: Props) {
   ]
 
   return (
-    <main className="min-h-screen bg-[#ece9e4] pb-16 text-[#17150f] [print-color-adjust:exact] print:bg-white print:pb-0" style={{ ["--accent" as string]: accent }}>
+    <main className="min-h-screen bg-[#ece9e4] pb-16 text-[#0f1222] [print-color-adjust:exact] print:bg-white print:pb-0" style={{ ["--accent" as string]: accent }}>
       {offer.private && !offer.preview && (
-        <div className="bg-[#17150f] px-4 py-2.5 text-center text-sm font-bold text-white print:hidden">
+        <div className="bg-[#0f1222] px-4 py-2.5 text-center text-sm font-bold text-white print:hidden">
           Private offer: you can see it because you&apos;re signed in to {realty.name}. The buyer opens it with the username and password you set.
         </div>
       )}
       {offer.preview && (
-        <div className="bg-amber-400 px-4 py-2.5 text-center text-sm font-bold text-[#17150f] print:hidden">
+        <div className="bg-amber-400 px-4 py-2.5 text-center text-sm font-bold text-[#0f1222] print:hidden">
           Preview: these custom terms {offer.preview === "pending" ? "are waiting for approval" : "were sent back"}. The buyer can&apos;t open this page yet.
         </div>
       )}
@@ -189,18 +190,18 @@ export default async function OfferPage({ params, searchParams }: Props) {
         bar={
           <div className="flex min-w-0 items-center gap-3">
             <RealtyMark name={realty.name} logo={realty.logo_url} className="h-8" />
-            <span className="hidden h-6 w-px bg-[#e0dcd5] sm:block" />
-            <p className="hidden truncate text-sm font-semibold text-[#5a554d] sm:block">Sales offer for {offer.buyer_name}</p>
+            <span className="hidden h-6 w-px bg-[#dde1ec] sm:block" />
+            <p className="hidden truncate text-sm font-semibold text-[#4a5070] sm:block">Sales offer for {offer.buyer_name}</p>
           </div>
         }
         actions={
           <>
             {realty.phone && (
-              <a href={`tel:${realty.phone}`} className="hidden items-center gap-2 border border-[#d9d4cb] px-3.5 py-2 text-sm font-bold text-[#17150f] hover:border-[#17150f] sm:inline-flex">
+              <a href={`tel:${realty.phone}`} className="hidden items-center gap-2 border border-[#d6dae6] px-3.5 py-2 text-sm font-bold text-[#0f1222] hover:border-[#0f1222] sm:inline-flex">
                 <Phone className="h-4 w-4" /> Call
               </a>
             )}
-            <PrintButton className="border border-[#d9d4cb] px-3.5 py-2 text-[#17150f] hover:border-[#17150f]" />
+            <PrintButton className="border border-[#d6dae6] px-3.5 py-2 text-[#0f1222] hover:border-[#0f1222]" />
           </>
         }
         tabs={[
@@ -214,89 +215,89 @@ export default async function OfferPage({ params, searchParams }: Props) {
                 <header className="flex flex-wrap items-start justify-between gap-6 px-6 py-7 sm:px-10">
                   <div>
                     <RealtyMark name={realty.name} logo={realty.logo_url} className="h-14" />
-                    {realty.logo_url && <p className="mt-2 text-sm font-semibold text-[#3d3a34]">{realty.name}</p>}
+                    {realty.logo_url && <p className="mt-2 text-sm font-semibold text-[#2f3450]">{realty.name}</p>}
                   </div>
                   <dl className="grid grid-cols-[auto_auto] gap-x-6 gap-y-1 text-sm">
                     <dt className="col-span-2 text-xs font-bold uppercase tracking-[0.2em] text-[var(--accent)] sm:text-right">Sales offer</dt>
-                    <dt className="text-[#8a847a]">Reference</dt>
+                    <dt className="text-[#7a8099]">Reference</dt>
                     <dd className="text-right font-mono font-bold">{offer.code}</dd>
-                    <dt className="text-[#8a847a]">Issued</dt>
+                    <dt className="text-[#7a8099]">Issued</dt>
                     <dd className="text-right font-semibold">{longDate(offer.created_at)}</dd>
                   </dl>
                 </header>
 
                 {/* Hero — photo clean (developer renders often carry their own lettering), title set beneath it */}
                 {hero && <Photo src={hero} alt={project.name} sizes="(min-width: 1280px) 1200px, 100vw" loading="eager" className="aspect-[4/3] w-full object-cover sm:aspect-[21/9]" />}
-                <section className="flex flex-wrap items-end justify-between gap-4 border-b border-[#ebe7e1] px-6 py-7 sm:px-10">
+                <section className="flex flex-wrap items-end justify-between gap-4 border-b border-[#e8ebf3] px-6 py-7 sm:px-10">
                   <div>
                     <div className="flex flex-wrap items-center gap-2">
                       <span className="bg-[var(--accent)] px-2.5 py-1 text-[11px] font-bold uppercase tracking-[0.14em] text-white">{model?.name ?? unit.unit_type ?? unit.name}</span>
-                      {project.stage && <span className="border border-[#d9d4cb] px-2.5 py-1 text-[11px] font-bold uppercase tracking-[0.14em] text-[#3d3a34]">{project.stage}</span>}
+                      {project.stage && <span className="border border-[#d6dae6] px-2.5 py-1 text-[11px] font-bold uppercase tracking-[0.14em] text-[#2f3450]">{project.stage}</span>}
                     </div>
                     <h1 className="mt-3 text-4xl font-bold tracking-tight sm:text-5xl">{project.name}</h1>
                     {project.location && (
-                      <p className="mt-2 inline-flex items-center gap-2 text-base font-semibold text-[#5a554d] sm:text-lg">
+                      <p className="mt-2 inline-flex items-center gap-2 text-base font-semibold text-[#4a5070] sm:text-lg">
                         <MapPin className="h-4 w-4 text-[var(--accent)]" /> {project.location}
                       </p>
                     )}
                   </div>
-                  <p className="text-right text-sm font-semibold text-[#5a554d]">
+                  <p className="text-right text-sm font-semibold text-[#4a5070]">
                     {unit.name}
                     {unit.floor ? ` · ${unit.floor}` : ""}
                   </p>
                 </section>
 
                 {/* Parties */}
-                <section className="grid border-b border-[#ebe7e1] sm:grid-cols-2">
+                <section className="grid border-b border-[#e8ebf3] sm:grid-cols-2">
                   <div className="px-6 py-6 sm:px-10">
-                    <p className="text-xs font-bold uppercase tracking-[0.16em] text-[#8a847a]">Prepared for</p>
+                    <p className="text-xs font-bold uppercase tracking-[0.16em] text-[#7a8099]">Prepared for</p>
                     <p className="mt-1.5 text-2xl font-bold tracking-tight sm:text-3xl">{offer.buyer_name}</p>
-                    <p className="mt-1 text-sm font-semibold text-[#5a554d]">Purchase date {longDate(offer.purchase_date)}</p>
+                    <p className="mt-1 text-sm font-semibold text-[#4a5070]">Purchase date {longDate(offer.purchase_date)}</p>
                   </div>
-                  <div className="border-t border-[#ebe7e1] px-6 py-6 sm:border-l sm:border-t-0 sm:px-10">
-                    <p className="text-xs font-bold uppercase tracking-[0.16em] text-[#8a847a]">Prepared by</p>
+                  <div className="border-t border-[#e8ebf3] px-6 py-6 sm:border-l sm:border-t-0 sm:px-10">
+                    <p className="text-xs font-bold uppercase tracking-[0.16em] text-[#7a8099]">Prepared by</p>
                     <p className="mt-1.5 text-2xl font-bold tracking-tight sm:text-3xl">{agent?.name ?? realty.name}</p>
-                    <p className="mt-1 text-sm font-semibold text-[#5a554d]">{agent ? (offer.broker?.name ?? realty.name) : "Sales team"}</p>
+                    <p className="mt-1 text-sm font-semibold text-[#4a5070]">{agent ? (offer.broker?.name ?? realty.name) : "Sales team"}</p>
                   </div>
                 </section>
 
                 {/* Key figures */}
-                <section className="grid grid-cols-2 border-b border-[#ebe7e1] lg:grid-cols-4">
-                  <div className="col-span-2 bg-[#17150f] px-6 py-6 text-white sm:px-10 lg:col-span-1 lg:px-8">
+                <section className="grid grid-cols-2 border-b border-[#e8ebf3] lg:grid-cols-4">
+                  <div className="col-span-2 bg-[#0f1222] px-6 py-6 text-white sm:px-10 lg:col-span-1 lg:px-8">
                     <p className="text-xs font-bold uppercase tracking-[0.16em] text-white/60">Total contract price</p>
                     <p className="mt-2 text-3xl font-bold tabular-nums tracking-tight">{php(offer.price)}</p>
                   </div>
-                  <div className="border-r border-[#ebe7e1] px-6 py-6 sm:px-8">
-                    <p className="text-xs font-bold uppercase tracking-[0.16em] text-[#8a847a]">{first ? (dueToday(first) ? "Due on reservation" : "First payment") : "Payment"}</p>
+                  <div className="border-r border-[#e8ebf3] px-6 py-6 sm:px-8">
+                    <p className="text-xs font-bold uppercase tracking-[0.16em] text-[#7a8099]">{first ? (dueToday(first) ? "Due on reservation" : "First payment") : "Payment"}</p>
                     <p className="mt-2 text-2xl font-bold tabular-nums tracking-tight text-[var(--accent)]">{first ? (first.monthly ? `${php(first.monthly)}/mo` : php(first.amount)) : "—"}</p>
-                    {first && <p className="mt-1 text-xs font-semibold text-[#6b665d]">{first.label}</p>}
+                    {first && <p className="mt-1 text-xs font-semibold text-[#5b6283]">{first.label}</p>}
                   </div>
-                  <div className="px-6 py-6 sm:px-8 lg:border-r lg:border-[#ebe7e1]">
-                    <p className="text-xs font-bold uppercase tracking-[0.16em] text-[#8a847a]">Floor area</p>
+                  <div className="px-6 py-6 sm:px-8 lg:border-r lg:border-[#e8ebf3]">
+                    <p className="text-xs font-bold uppercase tracking-[0.16em] text-[#7a8099]">Floor area</p>
                     <p className="mt-2 text-2xl font-bold tabular-nums tracking-tight">{area !== null ? sqm(area) : "—"}</p>
-                    <p className="mt-1 text-xs font-semibold text-[#6b665d]">{unit.name}</p>
+                    <p className="mt-1 text-xs font-semibold text-[#5b6283]">{unit.name}</p>
                   </div>
-                  <div className="col-span-2 border-t border-[#ebe7e1] px-6 py-6 sm:px-8 lg:col-span-1 lg:border-t-0">
-                    <p className="text-xs font-bold uppercase tracking-[0.16em] text-[#8a847a]">Turnover</p>
+                  <div className="col-span-2 border-t border-[#e8ebf3] px-6 py-6 sm:px-8 lg:col-span-1 lg:border-t-0">
+                    <p className="text-xs font-bold uppercase tracking-[0.16em] text-[#7a8099]">Turnover</p>
                     <p className="mt-2 text-2xl font-bold tracking-tight">{project.completion_date ? longDate(project.completion_date) : "Upon completion"}</p>
-                    <p className="mt-1 text-xs font-semibold text-[#6b665d]">{project.region ?? project.location ?? ""}</p>
+                    <p className="mt-1 text-xs font-semibold text-[#5b6283]">{project.region ?? project.location ?? ""}</p>
                   </div>
                 </section>
                 <div className={pad}>
-                  <p className="max-w-3xl text-[17px] leading-relaxed text-[#3d3a34]">
-                    Thank you for your interest in <strong className="font-bold text-[#17150f]">{project.name}</strong>. This offer covers <strong className="font-bold text-[#17150f]">{unit.name}</strong>, the total contract price and how the payment is spread out.
+                  <p className="max-w-3xl text-[17px] leading-relaxed text-[#2f3450]">
+                    Thank you for your interest in <strong className="font-bold text-[#0f1222]">{project.name}</strong>. This offer covers <strong className="font-bold text-[#0f1222]">{unit.name}</strong>, the total contract price and how the payment is spread out.
                   </p>
                   <section className="mt-10 print:hidden">
                     <p className="text-xs font-bold uppercase tracking-[0.16em] text-[var(--accent)]">What to do next</p>
-                    <ol className={`mt-4 grid gap-px border border-[#ebe7e1] bg-[#ebe7e1] ${steps.length === 3 ? "md:grid-cols-3" : "md:grid-cols-2"}`}>
+                    <ol className={`mt-4 grid gap-px border border-[#e8ebf3] bg-[#e8ebf3] ${steps.length === 3 ? "md:grid-cols-3" : "md:grid-cols-2"}`}>
                       {steps.map((st, i) => (
                         <li key={st.title} className="flex flex-col bg-white p-5 sm:p-6">
                           <span className="text-sm font-bold tabular-nums text-[var(--accent)]">{String(i + 1).padStart(2, "0")}</span>
                           <p className="mt-2 text-lg font-bold leading-snug">{st.title}</p>
-                          <p className="mt-1.5 flex-1 text-sm leading-relaxed text-[#5a554d]">{st.text}</p>
+                          <p className="mt-1.5 flex-1 text-sm leading-relaxed text-[#4a5070]">{st.text}</p>
                           <div className="mt-5 flex flex-wrap gap-2">
                             {st.links.map((l) => (
-                              <a key={l.id} href={`#${l.id}`} className={`inline-flex items-center gap-1.5 px-4 py-2.5 text-sm font-bold transition ${l.id === "respond" || l.id === "requirements" ? "bg-[var(--accent)] text-white hover:brightness-110" : "border border-[#d9d4cb] text-[#17150f] hover:border-[#17150f]"}`}>
+                              <a key={l.id} href={`#${l.id}`} className={`inline-flex items-center gap-1.5 px-4 py-2.5 text-sm font-bold transition ${l.id === "respond" || l.id === "requirements" ? "bg-[var(--accent)] text-white hover:brightness-110" : "border border-[#d6dae6] text-[#0f1222] hover:border-[#0f1222]"}`}>
                                 {l.label} <ArrowRight className="h-4 w-4" />
                               </a>
                             ))}
@@ -322,24 +323,24 @@ export default async function OfferPage({ params, searchParams }: Props) {
                     {modelImages.length > 0 && <Zoomable images={modelImages} alt={model?.name ?? unit.name} imgClassName="aspect-[16/10]" />}
                     <div>
                       <p className="text-2xl font-bold tracking-tight">{unit.name}</p>
-                      <p className="mt-1 text-[15px] font-semibold text-[#5a554d]">{[model?.name !== unit.name ? model?.name ?? unit.unit_type : null, project.name].filter(Boolean).join(" · ")}</p>
-                      <dl className="mt-6 grid grid-cols-2 gap-px border border-[#ebe7e1] bg-[#ebe7e1]">
+                      <p className="mt-1 text-[15px] font-semibold text-[#4a5070]">{[model?.name !== unit.name ? model?.name ?? unit.unit_type : null, project.name].filter(Boolean).join(" · ")}</p>
+                      <dl className="mt-6 grid grid-cols-2 gap-px border border-[#e8ebf3] bg-[#e8ebf3]">
                         {specRows
                           .filter((r) => r.value)
                           .map(({ icon: Icon, label, value }, i, rows) => (
                             <div key={label} className={`flex items-start gap-3 bg-white p-4 ${rows.length % 2 === 1 && i === rows.length - 1 ? "col-span-2" : ""}`}>
                               <Icon className="mt-0.5 h-5 w-5 shrink-0 text-[var(--accent)]" />
                               <div>
-                                <dt className="text-xs font-bold uppercase tracking-[0.12em] text-[#8a847a]">{label}</dt>
+                                <dt className="text-xs font-bold uppercase tracking-[0.12em] text-[#7a8099]">{label}</dt>
                                 <dd className="mt-0.5 text-lg font-bold">{value}</dd>
                               </div>
                             </div>
                           ))}
                       </dl>
                       {unit.highlights && (
-                        <p className="mt-4 border-l-4 border-[var(--accent)] bg-[#faf8f5] px-4 py-3 text-[15px] font-semibold leading-relaxed text-[#17150f]">{unit.highlights}</p>
+                        <p className="mt-4 border-l-4 border-[var(--accent)] bg-[#f8f9fc] px-4 py-3 text-[15px] font-semibold leading-relaxed text-[#0f1222]">{unit.highlights}</p>
                       )}
-                      {asterisk && <p className="mt-3 text-xs text-[#8a847a]">* As indicated by the developer.</p>}
+                      {asterisk && <p className="mt-3 text-xs text-[#7a8099]">* As indicated by the developer.</p>}
                     </div>
                   </div>
                 </section>
@@ -350,7 +351,7 @@ export default async function OfferPage({ params, searchParams }: Props) {
                     <div className="mt-6">
                       <SiteMapViewer map={offer.site_map} alt={`${project.name} site development plan`} maxHeight="70vh" details modelPhotos={model ? { [model.name]: model.images } : undefined} highlightPrice={offer.price} />
                     </div>
-                    <p className="mt-2 text-xs text-[#8a847a]">Use + to zoom in. Colours show which lots are still available today.</p>
+                    <p className="mt-2 text-xs text-[#7a8099]">Use + to zoom in. Colours show which lots are still available today.</p>
                   </section>
                 )}
               </div>
@@ -367,12 +368,12 @@ export default async function OfferPage({ params, searchParams }: Props) {
                   <Heading n="02" title="Payment schedule" aside={`From the purchase date, ${longDate(offer.purchase_date)}`} />
                   {schedule.length > 1 && (
                     <div className="mt-6">
-                      <div className="flex h-3 w-full overflow-hidden bg-[#ebe7e1]">
+                      <div className="flex h-3 w-full overflow-hidden bg-[#e8ebf3]">
                         {schedule.map((m, i) => (
                           <div key={i} style={{ width: `${shares[i]}%`, opacity: fade(i) }} className="h-full border-r-2 border-white bg-[var(--accent)] last:border-r-0" title={`${m.label} · ${pct(m.percent)}`} />
                         ))}
                       </div>
-                      <div className="mt-2 flex flex-wrap gap-x-5 gap-y-1 text-xs font-semibold text-[#5a554d]">
+                      <div className="mt-2 flex flex-wrap gap-x-5 gap-y-1 text-xs font-semibold text-[#4a5070]">
                         {schedule.map((m, i) => (
                           <span key={i} className="inline-flex items-center gap-1.5">
                             <span className="h-2.5 w-2.5 bg-[var(--accent)]" style={{ opacity: fade(i) }} />
@@ -384,7 +385,7 @@ export default async function OfferPage({ params, searchParams }: Props) {
                   )}
 
                   {/* Phone: one block per milestone, amount always in view */}
-                  <ol className="mt-6 divide-y divide-[#ebe7e1] border-y border-[#ebe7e1] sm:hidden">
+                  <ol className="mt-6 divide-y divide-[#e8ebf3] border-y border-[#e8ebf3] sm:hidden">
                     {schedule.map((m, i) => (
                       <li key={i} className="py-4">
                         <div className="flex items-start justify-between gap-4">
@@ -393,10 +394,10 @@ export default async function OfferPage({ params, searchParams }: Props) {
                             <span className="mr-2 tabular-nums text-[var(--accent)]">{String(i + 1).padStart(2, "0")}</span>
                             {m.label}
                           </p>
-                          <p className="mt-1 text-sm font-semibold text-[#5a554d]">
+                          <p className="mt-1 text-sm font-semibold text-[#4a5070]">
                             {m.months && m.end_date ? `${m.months} monthly payments of ${phpExact(m.monthly ?? 0)}` : m.date ? longDate(m.date) : "Upon completion"} · {pct(m.percent)}
                           </p>
-                          {m.months && m.end_date && <p className="text-sm text-[#6b665d]">{longDate(m.date)} to {longDate(m.end_date)}</p>}
+                          {m.months && m.end_date && <p className="text-sm text-[#5b6283]">{longDate(m.date)} to {longDate(m.end_date)}</p>}
                           {dueToday(m) && <span className="mt-1.5 inline-block bg-[var(--accent)] px-1.5 py-0.5 text-[10px] font-bold uppercase tracking-[0.12em] text-white">Due on reservation</span>}
                         </div>
                         <p className="shrink-0 text-right font-bold tabular-nums">{phpExact(m.amount)}</p>
@@ -404,7 +405,7 @@ export default async function OfferPage({ params, searchParams }: Props) {
                         <Installments m={m} />
                       </li>
                     ))}
-                    <li className="flex items-center justify-between gap-4 bg-[#17150f] px-4 py-4 text-white">
+                    <li className="flex items-center justify-between gap-4 bg-[#0f1222] px-4 py-4 text-white">
                       <p className="text-xs font-bold uppercase tracking-[0.14em]">Total contract price</p>
                       <p className="text-lg font-bold tabular-nums">{phpExact(offer.price)}</p>
                     </li>
@@ -413,7 +414,7 @@ export default async function OfferPage({ params, searchParams }: Props) {
                   <div className="mt-6 hidden sm:block">
                     <table className="w-full text-[15px]">
                       <thead>
-                        <tr className="border-b border-[#ebe7e1] text-left text-xs uppercase tracking-[0.12em] text-[#8a847a]">
+                        <tr className="border-b border-[#e8ebf3] text-left text-xs uppercase tracking-[0.12em] text-[#7a8099]">
                           <th className="py-3 pr-3 font-bold">#</th>
                           <th className="py-3 pr-3 font-bold">Milestone</th>
                           <th className="py-3 pr-3 font-bold">Due</th>
@@ -421,29 +422,29 @@ export default async function OfferPage({ params, searchParams }: Props) {
                           <th className="py-3 text-right font-bold">Amount</th>
                         </tr>
                       </thead>
-                      <tbody className="divide-y divide-[#ebe7e1]">
+                      <tbody className="divide-y divide-[#e8ebf3]">
                         {schedule.map((m, i) => (
                           <tr key={i}>
                             <td className="py-4 pr-3 align-top font-bold tabular-nums text-[var(--accent)]">{String(i + 1).padStart(2, "0")}</td>
                             <td className="py-4 pr-3 align-top">
                               <p className="font-bold">{m.label}</p>
-                              {m.months && m.end_date && <p className="mt-0.5 text-sm font-semibold text-[#5a554d]">{m.months} monthly payments of {phpExact(m.monthly ?? 0)}</p>}
+                              {m.months && m.end_date && <p className="mt-0.5 text-sm font-semibold text-[#4a5070]">{m.months} monthly payments of {phpExact(m.monthly ?? 0)}</p>}
                               <Installments m={m} />
                               {dueToday(m) && <span className="mt-1 inline-block bg-[var(--accent)] px-1.5 py-0.5 text-[10px] font-bold uppercase tracking-[0.12em] text-white">Due on reservation</span>}
                             </td>
-                            <td className="py-4 pr-3 align-top font-semibold text-[#3d3a34]">
+                            <td className="py-4 pr-3 align-top font-semibold text-[#2f3450]">
                               <span className="inline-flex items-center gap-1.5">
-                                <CalendarDays className="h-4 w-4 text-[#8a847a]" />
+                                <CalendarDays className="h-4 w-4 text-[#7a8099]" />
                                 {m.months && m.end_date ? `${longDate(m.date)} – ${longDate(m.end_date)}` : m.date ? longDate(m.date) : "Upon completion"}
                               </span>
                             </td>
-                            <td className="py-4 pr-3 text-right align-top font-semibold tabular-nums text-[#5a554d]">{pct(m.percent)}</td>
+                            <td className="py-4 pr-3 text-right align-top font-semibold tabular-nums text-[#4a5070]">{pct(m.percent)}</td>
                             <td className="py-4 text-right align-top font-bold tabular-nums">{phpExact(m.amount)}</td>
                           </tr>
                         ))}
                       </tbody>
                       <tfoot>
-                        <tr className="bg-[#17150f] text-white">
+                        <tr className="bg-[#0f1222] text-white">
                           <td colSpan={3} className="px-4 py-4 text-sm font-bold uppercase tracking-[0.14em]">Total contract price</td>
                           <td className="py-4 pr-3 text-right font-semibold tabular-nums text-white/70">100%</td>
                           <td className="py-4 pr-4 text-right text-lg font-bold tabular-nums">{phpExact(offer.price)}</td>
@@ -453,9 +454,9 @@ export default async function OfferPage({ params, searchParams }: Props) {
                   </div>
 
                   {offer.fee_notes && (
-                    <div className="mt-5 flex gap-3 border border-[#ebe7e1] bg-[#faf8f5] p-4">
+                    <div className="mt-5 flex gap-3 border border-[#e8ebf3] bg-[#f8f9fc] p-4">
                       <Info className="mt-0.5 h-5 w-5 shrink-0 text-[var(--accent)]" />
-                      <p className="whitespace-pre-line text-sm leading-relaxed text-[#5a554d]">{offer.fee_notes}</p>
+                      <p className="whitespace-pre-line text-sm leading-relaxed text-[#4a5070]">{offer.fee_notes}</p>
                     </div>
                   )}
                 </section>
@@ -478,15 +479,15 @@ export default async function OfferPage({ params, searchParams }: Props) {
                             <>
                               <div className="mt-6 print:hidden">
                                 <SiteMapViewer map={offer.site_map} alt={`${project.name} site development plan`} maxHeight="75vh" details modelPhotos={model ? { [model.name]: model.images } : undefined} highlightPrice={offer.price} />
-                                <p className="mt-2 text-xs text-[#8a847a]">The red pin marks your home. Pinch or use + to zoom; tap any lot to see it.</p>
+                                <p className="mt-2 text-xs text-[#7a8099]">The red pin marks your home. Pinch or use + to zoom; tap any lot to see it.</p>
                               </div>
                               {project.site_plans.filter((s) => s !== offer.site_map?.image).length > 0 && (
-                                <Zoomable images={project.site_plans.filter((s) => s !== offer.site_map?.image)} alt={`${project.name} site development plan`} caption="Other plans" className="mt-6 border border-[#ebe7e1]" />
+                                <Zoomable images={project.site_plans.filter((s) => s !== offer.site_map?.image)} alt={`${project.name} site development plan`} caption="Other plans" className="mt-6 border border-[#e8ebf3]" />
                               )}
-                              <Zoomable images={[offer.site_map.image]} alt={`${project.name} site development plan`} caption="Site development plan" className="mt-6 hidden border border-[#ebe7e1] print:block" />
+                              <Zoomable images={[offer.site_map.image]} alt={`${project.name} site development plan`} caption="Site development plan" className="mt-6 hidden border border-[#e8ebf3] print:block" />
                             </>
                           ) : (
-                            <Zoomable images={project.site_plans} alt={`${project.name} site development plan`} caption="Site development plan" className="mt-6 border border-[#ebe7e1]" />
+                            <Zoomable images={project.site_plans} alt={`${project.name} site development plan`} caption="Site development plan" className="mt-6 border border-[#e8ebf3]" />
                           )}
                         </section>
                       )}
@@ -497,7 +498,7 @@ export default async function OfferPage({ params, searchParams }: Props) {
                           <Heading n={String(++section).padStart(2, "0")} title="Amenities & facilities" aside={`${project.amenities.length} in ${project.name}`} />
                           <ul className="mt-6 grid gap-x-8 gap-y-3 sm:grid-cols-2 lg:grid-cols-3">
                             {project.amenities.map((a) => (
-                              <li key={a} className="flex items-start gap-3 text-[15px] font-semibold text-[#3d3a34]">
+                              <li key={a} className="flex items-start gap-3 text-[15px] font-semibold text-[#2f3450]">
                                 <span className="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center bg-[var(--accent)] text-white">
                                   <Check className="h-3.5 w-3.5" strokeWidth={3} />
                                 </span>
@@ -510,7 +511,7 @@ export default async function OfferPage({ params, searchParams }: Props) {
                         project.description && (
                           <section className="break-inside-avoid">
                             <Heading n={String(++section).padStart(2, "0")} title={`About ${project.name}`} />
-                            <p className="mt-6 whitespace-pre-line text-[15px] leading-relaxed text-[#3d3a34]">{project.description}</p>
+                            <p className="mt-6 whitespace-pre-line text-[15px] leading-relaxed text-[#2f3450]">{project.description}</p>
                           </section>
                         )
                       )}
@@ -532,7 +533,7 @@ export default async function OfferPage({ params, searchParams }: Props) {
                     <section className={pad}>
                       <p className="text-xs font-bold uppercase tracking-[0.16em] text-[var(--accent)]">Reserve this home</p>
                       <h2 className="mt-2 text-3xl font-bold tracking-tight">Your requirements</h2>
-                      <p className="mt-2 max-w-2xl text-[15px] text-[#5a554d]">
+                      <p className="mt-2 max-w-2xl text-[15px] text-[#4a5070]">
                         Send your details and documents here, from your phone if you like. {agent?.name ?? realty.name} sees each one as it arrives and will tell you if anything needs fixing.
                       </p>
                       <div className="mt-6">
@@ -557,10 +558,10 @@ export default async function OfferPage({ params, searchParams }: Props) {
                   label: offer.reservation.status === "confirmed" ? "Reserved" : "Reserve",
                   print: false,
                   content: (
-                    <section className={`${pad} bg-[#f6f4f0]`}>
+                    <section className={`${pad} bg-[#f3f5fa]`}>
                       <p className="text-xs font-bold uppercase tracking-[0.16em] text-[var(--accent)]">Reservation</p>
                       <h2 className="mt-2 text-3xl font-bold tracking-tight">{offer.reservation.status === "confirmed" ? "Your home is reserved" : `Reserve ${unit.name}`}</h2>
-                      <p className="mt-2 max-w-2xl text-[15px] text-[#5a554d]">{offer.reservation.status === "confirmed" ? "Thank you. Here is where it stands." : `Pay the reservation fee and ${realty.name} holds this home for you. Nothing else is charged on this page.`}</p>
+                      <p className="mt-2 max-w-2xl text-[15px] text-[#4a5070]">{offer.reservation.status === "confirmed" ? "Thank you. Here is where it stands." : `Pay the reservation fee and ${realty.name} holds this home for you. Nothing else is charged on this page.`}</p>
                       <div className="mt-6">
                         <ReserveSection code={offer.code} initial={offer.reservation} unitName={unit.name} sellerName={realty.name} backFromPayment={backFromPayment} />
                       </div>
@@ -575,10 +576,10 @@ export default async function OfferPage({ params, searchParams }: Props) {
             print: false,
             cta: true,
             content: (
-              <section className={`${pad} bg-[#f6f4f0]`}>
+              <section className={`${pad} bg-[#f3f5fa]`}>
                 <p className="text-xs font-bold uppercase tracking-[0.16em] text-[var(--accent)]">Your response</p>
                 <h2 className="mt-2 text-3xl font-bold tracking-tight">What would you like to do?</h2>
-                <p className="mt-2 max-w-2xl text-[15px] text-[#5a554d]">Choose one and {agent?.name ?? realty.name} will get back to you. It takes less than a minute.</p>
+                <p className="mt-2 max-w-2xl text-[15px] text-[#4a5070]">Choose one and {agent?.name ?? realty.name} will get back to you. It takes less than a minute.</p>
                 <div className="mt-6">
                   <RespondSection code={offer.code} buyerName={offer.buyer_name} agentName={agent?.name ?? realty.name} />
                 </div>
@@ -588,7 +589,7 @@ export default async function OfferPage({ params, searchParams }: Props) {
         ]}
       >
         {/* Contact */}
-        <section className="break-inside-avoid bg-[#17150f] px-6 py-10 text-white sm:px-10">
+        <section className="break-inside-avoid bg-[#0f1222] px-6 py-10 text-white sm:px-10">
           <div className="grid gap-8 lg:grid-cols-[1.3fr_1fr] lg:items-end">
             <div>
               <p className="text-xs font-bold uppercase tracking-[0.16em] text-white/55">Questions about this offer?</p>
@@ -628,10 +629,10 @@ export default async function OfferPage({ params, searchParams }: Props) {
           </div>
         </section>
 
-        <footer className="flex flex-wrap items-center justify-between gap-3 px-6 py-5 text-xs text-[#8a847a] sm:px-10">
+        <footer className="flex flex-wrap items-center justify-between gap-3 px-6 py-5 text-xs text-[#7a8099] sm:px-10">
           <p>Reference {offer.code} · Prices and availability may change until a reservation is made.</p>
           <p>
-            Powered by <Link href="/platform" className="font-semibold text-[#5a554d] hover:text-[#17150f]">jvconline</Link>
+            Powered by <Link href="/platform" className="font-semibold text-[#4a5070] hover:text-[#0f1222]">jvconline</Link>
           </p>
         </footer>
       </OfferTabs>
@@ -644,7 +645,7 @@ function SignIn({ data }: { data: Locked }) {
   const { realty, project, agent } = data
   const who = agent ?? realty.name
   return (
-    <main style={{ ["--accent" as string]: realty.accent_color ?? "#1f2937" }} className="min-h-screen bg-[#f6f4f0] text-[#17150f] lg:grid lg:grid-cols-[minmax(0,1.05fr)_minmax(0,1fr)]">
+    <main style={{ ["--accent" as string]: realty.accent_color ?? "#1f2937" }} className="min-h-screen bg-[#f3f5fa] text-[#0f1222] lg:grid lg:grid-cols-[minmax(0,1.05fr)_minmax(0,1fr)]">
       <aside className="relative isolate flex flex-col justify-between gap-8 overflow-hidden bg-[var(--accent)] px-5 pb-7 pt-6 text-white sm:px-10 sm:pb-10 sm:pt-8 lg:sticky lg:top-0 lg:h-screen lg:gap-10 lg:px-14 lg:py-12">
         {project.photo && (
           <>
@@ -671,22 +672,22 @@ function SignIn({ data }: { data: Locked }) {
         <div className="w-full max-w-[440px]">
           <p className="text-xs font-bold uppercase tracking-[0.2em] text-[var(--accent)]">Sales offer · {data.code}</p>
           <h1 className="mt-2 text-3xl font-bold tracking-tight sm:text-4xl">This offer is just for you.</h1>
-          <p className="mt-3 text-[15px] leading-relaxed text-[#5a554d]">
-            Enter the username and password <strong className="font-bold text-[#17150f]">{who}</strong> gave you to open it.
+          <p className="mt-3 text-[15px] leading-relaxed text-[#4a5070]">
+            Enter the username and password <strong className="font-bold text-[#0f1222]">{who}</strong> gave you to open it.
           </p>
           <div className="mt-8">
             <UnlockForm code={data.code} />
           </div>
-          <div className="mt-8 border-t border-[#e0dcd5] pt-6 text-sm leading-relaxed text-[#5a554d]">
+          <div className="mt-8 border-t border-[#dde1ec] pt-6 text-sm leading-relaxed text-[#4a5070]">
             <p>
-              <span className="font-bold text-[#17150f]">Don&apos;t have them?</span> Ask {who}. They sent you this link with your login.
+              <span className="font-bold text-[#0f1222]">Don&apos;t have them?</span> Ask {who}. They sent you this link with your login.
             </p>
           </div>
-          <p className="mt-8 flex items-center gap-2 text-xs text-[#8a847a]">
+          <p className="mt-8 flex items-center gap-2 text-xs text-[#7a8099]">
             <Lock className="h-3.5 w-3.5 shrink-0" />
             <span>
               Only you and {realty.name} can open this offer · Powered by{" "}
-              <Link href="/platform" className="font-semibold text-[#6b665d] hover:text-[#17150f]">
+              <Link href="/platform" className="font-semibold text-[#5b6283] hover:text-[#0f1222]">
                 jvconline
               </Link>
             </span>

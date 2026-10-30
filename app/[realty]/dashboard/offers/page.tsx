@@ -92,10 +92,10 @@ export default async function OffersPage({ params }: { params: Promise<{ realty:
               <div className="min-w-0">
                 <div className="flex flex-wrap items-center gap-2">
                   <Link href={`/${slug}/dashboard/offers/${o.id}`} className="text-base font-bold hover:text-[var(--accent)] sm:text-lg">{o.buyer_name}</Link>
-                  <span className="font-mono text-xs text-[#a39d92]">{o.code}</span>
+                  <span className="font-mono text-xs text-[#9aa0b5]">{o.code}</span>
                   {o.status === "void" && <Tag>Void</Tag>}
                   {o.status === "active" && o.expired && <Tag tone="bad">Expired</Tag>}
-                  {o.unit_status === "sold" && <span className="rounded-xl bg-[#17150f] px-1.5 py-0.5 text-[10px] font-bold uppercase tracking-[0.14em] text-white">Sold</span>}
+                  {o.unit_status === "sold" && <span className="rounded-xl bg-[#0f1222] px-1.5 py-0.5 text-[10px] font-bold uppercase tracking-[0.14em] text-white">Sold</span>}
                   {o.unit_status === "reserved" && <Tag tone="warn">Reserved</Tag>}
                   {(o.reservation_status === "pending" || o.reservation_status === "paid") && <Tag tone="accent">Reservation to confirm</Tag>}
                   {o.status === "active" && o.approval_status === "pending" && <Tag tone="warn">Waiting for approval</Tag>}
@@ -105,15 +105,15 @@ export default async function OffersPage({ params }: { params: Promise<{ realty:
                   {o.new_responses > 0 && <NewTag />}
                   {o.requirements.required > 0 && o.status === "active" && <ReqChip r={o.requirements} />}
                 </div>
-                <p className="mt-0.5 text-sm text-[#6b665d]">
+                <p className="mt-0.5 text-sm text-[#5b6283]">
                   {o.project} · {o.unit} · {php(o.price)}
                   {staff && o.agent && <> · by {o.agent}</>}
                   {o.broker && <> · {o.broker}</>}
                 </p>
-                <p className="mt-1 flex flex-wrap items-center gap-x-1.5 text-xs font-medium text-[#8a847a]">
+                <p className="mt-1 flex flex-wrap items-center gap-x-1.5 text-xs font-medium text-[#7a8099]">
                   Sent {shortDate(o.created_at)}{o.status === "active" && o.expires_at && !o.expired ? ` · open until ${dateTime(o.expires_at)}` : ""} ·
                   {o.views > 0 ? (
-                    <span className="inline-flex items-center gap-1 text-[#3d3a34]">
+                    <span className="inline-flex items-center gap-1 text-[#2f3450]">
                       <Eye className="h-3.5 w-3.5" /> Opened {o.views}× · last {timeAgo(o.last_viewed_at)}
                     </span>
                   ) : (
@@ -139,7 +139,7 @@ export default async function OffersPage({ params }: { params: Promise<{ realty:
                 </Link>
                 {o.status === "active" && o.expired && <ExtendOffer slug={slug} id={o.id} expired />}
                 {o.status === "active" && (
-                  <VoidOfferButton slug={slug} id={o.id} buyer={o.buyer_name} className="px-2 py-1.5 text-xs font-semibold text-[#8a847a] hover:text-red-700">
+                  <VoidOfferButton slug={slug} id={o.id} buyer={o.buyer_name} className="px-2 py-1.5 text-xs font-semibold text-[#7a8099] hover:text-red-700">
                     Void
                   </VoidOfferButton>
                 )}

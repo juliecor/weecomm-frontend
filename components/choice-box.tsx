@@ -22,11 +22,11 @@ export function ChoiceBox({
   invalid?: boolean
 }) {
   return (
-    <label className="inline-flex cursor-pointer select-none items-center gap-3 text-[15px] text-[#17150f]">
+    <label className="inline-flex cursor-pointer select-none items-center gap-3 text-[15px] text-[#0f1222]">
       <input type="radio" name={name} value={value} checked={checked} defaultChecked={defaultChecked} onChange={onChange} className="peer sr-only" />
       <span
         aria-hidden
-        className={`grid h-6 w-6 shrink-0 place-items-center rounded-[3px] border-2 bg-white text-transparent transition peer-checked:border-[var(--accent)] peer-checked:bg-[var(--accent)] peer-checked:text-white peer-focus-visible:ring-2 peer-focus-visible:ring-[var(--accent)]/40 peer-focus-visible:ring-offset-2 ${invalid ? "border-red-500" : "border-[#8a847a]"}`}
+        className={`grid h-6 w-6 shrink-0 place-items-center rounded-[3px] border-2 bg-white text-transparent transition peer-checked:border-[var(--accent)] peer-checked:bg-[var(--accent)] peer-checked:text-white peer-focus-visible:ring-2 peer-focus-visible:ring-[var(--accent)]/40 peer-focus-visible:ring-offset-2 ${invalid ? "border-red-500" : "border-[#7a8099]"}`}
       >
         <Check className="h-4 w-4" strokeWidth={3.5} />
       </span>

@@ -23,8 +23,8 @@ type Props = {
   canOffer: boolean
 }
 
-const field = "block w-full rounded-xl border border-[#d9d4cb] bg-white px-3 py-2 text-[15px] outline-none focus:border-[var(--accent)] focus:ring-2 focus:ring-[var(--accent)]/15"
-const label = "mb-1 block text-xs font-bold uppercase tracking-[0.1em] text-[#5a554d]"
+const field = "block w-full rounded-xl border border-[#d6dae6] bg-white px-3 py-2 text-[15px] outline-none focus:border-[var(--accent)] focus:ring-2 focus:ring-[var(--accent)]/15"
+const label = "mb-1 block text-xs font-bold uppercase tracking-[0.1em] text-[#4a5070]"
 const num = (v: string) => (v.trim() === "" ? null : Number(v))
 /** "36 sqm" → 36, for a model's floor area. */
 const sqm = (v: string | null | undefined) => {
@@ -53,9 +53,9 @@ const clickHint = (n: number) =>
 export function SiteMapTab(p: Props) {
   if (!p.map) {
     return (
-      <div className="rounded-xl mt-6 border-2 border-dashed border-[#d9d4cb] px-6 py-12 text-center">
+      <div className="rounded-xl mt-6 border-2 border-dashed border-[#d6dae6] px-6 py-12 text-center">
         <p className="text-lg font-bold">No site development plan yet</p>
-        <p className="mx-auto mt-2 max-w-md text-[15px] text-[#5a554d]">{p.staff ? "Upload the plan in the Website tab, under Site development plan. Then come back here to draw the lots on it." : "Johndorf hasn't uploaded this project's site plan yet."}</p>
+        <p className="mx-auto mt-2 max-w-md text-[15px] text-[#4a5070]">{p.staff ? "Upload the plan in the Website tab, under Site development plan. Then come back here to draw the lots on it." : "Johndorf hasn't uploaded this project's site plan yet."}</p>
       </div>
     )
   }
@@ -82,10 +82,10 @@ function Browser({ slug, projectId, projectName, map, models, canOffer }: Props 
           <Plus className="h-4 w-4" strokeWidth={2.5} /> Make an offer for this lot
         </Link>
       )}
-      {sel.status === "available" && !sel.price && <p className="text-sm text-[#6b665d]">No price yet, so it can&apos;t be offered. Ask Johndorf&apos;s admin.</p>}
+      {sel.status === "available" && !sel.price && <p className="text-sm text-[#5b6283]">No price yet, so it can&apos;t be offered. Ask Johndorf&apos;s admin.</p>}
     </LotDetails>
   ) : (
-    <p className="flex items-start gap-3 text-[15px] text-[#5a554d]">
+    <p className="flex items-start gap-3 text-[15px] text-[#4a5070]">
       <MousePointerClick className="mt-0.5 h-5 w-5 shrink-0 text-[var(--accent)]" /> Click a lot to see its details and photos. Green lots are available.
     </p>
   )
@@ -101,7 +101,7 @@ function Browser({ slug, projectId, projectName, map, models, canOffer }: Props 
           layers={all.map(({ lot, quad }) => <LotShape key={lot.id} quad={quad} lot={lot} selected={lot.id === sel?.id} onClick={() => setSel(lot)} onHover={(on) => setHover(on ? lot.id : null)} />)}
           labels={hovered && <LotTip lot={hovered.lot} quad={hovered.quad} photo={tipPhoto(hovered.lot, modelPhotos)} />}
         />
-        {map.lots.length === 0 && <p className="text-sm text-[#6b665d]">The lots haven&apos;t been drawn on this plan yet.</p>}
+        {map.lots.length === 0 && <p className="text-sm text-[#5b6283]">The lots haven&apos;t been drawn on this plan yet.</p>}
       </div>
       <aside className="rounded-2xl border border-[#e8eaed] bg-white shadow-[0_2px_12px_-2px_rgba(23,21,15,0.06)] p-5 lg:self-start">{panel}</aside>
     </div>
@@ -221,8 +221,8 @@ function Editor({ slug, projectId, projectName, map: initial, sitePlans, models 
         <div>
           <p className="text-xs font-bold uppercase tracking-[0.14em] text-[#1d4ed8]">Draw a row · click {points.length + 1}</p>
           <p className="mt-2 text-lg font-bold leading-snug">{clickHint(points.length)}</p>
-          <p className="mt-3 text-sm text-[#5a554d]">A row is one line of lots, like the top row of a block. You click in pairs: the road side, then straight across at the back. Lot numbers count up from your first pair.</p>
-          <p className="mt-3 text-sm text-[#5a554d]">A straight row is 4 clicks. If it bends, click a pair at every bend too. Zoom in close first: it makes the clicks exact.</p>
+          <p className="mt-3 text-sm text-[#4a5070]">A row is one line of lots, like the top row of a block. You click in pairs: the road side, then straight across at the back. Lot numbers count up from your first pair.</p>
+          <p className="mt-3 text-sm text-[#4a5070]">A straight row is 4 clicks. If it bends, click a pair at every bend too. Zoom in close first: it makes the clicks exact.</p>
           {points.length > 0 && (
             <button type="button" onClick={() => setMode({ kind: "draw", points: points.slice(0, -1) })} className="mt-4 text-sm font-bold text-[var(--accent)] hover:underline">
               Undo the last click
@@ -243,7 +243,7 @@ function Editor({ slug, projectId, projectName, map: initial, sitePlans, models 
           {halfPair ? (
             <p className="rounded-xl border-l-4 border-[#1d4ed8] bg-[#eff4ff] px-3 py-2 text-sm font-semibold text-[#1e3a8a]">{clickHint(points.length)} That finishes this bend.</p>
           ) : (
-            <p className="text-xs text-[#6b665d]">
+            <p className="text-xs text-[#5b6283]">
               Drag the blue points if a line is off. Row bends? Keep clicking in pairs: the road side, then straight across.{points.length >= MAX_CORNERS ? ` That's the most (${MAX_CORNERS / 2} pairs).` : ""}
             </p>
           )}
@@ -267,7 +267,7 @@ function Editor({ slug, projectId, projectName, map: initial, sitePlans, models 
             </label>
           </div>
           {(rowError.first_lot || rowError.block || rowError.lot_count) && <p className="text-sm font-semibold text-red-700">{rowError.first_lot ?? rowError.block ?? rowError.lot_count}</p>}
-          <p className="text-xs text-[#8a847a]">For every lot in the row (you can change single lots after):</p>
+          <p className="text-xs text-[#7a8099]">For every lot in the row (you can change single lots after):</p>
           <ModelField value={row.unit_type} models={models} onChange={pickModel} />
           <div className="grid grid-cols-2 gap-2">
             <label>
@@ -288,7 +288,7 @@ function Editor({ slug, projectId, projectName, map: initial, sitePlans, models 
             <button type="submit" disabled={pending || halfPair || !row.block.trim() || !Number(row.lot_count)} className="inline-flex items-center gap-2 rounded-xl bg-[var(--accent)] px-4 py-2.5 text-sm font-bold text-white hover:brightness-110 disabled:opacity-50">
               {pending ? <LoaderCircle className="h-4 w-4 animate-spin" /> : <Check className="h-4 w-4" strokeWidth={3} />} Add {Number(row.lot_count) || ""} lots
             </button>
-            <button type="button" onClick={() => setMode({ kind: "draw", points: [] })} className="px-3 py-2.5 text-sm font-semibold text-[#8a847a] hover:text-[#17150f]">
+            <button type="button" onClick={() => setMode({ kind: "draw", points: [] })} className="px-3 py-2.5 text-sm font-semibold text-[#7a8099] hover:text-[#0f1222]">
               Redraw
             </button>
           </div>
@@ -360,12 +360,12 @@ function Editor({ slug, projectId, projectName, map: initial, sitePlans, models 
           <p className="text-xs font-bold uppercase tracking-[0.14em] text-[#1d4ed8]">
             <Move className="mr-1 inline h-3.5 w-3.5" /> Adjusting Block {selectedRow?.block}
           </p>
-          <p className="mt-2 text-[15px] text-[#3d3a34]">Drag the blue points until the lots sit on the drawing, then save.</p>
+          <p className="mt-2 text-[15px] text-[#2f3450]">Drag the blue points until the lots sit on the drawing, then save.</p>
           <div className="mt-4 flex gap-2">
             <button type="button" disabled={pending} onClick={() => run(() => moveSiteRow(slug, projectId, mode.rowId, mode.corners), "Row moved", () => setMode({ kind: "idle" }))} className="inline-flex items-center gap-2 rounded-xl bg-[var(--accent)] px-4 py-2.5 text-sm font-bold text-white hover:brightness-110 disabled:opacity-50">
               {pending ? <LoaderCircle className="h-4 w-4 animate-spin" /> : <Check className="h-4 w-4" strokeWidth={3} />} Save position
             </button>
-            <button type="button" onClick={() => setMode({ kind: "idle" })} className="px-3 py-2.5 text-sm font-semibold text-[#8a847a] hover:text-[#17150f]">
+            <button type="button" onClick={() => setMode({ kind: "idle" })} className="px-3 py-2.5 text-sm font-semibold text-[#7a8099] hover:text-[#0f1222]">
               Cancel
             </button>
           </div>
@@ -377,7 +377,7 @@ function Editor({ slug, projectId, projectName, map: initial, sitePlans, models 
   )
 
   const drawButton = drawing ? (
-    <button type="button" onClick={() => setMode({ kind: "idle" })} className="inline-flex items-center gap-2 rounded-xl border border-[#17150f] bg-white px-4 py-2.5 text-sm font-bold hover:bg-[#f6f4f0]">
+    <button type="button" onClick={() => setMode({ kind: "idle" })} className="inline-flex items-center gap-2 rounded-xl border border-[#0f1222] bg-white px-4 py-2.5 text-sm font-bold hover:bg-[#f3f5fa]">
       <X className="h-4 w-4" /> Done drawing
     </button>
   ) : (
@@ -401,7 +401,7 @@ function Editor({ slug, projectId, projectName, map: initial, sitePlans, models 
                 run(() => setSiteMapImage(slug, projectId, image), "Plan changed")
               }}
               aria-label="Which site plan to draw on"
-              className="rounded-xl border border-[#d9d4cb] bg-white px-3 py-2 text-sm font-semibold"
+              className="rounded-xl border border-[#d6dae6] bg-white px-3 py-2 text-sm font-semibold"
             >
               {sitePlans.map((s, i) => (
                 <option key={s} value={s}>
@@ -423,7 +423,7 @@ function Editor({ slug, projectId, projectName, map: initial, sitePlans, models 
             onFullscreen={setFull}
             side={
               <div className="space-y-4">
-                <div className="flex flex-wrap items-center justify-between gap-2 border-b border-[#e6e2db] pb-3">
+                <div className="flex flex-wrap items-center justify-between gap-2 border-b border-[#e2e5ef] pb-3">
                   <StatusLegend lots={map.lots} />
                   {drawButton}
                 </div>
@@ -455,7 +455,7 @@ function Editor({ slug, projectId, projectName, map: initial, sitePlans, models 
                     onHover={(on) => setHover(on ? lot.id : null)}
                   />
                 ))}
-                {selectedRow && !adjusting && <polygon points={svgPoints(selectedRow.corners)} fill="none" stroke="#17150f" strokeWidth={1.5} strokeDasharray="6 4" vectorEffect="non-scaling-stroke" pointerEvents="none" />}
+                {selectedRow && !adjusting && <polygon points={svgPoints(selectedRow.corners)} fill="none" stroke="#0f1222" strokeWidth={1.5} strokeDasharray="6 4" vectorEffect="non-scaling-stroke" pointerEvents="none" />}
                 {adjusting &&
                   lotQuads(mode.corners, selectedRow?.lot_count ?? 1, undefined, aspect).map((q, i) => <polygon key={i} points={svgPoints(q)} fill="#2563eb" fillOpacity={0.25} stroke="#1d4ed8" strokeWidth={1.2} vectorEffect="non-scaling-stroke" pointerEvents="none" />)}
                 {drawing && (
@@ -506,8 +506,8 @@ function Editor({ slug, projectId, projectName, map: initial, sitePlans, models 
 function Help({ map }: { map: SiteMapData }) {
   const blocks = new Set(map.rows.map((r) => r.block)).size
   return (
-    <div className="space-y-4 text-[15px] text-[#3d3a34]">
-      <p className="text-lg font-bold text-[#17150f]">{map.lots.length ? `${map.lots.length} lots in ${blocks} block${blocks === 1 ? "" : "s"} on the map` : "Put the lots on the map"}</p>
+    <div className="space-y-4 text-[15px] text-[#2f3450]">
+      <p className="text-lg font-bold text-[#0f1222]">{map.lots.length ? `${map.lots.length} lots in ${blocks} block${blocks === 1 ? "" : "s"} on the map` : "Put the lots on the map"}</p>
       <ol className="list-decimal space-y-2 pl-5">
         <li>
           Open <b>full screen</b> (the arrows at the top right of the plan) and zoom in on a block.
@@ -519,7 +519,7 @@ function Help({ map }: { map: SiteMapData }) {
         <li>Repeat for every row. A block usually has two rows, back to back.</li>
         <li>Click any lot to change it alone: a corner lot, a different price, its own photos, reserved or sold.</li>
       </ol>
-      <p className="text-sm text-[#6b665d]">Agents see this map, the buyer sees where their home is, and the website shows which lots are still available (without prices).</p>
+      <p className="text-sm text-[#5b6283]">Agents see this map, the buyer sees where their home is, and the website shows which lots are still available (without prices).</p>
     </div>
   )
 }
@@ -550,13 +550,13 @@ function PhotoPicker({ files, onChange, hint }: { files: File[]; onChange: (f: F
         {urls.map((u, i) => (
           <span key={u} className="relative">
             {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src={u} alt="" className="h-14 w-20 border border-[#e6e2db] object-cover" />
-            <button type="button" onClick={() => onChange(files.filter((_, j) => j !== i))} aria-label="Remove this photo" className="absolute -right-1.5 -top-1.5 rounded-full bg-[#17150f] p-0.5 text-white">
+            <img src={u} alt="" className="h-14 w-20 border border-[#e2e5ef] object-cover" />
+            <button type="button" onClick={() => onChange(files.filter((_, j) => j !== i))} aria-label="Remove this photo" className="absolute -right-1.5 -top-1.5 rounded-full bg-[#0f1222] p-0.5 text-white">
               <X className="h-3 w-3" />
             </button>
           </span>
         ))}
-        <button type="button" onClick={() => input.current?.click()} className="rounded-xl inline-flex h-14 items-center gap-1.5 border border-dashed border-[#a39d92] px-3 text-xs font-bold text-[#3d3a34] hover:border-[#17150f]">
+        <button type="button" onClick={() => input.current?.click()} className="rounded-xl inline-flex h-14 items-center gap-1.5 border border-dashed border-[#9aa0b5] px-3 text-xs font-bold text-[#2f3450] hover:border-[#0f1222]">
           <ImagePlus className="h-4 w-4" /> Add photos
         </button>
       </div>
@@ -583,15 +583,15 @@ function LotPhotoManager({ lot, modelPhotos, onUpload, onRemove }: { lot: SiteMa
   const [busy, setBusy] = useState(false)
   const room = MAX_PHOTOS - lot.photos.length
   return (
-    <div className="border-t border-[#e6e2db] pt-4">
-      <p className="flex items-center gap-2 text-xs font-bold uppercase tracking-[0.14em] text-[#8a847a]">
+    <div className="border-t border-[#e2e5ef] pt-4">
+      <p className="flex items-center gap-2 text-xs font-bold uppercase tracking-[0.14em] text-[#7a8099]">
         <Camera className="h-3.5 w-3.5" /> Photos of this lot · {lot.photos.length}
       </p>
       <div className="mt-3 flex flex-wrap gap-2">
         {lot.photos.map((u) => (
           <span key={u} className="relative">
             {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src={u} alt={lotName(lot)} className="h-16 w-24 border border-[#e6e2db] object-cover" />
+            <img src={u} alt={lotName(lot)} className="h-16 w-24 border border-[#e2e5ef] object-cover" />
             <button
               type="button"
               disabled={busy}
@@ -602,19 +602,19 @@ function LotPhotoManager({ lot, modelPhotos, onUpload, onRemove }: { lot: SiteMa
                 setBusy(false)
               }}
               aria-label="Remove this photo"
-              className="absolute -right-1.5 -top-1.5 rounded-full bg-[#17150f] p-0.5 text-white hover:bg-red-700"
+              className="absolute -right-1.5 -top-1.5 rounded-full bg-[#0f1222] p-0.5 text-white hover:bg-red-700"
             >
               <X className="h-3 w-3" />
             </button>
           </span>
         ))}
         {room > 0 && (
-          <button type="button" disabled={busy} onClick={() => input.current?.click()} className="rounded-xl inline-flex h-16 items-center gap-1.5 border border-dashed border-[#a39d92] px-3 text-xs font-bold text-[#3d3a34] hover:border-[#17150f] disabled:opacity-50">
+          <button type="button" disabled={busy} onClick={() => input.current?.click()} className="rounded-xl inline-flex h-16 items-center gap-1.5 border border-dashed border-[#9aa0b5] px-3 text-xs font-bold text-[#2f3450] hover:border-[#0f1222] disabled:opacity-50">
             {busy ? <LoaderCircle className="h-4 w-4 animate-spin" /> : <ImagePlus className="h-4 w-4" />} {busy ? "Uploading…" : "Add photos"}
           </button>
         )}
       </div>
-      {lot.photos.length === 0 && <p className="mt-2 text-xs text-[#8a847a]">{modelPhotos.length ? (lot.model ? `Without its own photos, the lot shows the ${lot.model} model's ${modelPhotos.length} picture${modelPhotos.length === 1 ? "" : "s"}.` : `No house model set: the lot shows the pictures of every model in this project (${modelPhotos.length}). Set its model above to show the right one.`) : "Add photos of the actual house or lot."}</p>}
+      {lot.photos.length === 0 && <p className="mt-2 text-xs text-[#7a8099]">{modelPhotos.length ? (lot.model ? `Without its own photos, the lot shows the ${lot.model} model's ${modelPhotos.length} picture${modelPhotos.length === 1 ? "" : "s"}.` : `No house model set: the lot shows the pictures of every model in this project (${modelPhotos.length}). Set its model above to show the right one.`) : "Add photos of the actual house or lot."}</p>}
       <input
         ref={input}
         type="file"
@@ -651,7 +651,7 @@ function LotEditor({ lot, models, pending, onSave, onClose }: { lot: SiteMapLot;
           <p className="text-xs font-bold uppercase tracking-[0.14em] text-[var(--accent)]">Lot details</p>
           <p className="mt-1 text-2xl font-bold tracking-tight">{lotName(lot)}</p>
         </div>
-        <button type="button" onClick={onClose} aria-label="Close" className="-mr-2 p-2 text-[#6b665d] hover:text-[#17150f]">
+        <button type="button" onClick={onClose} aria-label="Close" className="-mr-2 p-2 text-[#5b6283] hover:text-[#0f1222]">
           <X className="h-5 w-5" />
         </button>
       </div>
@@ -688,7 +688,7 @@ function LotEditor({ lot, models, pending, onSave, onClose }: { lot: SiteMapLot;
           {Object.entries(LOT_TAGS).map(([k, name]) => {
             const on = v.tags.includes(k)
             return (
-              <label key={k} className={`rounded-xl inline-flex cursor-pointer items-center gap-2 border px-3 py-2 text-sm font-semibold ${on ? "border-[var(--accent)] bg-[#fff4f3] text-[#17150f]" : "border-[#d9d4cb] text-[#5a554d]"}`}>
+              <label key={k} className={`rounded-xl inline-flex cursor-pointer items-center gap-2 border px-3 py-2 text-sm font-semibold ${on ? "border-[var(--accent)] bg-[#fff4f3] text-[#0f1222]" : "border-[#d6dae6] text-[#4a5070]"}`}>
                 <input type="checkbox" checked={on} onChange={() => setV({ ...v, tags: on ? v.tags.filter((t) => t !== k) : [...v.tags, k] })} className="h-4 w-4 accent-[var(--accent)]" />
                 {name}
               </label>
@@ -732,22 +732,22 @@ function RowPanel({
     ].filter(([, x]) => x !== null && x !== ""),
   )
   return (
-    <div className="border-t border-[#e6e2db] pt-4">
-      <p className="text-xs font-bold uppercase tracking-[0.14em] text-[#8a847a]">This row</p>
+    <div className="border-t border-[#e2e5ef] pt-4">
+      <p className="text-xs font-bold uppercase tracking-[0.14em] text-[#7a8099]">This row</p>
       <p className="mt-1 font-bold">
         Block {row.block} · lots {row.first_lot}–{row.first_lot + row.lot_count - 1}
       </p>
       <div className="mt-3 flex flex-wrap gap-2">
-        <button type="button" onClick={onAdjust} className="inline-flex items-center gap-1.5 rounded-xl border border-[#d9d4cb] bg-white px-3 py-2 text-xs font-bold hover:border-[#17150f]">
+        <button type="button" onClick={onAdjust} className="inline-flex items-center gap-1.5 rounded-xl border border-[#d6dae6] bg-white px-3 py-2 text-xs font-bold hover:border-[#0f1222]">
           <Move className="h-3.5 w-3.5" /> Adjust position
         </button>
-        <button type="button" onClick={() => setOpen((o) => !o)} className="inline-flex items-center gap-1.5 rounded-xl border border-[#d9d4cb] bg-white px-3 py-2 text-xs font-bold hover:border-[#17150f]">
+        <button type="button" onClick={() => setOpen((o) => !o)} className="inline-flex items-center gap-1.5 rounded-xl border border-[#d6dae6] bg-white px-3 py-2 text-xs font-bold hover:border-[#0f1222]">
           Fill in every lot
         </button>
-        <button type="button" disabled={pending} onClick={() => photoInput.current?.click()} className="inline-flex items-center gap-1.5 rounded-xl border border-[#d9d4cb] bg-white px-3 py-2 text-xs font-bold hover:border-[#17150f] disabled:opacity-50">
+        <button type="button" disabled={pending} onClick={() => photoInput.current?.click()} className="inline-flex items-center gap-1.5 rounded-xl border border-[#d6dae6] bg-white px-3 py-2 text-xs font-bold hover:border-[#0f1222] disabled:opacity-50">
           {pending ? <LoaderCircle className="h-3.5 w-3.5 animate-spin" /> : <ImagePlus className="h-3.5 w-3.5" />} Photos for every lot
         </button>
-        <button type="button" onClick={onRemove} disabled={pending} className="inline-flex items-center gap-1.5 rounded-xl border border-[#d9d4cb] bg-white px-3 py-2 text-xs font-bold hover:border-red-400 hover:text-red-700">
+        <button type="button" onClick={onRemove} disabled={pending} className="inline-flex items-center gap-1.5 rounded-xl border border-[#d6dae6] bg-white px-3 py-2 text-xs font-bold hover:border-red-400 hover:text-red-700">
           <Trash2 className="h-3.5 w-3.5" /> Remove row
         </button>
       </div>
@@ -768,13 +768,13 @@ function RowPanel({
       />
       {open && (
         <form
-          className="rounded-xl mt-3 space-y-2 border border-[#e6e2db] bg-[#faf8f5] p-3"
+          className="rounded-xl mt-3 space-y-2 border border-[#e2e5ef] bg-[#f8f9fc] p-3"
           onSubmit={(e) => {
             e.preventDefault()
             onApply(values)
           }}
         >
-          <p className="text-xs text-[#6b665d]">Only what you fill in changes, on every lot in this row.</p>
+          <p className="text-xs text-[#5b6283]">Only what you fill in changes, on every lot in this row.</p>
           <ModelField value={v.model} models={models} onChange={(model) => setV({ ...v, model })} />
           <div className="grid grid-cols-3 gap-2">
             <label>
@@ -790,7 +790,7 @@ function RowPanel({
               <input type="number" min={0} value={v.price} onChange={(e) => setV({ ...v, price: e.target.value })} className={field} />
             </label>
           </div>
-          <button type="submit" disabled={pending || Object.keys(values).length === 0} className="inline-flex items-center gap-2 rounded-xl bg-[#17150f] px-3 py-2 text-xs font-bold text-white disabled:opacity-40">
+          <button type="submit" disabled={pending || Object.keys(values).length === 0} className="inline-flex items-center gap-2 rounded-xl bg-[#0f1222] px-3 py-2 text-xs font-bold text-white disabled:opacity-40">
             Apply to all {row.lot_count} lots
           </button>
         </form>

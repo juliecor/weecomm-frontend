@@ -24,7 +24,7 @@ const readHash = () => window.location.hash.slice(1)
 const serverHash = () => ""
 
 const BADGE = {
-  neutral: "bg-[#f1eee9] text-[#3d3a34]",
+  neutral: "bg-[#eff1f7] text-[#2f3450]",
   accent: "bg-[var(--accent)] text-white",
   good: "bg-emerald-100 text-emerald-800",
 }
@@ -40,7 +40,7 @@ export function HashTabs({ tabs }: { tabs: HashTab[] }) {
 
   return (
     <div className="mt-8">
-      <div role="tablist" className="grid grid-cols-3 border-b-2 border-[#17150f] sm:flex sm:flex-wrap">
+      <div role="tablist" className="grid grid-cols-3 border-b-2 border-[#0f1222] sm:flex sm:flex-wrap">
         {tabs.map((t) => {
           const on = t.id === active
           return (
@@ -49,7 +49,7 @@ export function HashTabs({ tabs }: { tabs: HashTab[] }) {
               href={`#${t.id}`}
               role="tab"
               aria-selected={on}
-              className={`relative flex items-center justify-center gap-2 px-2 py-3 text-sm font-bold transition sm:justify-start sm:px-5 sm:text-[15px] ${on ? "bg-white text-[#17150f]" : "text-[#6b665d] hover:bg-white/60 hover:text-[#17150f]"}`}
+              className={`relative flex items-center justify-center gap-2 px-2 py-3 text-sm font-bold transition sm:justify-start sm:px-5 sm:text-[15px] ${on ? "bg-white text-[#0f1222]" : "text-[#5b6283] hover:bg-white/60 hover:text-[#0f1222]"}`}
             >
               <span className="truncate">
                 <span className="sm:hidden">{t.short ?? t.label}</span>

@@ -4,8 +4,8 @@ import { useActionState, useState } from "react"
 import { AlertCircle, ArrowRight, Eye, EyeOff, LoaderCircle } from "lucide-react"
 import { type RealtyLoginState, signInRealty } from "./actions"
 
-const field = "mt-1.5 block w-full border border-[#d9d4cb] bg-white px-4 py-3.5 text-[15px] text-[#17150f] outline-none transition placeholder:text-[#b3ada3] focus:border-[var(--accent)] focus:ring-2 focus:ring-[var(--accent)]/15"
-const label = "text-xs font-bold uppercase tracking-[0.12em] text-[#5a554d]"
+const field = "mt-1.5 block w-full border border-[#d6dae6] bg-white px-4 py-3.5 text-[15px] text-[#0f1222] outline-none transition placeholder:text-[#b3ada3] focus:border-[var(--accent)] focus:ring-2 focus:ring-[var(--accent)]/15"
+const label = "text-xs font-bold uppercase tracking-[0.12em] text-[#4a5070]"
 
 /** Email and password; the email stays filled in after a failed try, and the password can be shown. */
 export function RealtyLoginForm({ slug }: { slug: string }) {
@@ -26,7 +26,7 @@ export function RealtyLoginForm({ slug }: { slug: string }) {
             type="button"
             onClick={() => setShow((s) => !s)}
             aria-label={show ? "Hide password" : "Show password"}
-            className="absolute inset-y-0 right-0 flex w-12 items-center justify-center text-[#8a847a] transition hover:text-[#17150f]"
+            className="absolute inset-y-0 right-0 flex w-12 items-center justify-center text-[#7a8099] transition hover:text-[#0f1222]"
           >
             {show ? <EyeOff className="h-5 w-5" /> : <Eye className="h-5 w-5" />}
           </button>

@@ -132,8 +132,8 @@ function Inline({ text }: { text: string }) {
   return (
     <>
       {parts.map((p, i) => {
-        if (p.startsWith("**") && p.endsWith("**") && p.length > 4) return <strong key={i} className="font-bold text-[#17150f]">{p.slice(2, -2)}</strong>
-        if (p.startsWith("`") && p.endsWith("`") && p.length > 2) return <code key={i} className="rounded-xl bg-[#f1eee9] px-1 py-0.5 font-mono text-[0.9em]">{p.slice(1, -1)}</code>
+        if (p.startsWith("**") && p.endsWith("**") && p.length > 4) return <strong key={i} className="font-bold text-[#0f1222]">{p.slice(2, -2)}</strong>
+        if (p.startsWith("`") && p.endsWith("`") && p.length > 2) return <code key={i} className="rounded-xl bg-[#eff1f7] px-1 py-0.5 font-mono text-[0.9em]">{p.slice(1, -1)}</code>
         const link = p.match(/^\[([^\]]+)\]\(([^)\s]+)\)$/)
         if (link) {
           const [, label, href] = link
@@ -155,34 +155,34 @@ export function Markdown({ text, streaming = false }: { text: string; streaming?
         switch (b.kind) {
           case "heading":
             return (
-              <p key={i} className={`pt-1 font-bold tracking-tight text-[#17150f] ${b.level <= 2 ? "text-lg" : "text-base"}`}>
+              <p key={i} className={`pt-1 font-bold tracking-tight text-[#0f1222] ${b.level <= 2 ? "text-lg" : "text-base"}`}>
                 <Inline text={b.text} />
               </p>
             )
           case "rule":
-            return <hr key={i} className="border-[#e6e2db]" />
+            return <hr key={i} className="border-[#e2e5ef]" />
           case "message":
             return <MessageDraft key={i} text={b.text} to={b.to} writing={b.open && streaming} />
           case "code":
             return (
-              <pre key={i} className="overflow-x-auto whitespace-pre-wrap bg-[#f6f4f0] p-3 font-mono text-sm [overflow-wrap:anywhere]">
+              <pre key={i} className="overflow-x-auto whitespace-pre-wrap bg-[#f3f5fa] p-3 font-mono text-sm [overflow-wrap:anywhere]">
                 {b.text}
               </pre>
             )
           case "table":
             return (
-              <div key={i} className="overflow-x-auto border border-[#e0dcd5]">
+              <div key={i} className="overflow-x-auto border border-[#dde1ec]">
                 <table className="w-full text-sm">
-                  <thead className="bg-[#f6f4f0]">
+                  <thead className="bg-[#f3f5fa]">
                     <tr>
                       {b.head.map((h, j) => (
-                        <th key={j} className="whitespace-nowrap px-3 py-2 text-left text-xs font-bold uppercase tracking-[0.08em] text-[#5a554d]">
+                        <th key={j} className="whitespace-nowrap px-3 py-2 text-left text-xs font-bold uppercase tracking-[0.08em] text-[#4a5070]">
                           <Inline text={h} />
                         </th>
                       ))}
                     </tr>
                   </thead>
-                  <tbody className="divide-y divide-[#ebe7e1] bg-white">
+                  <tbody className="divide-y divide-[#e8ebf3] bg-white">
                     {b.rows.map((r, j) => (
                       <tr key={j}>
                         {r.map((c, k) => (
@@ -204,7 +204,7 @@ export function Markdown({ text, streaming = false }: { text: string; streaming?
                   <li key={j} className="pl-1">
                     <Inline text={it.text} />
                     {it.children.length > 0 && (
-                      <ul className="mt-1 list-[circle] space-y-1 pl-5 marker:text-[#a39d92]">
+                      <ul className="mt-1 list-[circle] space-y-1 pl-5 marker:text-[#9aa0b5]">
                         {it.children.map((c, k) => (
                           <li key={k} className="pl-1">
                             <Inline text={c} />

@@ -16,7 +16,7 @@ export function InterestedGate({ sheet, signIn, accent }: { sheet: React.ReactNo
     return (
       <div className="relative">
         {signIn}
-        <button type="button" onClick={() => go(false)} className="absolute right-4 top-4 z-20 inline-flex items-center gap-1.5 bg-white/90 px-3 py-2 text-sm font-bold text-[#17150f] shadow hover:bg-white">
+        <button type="button" onClick={() => go(false)} className="absolute right-4 top-4 z-20 inline-flex items-center gap-1.5 bg-white/90 px-3 py-2 text-sm font-bold text-[#0f1222] shadow hover:bg-white">
           <ArrowLeft className="h-4 w-4" /> Back to the offer
         </button>
       </div>
@@ -24,12 +24,12 @@ export function InterestedGate({ sheet, signIn, accent }: { sheet: React.ReactNo
   }
 
   return (
-    <main style={{ ["--accent" as string]: accent }} className="min-h-screen bg-[#f6f4f0] pb-24 text-[#17150f]">
+    <main style={{ ["--accent" as string]: accent }} className="min-h-screen bg-[#f3f5fa] pb-24 text-[#0f1222]">
       <div aria-hidden className="h-1.5 bg-[var(--accent)]" />
       {sheet}
-      <div className="fixed inset-x-0 bottom-0 z-10 border-t border-[#e0dcd5] bg-white/95 px-4 py-3 backdrop-blur print:hidden">
+      <div className="fixed inset-x-0 bottom-0 z-10 border-t border-[#dde1ec] bg-white/95 px-4 py-3 backdrop-blur print:hidden">
         <div className="mx-auto flex max-w-4xl items-center justify-between gap-4">
-          <p className="hidden text-sm text-[#5a554d] sm:block">Like what you see? Sign in to open your full offer.</p>
+          <p className="hidden text-sm text-[#4a5070] sm:block">Like what you see? Sign in to open your full offer.</p>
           <button type="button" onClick={() => go(true)} className="inline-flex w-full items-center justify-center gap-2 bg-[var(--accent)] px-6 py-3.5 text-base font-bold text-white hover:opacity-90 sm:w-auto">
             I&apos;m interested <ArrowRight className="h-4 w-4" />
           </button>

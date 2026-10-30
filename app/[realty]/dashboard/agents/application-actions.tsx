@@ -24,13 +24,13 @@ export function ApplicationActions({ slug, id, name, status }: { slug: string; i
     <div className="flex flex-col items-start gap-2 sm:items-end">
       {confirming ? (
         <div className="flex flex-wrap items-center gap-2">
-          <span className="text-xs font-semibold text-[#3d3a34]">
+          <span className="text-xs font-semibold text-[#2f3450]">
             {confirming === "reject" ? `Reject ${first}? They won't be able to sign in.` : `Delete ${first}'s application?`}
           </span>
           <button type="button" disabled={pending} onClick={() => act(confirming)} className="rounded-xl inline-flex items-center gap-1.5 bg-red-700 px-3 py-2 text-xs font-bold text-white hover:bg-red-800 disabled:opacity-60">
             {pending && <LoaderCircle className="h-3.5 w-3.5 animate-spin" />} {confirming === "reject" ? "Reject" : "Delete"}
           </button>
-          <button type="button" disabled={pending} onClick={() => setConfirming(null)} className="inline-flex items-center gap-1 px-2 py-2 text-xs font-semibold text-[#8a847a] hover:text-[#17150f]">
+          <button type="button" disabled={pending} onClick={() => setConfirming(null)} className="inline-flex items-center gap-1 px-2 py-2 text-xs font-semibold text-[#7a8099] hover:text-[#0f1222]">
             <X className="h-3.5 w-3.5" /> Cancel
           </button>
         </div>
@@ -40,11 +40,11 @@ export function ApplicationActions({ slug, id, name, status }: { slug: string; i
             {pending ? <LoaderCircle className="h-3.5 w-3.5 animate-spin" /> : <Check className="h-3.5 w-3.5" strokeWidth={3} />} Approve
           </button>
           {status === "pending" ? (
-            <button type="button" disabled={pending} onClick={() => setConfirming("reject")} className="inline-flex items-center gap-1.5 rounded-xl border border-[#d9d4cb] bg-white px-3 py-2 text-xs font-bold text-[#17150f] hover:border-red-400 hover:text-red-700">
+            <button type="button" disabled={pending} onClick={() => setConfirming("reject")} className="inline-flex items-center gap-1.5 rounded-xl border border-[#d6dae6] bg-white px-3 py-2 text-xs font-bold text-[#0f1222] hover:border-red-400 hover:text-red-700">
               <X className="h-3.5 w-3.5" /> Reject
             </button>
           ) : (
-            <button type="button" disabled={pending} onClick={() => setConfirming("delete")} className="inline-flex items-center gap-1.5 rounded-xl border border-[#d9d4cb] bg-white px-3 py-2 text-xs font-bold text-[#17150f] hover:border-red-400 hover:text-red-700">
+            <button type="button" disabled={pending} onClick={() => setConfirming("delete")} className="inline-flex items-center gap-1.5 rounded-xl border border-[#d6dae6] bg-white px-3 py-2 text-xs font-bold text-[#0f1222] hover:border-red-400 hover:text-red-700">
               <Trash2 className="h-3.5 w-3.5" /> Delete
             </button>
           )}

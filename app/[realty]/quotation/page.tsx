@@ -1,9 +1,9 @@
 import type { Metadata } from "next"
-import { Outfit } from "next/font/google"
 import Link from "next/link"
 import { notFound } from "next/navigation"
 import { ArrowLeft, FilePlus2 } from "lucide-react"
 import { ApiError, api } from "@/lib/api"
+import { brandFonts } from "@/lib/brand-fonts"
 import { longDate, php, phpExact, shortDate, sqm } from "@/lib/format"
 import type { Quotation, QuotationInput } from "@/lib/quotation"
 import { assistantName } from "@/lib/assistant-name"
@@ -11,8 +11,7 @@ import { requireRealtyUser } from "@/lib/realty-auth"
 import { DownloadPdf, PrintOnOpen } from "../report/report-tools"
 import { BuyerName } from "./buyer-name"
 
-const outfit = Outfit({ subsets: ["latin"], weight: ["600", "700", "800"], display: "swap", variable: "--font-outfit" })
-const heading = "font-[family-name:var(--font-outfit),var(--font-geist-sans)] font-bold tracking-tight"
+const heading = "font-[family-name:var(--font-display),var(--font-geist-sans)] font-bold tracking-tight"
 
 type Props = { params: Promise<{ realty: string }>; searchParams: Promise<{ q?: string; print?: string }> }
 
@@ -61,18 +60,18 @@ export default async function QuotationPage({ params, searchParams }: Props) {
   const offerHref = quote?.can_offer && quote.unit && quote.project ? `/${slug}/dashboard/offers/new?${new URLSearchParams({ project: String(quote.project.id), unit: String(quote.unit.id), ...(quote.plan_id ? { plan: String(quote.plan_id) } : { terms: JSON.stringify(quote.milestones) }) })}` : null
 
   return (
-    <main className={`${outfit.variable} min-h-screen bg-[#e9e5dd] px-3 py-6 text-[#17150f] sm:px-6 print:bg-white print:p-0`} style={{ ["--accent" as string]: accent }}>
+    <main className={`${brandFonts} min-h-screen bg-[#e4e8f1] px-3 py-6 text-[#0f1222] sm:px-6 print:bg-white print:p-0`} style={{ ["--accent" as string]: accent }}>
       <style>{`@page { size: A4; margin: 12mm 12mm 14mm; } @media print { html, body { background: #fff; } }`}</style>
 
       <div className="mx-auto flex max-w-[210mm] flex-col gap-3 pb-5 print:hidden">
         <div className="flex flex-wrap items-center justify-between gap-3">
-          <Link href={`/${slug}/dashboard/ai`} className="inline-flex items-center gap-1.5 text-sm font-semibold text-[#3d3a34] hover:text-[#17150f]">
+          <Link href={`/${slug}/dashboard/ai`} className="inline-flex items-center gap-1.5 text-sm font-semibold text-[#2f3450] hover:text-[#0f1222]">
             <ArrowLeft className="h-4 w-4" /> Back to the dashboard
           </Link>
           {quote && (
             <div className="flex flex-wrap gap-2">
               {offerHref && (
-                <Link href={offerHref} className="inline-flex items-center gap-2 rounded-xl border border-[#d9d4cb] bg-white px-4 py-3 text-[15px] font-bold text-[#17150f] transition hover:border-[#17150f]">
+                <Link href={offerHref} className="inline-flex items-center gap-2 rounded-xl border border-[#d6dae6] bg-white px-4 py-3 text-[15px] font-bold text-[#0f1222] transition hover:border-[#0f1222]">
                   <FilePlus2 className="h-5 w-5" /> Make offer
                 </Link>
               )}
@@ -80,7 +79,7 @@ export default async function QuotationPage({ params, searchParams }: Props) {
             </div>
           )}
         </div>
-        {quote && <p className="text-sm text-[#5a554d]">Check the buyer&apos;s name under &ldquo;Prepared for&rdquo; (you can type it in). Then Download PDF and choose &ldquo;Save as PDF&rdquo; in the print window.</p>}
+        {quote && <p className="text-sm text-[#4a5070]">Check the buyer&apos;s name under &ldquo;Prepared for&rdquo; (you can type it in). Then Download PDF and choose &ldquo;Save as PDF&rdquo; in the print window.</p>}
       </div>
 
       {quote ? (
@@ -90,7 +89,7 @@ export default async function QuotationPage({ params, searchParams }: Props) {
       ) : (
         <div className="mx-auto max-w-xl rounded-2xl bg-white px-6 py-12 text-center">
           <h1 className={`${heading} text-2xl`}>This quotation can&apos;t be made</h1>
-          <p className="mt-3 text-[#5a554d]">{problem || `Ask ${assistantName(user.realty.name)} to work the payments out again.`}</p>
+          <p className="mt-3 text-[#4a5070]">{problem || `Ask ${assistantName(user.realty.name)} to work the payments out again.`}</p>
         </div>
       )}
       {quote && print === "1" && <PrintOnOpen />}
@@ -125,13 +124,13 @@ function Sheet({ quote: x }: { quote: Quotation }) {
           ) : (
             <p className={`${heading} text-xl`}>{x.realty.name}</p>
           )}
-          <p className="mt-2 text-[11px] font-semibold text-[#3d3a34]">{x.realty.name}</p>
-          {contact.length > 0 && <p className="text-[10.5px] text-[#6b665d]">{contact.join(" · ")}</p>}
+          <p className="mt-2 text-[11px] font-semibold text-[#2f3450]">{x.realty.name}</p>
+          {contact.length > 0 && <p className="text-[10.5px] text-[#5b6283]">{contact.join(" · ")}</p>}
         </div>
         <div className="sm:text-right print:text-right">
           <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-[var(--accent)]">Quotation</p>
-          <h1 className={`${heading} mt-1 text-[26px] leading-tight text-[#17150f]`}>Sample computation</h1>
-          <p className="mt-0.5 text-[11.5px] text-[#5a554d]">
+          <h1 className={`${heading} mt-1 text-[26px] leading-tight text-[#0f1222]`}>Sample computation</h1>
+          <p className="mt-0.5 text-[11.5px] text-[#4a5070]">
             Ref. {x.prepared.reference} · {longDate(x.prepared.at)}
           </p>
         </div>
@@ -140,20 +139,20 @@ function Sheet({ quote: x }: { quote: Quotation }) {
       {/* For and from */}
       <div className="mt-4 grid gap-5 sm:grid-cols-2 print:grid-cols-2">
         <div>
-          <p className="text-[9.5px] font-bold uppercase tracking-[0.14em] text-[#8a847a]">Prepared for</p>
+          <p className="text-[9.5px] font-bold uppercase tracking-[0.14em] text-[#7a8099]">Prepared for</p>
           <div className="mt-1">
             <BuyerName initial={x.buyer} />
           </div>
         </div>
         <div>
-          <p className="text-[9.5px] font-bold uppercase tracking-[0.14em] text-[#8a847a]">Prepared by</p>
-          <p className="mt-1 text-[14px] font-bold text-[#17150f]">{x.prepared.by}</p>
-          <p className="text-[11px] text-[#5a554d]">{[x.prepared.phone, x.prepared.email].filter(Boolean).join(" · ")}</p>
+          <p className="text-[9.5px] font-bold uppercase tracking-[0.14em] text-[#7a8099]">Prepared by</p>
+          <p className="mt-1 text-[14px] font-bold text-[#0f1222]">{x.prepared.by}</p>
+          <p className="text-[11px] text-[#4a5070]">{[x.prepared.phone, x.prepared.email].filter(Boolean).join(" · ")}</p>
         </div>
       </div>
 
       {/* The home */}
-      <section className="mt-5 overflow-hidden rounded-xl border border-[#e6e2db] [break-inside:avoid]">
+      <section className="mt-5 overflow-hidden rounded-xl border border-[#e2e5ef] [break-inside:avoid]">
         <div className="flex flex-col sm:flex-row print:flex-row">
           {photo && (
             // eslint-disable-next-line @next/next/no-img-element
@@ -161,9 +160,9 @@ function Sheet({ quote: x }: { quote: Quotation }) {
           )}
           <div className="min-w-0 flex-1 p-4">
             <p className="text-[9.5px] font-bold uppercase tracking-[0.14em] text-[var(--accent)]">The home</p>
-            <h2 className={`${heading} mt-1 text-[20px] leading-tight text-[#17150f]`}>{x.unit?.name ?? x.project?.name ?? "Price quotation"}</h2>
+            <h2 className={`${heading} mt-1 text-[20px] leading-tight text-[#0f1222]`}>{x.unit?.name ?? x.project?.name ?? "Price quotation"}</h2>
             {x.project && (
-              <p className="text-[12px] text-[#5a554d]">
+              <p className="text-[12px] text-[#4a5070]">
                 {x.unit ? x.project.name : null}
                 {x.unit && x.project.location ? " · " : ""}
                 {x.project.location}
@@ -173,8 +172,8 @@ function Sheet({ quote: x }: { quote: Quotation }) {
               <dl className="mt-3 grid grid-cols-2 gap-x-4 gap-y-2 sm:grid-cols-3 print:grid-cols-3">
                 {shown.map(([k, v]) => (
                   <div key={k}>
-                    <dt className="text-[9.5px] font-bold uppercase tracking-[0.1em] text-[#8a847a]">{k}</dt>
-                    <dd className="font-semibold text-[#17150f]">{v}</dd>
+                    <dt className="text-[9.5px] font-bold uppercase tracking-[0.1em] text-[#7a8099]">{k}</dt>
+                    <dd className="font-semibold text-[#0f1222]">{v}</dd>
                   </div>
                 ))}
               </dl>
@@ -184,28 +183,28 @@ function Sheet({ quote: x }: { quote: Quotation }) {
       </section>
 
       {/* The price and the terms */}
-      <section className="mt-4 grid gap-px overflow-hidden rounded-xl border border-[#e6e2db] bg-[#e6e2db] sm:grid-cols-3 print:grid-cols-3 [break-inside:avoid]">
-        <div className="bg-[#17150f] px-4 py-3.5 text-white">
+      <section className="mt-4 grid gap-px overflow-hidden rounded-xl border border-[#e2e5ef] bg-[#e2e5ef] sm:grid-cols-3 print:grid-cols-3 [break-inside:avoid]">
+        <div className="bg-[#0f1222] px-4 py-3.5 text-white">
           <p className="text-[9.5px] font-bold uppercase tracking-[0.14em] text-white/70">Total contract price</p>
           <p className={`${heading} mt-1 text-[24px] leading-none tabular-nums`}>{php(x.price)}</p>
           {x.price_from_model && <p className="mt-1.5 text-[10.5px] text-white/70">The {x.unit?.model ?? "house model"}&apos;s price</p>}
         </div>
         <div className="bg-white px-4 py-3.5">
-          <p className="text-[9.5px] font-bold uppercase tracking-[0.14em] text-[#8a847a]">Payment terms</p>
-          <p className="mt-1 text-[14px] font-bold text-[#17150f]">{x.terms}</p>
-          <p className="text-[11px] text-[#6b665d]">From {longDate(x.purchase_date)}</p>
+          <p className="text-[9.5px] font-bold uppercase tracking-[0.14em] text-[#7a8099]">Payment terms</p>
+          <p className="mt-1 text-[14px] font-bold text-[#0f1222]">{x.terms}</p>
+          <p className="text-[11px] text-[#5b6283]">From {longDate(x.purchase_date)}</p>
         </div>
         <div className="bg-white px-4 py-3.5">
-          <p className="text-[9.5px] font-bold uppercase tracking-[0.14em] text-[#8a847a]">{monthly ? "Monthly" : "Payments"}</p>
+          <p className="text-[9.5px] font-bold uppercase tracking-[0.14em] text-[#7a8099]">{monthly ? "Monthly" : "Payments"}</p>
           {monthly ? (
             <>
               <p className={`${heading} mt-1 text-[20px] leading-none tabular-nums text-[var(--accent)]`}>{phpExact(monthly.monthly as number)}</p>
-              <p className="mt-1 text-[11px] text-[#6b665d]">
+              <p className="mt-1 text-[11px] text-[#5b6283]">
                 for {monthly.months} months · {monthly.label.toLowerCase()}
               </p>
             </>
           ) : (
-            <p className="mt-1 text-[14px] font-bold text-[#17150f]">
+            <p className="mt-1 text-[14px] font-bold text-[#0f1222]">
               {x.schedule.length} payment{x.schedule.length === 1 ? "" : "s"}
             </p>
           )}
@@ -214,11 +213,11 @@ function Sheet({ quote: x }: { quote: Quotation }) {
 
       {/* Every payment */}
       <section className="mt-5">
-        <h3 className={`${heading} mb-2 flex items-center gap-2.5 text-[15px] text-[#17150f] [break-after:avoid] before:h-4 before:w-1 before:rounded-full before:bg-[var(--accent)]`}>Payment schedule</h3>
+        <h3 className={`${heading} mb-2 flex items-center gap-2.5 text-[15px] text-[#0f1222] [break-after:avoid] before:h-4 before:w-1 before:rounded-full before:bg-[var(--accent)]`}>Payment schedule</h3>
         <div className="-mx-5 overflow-x-auto px-5 sm:mx-0 sm:px-0 print:mx-0 print:overflow-visible print:px-0">
           <table className="w-full min-w-[520px] border-collapse text-[11.5px] sm:min-w-0 print:min-w-0">
             <thead>
-              <tr className="border-b-2 border-[#17150f] text-left text-[9.5px] font-bold uppercase tracking-[0.08em] text-[#5a554d]">
+              <tr className="border-b-2 border-[#0f1222] text-left text-[9.5px] font-bold uppercase tracking-[0.08em] text-[#4a5070]">
                 <th className="py-1.5 pr-2">Payment</th>
                 <th className="px-2 py-1.5 text-right">Share</th>
                 <th className="px-2 py-1.5">When</th>
@@ -227,14 +226,14 @@ function Sheet({ quote: x }: { quote: Quotation }) {
             </thead>
             <tbody>
               {x.schedule.map((r, i) => (
-                <tr key={i} className="border-b border-[#ece8e1] align-top [break-inside:avoid]">
-                  <td className="py-2 pr-2 font-bold text-[#17150f]">{r.label}</td>
+                <tr key={i} className="border-b border-[#e8ebf3] align-top [break-inside:avoid]">
+                  <td className="py-2 pr-2 font-bold text-[#0f1222]">{r.label}</td>
                   <td className="px-2 py-2 text-right tabular-nums">{r.percent}%</td>
-                  <td className="px-2 py-2 text-[#3d3a34]">
+                  <td className="px-2 py-2 text-[#2f3450]">
                     {r.months && r.monthly ? (
                       <>
-                        {r.months} monthly payments of <b className="text-[#17150f]">{phpExact(r.monthly)}</b>
-                        <span className="block text-[10.5px] text-[#6b665d]">
+                        {r.months} monthly payments of <b className="text-[#0f1222]">{phpExact(r.monthly)}</b>
+                        <span className="block text-[10.5px] text-[#5b6283]">
                           {shortDate(r.date)} to {shortDate(r.end_date)}
                           {r.last_month && r.last_month !== r.monthly ? ` · the last one ${phpExact(r.last_month)}` : ""}
                         </span>
@@ -249,10 +248,10 @@ function Sheet({ quote: x }: { quote: Quotation }) {
                       "On turnover (date to be announced)"
                     )}
                   </td>
-                  <td className="py-2 pl-2 text-right font-bold tabular-nums text-[#17150f]">{phpExact(r.amount)}</td>
+                  <td className="py-2 pl-2 text-right font-bold tabular-nums text-[#0f1222]">{phpExact(r.amount)}</td>
                 </tr>
               ))}
-              <tr className="border-t-2 border-[#17150f] font-bold text-[#17150f]">
+              <tr className="border-t-2 border-[#0f1222] font-bold text-[#0f1222]">
                 <td className="py-2 pr-2">Total</td>
                 <td className="px-2 py-2 text-right tabular-nums">100%</td>
                 <td />
@@ -265,31 +264,31 @@ function Sheet({ quote: x }: { quote: Quotation }) {
 
       {x.project?.fee_notes && (
         <section className="mt-4 [break-inside:avoid]">
-          <h3 className={`${heading} mb-1.5 text-[13px] text-[#17150f]`}>Other fees</h3>
-          <p className="whitespace-pre-line text-[11.5px] text-[#3d3a34]">{x.project.fee_notes}</p>
+          <h3 className={`${heading} mb-1.5 text-[13px] text-[#0f1222]`}>Other fees</h3>
+          <p className="whitespace-pre-line text-[11.5px] text-[#2f3450]">{x.project.fee_notes}</p>
         </section>
       )}
 
-      <p className="mt-4 border-l-2 border-[#d9d4cb] pl-3 text-[10px] leading-snug text-[#6b665d] [break-inside:avoid]">
-        <b className="text-[#3d3a34]">Please note:</b> this is a sample computation to help you plan, not a reservation or a contract. Prices, terms and availability can change until the home is
+      <p className="mt-4 border-l-2 border-[#d6dae6] pl-3 text-[10px] leading-snug text-[#5b6283] [break-inside:avoid]">
+        <b className="text-[#2f3450]">Please note:</b> this is a sample computation to help you plan, not a reservation or a contract. Prices, terms and availability can change until the home is
         reserved. Amounts are in Philippine pesos; each part&apos;s last payment carries the centavo rounding.
       </p>
 
       {/* Signatures */}
       <div className="mt-7 grid grid-cols-2 gap-10 [break-inside:avoid]">
         <div>
-          <div className="h-7 border-b border-[#17150f]" />
-          <p className="mt-1.5 text-[12px] font-bold text-[#17150f]">{x.prepared.by}</p>
-          <p className="text-[10.5px] text-[#6b665d]">Prepared by</p>
+          <div className="h-7 border-b border-[#0f1222]" />
+          <p className="mt-1.5 text-[12px] font-bold text-[#0f1222]">{x.prepared.by}</p>
+          <p className="text-[10.5px] text-[#5b6283]">Prepared by</p>
         </div>
         <div>
-          <div className="h-7 border-b border-[#17150f]" />
-          <p className="mt-1.5 text-[12px] font-bold text-[#17150f]">Conforme</p>
-          <p className="text-[10.5px] text-[#6b665d]">Buyer&apos;s signature over printed name, and date</p>
+          <div className="h-7 border-b border-[#0f1222]" />
+          <p className="mt-1.5 text-[12px] font-bold text-[#0f1222]">Conforme</p>
+          <p className="text-[10.5px] text-[#5b6283]">Buyer&apos;s signature over printed name, and date</p>
         </div>
       </div>
 
-      <footer className="mt-4 border-t border-[#e6e2db] pt-2 text-[10px] text-[#8a847a]">
+      <footer className="mt-4 border-t border-[#e2e5ef] pt-2 text-[10px] text-[#7a8099]">
         {x.realty.name} · Prepared {longDate(x.prepared.at)} on jvconline.ph
       </footer>
     </div>

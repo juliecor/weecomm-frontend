@@ -12,7 +12,7 @@ let nextId = 1
 const row = (label = "", percent = "", days = "", months = ""): Row => ({ id: nextId++, label, percent, days, months })
 const fresh = () => [row("Reservation", "10", "0"), row("On completion", "90", "")]
 const cols = "@2xl:grid-cols-[minmax(0,1fr)_6rem_10rem_8rem_2.75rem] @2xl:gap-3"
-const small = "mb-1 block text-[11px] font-bold uppercase tracking-[0.1em] text-[#6b665d] @2xl:hidden"
+const small = "mb-1 block text-[11px] font-bold uppercase tracking-[0.1em] text-[#5b6283] @2xl:hidden"
 const fromPlan = (p: PaymentPlan) => p.milestones.map((m) => row(m.label, String(m.percent), m.days === null ? "" : String(m.days), m.months ? String(m.months) : ""))
 
 /**
@@ -47,7 +47,7 @@ export function PlanForm({ slug, projectId, plan, onDone }: { slug: string; proj
       </label>
       {/* Columns when there's room; a small card per milestone in a narrow space (a phone). */}
       <div className="@container">
-        <div className={`hidden pb-2 text-left text-xs font-semibold uppercase tracking-[0.12em] text-[#8a847a] @2xl:grid ${cols}`}>
+        <div className={`hidden pb-2 text-left text-xs font-semibold uppercase tracking-[0.12em] text-[#7a8099] @2xl:grid ${cols}`}>
           <span>Milestone</span>
           <span>%</span>
           <span>Days after purchase</span>
@@ -55,7 +55,7 @@ export function PlanForm({ slug, projectId, plan, onDone }: { slug: string; proj
         </div>
         <div className="space-y-3 @2xl:space-y-2">
           {rows.map((r, i) => (
-            <div key={r.id} className={`rounded-xl grid grid-cols-2 items-end gap-3 border border-[#e6e2db] p-3 @2xl:items-center @2xl:border-0 @2xl:p-0 ${cols}`}>
+            <div key={r.id} className={`rounded-xl grid grid-cols-2 items-end gap-3 border border-[#e2e5ef] p-3 @2xl:items-center @2xl:border-0 @2xl:p-0 ${cols}`}>
               <label className="col-span-2 block @2xl:col-span-1">
                 <span className={small}>Milestone {i + 1}</span>
                 <input name="label" required value={r.label} onChange={(e) => update(r.id, { label: e.target.value })} placeholder="Within 30 days" className={`${field} mt-0`} />
@@ -72,7 +72,7 @@ export function PlanForm({ slug, projectId, plan, onDone }: { slug: string; proj
                 <span className={small}>Monthly payments</span>
                 <input name="months" type="number" min="1" max="120" value={r.months} onChange={(e) => update(r.id, { months: e.target.value })} placeholder="once" title="Spread over this many monthly payments; the first is due on the day before" className={`${field} mt-0`} />
               </label>
-              <button type="button" aria-label={`Remove milestone ${i + 1}`} disabled={rows.length === 1} onClick={() => setRows((rs) => rs.filter((x) => x.id !== r.id))} className="flex h-[46px] items-center justify-center self-end text-[#a39d92] hover:bg-[#f6f4f0] hover:text-red-600 disabled:opacity-30 @2xl:self-auto">
+              <button type="button" aria-label={`Remove milestone ${i + 1}`} disabled={rows.length === 1} onClick={() => setRows((rs) => rs.filter((x) => x.id !== r.id))} className="flex h-[46px] items-center justify-center self-end text-[#9aa0b5] hover:bg-[#f3f5fa] hover:text-red-600 disabled:opacity-30 @2xl:self-auto">
                 <Trash2 className="h-4 w-4" />
               </button>
             </div>
@@ -92,7 +92,7 @@ export function PlanForm({ slug, projectId, plan, onDone }: { slug: string; proj
           {pending ? <LoaderCircle className="h-4 w-4 animate-spin" /> : plan ? <Save className="h-4 w-4" /> : <Plus className="h-4 w-4" />}
           {plan ? "Save plan" : "Add payment plan"}
         </button>
-        {onDone && <button type="button" onClick={onDone} className={plan ? btn.ghost : "px-3 py-3 text-[15px] font-semibold text-[#6b665d] transition hover:text-[#17150f]"}>Cancel</button>}
+        {onDone && <button type="button" onClick={onDone} className={plan ? btn.ghost : "px-3 py-3 text-[15px] font-semibold text-[#5b6283] transition hover:text-[#0f1222]"}>Cancel</button>}
       </div>
     </form>
   )

@@ -40,22 +40,22 @@ export function ReservationPanel({ slug, offerId, initial, canSettle, buyerFirst
         : r.status === "pending" && r.method === "proof"
           ? { icon: Clock, cls: "text-amber-700", text: `Proof sent${r.requested_at ? ` · ${shortDate(r.requested_at)}` : ""} · waiting for your confirmation` }
           : r.status === "pending"
-            ? { icon: Clock, cls: "text-[#8a847a]", text: "Started paying online, not finished" }
+            ? { icon: Clock, cls: "text-[#7a8099]", text: "Started paying online, not finished" }
             : r.status === "declined"
               ? { icon: AlertCircle, cls: "text-red-700", text: "Sent back to the buyer" }
-              : { icon: Wallet, cls: "text-[#8a847a]", text: "The buyer hasn't paid yet" }
+              : { icon: Wallet, cls: "text-[#7a8099]", text: "The buyer hasn't paid yet" }
   const Icon = state.icon
   const waiting = r.status === "pending" || r.status === "paid"
 
   return (
     <section className="h-full rounded-2xl border border-[#e8eaed] bg-white shadow-[0_2px_12px_-2px_rgba(23,21,15,0.06)] p-5">
       <div className="flex flex-wrap items-center justify-between gap-3">
-        <p className="flex items-center gap-2 text-xs font-bold uppercase tracking-[0.16em] text-[#17150f]">
+        <p className="flex items-center gap-2 text-xs font-bold uppercase tracking-[0.16em] text-[#0f1222]">
           <Wallet className="h-4 w-4 text-[var(--accent)]" /> Reservation
         </p>
         <span className="text-sm font-semibold">
           {pending ? (
-            <span className="inline-flex items-center gap-1.5 text-[#6b665d]">
+            <span className="inline-flex items-center gap-1.5 text-[#5b6283]">
               <LoaderCircle className="h-4 w-4 animate-spin" /> Saving
             </span>
           ) : msg.ok ? (
@@ -75,31 +75,31 @@ export function ReservationPanel({ slug, offerId, initial, canSettle, buyerFirst
         <dl className="mt-3 space-y-1 text-sm">
           {r.method && (
             <div className="flex gap-2">
-              <dt className="w-24 shrink-0 text-[#8a847a]">Paid by</dt>
+              <dt className="w-24 shrink-0 text-[#7a8099]">Paid by</dt>
               <dd className="inline-flex items-center gap-1.5 font-medium">{r.method === "online" ? <><CreditCard className="h-3.5 w-3.5" /> Online (PayMongo)</> : <><Landmark className="h-3.5 w-3.5" /> Bank / GCash</>}</dd>
             </div>
           )}
           {r.reference && (
             <div className="flex gap-2">
-              <dt className="w-24 shrink-0 text-[#8a847a]">Reference</dt>
+              <dt className="w-24 shrink-0 text-[#7a8099]">Reference</dt>
               <dd className="font-mono font-medium">{r.reference}</dd>
             </div>
           )}
           {r.note && r.status !== "declined" && (
             <div className="flex gap-2">
-              <dt className="w-24 shrink-0 text-[#8a847a]">Buyer says</dt>
+              <dt className="w-24 shrink-0 text-[#7a8099]">Buyer says</dt>
               <dd>{r.note}</dd>
             </div>
           )}
           {r.note && r.status === "declined" && (
             <div className="flex gap-2">
-              <dt className="w-24 shrink-0 text-[#8a847a]">Sent back</dt>
+              <dt className="w-24 shrink-0 text-[#7a8099]">Sent back</dt>
               <dd>{r.note}</dd>
             </div>
           )}
           {r.has_proof && (
             <div className="flex gap-2">
-              <dt className="w-24 shrink-0 text-[#8a847a]">Proof</dt>
+              <dt className="w-24 shrink-0 text-[#7a8099]">Proof</dt>
               <dd>
                 <a href={`/${slug}/dashboard/offers/${offerId}/reservation-proof`} target="_blank" rel="noreferrer" className="inline-flex items-center gap-1 font-semibold text-[var(--accent)] hover:underline">
                   Open the receipt <ExternalLink className="h-3.5 w-3.5" />
@@ -116,7 +116,7 @@ export function ReservationPanel({ slug, offerId, initial, canSettle, buyerFirst
           <button type="button" onClick={confirm} disabled={pending} className="rounded-xl inline-flex items-center gap-2 bg-emerald-700 px-4 py-2.5 text-sm font-bold text-white hover:brightness-110 disabled:opacity-60">
             <ShieldCheck className="h-4 w-4" /> Confirm reservation
           </button>
-          <button type="button" onClick={() => setDeclining(true)} disabled={pending} className="inline-flex items-center rounded-xl border border-[#d9d4cb] bg-white px-4 py-2.5 text-sm font-bold text-[#17150f] hover:border-red-400 hover:text-red-700 disabled:opacity-60">
+          <button type="button" onClick={() => setDeclining(true)} disabled={pending} className="inline-flex items-center rounded-xl border border-[#d6dae6] bg-white px-4 py-2.5 text-sm font-bold text-[#0f1222] hover:border-red-400 hover:text-red-700 disabled:opacity-60">
             Send back
           </button>
         </div>
@@ -130,21 +130,21 @@ export function ReservationPanel({ slug, offerId, initial, canSettle, buyerFirst
           }}
         >
           <label className="block">
-            <span className="text-xs font-bold uppercase tracking-[0.12em] text-[#6b665d]">Tell the buyer why</span>
-            <input value={note} onChange={(e) => setNote(e.target.value)} required maxLength={500} placeholder="e.g. The receipt is blurry, please send a clearer photo." className="rounded-xl mt-1.5 block w-full border border-[#d9d4cb] px-3.5 py-2.5 text-[15px] outline-none focus:border-[var(--accent)]" />
+            <span className="text-xs font-bold uppercase tracking-[0.12em] text-[#5b6283]">Tell the buyer why</span>
+            <input value={note} onChange={(e) => setNote(e.target.value)} required maxLength={500} placeholder="e.g. The receipt is blurry, please send a clearer photo." className="rounded-xl mt-1.5 block w-full border border-[#d6dae6] px-3.5 py-2.5 text-[15px] outline-none focus:border-[var(--accent)]" />
           </label>
           <div className="flex gap-2">
             <button type="submit" disabled={pending || !note.trim()} className="rounded-xl bg-red-700 px-4 py-2.5 text-sm font-bold text-white hover:brightness-110 disabled:opacity-60">
               Send back to the buyer
             </button>
-            <button type="button" onClick={() => setDeclining(false)} className="px-3 py-2.5 text-sm font-semibold text-[#8a847a] hover:text-[#17150f]">
+            <button type="button" onClick={() => setDeclining(false)} className="px-3 py-2.5 text-sm font-semibold text-[#7a8099] hover:text-[#0f1222]">
               Cancel
             </button>
           </div>
         </form>
       )}
-      {!canSettle && waiting && <p className="mt-3 text-sm text-[#6b665d]">Johndorf&apos;s admins check the payment and confirm the reservation.</p>}
-      {r.status === null && <p className="mt-3 text-sm text-[#6b665d]">The buyer pays this on their offer page{r.online ? ", online or" : ""} by bank deposit or GCash, and uploads the proof.</p>}
+      {!canSettle && waiting && <p className="mt-3 text-sm text-[#5b6283]">Johndorf&apos;s admins check the payment and confirm the reservation.</p>}
+      {r.status === null && <p className="mt-3 text-sm text-[#5b6283]">The buyer pays this on their offer page{r.online ? ", online or" : ""} by bank deposit or GCash, and uploads the proof.</p>}
     </section>
   )
 }

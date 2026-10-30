@@ -22,7 +22,7 @@ export function Zoomable({ images, alt, className = "", imgClassName = "", capti
     <div className={className}>
       <button type="button" onClick={() => setI(0)} className="group relative block w-full overflow-hidden bg-[#f1efeb]" aria-label={`View ${alt} full screen`}>
         <Photo src={images[0]} alt={alt} sizes="(min-width: 1024px) 720px, 100vw" className={`w-full object-cover transition duration-700 group-hover:scale-[1.02] ${imgClassName}`} />
-        <span className="absolute bottom-3 right-3 inline-flex items-center gap-1.5 bg-[#17150f]/80 px-2.5 py-1.5 text-[11px] font-bold uppercase tracking-[0.12em] text-white opacity-90 print:hidden">
+        <span className="absolute bottom-3 right-3 inline-flex items-center gap-1.5 bg-[#0f1222]/80 px-2.5 py-1.5 text-[11px] font-bold uppercase tracking-[0.12em] text-white opacity-90 print:hidden">
           <Maximize2 className="h-3.5 w-3.5" /> View
         </span>
       </button>

@@ -21,19 +21,19 @@ function List({ title, rows, base }: { title: string; rows: Person[]; base: stri
                 {p.status === "pending" && <Tag tone="warn">Pending approval</Tag>}
                 {p.status === "rejected" && <Tag tone="bad">Rejected</Tag>}
               </p>
-              <p className="truncate text-sm text-[#6b665d]">
+              <p className="truncate text-sm text-[#5b6283]">
                 {p.email}
                 {p.realty && (
                   <>
                     {" · "}
-                    <Link href={`${base}/realties/${p.realty.id}`} className="font-semibold text-[#3d3a34] hover:text-[var(--accent)] hover:underline">
+                    <Link href={`${base}/realties/${p.realty.id}`} className="font-semibold text-[#2f3450] hover:text-[var(--accent)] hover:underline">
                       {p.realty.name}
                     </Link>
                   </>
                 )}
               </p>
             </div>
-            <p className="shrink-0 text-sm text-[#8a847a]">
+            <p className="shrink-0 text-sm text-[#7a8099]">
               {p.offers_count} active offer{p.offers_count === 1 ? "" : "s"} · joined {shortDate(p.joined_at)}
             </p>
           </Row>

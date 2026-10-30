@@ -54,7 +54,7 @@ export default async function MyAccreditationPage({ params }: { params: Promise<
     return (
       <div>
         <PageHeader eyebrow="Team" title="Accreditation" lede={`Your accreditation with ${developer}.`} />
-        <p className="mt-10 text-[15px] text-[#5a554d]">
+        <p className="mt-10 text-[15px] text-[#4a5070]">
           There is no accreditation form on file for {user.realty.name}. Ask {developer} if anything is needed.
         </p>
       </div>
@@ -78,8 +78,8 @@ export default async function MyAccreditationPage({ params }: { params: Promise<
 
       <Panel title="Accreditation period">
         <div className="pt-5">
-          <p className={`text-2xl font-bold tracking-tight ${stopped ? "text-red-800" : a.state === "ending" ? "text-amber-800" : "text-[#17150f]"}`}>{headline}</p>
-          {a.from && <p className="mt-1 text-[15px] text-[#5a554d]">Started {longDate(a.from)}.</p>}
+          <p className={`text-2xl font-bold tracking-tight ${stopped ? "text-red-800" : a.state === "ending" ? "text-amber-800" : "text-[#0f1222]"}`}>{headline}</p>
+          {a.from && <p className="mt-1 text-[15px] text-[#4a5070]">Started {longDate(a.from)}.</p>}
           {stopped && (
             <p className="rounded-xl mt-3 border-l-4 border-red-600 bg-red-50 px-4 py-2.5 text-[15px] font-semibold text-red-800">
               You can&apos;t make new offers until {a.developer} renews it. Offers you already made carry on.
@@ -96,38 +96,38 @@ export default async function MyAccreditationPage({ params }: { params: Promise<
             <div>
               {a.certificate.status === "valid" ? (
                 <>
-                  <p className="flex items-center gap-2 text-2xl font-bold tracking-tight text-[#17150f]">
+                  <p className="flex items-center gap-2 text-2xl font-bold tracking-tight text-[#0f1222]">
                     <Award className="h-7 w-7 shrink-0 text-[var(--accent)]" /> Congratulations!
                   </p>
-                  <p className="mt-2 text-[15px] text-[#3d3a34]">
+                  <p className="mt-2 text-[15px] text-[#2f3450]">
                     {user.realty.name} is fully accredited by {a.developer} until <strong>{longDate(a.certificate.until)}</strong>.
                   </p>
                 </>
               ) : (
                 <p className="text-[15px] font-semibold text-red-800">This certificate is no longer valid. A new one comes when {a.developer} renews your accreditation.</p>
               )}
-              <p className="mt-3 text-sm text-[#6b665d]">Certificate No. {a.certificate.number}</p>
+              <p className="mt-3 text-sm text-[#5b6283]">Certificate No. {a.certificate.number}</p>
               <div className="mt-4 flex flex-wrap items-center gap-2">
-                <Link href={`/${slug}/certificate`} target="_blank" className="inline-flex items-center gap-2 rounded-xl bg-[#17150f] px-5 py-3 text-[15px] font-bold text-white hover:bg-[#3d3a34]">
+                <Link href={`/${slug}/certificate`} target="_blank" className="inline-flex items-center gap-2 rounded-xl bg-[#0f1222] px-5 py-3 text-[15px] font-bold text-white hover:bg-[#2f3450]">
                   <Printer className="h-5 w-5" /> View and print
                 </Link>
                 <CopyButton text={a.certificate.verify_url} label="Copy check link" className="bg-white" />
               </div>
-              <p className="mt-3 text-sm text-[#6b665d]">Share the check link with buyers: it shows anyone that your certificate is real and still valid.</p>
+              <p className="mt-3 text-sm text-[#5b6283]">Share the check link with buyers: it shows anyone that your certificate is real and still valid.</p>
             </div>
             <Link href={`/${slug}/certificate`} target="_blank" aria-label="Open the certificate" className="block shadow-[0_20px_45px_-25px_rgba(23,21,15,0.6)] transition hover:-translate-y-0.5">
               <Certificate c={a.certificate} />
             </Link>
           </div>
         ) : (
-          <p className="pt-5 text-[15px] text-[#5a554d]">Your certificate of accreditation is issued once {a.developer} checks and accepts your signed, notarized agreement. We&apos;ll email it to you.</p>
+          <p className="pt-5 text-[15px] text-[#4a5070]">Your certificate of accreditation is issued once {a.developer} checks and accepts your signed, notarized agreement. We&apos;ll email it to you.</p>
         )}
       </Panel>
 
       <Panel title="Signed agreement">
         <div className="space-y-5 pt-5">
           {a.agreed && (
-            <p className="text-[15px] text-[#3d3a34]">
+            <p className="text-[15px] text-[#2f3450]">
               You agreed online as <strong>{a.agreed.name}</strong> on {longDate(a.agreed.at)}.
             </p>
           )}
@@ -138,7 +138,7 @@ export default async function MyAccreditationPage({ params }: { params: Promise<
             </p>
           ) : (
             <>
-              <ol className="space-y-2 text-[15px] text-[#3d3a34]">
+              <ol className="space-y-2 text-[15px] text-[#2f3450]">
                 {[
                   "Print the agreement. It already has your details and the dates.",
                   `Sign every page, with two witnesses. ${a.developer}'s representative signs it too.`,
@@ -146,18 +146,18 @@ export default async function MyAccreditationPage({ params }: { params: Promise<
                   `Scan it and upload it here${copy.due ? ` by ${longDate(copy.due)}` : ""}.`,
                 ].map((step, i) => (
                   <li key={i} className="flex gap-3">
-                    <span className="flex h-6 w-6 shrink-0 items-center justify-center bg-[#17150f] text-xs font-bold text-white">{i + 1}</span>
+                    <span className="flex h-6 w-6 shrink-0 items-center justify-center bg-[#0f1222] text-xs font-bold text-white">{i + 1}</span>
                     <span>{step}</span>
                   </li>
                 ))}
               </ol>
 
               {a.agreement ? (
-                <Link href={`/${slug}/agreement`} target="_blank" className="inline-flex items-center gap-2 rounded-xl bg-[#17150f] px-5 py-3 text-[15px] font-bold text-white hover:bg-[#3d3a34]">
+                <Link href={`/${slug}/agreement`} target="_blank" className="inline-flex items-center gap-2 rounded-xl bg-[#0f1222] px-5 py-3 text-[15px] font-bold text-white hover:bg-[#2f3450]">
                   <Printer className="h-5 w-5" /> Print the agreement
                 </Link>
               ) : (
-                <p className="text-sm text-[#6b665d]">{a.developer} hasn&apos;t set up the agreement yet. Check back later.</p>
+                <p className="text-sm text-[#5b6283]">{a.developer} hasn&apos;t set up the agreement yet. Check back later.</p>
               )}
 
               {copy.status === "submitted" && (

@@ -1,4 +1,5 @@
 import type { Metadata } from "next"
+import { brandFonts } from "@/lib/brand-fonts"
 import Link from "next/link"
 import { redirect } from "next/navigation"
 import { Check, CircleCheck, Info, Lock, MapPin } from "lucide-react"
@@ -48,7 +49,7 @@ export default async function RealtyLoginPage({ params, searchParams }: Props) {
         : null
 
   return (
-    <main style={{ ["--accent" as string]: accent }} className="min-h-screen bg-[#f6f4f0] text-[#17150f] lg:grid lg:grid-cols-[minmax(0,1.05fr)_minmax(0,1fr)]">
+    <main style={{ ["--accent" as string]: accent }} className={`${brandFonts} min-h-screen bg-[#f3f5fa] text-[#0f1222] lg:grid lg:grid-cols-[minmax(0,1.05fr)_minmax(0,1fr)]`}>
       {/* The realty */}
       <aside
         className="relative isolate flex flex-col justify-between gap-8 overflow-hidden bg-[var(--accent)] px-5 pb-7 pt-6 text-white sm:px-10 sm:pb-10 sm:pt-8 lg:sticky lg:top-0 lg:h-screen lg:gap-10 lg:px-14 lg:py-12"
@@ -67,7 +68,7 @@ export default async function RealtyLoginPage({ params, searchParams }: Props) {
             // eslint-disable-next-line @next/next/no-img-element
             <img src={realty.logo_url} alt={realty.name} className="h-9 w-auto max-w-[220px] object-contain sm:h-11 lg:h-14" />
           ) : (
-            <span className="text-xl font-bold tracking-tight text-[#17150f]">{realty.name}</span>
+            <span className="text-xl font-bold tracking-tight text-[#0f1222]">{realty.name}</span>
           )}
         </Link>
 
@@ -107,8 +108,8 @@ export default async function RealtyLoginPage({ params, searchParams }: Props) {
       <section className="flex items-center justify-center px-5 py-10 sm:px-10 sm:py-14 lg:px-14">
         <div className="w-full max-w-[440px]">
           <p className="text-xs font-bold uppercase tracking-[0.2em] text-[var(--accent)]">Admin &amp; agent sign in</p>
-          <h1 className="mt-2 text-3xl font-bold tracking-tight sm:text-4xl">Welcome back.</h1>
-          <p className="mt-3 text-[15px] leading-relaxed text-[#5a554d]">Sign in to {realty.name}&apos;s dashboard with the email and password you set up.</p>
+          <h1 className="mt-2 font-[family-name:var(--font-display)] text-3xl font-bold tracking-tight sm:text-4xl">Welcome back.</h1>
+          <p className="mt-3 text-[15px] leading-relaxed text-[#4a5070]">Sign in to {realty.name}&apos;s dashboard with the email and password you set up.</p>
 
           {notice && (
             <p role="status" className="mt-6 flex gap-3 border-l-4 border-emerald-600 bg-emerald-50 px-4 py-3 text-[15px] font-semibold text-emerald-900">
@@ -118,8 +119,8 @@ export default async function RealtyLoginPage({ params, searchParams }: Props) {
 
           {/* A pending applicant whose session ended (rejected, or timed out): signing in tells them which. */}
           {query.ended && !notice && (
-            <p role="status" className="mt-6 flex gap-3 border-l-4 border-[#8a847a] bg-[#faf8f5] px-4 py-3 text-[15px] font-semibold text-[#3d3a34]">
-              <Info className="mt-0.5 h-5 w-5 shrink-0 text-[#6b665d]" /> Your session ended. If you applied to join, sign in to see where your application stands.
+            <p role="status" className="mt-6 flex gap-3 border-l-4 border-[#7a8099] bg-[#f8f9fc] px-4 py-3 text-[15px] font-semibold text-[#2f3450]">
+              <Info className="mt-0.5 h-5 w-5 shrink-0 text-[#5b6283]" /> Your session ended. If you applied to join, sign in to see where your application stands.
             </p>
           )}
 
@@ -127,17 +128,17 @@ export default async function RealtyLoginPage({ params, searchParams }: Props) {
             <RealtyLoginForm slug={slug} />
           </div>
 
-          <div className="mt-8 border-t border-[#e0dcd5] pt-6 text-sm leading-relaxed text-[#5a554d]">
+          <div className="mt-8 border-t border-[#dde1ec] pt-6 text-sm leading-relaxed text-[#4a5070]">
             <p>
-              <span className="font-bold text-[#17150f]">New agent?</span> Ask {short} for an invitation link. It opens a short form to set up your account.
+              <span className="font-bold text-[#0f1222]">New agent?</span> Ask {short} for an invitation link. It opens a short form to set up your account.
             </p>
           </div>
 
-          <p className="mt-8 flex items-center gap-2 text-xs text-[#8a847a]">
+          <p className="mt-8 flex items-center gap-2 text-xs text-[#7a8099]">
             <Lock className="h-3.5 w-3.5 shrink-0" />
             <span>
               Secure sign-in for {realty.name} · Powered by{" "}
-              <Link href="/platform" className="font-semibold text-[#6b665d] hover:text-[#17150f]">
+              <Link href="/platform" className="font-semibold text-[#5b6283] hover:text-[#0f1222]">
                 jvconline
               </Link>
             </span>

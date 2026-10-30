@@ -29,19 +29,19 @@ export function MessageDraft({ text, to = "", writing = false }: { text: string;
   }
 
   return (
-    <div className="border border-l-4 border-[#e0dcd5] border-l-[var(--accent)] bg-[#faf8f5]">
-      <div className="flex items-center justify-between gap-2 border-b border-[#e6e2db] px-4 py-2">
-        <p className="min-w-0 truncate text-xs font-bold uppercase tracking-[0.14em] text-[#6b665d]">Message for {to || "the buyer"}</p>
-        {writing && <p className="text-xs font-semibold text-[#8a847a]">Writing…</p>}
+    <div className="border border-l-4 border-[#dde1ec] border-l-[var(--accent)] bg-[#f8f9fc]">
+      <div className="flex items-center justify-between gap-2 border-b border-[#e2e5ef] px-4 py-2">
+        <p className="min-w-0 truncate text-xs font-bold uppercase tracking-[0.14em] text-[#5b6283]">Message for {to || "the buyer"}</p>
+        {writing && <p className="text-xs font-semibold text-[#7a8099]">Writing…</p>}
       </div>
-      <p className="whitespace-pre-wrap px-4 py-3 text-[15px] leading-relaxed text-[#17150f] [overflow-wrap:anywhere]">{message}</p>
+      <p className="whitespace-pre-wrap px-4 py-3 text-[15px] leading-relaxed text-[#0f1222] [overflow-wrap:anywhere]">{message}</p>
       {!writing && (
-        <div className="flex flex-wrap gap-2 border-t border-[#e6e2db] px-4 py-3">
+        <div className="flex flex-wrap gap-2 border-t border-[#e2e5ef] px-4 py-3">
           <button type="button" onClick={copy} className="inline-flex items-center gap-1.5 rounded-xl bg-[var(--accent)] px-3.5 py-2 text-sm font-bold text-white transition hover:brightness-110">
             {copied ? <Check className="h-4 w-4" /> : <Copy className="h-4 w-4" />} {copied ? "Copied" : "Copy message"}
           </button>
           {share && (
-            <button type="button" onClick={() => navigator.share({ text: message }).catch(() => {})} className="inline-flex items-center gap-1.5 rounded-xl border border-[#d9d4cb] bg-white px-3.5 py-2 text-sm font-bold text-[#17150f] transition hover:border-[#17150f]">
+            <button type="button" onClick={() => navigator.share({ text: message }).catch(() => {})} className="inline-flex items-center gap-1.5 rounded-xl border border-[#d6dae6] bg-white px-3.5 py-2 text-sm font-bold text-[#0f1222] transition hover:border-[#0f1222]">
               <Share2 className="h-4 w-4" /> Share
             </button>
           )}

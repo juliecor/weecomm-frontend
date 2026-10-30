@@ -4,8 +4,8 @@ import { useActionState, useState } from "react"
 import { AlertCircle, ArrowRight, Eye, EyeOff, LoaderCircle } from "lucide-react"
 import { type UnlockState, unlockOffer } from "./actions"
 
-const field = "mt-1.5 block w-full border border-[#d9d4cb] bg-white px-4 py-3.5 text-[15px] text-[#17150f] outline-none transition placeholder:text-[#b3ada3] focus:border-[var(--accent)] focus:ring-2 focus:ring-[var(--accent)]/15"
-const label = "text-xs font-bold uppercase tracking-[0.12em] text-[#5a554d]"
+const field = "mt-1.5 block w-full border border-[#d6dae6] bg-white px-4 py-3.5 text-[15px] text-[#0f1222] outline-none transition placeholder:text-[#b3ada3] focus:border-[var(--accent)] focus:ring-2 focus:ring-[var(--accent)]/15"
+const label = "text-xs font-bold uppercase tracking-[0.12em] text-[#4a5070]"
 
 /** The buyer's sign-in for a private offer: the username stays filled in after a wrong try. */
 export function UnlockForm({ code }: { code: string }) {
@@ -22,7 +22,7 @@ export function UnlockForm({ code }: { code: string }) {
         <span className={label}>Password</span>
         <span className="relative mt-1.5 block">
           <input name="password" type={show ? "text" : "password"} required autoComplete="current-password" autoCapitalize="none" spellCheck={false} className={`${field} mt-0 pr-12`} />
-          <button type="button" onClick={() => setShow((s) => !s)} aria-label={show ? "Hide password" : "Show password"} className="absolute inset-y-0 right-0 flex w-12 items-center justify-center text-[#8a847a] transition hover:text-[#17150f]">
+          <button type="button" onClick={() => setShow((s) => !s)} aria-label={show ? "Hide password" : "Show password"} className="absolute inset-y-0 right-0 flex w-12 items-center justify-center text-[#7a8099] transition hover:text-[#0f1222]">
             {show ? <EyeOff className="h-5 w-5" /> : <Eye className="h-5 w-5" />}
           </button>
         </span>

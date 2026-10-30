@@ -33,7 +33,7 @@ export function PaymentSettings({ slug, initial, online }: { slug: string; initi
           })
         }}
       >
-        <p className="flex items-start gap-2 text-[15px] text-[#5a554d]">
+        <p className="flex items-start gap-2 text-[15px] text-[#4a5070]">
           <Landmark className="mt-0.5 h-4 w-4 shrink-0 text-[var(--accent)]" />
           Where buyers send the reservation fee. Shown on their sales offer when it has a fee, exactly as typed here.
         </p>
@@ -43,7 +43,7 @@ export function PaymentSettings({ slug, initial, online }: { slug: string; initi
           rows={4}
           maxLength={2000}
           placeholder={"e.g.\nBPI · Johndorf Ventures Corporation · 1234-5678-90\nGCash · 0917 000 0000 (Johndorf)"}
-          className="block w-full rounded-xl border border-[#d9d4cb] bg-white px-3.5 py-3 text-[15px] outline-none focus:border-[var(--accent)] focus:ring-2 focus:ring-[var(--accent)]/15"
+          className="block w-full rounded-xl border border-[#d6dae6] bg-white px-3.5 py-3 text-[15px] outline-none focus:border-[var(--accent)] focus:ring-2 focus:ring-[var(--accent)]/15"
         />
         <div className="flex items-center gap-3">
           <button type="submit" disabled={pending} className="inline-flex items-center gap-2 rounded-xl bg-[var(--accent)] px-4 py-2.5 text-sm font-bold text-white hover:brightness-110 disabled:opacity-60">
@@ -52,7 +52,7 @@ export function PaymentSettings({ slug, initial, online }: { slug: string; initi
           {msg.ok && <span className="text-sm font-semibold text-emerald-700">Saved</span>}
           {msg.error && <span className="text-sm font-semibold text-red-700">{msg.error}</span>}
         </div>
-        {!online && <p className="text-xs text-[#8a847a]">To let buyers pay online (GCash, Maya, cards), Johndorf signs up with PayMongo and the keys go in the server&apos;s settings. The Pay online button then appears by itself.</p>}
+        {!online && <p className="text-xs text-[#7a8099]">To let buyers pay online (GCash, Maya, cards), Johndorf signs up with PayMongo and the keys go in the server&apos;s settings. The Pay online button then appears by itself.</p>}
       </form>
     </Panel>
   )

@@ -64,11 +64,11 @@ export function AskBox({ slug, name, pending, error, hint, inner = "", onSend }:
         e.preventDefault()
         void send()
       }}
-      className="border-t border-[#e6e2db] p-3 sm:p-4"
+      className="border-t border-[#e2e5ef] p-3 sm:p-4"
     >
       <div className={inner}>
         {error && <p className="mb-2 text-sm font-bold text-red-700">{error}</p>}
-        <div className="rounded-xl flex items-end gap-2 border border-[#d9d4cb] bg-white p-1.5 focus-within:border-[var(--accent)]">
+        <div className="rounded-xl flex items-end gap-2 border border-[#d6dae6] bg-white p-1.5 focus-within:border-[var(--accent)]">
           <textarea
             ref={box}
             value={text}
@@ -84,7 +84,7 @@ export function AskBox({ slug, name, pending, error, hint, inner = "", onSend }:
             readOnly={recording}
             placeholder={recording ? "Listening… your words show here as you talk" : `Ask ${name}…`}
             aria-label={`Ask ${name}`}
-            className={`max-h-40 min-h-[44px] min-w-0 flex-1 resize-none bg-transparent px-2.5 py-2.5 text-[15px] outline-none ${recording ? "text-[#6b665d]" : ""}`}
+            className={`max-h-40 min-h-[44px] min-w-0 flex-1 resize-none bg-transparent px-2.5 py-2.5 text-[15px] outline-none ${recording ? "text-[#5b6283]" : ""}`}
           />
           <VoiceButton
             slug={slug}
@@ -102,7 +102,7 @@ export function AskBox({ slug, name, pending, error, hint, inner = "", onSend }:
             <ArrowUp className="h-5 w-5" strokeWidth={2.5} />
           </button>
         </div>
-        {hint && <p className="mt-2 text-center text-xs text-[#8a847a]">{hint}</p>}
+        {hint && <p className="mt-2 text-center text-xs text-[#7a8099]">{hint}</p>}
       </div>
     </form>
   )
@@ -117,13 +117,13 @@ export function Avatar() {
 }
 
 function Question({ text }: { text: string }) {
-  return <p className="ml-auto w-fit max-w-[85%] whitespace-pre-wrap rounded-xl bg-[#17150f] px-4 py-2.5 text-[15px] text-white">{text}</p>
+  return <p className="ml-auto w-fit max-w-[85%] whitespace-pre-wrap rounded-xl bg-[#0f1222] px-4 py-2.5 text-[15px] text-white">{text}</p>
 }
 
 /** What the assistant is doing while there's no text yet, e.g. "Searching the units". */
 function Working({ status }: { status: string }) {
   return (
-    <p className="flex items-center gap-2 pt-1.5 text-sm font-semibold text-[#6b665d]">
+    <p className="flex items-center gap-2 pt-1.5 text-sm font-semibold text-[#5b6283]">
       {status}
       <span className="flex gap-1">
         {[0, 150, 300].map((d) => (
@@ -153,7 +153,7 @@ function Answer({ slug, text, cards = [], streaming = false, status = "", onAsk,
               setCopied(true)
               setTimeout(() => setCopied(false), 1500)
             }}
-            className="mt-2 inline-flex items-center gap-1.5 text-xs font-semibold text-[#8a847a] transition hover:text-[#17150f]"
+            className="mt-2 inline-flex items-center gap-1.5 text-xs font-semibold text-[#7a8099] transition hover:text-[#0f1222]"
           >
             {copied ? <Check className="h-3.5 w-3.5" /> : <Copy className="h-3.5 w-3.5" />} {copied ? "Copied" : "Copy"}
           </button>
@@ -161,7 +161,7 @@ function Answer({ slug, text, cards = [], streaming = false, status = "", onAsk,
         {onAsk && followUps.length > 0 && (
           <div className="mt-3 flex flex-col items-start gap-1.5">
             {followUps.map((q) => (
-              <button key={q} type="button" onClick={() => onAsk(q)} className="inline-flex max-w-full items-start gap-2 rounded-2xl border border-[#e8eaed] bg-white shadow-[0_2px_12px_-2px_rgba(23,21,15,0.06)] px-3 py-2 text-left text-sm font-semibold text-[#3d3a34] transition hover:border-[var(--accent)] hover:text-[#17150f]">
+              <button key={q} type="button" onClick={() => onAsk(q)} className="inline-flex max-w-full items-start gap-2 rounded-2xl border border-[#e8eaed] bg-white shadow-[0_2px_12px_-2px_rgba(23,21,15,0.06)] px-3 py-2 text-left text-sm font-semibold text-[#2f3450] transition hover:border-[var(--accent)] hover:text-[#0f1222]">
                 <CornerDownRight className="mt-0.5 h-4 w-4 shrink-0 text-[var(--accent)]" />
                 {q}
               </button>

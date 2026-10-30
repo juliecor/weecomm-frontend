@@ -43,10 +43,10 @@ export default async function ApprovalsPage({ params }: { params: Promise<{ real
           {o.approval_status === "approved" && <Tag tone="good">Approved</Tag>}
           {o.approval_status === "rejected" && <Tag tone="bad">Sent back</Tag>}
         </div>
-        <p className="mt-0.5 text-sm text-[#6b665d]">
+        <p className="mt-0.5 text-sm text-[#5b6283]">
           {[o.project, o.unit, php(o.price)].filter(Boolean).join(" · ")} · by {o.agent ?? "an agent"}
         </p>
-        <p className="mt-0.5 text-xs font-medium text-[#8a847a]">Made {shortDate(o.created_at)} ({timeAgo(o.created_at)}){o.approval_status === "rejected" && o.approval_note ? ` · "${o.approval_note}"` : ""}</p>
+        <p className="mt-0.5 text-xs font-medium text-[#7a8099]">Made {shortDate(o.created_at)} ({timeAgo(o.created_at)}){o.approval_status === "rejected" && o.approval_note ? ` · "${o.approval_note}"` : ""}</p>
       </div>
       <div className="flex shrink-0 items-center gap-2">
         <Link href={`/${slug}/dashboard/offers/${o.id}`} className={o.approval_status === "pending" ? btn.primary : btn.ghost}>

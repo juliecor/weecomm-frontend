@@ -42,15 +42,15 @@ export default async function CertificatePage({ params, searchParams }: Props) {
   const developer = isBroker(user) ? (user.realty.developer?.name ?? "the developer") : user.realty.name
 
   return (
-    <main className="min-h-screen bg-[#e9e5dd] px-3 py-6 text-[#17150f] sm:px-6 print:bg-white print:p-0">
+    <main className="min-h-screen bg-[#e4e8f1] px-3 py-6 text-[#0f1222] sm:px-6 print:bg-white print:p-0">
       <style>{`@page { size: A4 landscape; margin: 0; }`}</style>
       <div className="mx-auto flex max-w-[1100px] flex-wrap items-center justify-between gap-3 pb-5 print:hidden">
-        <Link href={back} className="inline-flex items-center gap-1.5 text-sm font-semibold text-[#3d3a34] hover:text-[#17150f]">
+        <Link href={back} className="inline-flex items-center gap-1.5 text-sm font-semibold text-[#2f3450] hover:text-[#0f1222]">
           <ArrowLeft className="h-4 w-4" /> Back to the dashboard
         </Link>
         {certificate && <PrintButton />}
       </div>
-      {certificate && <p className="mx-auto max-w-[1100px] pb-4 text-sm text-[#5a554d] print:hidden">To save it as a PDF, click Print and choose &ldquo;Save as PDF&rdquo;. Turn on &ldquo;Background graphics&rdquo; for the cream paper colour.</p>}
+      {certificate && <p className="mx-auto max-w-[1100px] pb-4 text-sm text-[#4a5070] print:hidden">To save it as a PDF, click Print and choose &ldquo;Save as PDF&rdquo;. Turn on &ldquo;Background graphics&rdquo; for the cream paper colour.</p>}
 
       {certificate ? (
         <div className="mx-auto max-w-[1100px] shadow-[0_30px_70px_-30px_rgba(23,21,15,0.55)] print:w-[297mm] print:max-w-none print:shadow-none">
@@ -59,7 +59,7 @@ export default async function CertificatePage({ params, searchParams }: Props) {
       ) : (
         <div className="mx-auto max-w-xl bg-white px-6 py-12 text-center">
           <h1 className="text-2xl font-bold tracking-tight">No certificate yet</h1>
-          <p className="mt-3 text-[#5a554d]">The certificate of accreditation is issued once {developer} checks and accepts the signed, notarized agreement.</p>
+          <p className="mt-3 text-[#4a5070]">The certificate of accreditation is issued once {developer} checks and accepts the signed, notarized agreement.</p>
         </div>
       )}
     </main>

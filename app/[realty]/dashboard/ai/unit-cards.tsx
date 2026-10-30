@@ -4,7 +4,7 @@ import { php, sqm } from "@/lib/format"
 import type { UnitCard } from "./actions"
 import { Photo } from "@/components/photo"
 
-const TONE: Record<UnitCard["status"], string> = { available: "bg-emerald-700", reserved: "bg-amber-600", sold: "bg-[#17150f]" }
+const TONE: Record<UnitCard["status"], string> = { available: "bg-emerald-700", reserved: "bg-amber-600", sold: "bg-[#0f1222]" }
 
 /**
  * The units the AI put under its answer: photo, price and status, with Make
@@ -19,7 +19,7 @@ export function UnitCards({ slug, cards }: { slug: string; cards: UnitCard[] }) 
         {cards.map((c) => (
           <li key={c.id} className="flex flex-col overflow-hidden rounded-2xl border border-[#e8eaed] bg-white shadow-[0_2px_12px_-2px_rgba(23,21,15,0.06)]">
             <div className="flex flex-1 @lg:flex-col">
-              <div className="relative min-h-28 w-24 shrink-0 bg-[#f1eee9] @lg:aspect-[16/10] @lg:min-h-0 @lg:w-full">
+              <div className="relative min-h-28 w-24 shrink-0 bg-[#eff1f7] @lg:aspect-[16/10] @lg:min-h-0 @lg:w-full">
                 {c.photo ? (
                   <Photo src={c.photo} sizes="(min-width: 640px) 360px, 96px" className="absolute inset-0 h-full w-full object-cover" />
                 ) : (
@@ -29,9 +29,9 @@ export function UnitCards({ slug, cards }: { slug: string; cards: UnitCard[] }) 
               </div>
               <div className="min-w-0 flex-1 p-3 @lg:p-4">
                 <p className="truncate text-xs font-bold uppercase tracking-[0.1em] text-[var(--accent)]">{c.project.name}</p>
-                <p className="mt-0.5 text-base font-bold leading-snug text-[#17150f]">{c.name}</p>
-                <p className="mt-0.5 text-sm text-[#6b665d]">{[c.unit_type !== c.name ? c.unit_type : null, c.area_sqm ? sqm(c.area_sqm) : null, c.floor].filter(Boolean).join(" · ")}</p>
-                <p className="mt-1.5 text-lg font-bold tabular-nums text-[#17150f]">{c.price === null ? "Price on request" : php(c.price)}</p>
+                <p className="mt-0.5 text-base font-bold leading-snug text-[#0f1222]">{c.name}</p>
+                <p className="mt-0.5 text-sm text-[#5b6283]">{[c.unit_type !== c.name ? c.unit_type : null, c.area_sqm ? sqm(c.area_sqm) : null, c.floor].filter(Boolean).join(" · ")}</p>
+                <p className="mt-1.5 text-lg font-bold tabular-nums text-[#0f1222]">{c.price === null ? "Price on request" : php(c.price)}</p>
               </div>
             </div>
             <div className="flex gap-2 border-t border-[#efebe5] p-2.5 @lg:px-4 @lg:py-3">
@@ -40,7 +40,7 @@ export function UnitCards({ slug, cards }: { slug: string; cards: UnitCard[] }) 
                   <FilePlus2 className="h-4 w-4" /> Make offer
                 </Link>
               )}
-              <Link href={`/${slug}/dashboard/projects/${c.project.id}?unit=${encodeURIComponent(c.name)}#units`} className="rounded-xl inline-flex flex-1 items-center justify-center gap-1.5 border border-[#d9d4cb] px-3 py-2 text-sm font-bold text-[#17150f] transition hover:border-[#17150f] @lg:flex-none">
+              <Link href={`/${slug}/dashboard/projects/${c.project.id}?unit=${encodeURIComponent(c.name)}#units`} className="rounded-xl inline-flex flex-1 items-center justify-center gap-1.5 border border-[#d6dae6] px-3 py-2 text-sm font-bold text-[#0f1222] transition hover:border-[#0f1222] @lg:flex-none">
                 View <ArrowRight className="h-3.5 w-3.5" />
               </Link>
             </div>

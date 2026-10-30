@@ -19,8 +19,8 @@ const CONTACT = [
   { v: "email", l: "Email" },
 ]
 
-const field = "mt-1.5 block w-full border border-[#d9d4cb] bg-white px-3.5 py-3 text-[15px] text-[#17150f] outline-none transition focus:border-[var(--accent)] focus:ring-2 focus:ring-[var(--accent)]/15"
-const label = "text-xs font-bold uppercase tracking-[0.12em] text-[#6b665d]"
+const field = "mt-1.5 block w-full border border-[#d6dae6] bg-white px-3.5 py-3 text-[15px] text-[#0f1222] outline-none transition focus:border-[var(--accent)] focus:ring-2 focus:ring-[var(--accent)]/15"
+const label = "text-xs font-bold uppercase tracking-[0.12em] text-[#5b6283]"
 
 /** "What would you like to do?" — the buyer answers the offer; the agent gets a lead. */
 export function RespondSection({ code, buyerName, agentName }: { code: string; buyerName: string; agentName: string }) {
@@ -34,7 +34,7 @@ export function RespondSection({ code, buyerName, agentName }: { code: string; b
         <CheckCircle2 className="mt-0.5 h-7 w-7 shrink-0 text-[var(--accent)]" />
         <div>
           <p className="text-2xl font-bold tracking-tight">Thank you, {first}.</p>
-          <p className="mt-2 text-[15px] leading-relaxed text-[#3d3a34]">{agentName} has your details and will get back to you soon.</p>
+          <p className="mt-2 text-[15px] leading-relaxed text-[#2f3450]">{agentName} has your details and will get back to you soon.</p>
         </div>
       </div>
     )
@@ -51,14 +51,14 @@ export function RespondSection({ code, buyerName, agentName }: { code: string; b
               type="button"
               onClick={() => setKind(k)}
               aria-pressed={on}
-              className={`flex items-start gap-3 border-2 p-5 text-left transition ${on ? "border-[var(--accent)] bg-white" : "border-[#e0dcd5] bg-white hover:border-[#17150f]"}`}
+              className={`flex items-start gap-3 border-2 p-5 text-left transition ${on ? "border-[var(--accent)] bg-white" : "border-[#dde1ec] bg-white hover:border-[#0f1222]"}`}
             >
-              <span className={`flex h-10 w-10 shrink-0 items-center justify-center ${on ? "bg-[var(--accent)] text-white" : "bg-[#f3f0eb] text-[#17150f]"}`}>
+              <span className={`flex h-10 w-10 shrink-0 items-center justify-center ${on ? "bg-[var(--accent)] text-white" : "bg-[#f3f0eb] text-[#0f1222]"}`}>
                 <Icon className="h-5 w-5" />
               </span>
               <span>
                 <span className="block text-lg font-bold">{title}</span>
-                <span className="mt-0.5 block text-sm text-[#5a554d]">{text}</span>
+                <span className="mt-0.5 block text-sm text-[#4a5070]">{text}</span>
               </span>
             </button>
           )
@@ -66,7 +66,7 @@ export function RespondSection({ code, buyerName, agentName }: { code: string; b
       </div>
 
       {kind && (
-        <form action={action} className="mt-5 grid gap-4 border border-[#e0dcd5] bg-white p-5 sm:grid-cols-2 sm:p-7">
+        <form action={action} className="mt-5 grid gap-4 border border-[#dde1ec] bg-white p-5 sm:grid-cols-2 sm:p-7">
           <input type="hidden" name="kind" value={kind} />
           {/* Honeypot: hidden from people, filled by bots. */}
           <input type="text" name="website" tabIndex={-1} autoComplete="off" className="hidden" aria-hidden />
@@ -88,7 +88,7 @@ export function RespondSection({ code, buyerName, agentName }: { code: string; b
               {CONTACT.map((c, i) => (
                 <label key={c.v} className="cursor-pointer">
                   <input type="radio" name="contact_via" value={c.v} defaultChecked={i === 0} className="peer sr-only" />
-                  <span className="block border border-[#d9d4cb] px-3.5 py-2.5 text-sm font-bold text-[#3d3a34] transition peer-checked:border-[var(--accent)] peer-checked:bg-[var(--accent)] peer-checked:text-white peer-focus-visible:ring-2 peer-focus-visible:ring-[var(--accent)]">
+                  <span className="block border border-[#d6dae6] px-3.5 py-2.5 text-sm font-bold text-[#2f3450] transition peer-checked:border-[var(--accent)] peer-checked:bg-[var(--accent)] peer-checked:text-white peer-focus-visible:ring-2 peer-focus-visible:ring-[var(--accent)]">
                     {c.l}
                   </span>
                 </label>
@@ -111,7 +111,7 @@ export function RespondSection({ code, buyerName, agentName }: { code: string; b
               {pending ? <LoaderCircle className="h-4 w-4 animate-spin" /> : <Send className="h-4 w-4" />}
               Send to {agentName.split(" ")[0]}
             </button>
-            <p className="text-xs text-[#8a847a]">Your details go only to {agentName} and their realty.</p>
+            <p className="text-xs text-[#7a8099]">Your details go only to {agentName} and their realty.</p>
           </div>
         </form>
       )}

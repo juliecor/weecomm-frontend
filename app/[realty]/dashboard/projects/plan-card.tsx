@@ -39,20 +39,20 @@ export function PlanCard({ slug, projectId, plan, staff }: { slug: string; proje
               action={remove}
               onSubmit={confirmSubmit({ title: `Delete the plan "${plan.name}"?`, body: "Agents can't pick it for new offers anymore. Offers already sent keep their own schedule.", confirm: "Delete plan", danger: true })}
             >
-              <button type="submit" disabled={deleting} aria-label={`Delete ${plan.name}`} className="rounded-md p-2 text-[#a39d92] transition hover:bg-red-50 hover:text-red-700 disabled:opacity-50">
+              <button type="submit" disabled={deleting} aria-label={`Delete ${plan.name}`} className="rounded-md p-2 text-[#9aa0b5] transition hover:bg-red-50 hover:text-red-700 disabled:opacity-50">
                 {deleting ? <LoaderCircle className="h-4 w-4 animate-spin" /> : <Trash2 className="h-4 w-4" />}
               </button>
             </form>
           </div>
         )}
       </div>
-      <ol className="mt-2 space-y-1 text-sm text-[#6b665d]">
+      <ol className="mt-2 space-y-1 text-sm text-[#5b6283]">
         {plan.milestones.map((m, i) => (
           <li key={i} className="flex justify-between gap-3">
             <span>
               {m.label}
-              {m.days !== null && m.days > 0 ? <span className="text-[#a39d92]"> · {m.days} days</span> : m.days === null ? <span className="text-[#a39d92]"> · on completion</span> : null}
-              {m.months ? <span className="text-[#a39d92]"> · {m.months} monthly payments</span> : null}
+              {m.days !== null && m.days > 0 ? <span className="text-[#9aa0b5]"> · {m.days} days</span> : m.days === null ? <span className="text-[#9aa0b5]"> · on completion</span> : null}
+              {m.months ? <span className="text-[#9aa0b5]"> · {m.months} monthly payments</span> : null}
             </span>
             <span className="font-medium tabular-nums">{Number(m.percent.toFixed(2))}%</span>
           </li>

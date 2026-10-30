@@ -12,7 +12,7 @@ export function BuyerName({ initial }: { initial: string | null }) {
       role="textbox"
       aria-label="Buyer's name"
       data-placeholder="Type the buyer's name"
-      className="block min-h-[1.6em] rounded-md border border-dashed border-[#c9c4bb] px-2 py-0.5 text-[16px] font-bold text-[#17150f] outline-none empty:before:font-normal empty:before:text-[#a39d92] empty:before:content-[attr(data-placeholder)] focus:border-[var(--accent)] print:rounded-none print:border-0 print:border-b print:border-solid print:border-[#17150f] print:px-0 print:empty:before:content-none"
+      className="block min-h-[1.6em] rounded-md border border-dashed border-[#c2c7d6] px-2 py-0.5 text-[16px] font-bold text-[#0f1222] outline-none empty:before:font-normal empty:before:text-[#9aa0b5] empty:before:content-[attr(data-placeholder)] focus:border-[var(--accent)] print:rounded-none print:border-0 print:border-b print:border-solid print:border-[#0f1222] print:px-0 print:empty:before:content-none"
     >
       {initial ?? ""}
     </span>

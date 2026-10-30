@@ -73,26 +73,26 @@ function Panel({ slug, name, isAgent, page, hidden, onClose, onNew }: { slug: st
   }
 
   return (
-    <section aria-label={`Ask ${name}`} className={`rounded-2xl fixed inset-0 z-50 flex-col bg-white sm:left-auto sm:w-[440px] sm:border-l sm:border-[#e0dcd5] sm:shadow-[-24px_0_48px_-24px_rgba(0,0,0,0.3)] ${hidden ? "hidden" : "flex"}`}>
-      <header className="flex items-center gap-3 border-b border-[#e6e2db] px-4 py-3">
+    <section aria-label={`Ask ${name}`} className={`rounded-2xl fixed inset-0 z-50 flex-col bg-white sm:left-auto sm:w-[440px] sm:border-l sm:border-[#dde1ec] sm:shadow-[-24px_0_48px_-24px_rgba(0,0,0,0.3)] ${hidden ? "hidden" : "flex"}`}>
+      <header className="flex items-center gap-3 border-b border-[#e2e5ef] px-4 py-3">
         <span className="rounded-xl flex h-9 w-9 shrink-0 items-center justify-center bg-[var(--accent)] text-white">
           <Sparkles className="h-5 w-5" />
         </span>
         <div className="min-w-0 flex-1">
           <p className="text-base font-bold leading-tight tracking-tight">{name}</p>
-          <p className="truncate text-xs text-[#6b665d]">{label ? `Knows you're on ${label}` : "Answers from your dashboard's live data"}</p>
+          <p className="truncate text-xs text-[#5b6283]">{label ? `Knows you're on ${label}` : "Answers from your dashboard's live data"}</p>
         </div>
         {chat && (
-          <Link href={`/${slug}/dashboard/ai?chat=${chat}`} onClick={onClose} title="Open in the full chat" aria-label="Open in the full chat" className="p-2 text-[#6b665d] transition hover:text-[#17150f]">
+          <Link href={`/${slug}/dashboard/ai?chat=${chat}`} onClick={onClose} title="Open in the full chat" aria-label="Open in the full chat" className="p-2 text-[#5b6283] transition hover:text-[#0f1222]">
             <Maximize2 className="h-4 w-4" />
           </Link>
         )}
         {messages.length > 0 && (
-          <button type="button" onClick={onNew} disabled={pending} title="New chat" aria-label="New chat" className="p-2 text-[#6b665d] transition hover:text-[#17150f] disabled:opacity-40">
+          <button type="button" onClick={onNew} disabled={pending} title="New chat" aria-label="New chat" className="p-2 text-[#5b6283] transition hover:text-[#0f1222] disabled:opacity-40">
             <Plus className="h-5 w-5" />
           </button>
         )}
-        <button type="button" onClick={onClose} aria-label="Close" className="p-2 text-[#6b665d] transition hover:text-[#17150f]">
+        <button type="button" onClick={onClose} aria-label="Close" className="p-2 text-[#5b6283] transition hover:text-[#0f1222]">
           <X className="h-5 w-5" />
         </button>
       </header>
@@ -101,10 +101,10 @@ function Panel({ slug, name, isAgent, page, hidden, onClose, onNew }: { slug: st
         {messages.length === 0 ? (
           <div>
             <p className="text-lg font-bold tracking-tight">Ask about {label || "anything in your dashboard"}</p>
-            <p className="mt-1 text-sm text-[#5a554d]">Type or tap the mic. {name} looks it up as you ask.</p>
+            <p className="mt-1 text-sm text-[#4a5070]">Type or tap the mic. {name} looks it up as you ask.</p>
             <div className="mt-4 grid gap-2">
               {ideas.map((idea) => (
-                <button key={idea} type="button" onClick={() => ask(idea)} className="rounded-xl border border-[#e0dcd5] bg-[#faf8f5] px-4 py-3 text-left text-sm font-semibold text-[#3d3a34] transition hover:border-[var(--accent)] hover:bg-white hover:text-[#17150f]">
+                <button key={idea} type="button" onClick={() => ask(idea)} className="rounded-xl border border-[#dde1ec] bg-[#f8f9fc] px-4 py-3 text-left text-sm font-semibold text-[#2f3450] transition hover:border-[var(--accent)] hover:bg-white hover:text-[#0f1222]">
                   {idea}
                 </button>
               ))}

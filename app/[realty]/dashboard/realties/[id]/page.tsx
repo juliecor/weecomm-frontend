@@ -132,14 +132,14 @@ export default async function AccreditationReviewPage({ params }: { params: Prom
 
   return (
     <div>
-      <Link href={`/${slug}/dashboard/realties`} className="mb-5 inline-flex items-center gap-1.5 text-sm font-semibold text-[#6b665d] hover:text-[#17150f]">
+      <Link href={`/${slug}/dashboard/realties`} className="mb-5 inline-flex items-center gap-1.5 text-sm font-semibold text-[#5b6283] hover:text-[#0f1222]">
         <ArrowLeft className="h-4 w-4" /> Realties
       </Link>
 
       {/* The realty at a glance: who, and where the accreditation stands. */}
       <section className="overflow-hidden rounded-2xl border border-[#e8eaed] bg-white shadow-[0_2px_12px_-2px_rgba(23,21,15,0.06)]">
         <div className="flex items-start gap-4 p-5 sm:items-center sm:gap-5 sm:p-6">
-          <span aria-hidden className={`${display} flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl bg-[#17150f] text-xl text-white sm:h-16 sm:w-16 sm:text-2xl`}>
+          <span aria-hidden className={`${display} flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl bg-[#0f1222] text-xl text-white sm:h-16 sm:w-16 sm:text-2xl`}>
             {initials(d.firm_name) || "R"}
           </span>
           <div className="min-w-0 flex-1">
@@ -148,18 +148,18 @@ export default async function AccreditationReviewPage({ params }: { params: Prom
               <Tag tone={status.tone}>{status.label}</Tag>
               {p && <Tag tone={PERIOD_TAG[p.state].tone}>{PERIOD_TAG[p.state].label}</Tag>}
             </div>
-            <h1 className={`${display} mt-1 text-2xl leading-tight tracking-tight text-[#17150f] sm:text-3xl`}>{d.firm_name}</h1>
-            <p className="mt-1 text-sm text-[#6b665d] sm:text-[15px]">
+            <h1 className={`${display} mt-1 text-2xl leading-tight tracking-tight text-[#0f1222] sm:text-3xl`}>{d.firm_name}</h1>
+            <p className="mt-1 text-sm text-[#5b6283] sm:text-[15px]">
               {d.business_type === "corporation" ? "Corporation" : "Sole proprietor"} · sent {longDate(a.submitted_at)} · {a.source === "website" ? "from the website" : `invited as ${a.invited_email}`}
             </p>
           </div>
         </div>
-        <dl className="grid grid-cols-2 border-t border-[#f0eeea] sm:grid-cols-4">
+        <dl className="grid grid-cols-2 border-t border-[#eef0f6] sm:grid-cols-4">
           {glance.map((g, i) => (
-            <a key={g.label} href={g.href} className={`block min-w-0 px-5 py-3.5 transition hover:bg-[#faf8f5] ${i % 2 ? "border-l border-[#f0eeea]" : "sm:border-l sm:first:border-l-0"} ${i > 1 ? "border-t border-[#f0eeea] sm:border-t-0" : ""} border-[#f0eeea]`}>
-              <dt className="text-[11px] font-bold uppercase tracking-[0.14em] text-[#8a847a]">{g.label}</dt>
-              <dd className={`${display} mt-0.5 truncate text-lg ${g.hot ? "text-[var(--accent)]" : "text-[#17150f]"}`}>{g.value}</dd>
-              {g.note && <dd className="truncate text-xs text-[#6b665d]">{g.note}</dd>}
+            <a key={g.label} href={g.href} className={`block min-w-0 px-5 py-3.5 transition hover:bg-[#f8f9fc] ${i % 2 ? "border-l border-[#eef0f6]" : "sm:border-l sm:first:border-l-0"} ${i > 1 ? "border-t border-[#eef0f6] sm:border-t-0" : ""} border-[#eef0f6]`}>
+              <dt className="text-[11px] font-bold uppercase tracking-[0.14em] text-[#7a8099]">{g.label}</dt>
+              <dd className={`${display} mt-0.5 truncate text-lg ${g.hot ? "text-[var(--accent)]" : "text-[#0f1222]"}`}>{g.value}</dd>
+              {g.note && <dd className="truncate text-xs text-[#5b6283]">{g.note}</dd>}
             </a>
           ))}
         </dl>
@@ -183,7 +183,7 @@ export default async function AccreditationReviewPage({ params }: { params: Prom
                 {a.status === "submitted" && (
                   <Panel title="Accreditation agreement" className="!mt-5">
                     <div className="flex flex-wrap items-center justify-between gap-3">
-                      <p className="text-[15px] text-[#3d3a34]">{a.agreed ? <>Agreed online by <strong>{a.agreed.name}</strong> on {longDate(a.agreed.at)}. Once accepted, they print it, sign it, have it notarized and upload it.</> : "Not agreed online: the form was sent before the agreement was set up."}</p>
+                      <p className="text-[15px] text-[#2f3450]">{a.agreed ? <>Agreed online by <strong>{a.agreed.name}</strong> on {longDate(a.agreed.at)}. Once accepted, they print it, sign it, have it notarized and upload it.</> : "Not agreed online: the form was sent before the agreement was set up."}</p>
                       {a.agreement && (
                         <Link href={`/${slug}/agreement?form=${a.id}`} target="_blank" className="inline-flex items-center gap-1.5 text-sm font-bold text-[var(--accent)] hover:underline">
                           <Printer className="h-4 w-4" /> Read the agreement
@@ -202,8 +202,8 @@ export default async function AccreditationReviewPage({ params }: { params: Prom
             badge: a.documents.length,
             content: (
               <div className="mt-6">
-                <p className="text-sm text-[#6b665d]">Click a picture to enlarge it. Only Johndorf&apos;s staff can see these.</p>
-                {a.documents.length === 0 ? <p className="py-6 text-sm text-[#8a847a]">No documents were attached.</p> : <DocumentsGallery base={`/${slug}/dashboard/realties/${a.id}/documents`} docs={a.documents} />}
+                <p className="text-sm text-[#5b6283]">Click a picture to enlarge it. Only Johndorf&apos;s staff can see these.</p>
+                {a.documents.length === 0 ? <p className="py-6 text-sm text-[#7a8099]">No documents were attached.</p> : <DocumentsGallery base={`/${slug}/dashboard/realties/${a.id}/documents`} docs={a.documents} />}
               </div>
             ),
           },
@@ -248,7 +248,7 @@ export default async function AccreditationReviewPage({ params }: { params: Prom
                     />
                   </Panel>
                 </div>
-                <p className="mt-5 text-xs text-[#a39d92]">
+                <p className="mt-5 text-xs text-[#9aa0b5]">
                   {a.submitted_at ? `Form received ${shortDate(a.submitted_at)}.` : null}
                   {a.privacy_accepted_at ? ` Agreed to the data privacy notice ${shortDate(a.privacy_accepted_at)}.` : null}
                 </p>
@@ -267,8 +267,8 @@ function Details({ rows }: { rows: [string, React.ReactNode][] }) {
     <dl className="grid gap-x-8 gap-y-4 pt-1 sm:grid-cols-2">
       {rows.map(([label, value]) => (
         <div key={label} className="min-w-0">
-          <dt className="text-[11px] font-bold uppercase tracking-[0.12em] text-[#8a847a]">{label}</dt>
-          <dd className="mt-1 break-words text-[15px] text-[#17150f]">{value === null || value === "" || value === undefined ? "—" : value}</dd>
+          <dt className="text-[11px] font-bold uppercase tracking-[0.12em] text-[#7a8099]">{label}</dt>
+          <dd className="mt-1 break-words text-[15px] text-[#0f1222]">{value === null || value === "" || value === undefined ? "—" : value}</dd>
         </div>
       ))}
     </dl>

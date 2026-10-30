@@ -16,7 +16,7 @@ export default async function NewProjectPage({ params }: { params: Promise<{ rea
 
   return (
     <div>
-      <Link href={`/${slug}/dashboard/projects`} className="inline-flex items-center gap-1.5 text-sm font-semibold text-[#6b665d] hover:text-[#17150f]">
+      <Link href={`/${slug}/dashboard/projects`} className="inline-flex items-center gap-1.5 text-sm font-semibold text-[#5b6283] hover:text-[#0f1222]">
         <ArrowLeft className="h-4 w-4" /> Projects
       </Link>
       <div className="mt-3">

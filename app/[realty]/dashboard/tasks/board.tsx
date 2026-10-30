@@ -71,17 +71,17 @@ export function TaskBoard({ slug, tasks, manager, scope, options, openTask, star
       <div className="flex flex-wrap items-center justify-between gap-3">
         <div className="flex flex-wrap items-center gap-2">
           {manager && (
-            <div className="flex gap-1 rounded-xl border border-[#d9d4cb] bg-white p-1 text-sm font-bold">
-              <Link href={path} className={`rounded-lg px-3.5 py-1.5 ${scope === "all" ? "bg-[#17150f] text-white" : "text-[#3d3a34] hover:bg-[#f6f4f0]"}`}>
+            <div className="flex gap-1 rounded-xl border border-[#d6dae6] bg-white p-1 text-sm font-bold">
+              <Link href={path} className={`rounded-lg px-3.5 py-1.5 ${scope === "all" ? "bg-[#0f1222] text-white" : "text-[#2f3450] hover:bg-[#f3f5fa]"}`}>
                 Everyone&apos;s
               </Link>
-              <Link href={`${path}?scope=mine`} className={`rounded-lg px-3.5 py-1.5 ${scope === "mine" ? "bg-[#17150f] text-white" : "text-[#3d3a34] hover:bg-[#f6f4f0]"}`}>
+              <Link href={`${path}?scope=mine`} className={`rounded-lg px-3.5 py-1.5 ${scope === "mine" ? "bg-[#0f1222] text-white" : "text-[#2f3450] hover:bg-[#f3f5fa]"}`}>
                 Mine
               </Link>
             </div>
           )}
           {manager && scope === "all" && people.length > 1 && (
-            <select value={person} onChange={(e) => setPerson(e.target.value)} aria-label="Show one person's tasks" className="rounded-xl border border-[#d9d4cb] bg-white px-3 py-2 text-sm font-semibold text-[#17150f]">
+            <select value={person} onChange={(e) => setPerson(e.target.value)} aria-label="Show one person's tasks" className="rounded-xl border border-[#d6dae6] bg-white px-3 py-2 text-sm font-semibold text-[#0f1222]">
               <option value="">Everyone</option>
               {people.map(([id, name]) => (
                 <option key={id} value={id}>
@@ -122,11 +122,11 @@ export function TaskBoard({ slug, tasks, manager, scope, options, openTask, star
               }}
               className={`flex min-h-40 flex-col overflow-hidden rounded-2xl border bg-white shadow-[0_2px_12px_-2px_rgba(23,21,15,0.06)] transition ${over === col.status ? "border-[var(--accent)] bg-[color-mix(in_srgb,var(--accent)_6%,white)]" : "border-[#e8eaed]"}`}
             >
-              <header className="flex items-center justify-between border-b border-[#e6e2db] px-4 py-3">
-                <h2 className="text-[15px] font-bold text-[#17150f]">{col.label}</h2>
-                <span className="rounded-full bg-[#f3f1ed] px-2 py-0.5 text-xs font-bold tabular-nums text-[#3d3a34]">{cards.length}</span>
+              <header className="flex items-center justify-between border-b border-[#e2e5ef] px-4 py-3">
+                <h2 className="text-[15px] font-bold text-[#0f1222]">{col.label}</h2>
+                <span className="rounded-full bg-[#f1f3f8] px-2 py-0.5 text-xs font-bold tabular-nums text-[#2f3450]">{cards.length}</span>
               </header>
-              <ul className="flex-1 space-y-2.5 bg-[#faf9f7] p-3">
+              <ul className="flex-1 space-y-2.5 bg-[#f9fafd] p-3">
                 {cards.map((t) => {
                   const due = dueText(t)
                   return (
@@ -145,16 +145,16 @@ export function TaskBoard({ slug, tasks, manager, scope, options, openTask, star
                           setDragging(null)
                         }}
                         onClick={() => setOpen(t.id)}
-                        className={`rounded-xl block w-full border bg-white p-3.5 text-left transition hover:border-[#17150f] ${t.priority === "urgent" && t.status !== "done" ? "border-l-4 border-[#e0dcd5] border-l-red-600" : "border-[#e0dcd5]"} ${dragging === t.id ? "opacity-50" : ""}`}
+                        className={`rounded-xl block w-full border bg-white p-3.5 text-left transition hover:border-[#0f1222] ${t.priority === "urgent" && t.status !== "done" ? "border-l-4 border-[#dde1ec] border-l-red-600" : "border-[#dde1ec]"} ${dragging === t.id ? "opacity-50" : ""}`}
                       >
                         {t.priority === "urgent" && t.status !== "done" && (
                           <span className="mb-1.5 inline-flex items-center gap-1 text-[11px] font-bold uppercase tracking-[0.12em] text-red-700">
                             <Flag className="h-3 w-3" /> Urgent
                           </span>
                         )}
-                        <span className={`block text-[15px] font-bold leading-snug ${t.status === "done" ? "text-[#8a847a] line-through decoration-[#c9c3b8]" : "text-[#17150f]"}`}>{t.title}</span>
+                        <span className={`block text-[15px] font-bold leading-snug ${t.status === "done" ? "text-[#7a8099] line-through decoration-[#c9c3b8]" : "text-[#0f1222]"}`}>{t.title}</span>
                         {t.link && (
-                          <span className="rounded-full mt-1.5 inline-flex max-w-full items-center gap-1 bg-[#f6f4f0] px-2 py-0.5 text-xs font-semibold text-[#3d3a34]">
+                          <span className="rounded-full mt-1.5 inline-flex max-w-full items-center gap-1 bg-[#f3f5fa] px-2 py-0.5 text-xs font-semibold text-[#2f3450]">
                             <FileText className="h-3 w-3 shrink-0" /> <span className="truncate">{t.link.label}</span>
                           </span>
                         )}
@@ -162,14 +162,14 @@ export function TaskBoard({ slug, tasks, manager, scope, options, openTask, star
                           <span className="flex min-w-0 items-center gap-2">
                             {t.assignee ? (
                               <>
-                                <span aria-hidden className="flex h-6 w-6 shrink-0 items-center justify-center bg-[#17150f] text-[10px] font-bold text-white">{initials(t.assignee.name)}</span>
-                                <span className="truncate text-xs font-semibold text-[#5a554d]">{t.assignee.name}</span>
+                                <span aria-hidden className="flex h-6 w-6 shrink-0 items-center justify-center bg-[#0f1222] text-[10px] font-bold text-white">{initials(t.assignee.name)}</span>
+                                <span className="truncate text-xs font-semibold text-[#4a5070]">{t.assignee.name}</span>
                               </>
                             ) : (
-                              <span className="text-xs font-semibold text-[#a39d92]">Nobody yet</span>
+                              <span className="text-xs font-semibold text-[#9aa0b5]">Nobody yet</span>
                             )}
                           </span>
-                          <span className="flex shrink-0 items-center gap-2 text-xs font-semibold text-[#8a847a]">
+                          <span className="flex shrink-0 items-center gap-2 text-xs font-semibold text-[#7a8099]">
                             {due && <span className={due.tone === "late" ? "font-bold text-red-700" : due.tone === "soon" ? "font-bold text-amber-700" : ""}>{due.text}</span>}
                             {t.comment_count > 0 && (
                               <span className="inline-flex items-center gap-0.5">
@@ -187,7 +187,7 @@ export function TaskBoard({ slug, tasks, manager, scope, options, openTask, star
                     </li>
                   )
                 })}
-                {cards.length === 0 && <li className="px-1 py-6 text-center text-sm text-[#a39d92]">{col.status === "done" ? "Finished tasks show here for 30 days." : "Nothing here."}</li>}
+                {cards.length === 0 && <li className="px-1 py-6 text-center text-sm text-[#9aa0b5]">{col.status === "done" ? "Finished tasks show here for 30 days." : "Nothing here."}</li>}
               </ul>
             </section>
           )
@@ -237,7 +237,7 @@ function TaskView({ slug, id, onMove, onEdit, onDeleted }: { slug: string; id: n
   }, [slug, id])
 
   if (error) return <p className="text-sm font-bold text-red-700">{error}</p>
-  if (!task) return <LoaderCircle className="mx-auto h-6 w-6 animate-spin text-[#8a847a]" />
+  if (!task) return <LoaderCircle className="mx-auto h-6 w-6 animate-spin text-[#7a8099]" />
 
   const due = dueText(task)
   const go = (s: Status) => {
@@ -249,27 +249,27 @@ function TaskView({ slug, id, onMove, onEdit, onDeleted }: { slug: string; id: n
     <div className="space-y-6">
       <div>
         <div className="flex flex-wrap items-center gap-2">
-          <span className="rounded-xl bg-[#17150f] px-2 py-0.5 text-[11px] font-bold uppercase tracking-[0.12em] text-white">{COLUMNS.find((c) => c.status === task.status)?.label}</span>
+          <span className="rounded-xl bg-[#0f1222] px-2 py-0.5 text-[11px] font-bold uppercase tracking-[0.12em] text-white">{COLUMNS.find((c) => c.status === task.status)?.label}</span>
           {task.priority === "urgent" && <span className="rounded-full inline-flex items-center gap-1 bg-red-50 px-2 py-0.5 text-[11px] font-bold uppercase tracking-[0.12em] text-red-700"><Flag className="h-3 w-3" /> Urgent</span>}
-          {due && <span className={`inline-flex items-center gap-1 text-xs font-bold ${due.tone === "late" ? "text-red-700" : due.tone === "soon" ? "text-amber-700" : "text-[#5a554d]"}`}><CalendarDays className="h-3.5 w-3.5" /> {due.text}</span>}
+          {due && <span className={`inline-flex items-center gap-1 text-xs font-bold ${due.tone === "late" ? "text-red-700" : due.tone === "soon" ? "text-amber-700" : "text-[#4a5070]"}`}><CalendarDays className="h-3.5 w-3.5" /> {due.text}</span>}
         </div>
         <h3 className="mt-2 text-2xl font-bold tracking-tight">{task.title}</h3>
-        <p className="mt-1 text-sm text-[#6b665d]">
+        <p className="mt-1 text-sm text-[#5b6283]">
           {task.assignee ? `For ${task.assignee.name}` : "Not given to anyone yet"}
           {task.creator && ` · from ${task.creator}`} · {timeAgo(task.created_at)}
         </p>
         {task.description && <p className="mt-4 whitespace-pre-wrap text-[15px] leading-relaxed text-[#2a2722]">{task.description}</p>}
         {task.link && (
-          <Link href={task.link.type === "offer" ? `/${slug}/dashboard/offers/${task.link.id}` : `/${slug}/dashboard/projects/${task.link.id}`} className="mt-4 inline-flex items-center gap-1.5 rounded-xl border border-[#d9d4cb] bg-white px-3 py-2 text-sm font-bold text-[#17150f] hover:border-[#17150f]">
+          <Link href={task.link.type === "offer" ? `/${slug}/dashboard/offers/${task.link.id}` : `/${slug}/dashboard/projects/${task.link.id}`} className="mt-4 inline-flex items-center gap-1.5 rounded-xl border border-[#d6dae6] bg-white px-3 py-2 text-sm font-bold text-[#0f1222] hover:border-[#0f1222]">
             <FileText className="h-4 w-4" /> {task.link.type === "offer" ? "Offer" : "Project"}: {task.link.label} <ArrowRight className="h-3.5 w-3.5" />
           </Link>
         )}
       </div>
 
       {(task.can_move || task.can_edit) && (
-        <div className="flex flex-wrap gap-2 border-y border-[#e6e2db] py-4">
+        <div className="flex flex-wrap gap-2 border-y border-[#e2e5ef] py-4">
           {task.can_move && task.status === "todo" && (
-            <button type="button" onClick={() => go("doing")} className="inline-flex items-center gap-1.5 rounded-xl bg-[#17150f] px-4 py-2.5 text-sm font-bold text-white hover:bg-black">
+            <button type="button" onClick={() => go("doing")} className="inline-flex items-center gap-1.5 rounded-xl bg-[#0f1222] px-4 py-2.5 text-sm font-bold text-white hover:bg-black">
               <Play className="h-4 w-4" /> Start
             </button>
           )}
@@ -279,13 +279,13 @@ function TaskView({ slug, id, onMove, onEdit, onDeleted }: { slug: string; id: n
             </button>
           )}
           {task.can_move && task.status !== "todo" && (
-            <button type="button" onClick={() => go(task.status === "done" ? "doing" : "todo")} className="inline-flex items-center gap-1.5 rounded-xl border border-[#d9d4cb] bg-white px-4 py-2.5 text-sm font-bold text-[#17150f] hover:border-[#17150f]">
+            <button type="button" onClick={() => go(task.status === "done" ? "doing" : "todo")} className="inline-flex items-center gap-1.5 rounded-xl border border-[#d6dae6] bg-white px-4 py-2.5 text-sm font-bold text-[#0f1222] hover:border-[#0f1222]">
               <RotateCcw className="h-4 w-4" /> {task.status === "done" ? "Reopen" : "Back to To do"}
             </button>
           )}
           {task.can_edit && (
             <>
-              <button type="button" onClick={() => onEdit(task)} className="inline-flex items-center gap-1.5 rounded-xl border border-[#d9d4cb] bg-white px-4 py-2.5 text-sm font-bold text-[#17150f] hover:border-[#17150f]">
+              <button type="button" onClick={() => onEdit(task)} className="inline-flex items-center gap-1.5 rounded-xl border border-[#d6dae6] bg-white px-4 py-2.5 text-sm font-bold text-[#0f1222] hover:border-[#0f1222]">
                 <Pencil className="h-4 w-4" /> Change
               </button>
               <button
@@ -301,7 +301,7 @@ function TaskView({ slug, id, onMove, onEdit, onDeleted }: { slug: string; id: n
                   })
                 }}
                 aria-label="Delete task"
-                className="inline-flex items-center px-3 py-2.5 text-[#a39d92] hover:bg-red-50 hover:text-red-700"
+                className="inline-flex items-center px-3 py-2.5 text-[#9aa0b5] hover:bg-red-50 hover:text-red-700"
               >
                 <Trash2 className="h-4 w-4" />
               </button>
@@ -311,15 +311,15 @@ function TaskView({ slug, id, onMove, onEdit, onDeleted }: { slug: string; id: n
       )}
 
       <section>
-        <h4 className="text-xs font-bold uppercase tracking-[0.14em] text-[#17150f]">Files · {task.files.length}</h4>
-        <ul className="mt-2 divide-y divide-[#efebe5] border border-[#e6e2db]">
+        <h4 className="text-xs font-bold uppercase tracking-[0.14em] text-[#0f1222]">Files · {task.files.length}</h4>
+        <ul className="mt-2 divide-y divide-[#efebe5] border border-[#e2e5ef]">
           {task.files.map((f) => (
             <li key={f.id} className="flex items-center gap-3 px-3 py-2.5 text-sm">
-              <Paperclip className="h-4 w-4 shrink-0 text-[#8a847a]" />
-              <a href={`/${slug}/dashboard/tasks/${task.id}/files/${f.id}`} target="_blank" rel="noreferrer" className="min-w-0 flex-1 truncate font-semibold text-[#17150f] hover:text-[var(--accent)]">
+              <Paperclip className="h-4 w-4 shrink-0 text-[#7a8099]" />
+              <a href={`/${slug}/dashboard/tasks/${task.id}/files/${f.id}`} target="_blank" rel="noreferrer" className="min-w-0 flex-1 truncate font-semibold text-[#0f1222] hover:text-[var(--accent)]">
                 {f.name}
               </a>
-              <span className="shrink-0 text-xs text-[#8a847a]">{f.by} · {timeAgo(f.at)}</span>
+              <span className="shrink-0 text-xs text-[#7a8099]">{f.by} · {timeAgo(f.at)}</span>
               {f.can_delete && (
                 <button
                   type="button"
@@ -332,14 +332,14 @@ function TaskView({ slug, id, onMove, onEdit, onDeleted }: { slug: string; id: n
                     setTask({ ...task, files: task.files.filter((x) => x.id !== f.id) })
                     toast("File deleted")
                   }}
-                  className="p-1 text-[#a39d92] hover:text-red-700"
+                  className="p-1 text-[#9aa0b5] hover:text-red-700"
                 >
                   <X className="h-4 w-4" />
                 </button>
               )}
             </li>
           ))}
-          {task.files.length === 0 && <li className="px-3 py-3 text-sm text-[#a39d92]">No files yet.</li>}
+          {task.files.length === 0 && <li className="px-3 py-3 text-sm text-[#9aa0b5]">No files yet.</li>}
         </ul>
         <input
           ref={fileInput}
@@ -361,21 +361,21 @@ function TaskView({ slug, id, onMove, onEdit, onDeleted }: { slug: string; id: n
             })
           }}
         />
-        <button type="button" onClick={() => fileInput.current?.click()} disabled={busy} className="mt-2 inline-flex items-center gap-1.5 rounded-xl border border-[#d9d4cb] bg-white px-3 py-2 text-sm font-bold text-[#17150f] hover:border-[#17150f] disabled:opacity-50">
+        <button type="button" onClick={() => fileInput.current?.click()} disabled={busy} className="mt-2 inline-flex items-center gap-1.5 rounded-xl border border-[#d6dae6] bg-white px-3 py-2 text-sm font-bold text-[#0f1222] hover:border-[#0f1222] disabled:opacity-50">
           {busy ? <LoaderCircle className="h-4 w-4 animate-spin" /> : <Upload className="h-4 w-4" />} Add a file
         </button>
-        <span className="ml-2 text-xs text-[#8a847a]">Photo, PDF, Word or Excel, up to 10 MB</span>
+        <span className="ml-2 text-xs text-[#7a8099]">Photo, PDF, Word or Excel, up to 10 MB</span>
       </section>
 
       <section>
-        <h4 className="text-xs font-bold uppercase tracking-[0.14em] text-[#17150f]">Comments · {task.comments.length}</h4>
+        <h4 className="text-xs font-bold uppercase tracking-[0.14em] text-[#0f1222]">Comments · {task.comments.length}</h4>
         <ul className="mt-3 space-y-3">
           {task.comments.map((c) => (
-            <li key={c.id} className={`rounded-xl border-l-4 px-3.5 py-2.5 ${c.mine ? "border-[var(--accent)] bg-[color-mix(in_srgb,var(--accent)_5%,white)]" : "border-[#d9d4cb] bg-[#faf8f5]"}`}>
-              <p className="text-xs font-bold text-[#5a554d]">
-                {c.by} <span className="font-medium text-[#a39d92]">· {timeAgo(c.at)}</span>
+            <li key={c.id} className={`rounded-xl border-l-4 px-3.5 py-2.5 ${c.mine ? "border-[var(--accent)] bg-[color-mix(in_srgb,var(--accent)_5%,white)]" : "border-[#d6dae6] bg-[#f8f9fc]"}`}>
+              <p className="text-xs font-bold text-[#4a5070]">
+                {c.by} <span className="font-medium text-[#9aa0b5]">· {timeAgo(c.at)}</span>
               </p>
-              <p className="mt-1 whitespace-pre-wrap text-[15px] text-[#17150f]">{c.body}</p>
+              <p className="mt-1 whitespace-pre-wrap text-[15px] text-[#0f1222]">{c.body}</p>
             </li>
           ))}
         </ul>
@@ -393,7 +393,7 @@ function TaskView({ slug, id, onMove, onEdit, onDeleted }: { slug: string; id: n
           }}
           className="mt-3 flex items-end gap-2"
         >
-          <textarea value={comment} onChange={(e) => setComment(e.target.value)} rows={2} maxLength={2000} placeholder="Add an update, e.g. Called the buyer, visiting Sunday" aria-label="Add a comment" className="min-w-0 flex-1 resize-none rounded-xl border border-[#d9d4cb] bg-white px-3 py-2.5 text-[15px] outline-none focus:border-[var(--accent)]" />
+          <textarea value={comment} onChange={(e) => setComment(e.target.value)} rows={2} maxLength={2000} placeholder="Add an update, e.g. Called the buyer, visiting Sunday" aria-label="Add a comment" className="min-w-0 flex-1 resize-none rounded-xl border border-[#d6dae6] bg-white px-3 py-2.5 text-[15px] outline-none focus:border-[var(--accent)]" />
           <button type="submit" disabled={busy || !comment.trim()} aria-label="Send comment" className="rounded-xl flex h-11 w-11 shrink-0 items-center justify-center bg-[var(--accent)] text-white disabled:opacity-40">
             <Send className="h-4 w-4" />
           </button>
@@ -416,8 +416,8 @@ function TaskForm({ slug, task, preset, options, onDone }: { slug: string; task:
   const [project, setProject] = useState<string>(String(task?.project_id ?? preset?.project_id ?? ""))
   const [errors, setErrors] = useState<Record<string, string>>({})
   const [pending, start] = useTransition()
-  const field = "mt-1.5 block w-full rounded-xl border border-[#d9d4cb] bg-white px-3.5 py-3 text-[15px] text-[#17150f] outline-none transition focus:border-[var(--accent)] focus:ring-2 focus:ring-[var(--accent)]/15"
-  const label = "text-xs font-bold uppercase tracking-[0.12em] text-[#6b665d]"
+  const field = "mt-1.5 block w-full rounded-xl border border-[#d6dae6] bg-white px-3.5 py-3 text-[15px] text-[#0f1222] outline-none transition focus:border-[var(--accent)] focus:ring-2 focus:ring-[var(--accent)]/15"
+  const label = "text-xs font-bold uppercase tracking-[0.12em] text-[#5b6283]"
   const staff = options.people.filter((p) => p.role === "staff")
   const agents = options.people.filter((p) => p.role === "agent")
 
@@ -490,7 +490,7 @@ function TaskForm({ slug, task, preset, options, onDone }: { slug: string; task:
         <legend className={label}>Priority</legend>
         <div className="mt-1.5 flex gap-2">
           {(["normal", "urgent"] as const).map((p) => (
-            <button key={p} type="button" onClick={() => setPriority(p)} aria-pressed={priority === p} className={`rounded-xl inline-flex items-center gap-1.5 border-2 px-4 py-2 text-sm font-bold transition ${priority === p ? (p === "urgent" ? "border-red-600 bg-red-50 text-red-700" : "border-[#17150f] bg-[#17150f] text-white") : "border-[#d9d4cb] bg-white text-[#3d3a34] hover:border-[#17150f]"}`}>
+            <button key={p} type="button" onClick={() => setPriority(p)} aria-pressed={priority === p} className={`rounded-xl inline-flex items-center gap-1.5 border-2 px-4 py-2 text-sm font-bold transition ${priority === p ? (p === "urgent" ? "border-red-600 bg-red-50 text-red-700" : "border-[#0f1222] bg-[#0f1222] text-white") : "border-[#d6dae6] bg-white text-[#2f3450] hover:border-[#0f1222]"}`}>
               {p === "urgent" && <Flag className="h-3.5 w-3.5" />}
               {p === "urgent" ? "Urgent" : "Normal"}
             </button>
@@ -501,7 +501,7 @@ function TaskForm({ slug, task, preset, options, onDone }: { slug: string; task:
         <legend className={label}>About (optional)</legend>
         <div className="mt-1.5 flex flex-wrap gap-2">
           {(["none", "offer", "project"] as const).map((k) => (
-            <button key={k} type="button" onClick={() => setLinkType(k)} aria-pressed={linkType === k} className={`rounded-xl border-2 px-3.5 py-2 text-sm font-bold transition ${linkType === k ? "border-[var(--accent)] bg-white text-[#17150f]" : "border-[#d9d4cb] bg-white text-[#3d3a34] hover:border-[#17150f]"}`}>
+            <button key={k} type="button" onClick={() => setLinkType(k)} aria-pressed={linkType === k} className={`rounded-xl border-2 px-3.5 py-2 text-sm font-bold transition ${linkType === k ? "border-[var(--accent)] bg-white text-[#0f1222]" : "border-[#d6dae6] bg-white text-[#2f3450] hover:border-[#0f1222]"}`}>
               {k === "none" ? "Nothing" : k === "offer" ? "A buyer's offer" : "A project"}
             </button>
           ))}
@@ -530,7 +530,7 @@ function TaskForm({ slug, task, preset, options, onDone }: { slug: string; task:
       <button type="submit" disabled={pending} className="inline-flex items-center gap-2 rounded-xl bg-[var(--accent)] px-5 py-3 text-[15px] font-bold text-white transition hover:brightness-110 disabled:opacity-60">
         {pending ? <LoaderCircle className="h-4 w-4 animate-spin" /> : <Plus className="h-4 w-4" />} {task ? "Save task" : "Add task"}
       </button>
-      <p className="text-xs text-[#8a847a]">Add files and comments once the task is made.</p>
+      <p className="text-xs text-[#7a8099]">Add files and comments once the task is made.</p>
     </form>
   )
 }

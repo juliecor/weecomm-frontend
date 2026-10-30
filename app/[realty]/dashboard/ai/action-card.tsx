@@ -31,10 +31,10 @@ function ConfirmReservation({ slug, card }: { slug: string; card: Extract<Action
       <p className="flex items-center gap-2 text-xs font-bold uppercase tracking-[0.14em] text-[var(--accent)]">
         <Wallet className="h-4 w-4" /> Confirm reservation
       </p>
-      <p className="mt-2 text-lg font-bold text-[#17150f]">
+      <p className="mt-2 text-lg font-bold text-[#0f1222]">
         {card.offer.buyer} · {card.offer.unit}
       </p>
-      <p className="text-sm text-[#5a554d]">
+      <p className="text-sm text-[#4a5070]">
         {card.offer.project} · {php(card.fee)} · {card.how}
         {card.reference ? ` · ref ${card.reference}` : ""}
       </p>
@@ -44,14 +44,14 @@ function ConfirmReservation({ slug, card }: { slug: string; card: Extract<Action
         </p>
       ) : (
         <>
-          <p className="mt-2 text-sm text-[#6b665d]">Pressing Confirm marks {card.offer.unit} reserved for {card.offer.buyer} and emails them. Open the receipt first if you haven&apos;t.</p>
+          <p className="mt-2 text-sm text-[#5b6283]">Pressing Confirm marks {card.offer.unit} reserved for {card.offer.buyer} and emails them. Open the receipt first if you haven&apos;t.</p>
           <div className="mt-3 flex flex-wrap gap-2">
             {card.can_confirm && (
               <button type="button" onClick={confirm} disabled={pending} className="rounded-xl inline-flex items-center gap-2 bg-emerald-700 px-4 py-2.5 text-sm font-bold text-white hover:brightness-110 disabled:opacity-60">
                 {pending ? <LoaderCircle className="h-4 w-4 animate-spin" /> : <ShieldCheck className="h-4 w-4" />} Confirm reservation
               </button>
             )}
-            <Link href={`/${slug}/dashboard/offers/${card.offer.id}`} className="inline-flex items-center gap-1.5 rounded-xl border border-[#d9d4cb] bg-white px-4 py-2.5 text-sm font-bold text-[#17150f] hover:border-[#17150f]">
+            <Link href={`/${slug}/dashboard/offers/${card.offer.id}`} className="inline-flex items-center gap-1.5 rounded-xl border border-[#d6dae6] bg-white px-4 py-2.5 text-sm font-bold text-[#0f1222] hover:border-[#0f1222]">
               Open the offer <ArrowRight className="h-4 w-4" />
             </Link>
           </div>
@@ -73,27 +73,27 @@ function NewOffer({ slug, card }: { slug: string; card: Extract<ActionCardData, 
       <p className="flex items-center gap-2 text-xs font-bold uppercase tracking-[0.14em] text-[var(--accent)]">
         <FilePlus2 className="h-4 w-4" /> New offer, filled in
       </p>
-      <p className="mt-2 text-lg font-bold text-[#17150f]">
+      <p className="mt-2 text-lg font-bold text-[#0f1222]">
         {card.unit.name}
         {card.project.name ? ` · ${card.project.name}` : ""}
       </p>
       <dl className="mt-1 grid grid-cols-[auto_1fr] gap-x-4 gap-y-0.5 text-sm">
-        <dt className="text-[#8a847a]">Price</dt>
+        <dt className="text-[#7a8099]">Price</dt>
         <dd className="font-semibold">{card.price === null ? "Not priced yet" : php(card.price)}</dd>
-        <dt className="text-[#8a847a]">Buyer</dt>
-        <dd className="font-semibold">{card.buyer ?? <span className="font-normal text-[#8a847a]">to type in</span>}</dd>
+        <dt className="text-[#7a8099]">Buyer</dt>
+        <dd className="font-semibold">{card.buyer ?? <span className="font-normal text-[#7a8099]">to type in</span>}</dd>
         {(card.email || card.phone) && (
           <>
-            <dt className="text-[#8a847a]">Contact</dt>
+            <dt className="text-[#7a8099]">Contact</dt>
             <dd className="font-semibold">{[card.email, card.phone].filter(Boolean).join(" · ")}</dd>
           </>
         )}
-        <dt className="text-[#8a847a]">Reservation fee</dt>
-        <dd className="font-semibold">{card.fee ? php(card.fee) : <span className="font-normal text-[#8a847a]">none</span>}</dd>
+        <dt className="text-[#7a8099]">Reservation fee</dt>
+        <dd className="font-semibold">{card.fee ? php(card.fee) : <span className="font-normal text-[#7a8099]">none</span>}</dd>
       </dl>
       {card.can_offer ? (
         <>
-          <p className="mt-2 text-sm text-[#6b665d]">Opens the New offer form with this typed in. Pick the payment terms, press the password&apos;s refresh button, check everything, then create the offer link.</p>
+          <p className="mt-2 text-sm text-[#5b6283]">Opens the New offer form with this typed in. Pick the payment terms, press the password&apos;s refresh button, check everything, then create the offer link.</p>
           <Link href={`/${slug}/dashboard/offers/new?${q}`} className="mt-3 inline-flex items-center gap-2 rounded-xl bg-[var(--accent)] px-4 py-2.5 text-sm font-bold text-white hover:brightness-110">
             <FilePlus2 className="h-4 w-4" /> Open New offer
           </Link>

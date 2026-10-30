@@ -53,7 +53,7 @@ export function OfferTabs({ bar, actions, tabs, children }: { bar: React.ReactNo
                   href={`#${t.id}`}
                   role="tab"
                   aria-selected={on}
-                  className={`relative shrink-0 whitespace-nowrap px-2 py-3 text-sm font-bold transition sm:px-4 sm:text-[15px] ${on ? "text-[#17150f]" : t.cta ? "text-[var(--accent)] hover:text-[#17150f]" : "text-[#6b665d] hover:text-[#17150f]"}`}
+                  className={`relative shrink-0 whitespace-nowrap px-2 py-3 text-sm font-bold transition sm:px-4 sm:text-[15px] ${on ? "text-[#0f1222]" : t.cta ? "text-[var(--accent)] hover:text-[#0f1222]" : "text-[#5b6283] hover:text-[#0f1222]"}`}
                 >
                   {t.short ? (
                     <>
@@ -72,7 +72,7 @@ export function OfferTabs({ bar, actions, tabs, children }: { bar: React.ReactNo
         </div>
       </div>
 
-      <article className="mx-auto max-w-[1040px] bg-white sm:mt-8 sm:border sm:border-[#e0dcd5] print:mt-0 print:max-w-none print:border-0">
+      <article className="mx-auto max-w-[1040px] bg-white sm:mt-8 sm:border sm:border-[#dde1ec] print:mt-0 print:max-w-none print:border-0">
         <div className="h-1.5 bg-[var(--accent)]" />
         {tabs.map((t) => (
           <div key={t.id} role="tabpanel" aria-label={t.label} className={`${t.id === active ? "" : "hidden"} ${t.print === false ? "print:hidden" : "print:block"}`}>

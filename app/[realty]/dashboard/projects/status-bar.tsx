@@ -40,11 +40,11 @@ export function StatusBar({ slug, projectId, value: initial, pageSlug, staff }: 
 
   return (
     <section id="status" className="mt-6 scroll-mt-6 rounded-2xl border border-[#e8eaed] bg-white shadow-[0_2px_12px_-2px_rgba(23,21,15,0.06)]">
-      <div className="flex items-center justify-between gap-3 border-b border-[#e6e2db] px-5 py-4">
-        <h2 className="text-lg font-bold text-[#17150f]">Status</h2>
+      <div className="flex items-center justify-between gap-3 border-b border-[#e2e5ef] px-5 py-4">
+        <h2 className="text-lg font-bold text-[#0f1222]">Status</h2>
         <span role="status" className="text-sm font-semibold">
           {pending ? (
-            <span className="inline-flex items-center gap-1.5 text-[#6b665d]"><LoaderCircle className="h-4 w-4 animate-spin" /> Saving</span>
+            <span className="inline-flex items-center gap-1.5 text-[#5b6283]"><LoaderCircle className="h-4 w-4 animate-spin" /> Saving</span>
           ) : msg.error ? (
             <span className="text-red-700">{msg.error}</span>
           ) : msg.ok ? (
@@ -52,7 +52,7 @@ export function StatusBar({ slug, projectId, value: initial, pageSlug, staff }: 
           ) : null}
         </span>
       </div>
-      <div className="grid divide-y divide-[#e6e2db] md:grid-cols-3 md:divide-x md:divide-y-0">
+      <div className="grid divide-y divide-[#e2e5ef] md:grid-cols-3 md:divide-x md:divide-y-0">
         <div className="p-5">
           <p className={label}>Sales</p>
           <Choice
@@ -71,7 +71,7 @@ export function StatusBar({ slug, projectId, value: initial, pageSlug, staff }: 
             value={value.stage ?? ""}
             onChange={(e) => save({ stage: e.target.value || null })}
             aria-label="Stage"
-            className="mt-2 block w-full rounded-xl border border-[#d9d4cb] bg-white px-3 py-2.5 text-sm font-bold text-[#17150f] outline-none focus:border-[var(--accent)]"
+            className="mt-2 block w-full rounded-xl border border-[#d6dae6] bg-white px-3 py-2.5 text-sm font-bold text-[#0f1222] outline-none focus:border-[var(--accent)]"
           >
             <option value="">Not set</option>
             {stages.map((s) => (
@@ -110,12 +110,12 @@ export function StatusBar({ slug, projectId, value: initial, pageSlug, staff }: 
   )
 }
 
-const label = "text-[11px] font-bold uppercase tracking-[0.12em] text-[#6b665d]"
-const hint = "mt-2 text-sm text-[#6b665d]"
+const label = "text-[11px] font-bold uppercase tracking-[0.12em] text-[#5b6283]"
+const hint = "mt-2 text-sm text-[#5b6283]"
 
 function Choice<T extends string | boolean>({ value, options, onChange }: { value: T; options: { value: T; label: string }[]; onChange: (v: T) => void }) {
   return (
-    <div className="mt-2 flex border border-[#d9d4cb]">
+    <div className="mt-2 flex border border-[#d6dae6]">
       {options.map((o) => {
         const on = o.value === value
         return (
@@ -124,7 +124,7 @@ function Choice<T extends string | boolean>({ value, options, onChange }: { valu
             type="button"
             aria-pressed={on}
             onClick={() => !on && onChange(o.value)}
-            className={`flex-1 px-3 py-2.5 text-sm font-bold transition ${on ? "bg-[#17150f] text-white" : "bg-white text-[#5a554d] hover:bg-[#f6f4f0] hover:text-[#17150f]"}`}
+            className={`flex-1 px-3 py-2.5 text-sm font-bold transition ${on ? "bg-[#0f1222] text-white" : "bg-white text-[#4a5070] hover:bg-[#f3f5fa] hover:text-[#0f1222]"}`}
           >
             {o.label}
           </button>

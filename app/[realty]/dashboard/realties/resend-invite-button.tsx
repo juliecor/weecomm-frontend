@@ -6,7 +6,7 @@ import { CopyButton } from "@/components/copy-button"
 import { toast } from "@/components/feedback"
 import { resendInvite } from "./actions"
 
-const button = "inline-flex items-center gap-1.5 rounded-xl border border-[#d9d4cb] bg-white px-3 py-2 text-xs font-bold text-[#17150f] hover:border-[#17150f] disabled:opacity-60"
+const button = "inline-flex items-center gap-1.5 rounded-xl border border-[#d6dae6] bg-white px-3 py-2 text-xs font-bold text-[#0f1222] hover:border-[#0f1222] disabled:opacity-60"
 
 /**
  * An invite that was never filled in: email it again, or just get the link to send on Messenger or Viber.
@@ -53,7 +53,7 @@ export function ResendInviteButton({ slug, id, email }: { slug: string; id: numb
         </button>
       </div>
       {shown && (
-        <p className="flex flex-wrap items-center gap-2 text-xs font-semibold text-[#3d3a34]">
+        <p className="flex flex-wrap items-center gap-2 text-xs font-semibold text-[#2f3450]">
           <span className="inline-flex items-center gap-1 text-emerald-800">
             <Check className="h-3.5 w-3.5" strokeWidth={3} /> New link ready
           </span>

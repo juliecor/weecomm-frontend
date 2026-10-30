@@ -4,7 +4,7 @@ import { useState } from "react"
 
 /** The site map's status colours, so the numbers read the same as the lots. */
 export const STATUS = { available: "#10b981", reserved: "#f59e0b", sold: "#dc2626" } as const
-const INK = "#3d3a34"
+const INK = "#2f3450"
 
 export type TrendMonth = { month: string; label: string; offers: number; reserved: number; sold: number }
 
@@ -22,14 +22,14 @@ export function TrendChart({ months }: { months: TrendMonth[] }) {
 
   return (
     <div>
-      <div className="flex flex-wrap items-center gap-x-4 gap-y-1 text-[13px] text-[#5a554d]">
+      <div className="flex flex-wrap items-center gap-x-4 gap-y-1 text-[13px] text-[#4a5070]">
         <Key color={INK} label="Offers sent" />
         <Key color={STATUS.reserved} label="Reserved" />
         <Key color={STATUS.sold} label="Sold" />
       </div>
       <div className="relative mt-4 flex h-52 gap-2">
         {/* the scale */}
-        <div className="flex w-6 shrink-0 flex-col-reverse justify-between pb-6 text-right text-[11px] tabular-nums text-[#a39d92]">
+        <div className="flex w-6 shrink-0 flex-col-reverse justify-between pb-6 text-right text-[11px] tabular-nums text-[#9aa0b5]">
           {ticks.map((t) => (
             <span key={t}>{t}</span>
           ))}
@@ -37,7 +37,7 @@ export function TrendChart({ months }: { months: TrendMonth[] }) {
         <div className="relative min-w-0 flex-1">
           <div className="pointer-events-none absolute inset-x-0 bottom-6 top-0 flex flex-col-reverse justify-between">
             {ticks.map((t) => (
-              <span key={t} className="border-t border-[#efece7]" />
+              <span key={t} className="border-t border-[#eceef5]" />
             ))}
           </div>
           <div className="relative flex h-full items-end gap-2 sm:gap-3">
@@ -61,15 +61,15 @@ export function TrendChart({ months }: { months: TrendMonth[] }) {
                       <span style={{ height: `${mo.reserved + mo.sold ? (mo.sold / (mo.reserved + mo.sold)) * 100 : 0}%`, minHeight: mo.sold ? 3 : 0, background: STATUS.sold }} />
                     </span>
                   </div>
-                  <span className={`mt-2 h-4 text-center text-xs ${on ? "font-bold text-[#17150f]" : "text-[#8a847a]"}`}>{mo.label}</span>
+                  <span className={`mt-2 h-4 text-center text-xs ${on ? "font-bold text-[#0f1222]" : "text-[#7a8099]"}`}>{mo.label}</span>
                 </button>
               )
             })}
           </div>
         </div>
       </div>
-      <p className="mt-3 border-t border-[#efece7] pt-3 text-sm text-[#5a554d]">
-        <b className="text-[#17150f]">{monthName(m.month)}</b>: {m.offers} offer{m.offers === 1 ? "" : "s"} sent · {m.reserved} reserved · {m.sold} sold
+      <p className="mt-3 border-t border-[#eceef5] pt-3 text-sm text-[#4a5070]">
+        <b className="text-[#0f1222]">{monthName(m.month)}</b>: {m.offers} offer{m.offers === 1 ? "" : "s"} sent · {m.reserved} reserved · {m.sold} sold
       </p>
     </div>
   )
@@ -92,7 +92,7 @@ export function InventoryRing({ available, reserved, sold }: { available: number
     <div className="flex flex-col items-center gap-5 sm:flex-row lg:flex-col xl:flex-row">
       <div className="relative h-40 w-40 shrink-0">
         <svg viewBox="0 0 100 100" className="h-full w-full -rotate-90" role="img" aria-label={`${available} available, ${reserved} reserved, ${sold} sold`}>
-          <circle cx="50" cy="50" r={r} fill="none" stroke="#f1eee9" strokeWidth="12" />
+          <circle cx="50" cy="50" r={r} fill="none" stroke="#eff1f7" strokeWidth="12" />
           {total > 0 &&
             parts.map((p) => {
               // A part too small to see still shows as a sliver.
@@ -118,18 +118,18 @@ export function InventoryRing({ available, reserved, sold }: { available: number
             })}
         </svg>
         <div className="pointer-events-none absolute inset-0 flex flex-col items-center justify-center">
-          <span className="font-[family-name:var(--font-outfit),var(--font-geist-sans)] text-[26px] font-bold tabular-nums text-[#17150f]">{total ? share(focus.n, total) : "—"}</span>
-          <span className="text-xs text-[#6b665d]">{focus.label.toLowerCase()}</span>
+          <span className="font-[family-name:var(--font-display),var(--font-geist-sans)] text-[26px] font-bold tabular-nums text-[#0f1222]">{total ? share(focus.n, total) : "—"}</span>
+          <span className="text-xs text-[#5b6283]">{focus.label.toLowerCase()}</span>
         </div>
       </div>
       <ul className="w-full space-y-2.5">
         {parts.map((p) => (
           <li key={p.key} onMouseEnter={() => setHover(p.key)} onMouseLeave={() => setHover(null)} className="flex items-center justify-between gap-3 text-[15px]">
             <Key color={STATUS[p.key]} label={p.label} />
-            <span className="font-bold tabular-nums text-[#17150f]">{p.n.toLocaleString("en-PH")}</span>
+            <span className="font-bold tabular-nums text-[#0f1222]">{p.n.toLocaleString("en-PH")}</span>
           </li>
         ))}
-        <li className="flex items-center justify-between gap-3 border-t border-[#efece7] pt-2.5 text-sm text-[#6b665d]">
+        <li className="flex items-center justify-between gap-3 border-t border-[#eceef5] pt-2.5 text-sm text-[#5b6283]">
           <span>Total units and lots</span>
           <span className="font-semibold tabular-nums">{total.toLocaleString("en-PH")}</span>
         </li>
@@ -149,13 +149,13 @@ export function Funnel({ steps }: { steps: { step: string; n: number }[] }) {
         return (
           <li key={s.step}>
             <div className="flex items-baseline justify-between gap-3 text-sm">
-              <span className="font-semibold text-[#17150f]">{s.step}</span>
-              <span className="tabular-nums text-[#6b665d]">
-                <b className="text-[#17150f]">{s.n.toLocaleString("en-PH")}</b>
+              <span className="font-semibold text-[#0f1222]">{s.step}</span>
+              <span className="tabular-nums text-[#5b6283]">
+                <b className="text-[#0f1222]">{s.n.toLocaleString("en-PH")}</b>
                 {i > 0 && <span className="ml-1.5 text-xs">{share}%</span>}
               </span>
             </div>
-            <div className="mt-1.5 h-2.5 overflow-hidden rounded-full bg-[#f1eee9]">
+            <div className="mt-1.5 h-2.5 overflow-hidden rounded-full bg-[#eff1f7]">
               <div className="h-full rounded-full transition-[width]" style={{ width: `${s.n ? Math.max((s.n / first) * 100, 1.5) : 0}%`, background: last ? STATUS.available : i === 0 ? INK : "var(--accent)" }} />
             </div>
           </li>
@@ -169,7 +169,7 @@ export function Funnel({ steps }: { steps: { step: string; n: number }[] }) {
 export function StackBar({ available, reserved, sold }: { available: number; reserved: number; sold: number }) {
   const total = Math.max(1, available + reserved + sold)
   return (
-    <div className="flex h-2.5 w-full gap-px overflow-hidden rounded-full bg-[#f1eee9]" title={`${available} available · ${reserved} reserved · ${sold} sold`}>
+    <div className="flex h-2.5 w-full gap-px overflow-hidden rounded-full bg-[#eff1f7]" title={`${available} available · ${reserved} reserved · ${sold} sold`}>
       {[
         [available, STATUS.available],
         [reserved, STATUS.reserved],

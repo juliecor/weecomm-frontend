@@ -137,7 +137,7 @@ export default async function OfferDetailPage({ params }: { params: Promise<{ re
   return (
     <div>
       {hadNew && <SyncCounts slug={slug} />}
-      <Link href={`/${slug}/dashboard/offers`} className="mb-5 inline-flex items-center gap-1.5 text-sm font-semibold text-[#6b665d] hover:text-[#17150f]">
+      <Link href={`/${slug}/dashboard/offers`} className="mb-5 inline-flex items-center gap-1.5 text-sm font-semibold text-[#5b6283] hover:text-[#0f1222]">
         <ArrowLeft className="h-4 w-4" /> All offers
       </Link>
       {/* The offer at a glance: the house, the buyer, the price, and how far along it is. */}
@@ -156,15 +156,15 @@ export default async function OfferDetailPage({ params }: { params: Promise<{ re
                 <p className="text-xs font-bold uppercase tracking-[0.18em] text-[var(--accent)]">Sales offer · {o.code}</p>
                 {o.status === "void" && <Tag tone="bad">Void</Tag>}
                 {o.status === "active" && o.expired && <Tag tone="bad">Expired</Tag>}
-                {o.unit_hold?.this_offer && o.unit_hold.status === "sold" && <span className="rounded-xl bg-[#17150f] px-1.5 py-0.5 text-[10px] font-bold uppercase tracking-[0.14em] text-white">Sold</span>}
+                {o.unit_hold?.this_offer && o.unit_hold.status === "sold" && <span className="rounded-xl bg-[#0f1222] px-1.5 py-0.5 text-[10px] font-bold uppercase tracking-[0.14em] text-white">Sold</span>}
                 {o.unit_hold?.this_offer && o.unit_hold.status === "reserved" && <Tag tone="warn">Reserved</Tag>}
                 {o.reservation && (o.reservation.status === "pending" || o.reservation.status === "paid") && <Tag tone="accent">Reservation to confirm</Tag>}
                 {o.approval_status === "approved" && <Tag>Custom terms</Tag>}
               </div>
               <h1 className="mt-1.5 text-2xl font-bold tracking-tight sm:text-3xl">{o.buyer_name}</h1>
-              <p className="mt-1 text-[15px] font-semibold text-[#3d3a34]">{[o.project, o.unit, o.unit_detail.area_sqm ? sqm(o.unit_detail.area_sqm) : null].filter(Boolean).join(" · ")}</p>
-              <p className="mt-2 flex flex-wrap items-baseline gap-x-3 gap-y-0.5 text-sm text-[#6b665d]">
-                <span className="text-xl font-bold tabular-nums text-[#17150f]">{php(o.price)}</span>
+              <p className="mt-1 text-[15px] font-semibold text-[#2f3450]">{[o.project, o.unit, o.unit_detail.area_sqm ? sqm(o.unit_detail.area_sqm) : null].filter(Boolean).join(" · ")}</p>
+              <p className="mt-2 flex flex-wrap items-baseline gap-x-3 gap-y-0.5 text-sm text-[#5b6283]">
+                <span className="text-xl font-bold tabular-nums text-[#0f1222]">{php(o.price)}</span>
                 <span>
                   Sent {shortDate(o.created_at)}
                   {staff && o.agent ? ` by ${o.agent}` : ""}{o.broker ? ` · ${o.broker}` : ""}
@@ -195,7 +195,7 @@ export default async function OfferDetailPage({ params }: { params: Promise<{ re
         </div>
 
         {/* How far along: small, so the page doesn't start with a wall of big numbers. */}
-        <dl className="grid grid-cols-2 border-t border-[#e6e2db] sm:grid-cols-4">
+        <dl className="grid grid-cols-2 border-t border-[#e2e5ef] sm:grid-cols-4">
           {[
             { label: "Opened", value: o.views ? `${o.views}×` : "Not yet", note: o.views ? `last ${timeAgo(o.last_viewed_at)}` : "link not opened", href: "#activity" },
             { label: "Response", value: latest ? latest.label : "None yet", note: latest ? timeAgo(latest.created_at) : "waiting for the buyer", href: "#responses" },
@@ -204,10 +204,10 @@ export default async function OfferDetailPage({ params }: { params: Promise<{ re
               : []),
             { label: "Unit", value: o.unit_hold ? o.unit_hold.status.charAt(0).toUpperCase() + o.unit_hold.status.slice(1) : "—", note: o.unit_hold?.this_offer ? "to this buyer" : o.unit_hold?.status === "available" ? "not reserved yet" : "", href: "#overview" },
           ].map((st, i) => (
-            <a key={st.label} href={st.href} className={`block px-5 py-3.5 transition hover:bg-[#faf8f5] ${i % 2 ? "border-l border-[#e6e2db]" : "sm:border-l sm:first:border-l-0"} ${i > 1 ? "border-t border-[#e6e2db] sm:border-t-0" : ""} border-[#e6e2db]`}>
-              <dt className="text-[11px] font-bold uppercase tracking-[0.14em] text-[#8a847a]">{st.label}</dt>
+            <a key={st.label} href={st.href} className={`block px-5 py-3.5 transition hover:bg-[#f8f9fc] ${i % 2 ? "border-l border-[#e2e5ef]" : "sm:border-l sm:first:border-l-0"} ${i > 1 ? "border-t border-[#e2e5ef] sm:border-t-0" : ""} border-[#e2e5ef]`}>
+              <dt className="text-[11px] font-bold uppercase tracking-[0.14em] text-[#7a8099]">{st.label}</dt>
               <dd className="mt-0.5 truncate text-lg font-bold">{st.value}</dd>
-              {st.note && <dd className="truncate text-xs text-[#6b665d]">{st.note}</dd>}
+              {st.note && <dd className="truncate text-xs text-[#5b6283]">{st.note}</dd>}
             </a>
           ))}
         </dl>
@@ -250,7 +250,7 @@ export default async function OfferDetailPage({ params }: { params: Promise<{ re
                 {o.reservation && <ReservationPanel slug={slug} offerId={o.id} initial={o.reservation} canSettle={developerStaff} buyerFirst={first} />}
                 </div>
                 {o.status === "active" && !awaiting && (
-                  <p className="mt-6 text-sm text-[#6b665d]">
+                  <p className="mt-6 text-sm text-[#5b6283]">
                     Next: send {first} the link and the login, then follow their answer in <a href="#responses" className="font-semibold text-[var(--accent)] hover:underline">Responses</a>
                     {o.requirements.length > 0 && (
                       <>
@@ -312,13 +312,13 @@ export default async function OfferDetailPage({ params }: { params: Promise<{ re
                   <div className="grid gap-x-10 gap-y-8 pt-5 sm:grid-cols-2 lg:grid-cols-4">
                     {DETAIL_GROUPS.map((g) => (
                       <div key={g.title}>
-                        <p className="text-xs font-bold uppercase tracking-[0.16em] text-[#6b665d]">{g.title}</p>
+                        <p className="text-xs font-bold uppercase tracking-[0.16em] text-[#5b6283]">{g.title}</p>
                         <dl className="mt-2 space-y-2 text-sm">
                           {g.rows.map(([k, l]) => {
                             const v = detailValue(k, o.buyer_details?.[k])
                             return v ? (
                               <div key={k}>
-                                <dt className="text-[#8a847a]">{l}</dt>
+                                <dt className="text-[#7a8099]">{l}</dt>
                                 <dd className="break-words font-semibold">{v}</dd>
                               </div>
                             ) : null
@@ -331,7 +331,7 @@ export default async function OfferDetailPage({ params }: { params: Promise<{ re
             ) : (
               <div className="py-10">
                 <p className="text-lg font-bold">Not sent yet.</p>
-                <p className="mt-1 max-w-lg text-[15px] text-[#5a554d]">{first} fills in the buyer information form on the offer page, under Requirements. It shows up here, grouped the way they filled it in.</p>
+                <p className="mt-1 max-w-lg text-[15px] text-[#4a5070]">{first} fills in the buyer information form on the offer page, under Requirements. It shows up here, grouped the way they filled it in.</p>
               </div>
             ),
           },
@@ -343,21 +343,21 @@ export default async function OfferDetailPage({ params }: { params: Promise<{ re
             content: (
               <Panel className="!mt-6" title={`Buyer responses · ${o.responses.length}`}>
                 {o.responses.length ? (
-                  <ul className="divide-y divide-[#e6e2db]">
+                  <ul className="divide-y divide-[#e2e5ef]">
                     {o.responses.map((r) => (
                       <li key={r.id} className="py-6">
                         <div className="flex flex-wrap items-center gap-2">
                           <LeadTag kind={r.kind} label={r.label} />
-                          <span className="text-sm font-medium text-[#8a847a]">
+                          <span className="text-sm font-medium text-[#7a8099]">
                             {timeAgo(r.created_at)} · {longDate(r.created_at)}
                           </span>
                         </div>
                         <p className="mt-2 text-xl font-bold tracking-tight">{r.name}</p>
-                        <p className="mt-1 text-[15px] text-[#3d3a34]">
+                        <p className="mt-1 text-[15px] text-[#2f3450]">
                           {[r.phone, r.email].filter(Boolean).join(" · ") || "No contact details left"}
-                          {r.contact_via && r.kind !== "not_interested" && <span className="text-[#8a847a]"> · prefers {VIA_LABEL[r.contact_via]}</span>}
+                          {r.contact_via && r.kind !== "not_interested" && <span className="text-[#7a8099]"> · prefers {VIA_LABEL[r.contact_via]}</span>}
                         </p>
-                        {r.message && <blockquote className="rounded-xl mt-4 border-l-4 border-[var(--accent)] bg-[#f6f4f0] px-4 py-3 text-[15px] leading-relaxed text-[#17150f]">{r.message}</blockquote>}
+                        {r.message && <blockquote className="rounded-xl mt-4 border-l-4 border-[var(--accent)] bg-[#f3f5fa] px-4 py-3 text-[15px] leading-relaxed text-[#0f1222]">{r.message}</blockquote>}
                         <div className="mt-4">
                           <ContactButtons phone={r.phone} email={r.email} via={r.contact_via} />
                         </div>
@@ -367,7 +367,7 @@ export default async function OfferDetailPage({ params }: { params: Promise<{ re
                 ) : (
                   <div className="py-8">
                     <p className="text-lg font-bold">No response yet.</p>
-                    <p className="mt-1 max-w-lg text-[15px] text-[#5a554d]">
+                    <p className="mt-1 max-w-lg text-[15px] text-[#4a5070]">
                       The offer page asks {o.buyer_name.split(" ")[0]} what they&apos;d like to do: they&apos;re interested, they have a question, or it&apos;s not for them. Their answer shows up here
                       {o.agent ? `, and ${staff ? o.agent : "you"} get${staff ? "s" : ""} an email` : ""}.
                     </p>
@@ -383,7 +383,7 @@ export default async function OfferDetailPage({ params }: { params: Promise<{ re
             short: "Offer",
             content: (
               <Panel className="!mt-6" title="The offer">
-                <dl className="divide-y divide-[#e6e2db] text-[15px]">
+                <dl className="divide-y divide-[#e2e5ef] text-[15px]">
                   {[
                     ["Unit", [o.unit_detail.name, o.unit_detail.unit_type].filter(Boolean).join(" · ") || "—"],
                     ["Floor area", sqm(o.unit_detail.area_sqm)],
@@ -393,18 +393,18 @@ export default async function OfferDetailPage({ params }: { params: Promise<{ re
                     ["Open until", o.expires_at ? `${dateTime(o.expires_at)}${o.expired ? " (expired)" : ""}` : "No expiry"],
                   ].map(([k, v]) => (
                     <div key={k} className="flex justify-between gap-4 py-2.5">
-                      <dt className="text-[#8a847a]">{k}</dt>
+                      <dt className="text-[#7a8099]">{k}</dt>
                       <dd className="text-right font-medium">{v}</dd>
                     </div>
                   ))}
                 </dl>
-                <h3 className="mt-6 text-xs font-bold uppercase tracking-[0.16em] text-[#6b665d]">Payment schedule · {o.custom ? "custom terms" : (o.plan_name ?? "full payment")}</h3>
-                <ul className="mt-2 divide-y divide-[#e6e2db] text-sm">
+                <h3 className="mt-6 text-xs font-bold uppercase tracking-[0.16em] text-[#5b6283]">Payment schedule · {o.custom ? "custom terms" : (o.plan_name ?? "full payment")}</h3>
+                <ul className="mt-2 divide-y divide-[#e2e5ef] text-sm">
                   {o.schedule.map((s, i) => (
                     <li key={i} className="flex items-baseline justify-between gap-4 py-2">
                       <span className="min-w-0">
                         <span className="font-semibold">{s.label}</span>
-                        <span className="text-[#8a847a]">
+                        <span className="text-[#7a8099]">
                           {" "}
                           · {pct(s.percent)}
                           {s.months && s.end_date ? ` · ${s.months} × ${php(s.monthly)}, ${shortDate(s.date)} – ${shortDate(s.end_date)}` : s.date ? ` · ${shortDate(s.date)}` : " · on completion"}
@@ -415,14 +415,14 @@ export default async function OfferDetailPage({ params }: { params: Promise<{ re
                   ))}
                 </ul>
                 {o.status === "active" && (
-                  <div className="mt-6 border-t border-[#e6e2db] pt-4">
-                    <p className="mb-2 text-xs font-bold uppercase tracking-[0.14em] text-[#6b665d]">{o.expired ? "Expired: open it again" : "Give the buyer more time"}</p>
+                  <div className="mt-6 border-t border-[#e2e5ef] pt-4">
+                    <p className="mb-2 text-xs font-bold uppercase tracking-[0.14em] text-[#5b6283]">{o.expired ? "Expired: open it again" : "Give the buyer more time"}</p>
                     <ExtendOffer slug={slug} id={o.id} expired={o.expired} />
-                    <p className="mb-4 mt-1 text-xs text-[#a39d92]">Counts from now, on the same link and login.</p>
-                    <VoidOfferButton slug={slug} id={o.id} buyer={o.buyer_name} className="text-sm font-semibold text-[#8a847a] hover:text-red-700">
+                    <p className="mb-4 mt-1 text-xs text-[#9aa0b5]">Counts from now, on the same link and login.</p>
+                    <VoidOfferButton slug={slug} id={o.id} buyer={o.buyer_name} className="text-sm font-semibold text-[#7a8099] hover:text-red-700">
                       Void this offer
                     </VoidOfferButton>
-                    <p className="mt-1 text-xs text-[#a39d92]">The buyer&apos;s link stops working. Responses already received stay here.</p>
+                    <p className="mt-1 text-xs text-[#9aa0b5]">The buyer&apos;s link stops working. Responses already received stay here.</p>
                   </div>
                 )}
               </Panel>
@@ -434,12 +434,12 @@ export default async function OfferDetailPage({ params }: { params: Promise<{ re
             badge: activity.length,
             content: (
               <Panel className="!mt-6" title="Activity">
-                <ol className="relative mt-4 space-y-5 border-l-2 border-[#e6e2db] pl-5">
+                <ol className="relative mt-4 space-y-5 border-l-2 border-[#e2e5ef] pl-5">
                   {activity.map((a, i) => (
                     <li key={i} className="relative">
-                      <span aria-hidden className={`absolute -left-[27px] top-1.5 h-3 w-3 ${i === 0 ? "bg-[var(--accent)]" : "bg-[#d9d4cb]"}`} />
+                      <span aria-hidden className={`absolute -left-[27px] top-1.5 h-3 w-3 ${i === 0 ? "bg-[var(--accent)]" : "bg-[#d6dae6]"}`} />
                       <p className="text-[15px] font-semibold">{a.text}</p>
-                      <p className="text-sm text-[#8a847a]">
+                      <p className="text-sm text-[#7a8099]">
                         {shortDate(a.at)} · {new Date(a.at).toLocaleTimeString("en-PH", { hour: "numeric", minute: "2-digit", timeZone: "Asia/Manila" })}
                       </p>
                     </li>

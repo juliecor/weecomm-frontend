@@ -1,4 +1,5 @@
 import type { Metadata } from "next"
+import { brandFonts } from "@/lib/brand-fonts"
 import Link from "next/link"
 import { ArrowRight, CalendarClock, Check, Link2Off, Lock, MapPin, UserCheck } from "lucide-react"
 import { ApiError, api } from "@/lib/api"
@@ -61,7 +62,7 @@ export default async function JoinPage({ params }: Props) {
   const short = slug === SITE_REALTY ? COMPANY.short : realty.name
 
   return (
-    <main style={{ ["--accent" as string]: accent }} className="min-h-screen bg-[#f6f4f0] text-[#17150f] lg:grid lg:grid-cols-[minmax(0,1.05fr)_minmax(0,1fr)]">
+    <main style={{ ["--accent" as string]: accent }} className={`${brandFonts} min-h-screen bg-[#f3f5fa] text-[#0f1222] lg:grid lg:grid-cols-[minmax(0,1.05fr)_minmax(0,1fr)]`}>
       {/* The realty */}
       <aside
         className="relative isolate flex flex-col justify-between gap-10 overflow-hidden bg-[var(--accent)] px-5 pb-8 pt-6 text-white sm:px-10 sm:pb-10 sm:pt-8 lg:sticky lg:top-0 lg:h-screen lg:px-14 lg:py-12"
@@ -81,7 +82,7 @@ export default async function JoinPage({ params }: Props) {
             // eslint-disable-next-line @next/next/no-img-element
             <img src={realty.logo_url} alt={realty.name} className="h-9 w-auto max-w-[220px] object-contain sm:h-11 lg:h-14" />
           ) : (
-            <span className="text-xl font-bold tracking-tight text-[#17150f]">{realty.name}</span>
+            <span className="text-xl font-bold tracking-tight text-[#0f1222]">{realty.name}</span>
           )}
         </Link>
 
@@ -126,20 +127,20 @@ export default async function JoinPage({ params }: Props) {
             <>
               <p className="text-xs font-bold uppercase tracking-[0.2em] text-[var(--accent)]">Apply to join</p>
               <h1 className="mt-2 text-3xl font-bold tracking-tight sm:text-4xl">Welcome, {invite.name.split(" ")[0]}.</h1>
-              <p className="mt-3 text-[15px] leading-relaxed text-[#5a554d]">Tell {short} how to reach you, and choose the email and password you&apos;ll sign in with. {short} reviews your application, and your account opens once it&apos;s approved.</p>
+              <p className="mt-3 text-[15px] leading-relaxed text-[#4a5070]">Tell {short} how to reach you, and choose the email and password you&apos;ll sign in with. {short} reviews your application, and your account opens once it&apos;s approved.</p>
 
-              <dl className="mt-6 grid border border-[#e0dcd5] bg-white sm:grid-cols-2">
-                <div className="flex items-start gap-3 border-b border-[#e0dcd5] px-4 py-3.5 sm:border-b-0 sm:border-r">
+              <dl className="mt-6 grid border border-[#dde1ec] bg-white sm:grid-cols-2">
+                <div className="flex items-start gap-3 border-b border-[#dde1ec] px-4 py-3.5 sm:border-b-0 sm:border-r">
                   <UserCheck className="mt-0.5 h-5 w-5 shrink-0 text-[var(--accent)]" />
                   <div>
-                    <dt className="text-[11px] font-bold uppercase tracking-[0.14em] text-[#8a847a]">Invited by</dt>
+                    <dt className="text-[11px] font-bold uppercase tracking-[0.14em] text-[#7a8099]">Invited by</dt>
                     <dd className="mt-0.5 text-sm font-bold">{invite.invited_by ?? realty.name}</dd>
                   </div>
                 </div>
                 <div className="flex items-start gap-3 px-4 py-3.5">
                   <CalendarClock className="mt-0.5 h-5 w-5 shrink-0 text-[var(--accent)]" />
                   <div>
-                    <dt className="text-[11px] font-bold uppercase tracking-[0.14em] text-[#8a847a]">Link valid until</dt>
+                    <dt className="text-[11px] font-bold uppercase tracking-[0.14em] text-[#7a8099]">Link valid until</dt>
                     <dd className="mt-0.5 text-sm font-bold">{longDate(invite.expires_at)}</dd>
                   </div>
                 </div>
@@ -149,11 +150,11 @@ export default async function JoinPage({ params }: Props) {
                 <JoinForm token={token} name={invite.name} email={invite.email} phone={invite.phone} />
               </div>
 
-              <div className="mt-10 border-t border-[#e0dcd5] pt-6">
-                <p className="text-xs font-bold uppercase tracking-[0.16em] text-[#6b665d]">What you get</p>
+              <div className="mt-10 border-t border-[#dde1ec] pt-6">
+                <p className="text-xs font-bold uppercase tracking-[0.16em] text-[#5b6283]">What you get</p>
                 <ul className="mt-3 space-y-2.5">
                   {PERKS.map((p) => (
-                    <li key={p} className="flex gap-2.5 text-sm text-[#3d3a34]">
+                    <li key={p} className="flex gap-2.5 text-sm text-[#2f3450]">
                       <Check className="mt-0.5 h-4 w-4 shrink-0 text-[var(--accent)]" strokeWidth={2.75} /> {p}
                     </li>
                   ))}
@@ -166,19 +167,19 @@ export default async function JoinPage({ params }: Props) {
                 <Link2Off className="h-6 w-6" />
               </span>
               <h1 className="mt-5 text-3xl font-bold tracking-tight">This link doesn&apos;t work.</h1>
-              <p className="mt-3 text-[15px] leading-relaxed text-[#5a554d]">{problem}</p>
-              <p className="mt-2 text-[15px] leading-relaxed text-[#5a554d]">Ask {short} to send you a new invitation link. Already have an account? Sign in instead.</p>
+              <p className="mt-3 text-[15px] leading-relaxed text-[#4a5070]">{problem}</p>
+              <p className="mt-2 text-[15px] leading-relaxed text-[#4a5070]">Ask {short} to send you a new invitation link. Already have an account? Sign in instead.</p>
               <Link href={`/${slug}/login`} className="mt-7 inline-flex items-center gap-2 bg-[var(--accent)] px-6 py-3.5 text-[15px] font-bold text-white transition hover:brightness-110">
                 Go to sign in <ArrowRight className="h-4 w-4" />
               </Link>
             </>
           )}
 
-          <p className="mt-10 flex items-center gap-2 text-xs text-[#8a847a]">
+          <p className="mt-10 flex items-center gap-2 text-xs text-[#7a8099]">
             <Lock className="h-3.5 w-3.5 shrink-0" />
             <span>
               Secure sign-up for {realty.name} · Powered by{" "}
-              <Link href="/platform" className="font-semibold text-[#6b665d] hover:text-[#17150f]">
+              <Link href="/platform" className="font-semibold text-[#5b6283] hover:text-[#0f1222]">
                 jvconline
               </Link>
             </span>

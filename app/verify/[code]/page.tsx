@@ -1,4 +1,5 @@
 import type { Metadata } from "next"
+import { brandFonts } from "@/lib/brand-fonts"
 import { BadgeCheck, CircleAlert } from "lucide-react"
 import { Certificate, type CertificateData } from "@/components/certificate"
 import { ApiError, api } from "@/lib/api"
@@ -33,9 +34,9 @@ export default async function VerifyCertificatePage({ params }: { params: Promis
   const state = c ? STATE[c.status] : null
 
   return (
-    <main className="min-h-screen bg-[#ebe8e2] px-4 py-8 text-[#17150f] sm:px-6 sm:py-14">
+    <main className={`${brandFonts} min-h-screen bg-[#ebe8e2] px-4 py-8 text-[#0f1222] sm:px-6 sm:py-14`}>
       <div className="mx-auto max-w-[1000px]">
-        <p className="text-center text-xs font-bold uppercase tracking-[0.22em] text-[#6b665d]">Certificate check</p>
+        <p className="text-center text-xs font-bold uppercase tracking-[0.22em] text-[#5b6283]">Certificate check</p>
 
         {c && state ? (
           <>
@@ -43,7 +44,7 @@ export default async function VerifyCertificatePage({ params }: { params: Promis
               <p className={`flex items-center gap-2.5 text-2xl font-bold tracking-tight ${state.ok ? "text-emerald-800" : "text-red-800"}`}>
                 {state.ok ? <BadgeCheck className="h-7 w-7 shrink-0" /> : <CircleAlert className="h-7 w-7 shrink-0" />} {state.title}
               </p>
-              <p className="mt-2 text-[15px] text-[#3d3a34]">{state.note(c)}</p>
+              <p className="mt-2 text-[15px] text-[#2f3450]">{state.note(c)}</p>
               <dl className="mt-5 grid gap-x-8 gap-y-3 text-[15px] sm:grid-cols-2">
                 {[
                   ["Realty", c.firm],
@@ -53,7 +54,7 @@ export default async function VerifyCertificatePage({ params }: { params: Promis
                   ["Issued", longDate(c.issued_at)],
                 ].map(([label, value]) => (
                   <div key={label}>
-                    <dt className="text-xs font-bold uppercase tracking-[0.14em] text-[#6b665d]">{label}</dt>
+                    <dt className="text-xs font-bold uppercase tracking-[0.14em] text-[#5b6283]">{label}</dt>
                     <dd className="mt-0.5 font-semibold">{value}</dd>
                   </div>
                 ))}
@@ -68,10 +69,10 @@ export default async function VerifyCertificatePage({ params }: { params: Promis
             <p className="flex items-center gap-2.5 text-xl font-bold text-red-800">
               <CircleAlert className="h-6 w-6 shrink-0" /> Certificate not found
             </p>
-            <p className="mt-2 text-[15px] text-[#3d3a34]">{problem}</p>
+            <p className="mt-2 text-[15px] text-[#2f3450]">{problem}</p>
           </section>
         )}
-        <p className="mt-10 text-center text-xs text-[#8a847a]">Powered by jvconline</p>
+        <p className="mt-10 text-center text-xs text-[#7a8099]">Powered by jvconline</p>
       </div>
     </main>
   )

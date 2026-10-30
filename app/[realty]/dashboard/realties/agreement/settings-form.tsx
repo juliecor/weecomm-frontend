@@ -7,7 +7,7 @@ import { toast } from "@/components/feedback"
 import { type AgreementSettings, saveAgreementSettings } from "../actions"
 
 const field = (error?: string) =>
-  `rounded-xl block w-full border bg-white px-3.5 py-2.5 text-[15px] outline-none transition focus:border-[var(--accent)] focus:ring-2 focus:ring-[var(--accent)]/15 ${error ? "border-red-500 bg-red-50/40" : "border-[#d9d4cb]"}`
+  `rounded-xl block w-full border bg-white px-3.5 py-2.5 text-[15px] outline-none transition focus:border-[var(--accent)] focus:ring-2 focus:ring-[var(--accent)]/15 ${error ? "border-red-500 bg-red-50/40" : "border-[#d6dae6]"}`
 
 /** Who signs for the developer, its office address, the commission rates and the days to send the signed copy. */
 export function AgreementSettingsForm({ slug, initial }: { slug: string; initial: AgreementSettings }) {
@@ -55,10 +55,10 @@ export function AgreementSettingsForm({ slug, initial }: { slug: string; initial
       </div>
 
       <div>
-        <p className="text-xs font-bold uppercase tracking-[0.12em] text-[#5a554d]">
+        <p className="text-xs font-bold uppercase tracking-[0.12em] text-[#4a5070]">
           Commission scheme <span className="text-[var(--accent)]">*</span>
         </p>
-        <p className="mt-1 text-xs text-[#8a847a]">Article 8&apos;s table: who gets which rate (net of EVAT and discount).</p>
+        <p className="mt-1 text-xs text-[#7a8099]">Article 8&apos;s table: who gets which rate (net of EVAT and discount).</p>
         {errors.commission && <p className="mt-2 text-sm font-semibold text-red-700">{errors.commission}</p>}
         <ul className="mt-3 space-y-2">
           {s.commission.map((row, i) => {
@@ -85,7 +85,7 @@ export function AgreementSettingsForm({ slug, initial }: { slug: string; initial
                     }
                     disabled={s.commission.length === 1}
                     aria-label="Remove this rate"
-                    className="shrink-0 p-3 text-[#8a847a] hover:text-red-700 disabled:opacity-30"
+                    className="shrink-0 p-3 text-[#7a8099] hover:text-red-700 disabled:opacity-30"
                   >
                     <X className="h-4 w-4" />
                   </button>
@@ -118,11 +118,11 @@ export function AgreementSettingsForm({ slug, initial }: { slug: string; initial
 function Label({ text, hint, error, required, wide, children }: { text: string; hint?: string; error?: string; required?: boolean; wide?: boolean; children: React.ReactNode }) {
   return (
     <label className={`block ${wide ? "sm:col-span-2" : ""}`}>
-      <span className="block text-xs font-bold uppercase tracking-[0.12em] text-[#5a554d]">
+      <span className="block text-xs font-bold uppercase tracking-[0.12em] text-[#4a5070]">
         {text} {required && <span className="text-[var(--accent)]">*</span>}
       </span>
       <span className="mt-1.5 block">{children}</span>
-      {error ? <span className="mt-1.5 block text-sm font-semibold text-red-700">{error}</span> : hint ? <span className="mt-1.5 block text-xs text-[#8a847a]">{hint}</span> : null}
+      {error ? <span className="mt-1.5 block text-sm font-semibold text-red-700">{error}</span> : hint ? <span className="mt-1.5 block text-xs text-[#7a8099]">{hint}</span> : null}
     </label>
   )
 }

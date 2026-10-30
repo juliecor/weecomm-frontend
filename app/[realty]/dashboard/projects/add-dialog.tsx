@@ -49,16 +49,16 @@ function FormDialog({ label, title, eyebrow, children }: { label: string; title:
         ref={setDialog}
         onClose={() => setOpen(false)}
         aria-labelledby={heading}
-        className="rounded-2xl fixed inset-0 m-auto h-fit max-h-[calc(100dvh-2rem)] w-[calc(100%-2rem)] max-w-3xl overflow-y-auto border-t-4 border-[var(--accent)] bg-white p-0 text-[#17150f] shadow-2xl backdrop:bg-[#17150f]/55"
+        className="rounded-2xl fixed inset-0 m-auto h-fit max-h-[calc(100dvh-2rem)] w-[calc(100%-2rem)] max-w-3xl overflow-y-auto border-t-4 border-[var(--accent)] bg-white p-0 text-[#0f1222] shadow-2xl backdrop:bg-[#0f1222]/55"
       >
-        <div className="flex items-start justify-between gap-4 border-b border-[#e6e2db] px-5 py-4 sm:px-7 sm:py-5">
+        <div className="flex items-start justify-between gap-4 border-b border-[#e2e5ef] px-5 py-4 sm:px-7 sm:py-5">
           <div>
             <p className="text-xs font-bold uppercase tracking-[0.18em] text-[var(--accent)]">{eyebrow}</p>
             <h2 id={heading} className="mt-1 text-2xl font-bold tracking-tight">
               {title}
             </h2>
           </div>
-          <button type="button" onClick={close} aria-label="Close" className="-mr-2 p-2 text-[#6b665d] transition hover:bg-[#f6f4f0] hover:text-[#17150f]">
+          <button type="button" onClick={close} aria-label="Close" className="-mr-2 p-2 text-[#5b6283] transition hover:bg-[#f3f5fa] hover:text-[#0f1222]">
             <X className="h-5 w-5" />
           </button>
         </div>

@@ -244,8 +244,8 @@ export function SiteMapCanvas({
   }, [full, onFullscreen])
 
   const zoomBar = (
-    <div className="absolute right-3 top-3 z-20 flex border border-[#d9d4cb] bg-white shadow-sm">
-      <button type="button" onClick={() => zoomTo(zoom / 1.5)} disabled={zoom <= MIN_ZOOM} aria-label="Zoom out" className="p-2.5 text-[#17150f] hover:bg-[#f6f4f0] disabled:opacity-30">
+    <div className="absolute right-3 top-3 z-20 flex border border-[#d6dae6] bg-white shadow-sm">
+      <button type="button" onClick={() => zoomTo(zoom / 1.5)} disabled={zoom <= MIN_ZOOM} aria-label="Zoom out" className="p-2.5 text-[#0f1222] hover:bg-[#f3f5fa] disabled:opacity-30">
         <Minus className="h-4 w-4" />
       </button>
       <button
@@ -254,20 +254,20 @@ export function SiteMapCanvas({
           stopGlide()
           setZoom(1)
         }}
-        aria-label="Fit the whole plan" className="min-w-[3.25rem] border-x border-[#e6e2db] px-2.5 text-xs font-bold tabular-nums text-[#3d3a34] hover:bg-[#f6f4f0]">
+        aria-label="Fit the whole plan" className="min-w-[3.25rem] border-x border-[#e2e5ef] px-2.5 text-xs font-bold tabular-nums text-[#2f3450] hover:bg-[#f3f5fa]">
         {zoom <= 1.01 ? <Scan className="mx-auto h-4 w-4" /> : `${Math.round(zoom * 100)}%`}
       </button>
-      <button type="button" onClick={() => zoomTo(zoom * 1.5)} disabled={zoom >= MAX_ZOOM} aria-label="Zoom in" className="p-2.5 text-[#17150f] hover:bg-[#f6f4f0] disabled:opacity-30">
+      <button type="button" onClick={() => zoomTo(zoom * 1.5)} disabled={zoom >= MAX_ZOOM} aria-label="Zoom in" className="p-2.5 text-[#0f1222] hover:bg-[#f3f5fa] disabled:opacity-30">
         <Plus className="h-4 w-4" />
       </button>
-      <button type="button" onClick={() => setFull(!full)} aria-label={full ? "Leave full screen" : "Full screen"} title={full ? "Leave full screen" : "Full screen"} className="border-l border-[#e6e2db] p-2.5 text-[#17150f] hover:bg-[#f6f4f0]">
+      <button type="button" onClick={() => setFull(!full)} aria-label={full ? "Leave full screen" : "Full screen"} title={full ? "Leave full screen" : "Full screen"} className="border-l border-[#e2e5ef] p-2.5 text-[#0f1222] hover:bg-[#f3f5fa]">
         {full ? <Minimize2 className="h-4 w-4" /> : <Maximize2 className="h-4 w-4" />}
       </button>
     </div>
   )
 
   const plan = (
-    <div className={`relative border border-[#e6e2db] bg-[#f6f4f0] ${full ? "flex min-h-0 min-w-0 flex-1 flex-col" : ""}`}>
+    <div className={`relative border border-[#e2e5ef] bg-[#f3f5fa] ${full ? "flex min-h-0 min-w-0 flex-1 flex-col" : ""}`}>
       {zoomBar}
       <div
         ref={scroller}
@@ -343,11 +343,11 @@ export function SiteMapCanvas({
         </div>
       </div>
       {!full && tapZoom && (
-        <span className="rounded-xl pointer-events-none absolute bottom-12 left-1/2 hidden -translate-x-1/2 items-center gap-2 whitespace-nowrap bg-[#17150f]/85 px-4 py-2.5 text-sm font-bold text-white shadow-lg pointer-coarse:flex">
+        <span className="rounded-xl pointer-events-none absolute bottom-12 left-1/2 hidden -translate-x-1/2 items-center gap-2 whitespace-nowrap bg-[#0f1222]/85 px-4 py-2.5 text-sm font-bold text-white shadow-lg pointer-coarse:flex">
           <Maximize2 className="h-4 w-4" /> Tap to explore the map
         </span>
       )}
-      <p className="border-t border-[#e6e2db] bg-white px-3 py-1.5 text-xs text-[#8a847a]">
+      <p className="border-t border-[#e2e5ef] bg-white px-3 py-1.5 text-xs text-[#7a8099]">
         <span className="pointer-coarse:hidden">{full ? "Scroll or pinch to zoom where you point. Drag to move around." : "Pinch or Ctrl + scroll to zoom where you point. Drag to move around."}</span>
         <span className="hidden pointer-coarse:inline">{full ? "Pinch to zoom, swipe to move around. Tap a lot to see it." : "Tap the map to open it big."}</span>
       </p>
@@ -375,7 +375,7 @@ export function LotShape({ quad, lot, selected, dim, onClick, onHover }: { quad:
       points={svgPoints(quad)}
       fill={STATUS_STYLE[lot.status].fill}
       fillOpacity={dim ? 0.15 : selected ? 0.75 : 0.45}
-      stroke={selected ? "#17150f" : "#ffffff"}
+      stroke={selected ? "#0f1222" : "#ffffff"}
       strokeWidth={selected ? 2.5 : 0.8}
       vectorEffect="non-scaling-stroke"
       style={{ cursor: onClick ? "pointer" : "default" }}
@@ -402,9 +402,9 @@ export function StatusLegend({ lots }: { lots: SiteMapLot[] }) {
   return (
     <div className="flex flex-wrap items-center gap-x-5 gap-y-2 text-sm">
       {(["available", "reserved", "sold"] as const).map((s) => (
-        <span key={s} className="inline-flex items-center gap-2 font-semibold text-[#3d3a34]">
+        <span key={s} className="inline-flex items-center gap-2 font-semibold text-[#2f3450]">
           <span className="h-3.5 w-3.5 border border-white" style={{ background: STATUS_STYLE[s].fill, opacity: 0.8 }} />
-          {STATUS_STYLE[s].label} <span className="font-bold tabular-nums text-[#17150f]">{c[s]}</span>
+          {STATUS_STYLE[s].label} <span className="font-bold tabular-nums text-[#0f1222]">{c[s]}</span>
         </span>
       ))}
     </div>
@@ -419,7 +419,7 @@ export function LotTip({ lot, quad, photo }: { lot: SiteMapLot; quad: Point[]; p
   const y = below ? Math.max(...quad.map((p) => p[1])) : top
   return (
     <div
-      className={`rounded-xl pointer-events-none absolute z-10 -translate-x-1/2 whitespace-nowrap bg-[#17150f] px-3 py-2 text-xs text-white shadow-lg ${below ? "translate-y-[10px]" : "-translate-y-[calc(100%+10px)]"}`}
+      className={`rounded-xl pointer-events-none absolute z-10 -translate-x-1/2 whitespace-nowrap bg-[#0f1222] px-3 py-2 text-xs text-white shadow-lg ${below ? "translate-y-[10px]" : "-translate-y-[calc(100%+10px)]"}`}
       style={{ left: `${centroid(quad)[0] * 100}%`, top: `${y * 100}%` }}
     >
       {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -427,7 +427,7 @@ export function LotTip({ lot, quad, photo }: { lot: SiteMapLot; quad: Point[]; p
       <p className="font-bold">
         {lotName(lot)} · <span style={{ color: STATUS_STYLE[lot.status].fill }}>{STATUS_STYLE[lot.status].label}</span>
       </p>
-      <p className="mt-0.5 text-[#d9d4cb]">{[lot.lot_area && `${Number(lot.lot_area)} sqm lot`, lot.model, lot.price && `₱${Number(lot.price).toLocaleString("en-PH")}`].filter(Boolean).join(" · ") || "No details yet"}</p>
+      <p className="mt-0.5 text-[#d6dae6]">{[lot.lot_area && `${Number(lot.lot_area)} sqm lot`, lot.model, lot.price && `₱${Number(lot.price).toLocaleString("en-PH")}`].filter(Boolean).join(" · ") || "No details yet"}</p>
       {lot.holder && lot.status !== "available" && (lot.holder.buyer || lot.holder.agent) && (
         <p className="mt-0.5 font-semibold text-[#f5c86b]">
           {STATUS_STYLE[lot.status].label} for {lot.holder.buyer ?? "a buyer"}
@@ -454,7 +454,7 @@ export function LotHolder({ lot, offerHref }: { lot: SiteMapLot; offerHref?: (of
     </>
   )
   return (
-    <p className="rounded-xl border-l-4 bg-[#faf8f5] px-3 py-2 text-sm text-[#17150f]" style={{ borderColor: STATUS_STYLE[lot.status].fill }}>
+    <p className="rounded-xl border-l-4 bg-[#f8f9fc] px-3 py-2 text-sm text-[#0f1222]" style={{ borderColor: STATUS_STYLE[lot.status].fill }}>
       {body}
       {h.offer_id && offerHref && (
         <>
@@ -483,18 +483,18 @@ export function LotPhotos({ photos, fallback = [], name, caption = "Photos of th
   return (
     <div>
       {/* eslint-disable-next-line @next/next/no-img-element */}
-      <img src={shown} alt={name} className="aspect-[4/3] w-full border border-[#e6e2db] bg-[#f6f4f0] object-cover" />
+      <img src={shown} alt={name} className="aspect-[4/3] w-full border border-[#e2e5ef] bg-[#f3f5fa] object-cover" />
       {list.length > 1 && (
         <div className="mt-2 flex gap-1.5 overflow-x-auto">
           {list.map((src, n) => (
-            <button key={src} type="button" onClick={() => setI(n)} aria-label={`Photo ${n + 1}`} className={`shrink-0 border-2 ${n === i ? "border-[var(--accent,#b4241c)]" : "border-transparent"}`}>
+            <button key={src} type="button" onClick={() => setI(n)} aria-label={`Photo ${n + 1}`} className={`shrink-0 border-2 ${n === i ? "border-[var(--accent,#4080f0)]" : "border-transparent"}`}>
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img src={src} alt="" className="h-12 w-16 object-cover" />
             </button>
           ))}
         </div>
       )}
-      {!photos.length && <p className="mt-1 text-xs text-[#8a847a]">{caption}</p>}
+      {!photos.length && <p className="mt-1 text-xs text-[#7a8099]">{caption}</p>}
     </div>
   )
 }
@@ -512,7 +512,7 @@ export function LotDetails({ lot, modelPhotos = [], modelNames = [], noPrice = "
           <p className="mt-1 text-2xl font-bold tracking-tight">{lotName(lot)}</p>
         </div>
         {onClose && (
-          <button type="button" onClick={onClose} aria-label="Close" className="-mr-2 -mt-1 p-2 text-[#6b665d] hover:text-[#17150f]">
+          <button type="button" onClick={onClose} aria-label="Close" className="-mr-2 -mt-1 p-2 text-[#5b6283] hover:text-[#0f1222]">
             <X className="h-5 w-5" />
           </button>
         )}
@@ -526,7 +526,7 @@ export function LotDetails({ lot, modelPhotos = [], modelNames = [], noPrice = "
           ["Floor area", lot.floor_area ? `${Number(lot.floor_area)} sqm` : "—"],
         ].map(([k, v]) => (
           <div key={k}>
-            <dt className="text-xs font-bold uppercase tracking-[0.1em] text-[#8a847a]">{k}</dt>
+            <dt className="text-xs font-bold uppercase tracking-[0.1em] text-[#7a8099]">{k}</dt>
             <dd className="mt-0.5 font-semibold">{v}</dd>
           </div>
         ))}
@@ -534,7 +534,7 @@ export function LotDetails({ lot, modelPhotos = [], modelNames = [], noPrice = "
       {lot.tags.length > 0 && (
         <div className="flex flex-wrap gap-2">
           {lot.tags.map((t) => (
-            <span key={t} className="rounded-xl border border-[#d9d4cb] px-2 py-1 text-xs font-bold text-[#3d3a34]">
+            <span key={t} className="rounded-xl border border-[#d6dae6] px-2 py-1 text-xs font-bold text-[#2f3450]">
               {LOT_TAGS[t] ?? t}
             </span>
           ))}
@@ -621,7 +621,7 @@ export function SiteMapViewer({
   }
   const card = opened && (
     <LotDetails key={opened.id} lot={opened.id === map.highlight && highlightPrice != null ? { ...opened, price: String(highlightPrice) } : opened} modelPhotos={photosFor(opened, modelPhotos)} modelNames={Object.keys(modelPhotos ?? {})} onClose={() => setOpen(null)}>
-      {opened.id === map.highlight && <p className="text-sm font-semibold text-[#b4241c]">This is your home.</p>}
+      {opened.id === map.highlight && <p className="text-sm font-semibold text-[#4080f0]">This is your home.</p>}
       <LotHolder lot={opened} offerHref={offerPath ? (id) => `${offerPath}/${id}` : undefined} />
     </LotDetails>
   )
@@ -652,11 +652,11 @@ export function SiteMapViewer({
               <>
                 {mine && (
                   <div className="pointer-events-none absolute z-10 flex -translate-x-1/2 -translate-y-[calc(100%+4px)] flex-col items-center" style={{ left: `${centroid(mine.quad)[0] * 100}%`, top: `${Math.min(...mine.quad.map((p) => p[1])) * 100}%` }}>
-                    <span className="rounded-xl whitespace-nowrap bg-[#b4241c] px-3 py-1.5 text-sm font-bold text-white shadow-lg">Your home · {lotName(mine.lot)}</span>
-                    <span aria-hidden className="h-0 w-0 border-x-8 border-t-8 border-x-transparent border-t-[#b4241c]" />
+                    <span className="rounded-xl whitespace-nowrap bg-[#4080f0] px-3 py-1.5 text-sm font-bold text-white shadow-lg">Your home · {lotName(mine.lot)}</span>
+                    <span aria-hidden className="h-0 w-0 border-x-8 border-t-8 border-x-transparent border-t-[#4080f0]" />
                     <span aria-hidden className="relative mt-1 flex h-5 w-5 items-center justify-center">
-                      <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-[#b4241c] opacity-60" />
-                      <span className="relative inline-flex h-3 w-3 rounded-full border-2 border-white bg-[#b4241c]" />
+                      <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-[#4080f0] opacity-60" />
+                      <span className="relative inline-flex h-3 w-3 rounded-full border-2 border-white bg-[#4080f0]" />
                     </span>
                   </div>
                 )}

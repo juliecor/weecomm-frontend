@@ -14,7 +14,7 @@ export function DeleteButton({
   body,
   success,
   label = "Delete",
-  className = "px-2 py-1.5 text-xs font-semibold text-[#8a847a] hover:text-red-700",
+  className = "px-2 py-1.5 text-xs font-semibold text-[#7a8099] hover:text-red-700",
 }: {
   action: () => Promise<{ error?: string }>
   title: string

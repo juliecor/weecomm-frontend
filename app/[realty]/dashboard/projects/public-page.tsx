@@ -22,7 +22,7 @@ export type PageData = {
   updates: PublicUpdate[]
 }
 
-const fileInput = "mt-1.5 block w-full text-sm text-[#6b665d] file:mr-3 file:rounded-md file:border-0 file:bg-[var(--accent)] file:px-3 file:py-2 file:text-sm file:font-semibold file:text-white"
+const fileInput = "mt-1.5 block w-full text-sm text-[#5b6283] file:mr-3 file:rounded-md file:border-0 file:bg-[var(--accent)] file:px-3 file:py-2 file:text-sm file:font-semibold file:text-white"
 const SPECS: [keyof NonNullable<PublicUnitType["specs"]>, string, string][] = [
   ["usable_floor_area", "Usable floor area (sqm)", "64"],
   ["typical_floor_area", "Typical floor area (sqm)", "54"],
@@ -74,25 +74,25 @@ export function ModelsEditor({ slug, projectId, data }: Omit<EditorProps, "proje
   return (
     <>
       <Panel title={`House & unit models · ${data.unit_types.length}`} aside="Each model with its renders and spec sheet">
-        <ul className="divide-y divide-[#e6e2db]">
+        <ul className="divide-y divide-[#e2e5ef]">
           {data.unit_types.map((u) => (
             <UnitTypeRow key={u.id} slug={slug} projectId={projectId} unit={u} />
           ))}
         </ul>
-        <div className="mt-6 border-t border-[#e6e2db] pt-6">
+        <div className="mt-6 border-t border-[#e2e5ef] pt-6">
           <h3 className="mb-4 text-sm font-semibold">Add a model</h3>
           <UnitTypeForm slug={slug} projectId={projectId} />
         </div>
       </Panel>
 
       <Panel title={`Construction updates · ${data.updates.length} month${data.updates.length === 1 ? "" : "s"}`} aside="Photos by month; the newest month shows first">
-        <ul className="divide-y divide-[#e6e2db]">
+        <ul className="divide-y divide-[#e2e5ef]">
           {[...data.updates].reverse().map((m) => (
             <UpdateRow key={m.id} slug={slug} update={m} />
           ))}
-          {data.updates.length === 0 && <li className="py-6 text-sm text-[#8a847a]">No updates yet.</li>}
+          {data.updates.length === 0 && <li className="py-6 text-sm text-[#7a8099]">No updates yet.</li>}
         </ul>
-        <div className="mt-6 border-t border-[#e6e2db] pt-6">
+        <div className="mt-6 border-t border-[#e2e5ef] pt-6">
           <h3 className="mb-4 text-sm font-semibold">Add photos to a month</h3>
           <UpdateForm slug={slug} projectId={projectId} />
         </div>
@@ -106,11 +106,11 @@ function SettingsForm({ slug, projectId, projectName, data }: { slug: string; pr
   const suggested = projectName.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/(^-|-$)/g, "")
   return (
     <form action={action} className="grid gap-5 sm:grid-cols-2">
-      <p className="text-sm text-[#5a554d] sm:col-span-2">Show or hide this page, and set the project&apos;s stage, in <a href="#status" className="font-semibold text-[var(--accent)] hover:underline">Status</a> at the top.</p>
+      <p className="text-sm text-[#4a5070] sm:col-span-2">Show or hide this page, and set the project&apos;s stage, in <a href="#status" className="font-semibold text-[var(--accent)] hover:underline">Status</a> at the top.</p>
       <label className="block">
         <Label>Page address</Label>
-        <div className="mt-1.5 flex items-center rounded-md border border-[#d9d4cb] bg-white focus-within:border-[var(--accent)]">
-          <span className="pl-3 text-sm text-[#a39d92]">/projects/</span>
+        <div className="mt-1.5 flex items-center rounded-md border border-[#d6dae6] bg-white focus-within:border-[var(--accent)]">
+          <span className="pl-3 text-sm text-[#9aa0b5]">/projects/</span>
           <input name="slug" defaultValue={data.slug ?? suggested} pattern="[a-z0-9]+(-[a-z0-9]+)*" className="block w-full bg-transparent py-2.5 pr-3 pl-0.5 text-[15px] outline-none" />
         </div>
       </label>
@@ -144,7 +144,7 @@ function MediaGrid({ slug, projectId, kind, urls }: { slug: string; projectId: n
       {urls.length > 0 && (
         <ul className={`grid gap-3 ${kind === "hero" ? "grid-cols-2 sm:grid-cols-4" : "grid-cols-1 sm:grid-cols-2"}`}>
           {urls.map((u) => (
-            <li key={u} className="group relative overflow-hidden border border-[#e6e2db] bg-[#efece6]">
+            <li key={u} className="group relative overflow-hidden border border-[#e2e5ef] bg-[#efece6]">
               <Photo src={u} sizes={kind === "hero" ? "(min-width: 640px) 25vw, 50vw" : "(min-width: 640px) 50vw, 100vw"} className={`w-full object-cover ${kind === "hero" ? "aspect-[4/3]" : "aspect-[16/10]"}`} />
               <form
                 action={async () => {
@@ -154,7 +154,7 @@ function MediaGrid({ slug, projectId, kind, urls }: { slug: string; projectId: n
                 onSubmit={confirmSubmit({ title: kind === "hero" ? "Remove this photo from the page?" : "Remove this site plan?", body: kind === "hero" ? "It stops showing at the top of the project's page." : "It stops showing on the project's page and on offers.", confirm: "Remove", danger: true })}
                 className="absolute right-2 top-2"
               >
-                <button type="submit" aria-label="Remove image" className="rounded-xl flex h-8 w-8 items-center justify-center bg-white/90 text-[#17150f] hover:bg-red-600 hover:text-white">
+                <button type="submit" aria-label="Remove image" className="rounded-xl flex h-8 w-8 items-center justify-center bg-white/90 text-[#0f1222] hover:bg-red-600 hover:text-white">
                   <X className="h-4 w-4" />
                 </button>
               </form>
@@ -201,8 +201,8 @@ function UnitTypeForm({ slug, projectId, unit, onDone }: { slug: string; project
           <ul className="mt-2 grid grid-cols-3 gap-3 sm:grid-cols-6">
             {unit.images.map((u) => (
               <li key={u} className="relative">
-                <Photo src={u} sizes="(min-width: 640px) 200px, 50vw" className="aspect-[4/3] w-full border border-[#e6e2db] object-cover" />
-                <label className="mt-1 flex items-center gap-1.5 text-[11px] text-[#6b665d]">
+                <Photo src={u} sizes="(min-width: 640px) 200px, 50vw" className="aspect-[4/3] w-full border border-[#e2e5ef] object-cover" />
+                <label className="mt-1 flex items-center gap-1.5 text-[11px] text-[#5b6283]">
                   <input type="checkbox" name="remove" value={u} className="h-3.5 w-3.5 accent-red-600" /> remove
                 </label>
               </li>
@@ -241,7 +241,7 @@ function UnitTypeRow({ slug, projectId, unit }: { slug: string; projectId: numbe
     <li className="flex flex-col gap-3 py-4 sm:flex-row sm:items-center sm:justify-between">
       <div className="flex min-w-0 items-center gap-4">
         {unit.images[0] ? (
-          <Photo src={unit.images[0]} sizes="96px" className="h-16 w-24 shrink-0 border border-[#e6e2db] object-cover" />
+          <Photo src={unit.images[0]} sizes="96px" className="h-16 w-24 shrink-0 border border-[#e2e5ef] object-cover" />
         ) : (
           <div className="h-16 w-24 shrink-0 bg-[#efece6]" />
         )}
@@ -250,7 +250,7 @@ function UnitTypeRow({ slug, projectId, unit }: { slug: string; projectId: numbe
             <p className="font-semibold">{unit.name}</p>
             <Tag>{unit.images.length} render{unit.images.length === 1 ? "" : "s"}</Tag>
           </div>
-          <p className="mt-0.5 text-sm text-[#6b665d]">{specs.join(" · ") || "No specs yet"}</p>
+          <p className="mt-0.5 text-sm text-[#5b6283]">{specs.join(" · ") || "No specs yet"}</p>
         </div>
       </div>
       <div className="flex shrink-0 items-center gap-1.5">
@@ -262,7 +262,7 @@ function UnitTypeRow({ slug, projectId, unit }: { slug: string; projectId: numbe
           }}
           onSubmit={confirmSubmit({ title: `Delete the model "${unit.name}"?`, body: "Its renders and specs come off the project's page. Units of this type stay.", confirm: "Delete model", danger: true })}
         >
-          <button type="submit" aria-label={`Delete ${unit.name}`} className="rounded-md p-2 text-[#a39d92] hover:bg-red-50 hover:text-red-700"><Trash2 className="h-4 w-4" /></button>
+          <button type="submit" aria-label={`Delete ${unit.name}`} className="rounded-md p-2 text-[#9aa0b5] hover:bg-red-50 hover:text-red-700"><Trash2 className="h-4 w-4" /></button>
         </form>
       </div>
     </li>
@@ -299,7 +299,7 @@ function UpdateRow({ slug, update }: { slug: string; update: PublicUpdate }) {
         <button type="button" onClick={() => setOpen((o) => !o)} className="flex items-center gap-3 text-left">
           <span className="font-semibold">{update.label}</span>
           <Tag>{update.photos.length} photo{update.photos.length === 1 ? "" : "s"}</Tag>
-          <span className="text-xs text-[#8a847a]">{open ? "hide" : "show"}</span>
+          <span className="text-xs text-[#7a8099]">{open ? "hide" : "show"}</span>
         </button>
         <form
           action={async () => {
@@ -308,14 +308,14 @@ function UpdateRow({ slug, update }: { slug: string; update: PublicUpdate }) {
           }}
           onSubmit={confirmSubmit({ title: `Delete ${update.label}?`, body: `All ${update.photos.length} construction photo${update.photos.length === 1 ? "" : "s"} for that month come off the page.`, confirm: "Delete month", danger: true })}
         >
-          <button type="submit" className="inline-flex items-center gap-1.5 text-xs font-semibold text-[#8a847a] hover:text-red-700"><Trash2 className="h-3.5 w-3.5" /> Delete month</button>
+          <button type="submit" className="inline-flex items-center gap-1.5 text-xs font-semibold text-[#7a8099] hover:text-red-700"><Trash2 className="h-3.5 w-3.5" /> Delete month</button>
         </form>
       </div>
       {open && (
         <ul className="mt-3 grid grid-cols-3 gap-2 sm:grid-cols-6">
           {update.photos.map((u) => (
             <li key={u} className="group relative">
-              <Photo src={u} sizes="(min-width: 640px) 25vw, 50vw" className="aspect-video w-full border border-[#e6e2db] object-cover" />
+              <Photo src={u} sizes="(min-width: 640px) 25vw, 50vw" className="aspect-video w-full border border-[#e2e5ef] object-cover" />
               <form
                 action={async () => {
                   await removeUpdatePhoto(slug, update.id, u)
@@ -323,7 +323,7 @@ function UpdateRow({ slug, update }: { slug: string; update: PublicUpdate }) {
                 }}
                 className="absolute right-1 top-1"
               >
-                <button type="submit" aria-label="Remove photo" className="flex h-6 w-6 items-center justify-center bg-white/90 text-[#17150f] hover:bg-red-600 hover:text-white"><X className="h-3 w-3" /></button>
+                <button type="submit" aria-label="Remove photo" className="flex h-6 w-6 items-center justify-center bg-white/90 text-[#0f1222] hover:bg-red-600 hover:text-white"><X className="h-3 w-3" /></button>
               </form>
             </li>
           ))}

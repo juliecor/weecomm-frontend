@@ -4,8 +4,8 @@ import { useActionState, useState } from "react"
 import { AlertCircle, ArrowRight, Check, Eye, EyeOff, LoaderCircle } from "lucide-react"
 import { type PasswordState, changePassword } from "./actions"
 
-const field = "block w-full border bg-white px-4 py-3.5 text-[15px] text-[#17150f] outline-none transition placeholder:text-[#b3ada3] focus:border-[var(--accent)] focus:ring-2 focus:ring-[var(--accent)]/15"
-const label = "text-xs font-bold uppercase tracking-[0.12em] text-[#5a554d]"
+const field = "block w-full border bg-white px-4 py-3.5 text-[15px] text-[#0f1222] outline-none transition placeholder:text-[#b3ada3] focus:border-[var(--accent)] focus:ring-2 focus:ring-[var(--accent)]/15"
+const label = "text-xs font-bold uppercase tracking-[0.12em] text-[#4a5070]"
 
 /** The temporary password, then a new one twice; a short checklist shows what is still missing. */
 export function PasswordForm({ slug }: { slug: string }) {
@@ -35,7 +35,7 @@ export function PasswordForm({ slug }: { slug: string }) {
           value={current}
           onChange={(e) => setCurrent(e.target.value)}
           aria-invalid={!!errors.current_password}
-          className={`${field} mt-1.5 ${errors.current_password ? "border-red-500" : "border-[#d9d4cb]"}`}
+          className={`${field} mt-1.5 ${errors.current_password ? "border-red-500" : "border-[#d6dae6]"}`}
         />
         {errors.current_password && <span className="mt-1.5 block text-sm font-semibold text-red-700">{errors.current_password}</span>}
       </label>
@@ -52,9 +52,9 @@ export function PasswordForm({ slug }: { slug: string }) {
             value={next}
             onChange={(e) => setNext(e.target.value)}
             aria-invalid={!!errors.password}
-            className={`${field} pr-12 ${errors.password ? "border-red-500" : "border-[#d9d4cb]"}`}
+            className={`${field} pr-12 ${errors.password ? "border-red-500" : "border-[#d6dae6]"}`}
           />
-          <button type="button" onClick={() => setShow((s) => !s)} aria-label={show ? "Hide passwords" : "Show passwords"} className="absolute inset-y-0 right-0 flex w-12 items-center justify-center text-[#8a847a] transition hover:text-[#17150f]">
+          <button type="button" onClick={() => setShow((s) => !s)} aria-label={show ? "Hide passwords" : "Show passwords"} className="absolute inset-y-0 right-0 flex w-12 items-center justify-center text-[#7a8099] transition hover:text-[#0f1222]">
             {show ? <EyeOff className="h-5 w-5" /> : <Eye className="h-5 w-5" />}
           </button>
         </span>
@@ -63,12 +63,12 @@ export function PasswordForm({ slug }: { slug: string }) {
 
       <label className="block">
         <span className={label}>Repeat new password</span>
-        <input name="password_confirmation" type={show ? "text" : "password"} required minLength={8} autoComplete="new-password" value={confirm} onChange={(e) => setConfirm(e.target.value)} className={`${field} mt-1.5 border-[#d9d4cb]`} />
+        <input name="password_confirmation" type={show ? "text" : "password"} required minLength={8} autoComplete="new-password" value={confirm} onChange={(e) => setConfirm(e.target.value)} className={`${field} mt-1.5 border-[#d6dae6]`} />
       </label>
 
-      <ul className="space-y-1.5 border-l-4 border-[#e6e2db] bg-[#faf8f5] px-4 py-3 text-sm">
+      <ul className="space-y-1.5 border-l-4 border-[#e2e5ef] bg-[#f8f9fc] px-4 py-3 text-sm">
         {rules.map((r) => (
-          <li key={r.text} className={`flex items-center gap-2 ${r.ok ? "font-semibold text-emerald-800" : "text-[#6b665d]"}`}>
+          <li key={r.text} className={`flex items-center gap-2 ${r.ok ? "font-semibold text-emerald-800" : "text-[#5b6283]"}`}>
             <span aria-hidden className={`flex h-4 w-4 items-center justify-center rounded-full ${r.ok ? "bg-emerald-600 text-white" : "border border-[#c9c3b8]"}`}>{r.ok && <Check className="h-3 w-3" strokeWidth={3.5} />}</span>
             {r.text}
           </li>

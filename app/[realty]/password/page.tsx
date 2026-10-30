@@ -1,4 +1,5 @@
 import type { Metadata } from "next"
+import { brandFonts } from "@/lib/brand-fonts"
 import Link from "next/link"
 import { redirect } from "next/navigation"
 import { Lock } from "lucide-react"
@@ -29,20 +30,20 @@ export default async function ChoosePasswordPage({ params }: Props) {
   const accent = realty.accent_color ?? "#1f2937"
 
   return (
-    <main style={{ ["--accent" as string]: accent }} className="flex min-h-screen items-center justify-center bg-[#f6f4f0] px-5 py-12 text-[#17150f]">
-      <div className="w-full max-w-[480px] border border-[#e6e2db] bg-white shadow-[0_18px_48px_-24px_rgba(23,21,15,0.35)]">
+    <main style={{ ["--accent" as string]: accent }} className={`${brandFonts} flex min-h-screen items-center justify-center bg-[#f3f5fa] px-5 py-12 text-[#0f1222]`}>
+      <div className="w-full max-w-[480px] border border-[#e2e5ef] bg-white shadow-[0_18px_48px_-24px_rgba(23,21,15,0.35)]">
         <div aria-hidden className="h-1.5 bg-[var(--accent)]" />
         <div className="px-6 pb-8 pt-8 sm:px-10">
           <RealtyMark name={realty.name} logo={realty.logo_url} className="h-12" />
           {realty.developer && (
-            <p className="mt-3 text-sm font-bold text-[#17150f]">
-              {realty.name} <span className="font-normal text-[#6b665d]">· accredited by {realty.developer.name}</span>
+            <p className="mt-3 text-sm font-bold text-[#0f1222]">
+              {realty.name} <span className="font-normal text-[#5b6283]">· accredited by {realty.developer.name}</span>
             </p>
           )}
 
           <p className="mt-8 text-xs font-bold uppercase tracking-[0.2em] text-[var(--accent)]">First sign-in</p>
           <h1 className="mt-2 text-3xl font-bold tracking-tight">Choose your own password.</h1>
-          <p className="mt-3 text-[15px] leading-relaxed text-[#5a554d]">
+          <p className="mt-3 text-[15px] leading-relaxed text-[#4a5070]">
             You signed in with the temporary password from your accreditation email. Replace it with one only you know to open your dashboard.
           </p>
 
@@ -50,12 +51,12 @@ export default async function ChoosePasswordPage({ params }: Props) {
             <PasswordForm slug={slug} />
           </div>
 
-          <div className="mt-8 flex flex-wrap items-center justify-between gap-3 border-t border-[#e6e2db] pt-5 text-xs text-[#8a847a]">
+          <div className="mt-8 flex flex-wrap items-center justify-between gap-3 border-t border-[#e2e5ef] pt-5 text-xs text-[#7a8099]">
             <span className="flex items-center gap-2">
               <Lock className="h-3.5 w-3.5 shrink-0" /> Signed in as {session.user.email}
             </span>
             <form action={signOutRealty.bind(null, slug)}>
-              <button type="submit" className="font-semibold text-[#6b665d] underline-offset-4 hover:text-[#17150f] hover:underline">
+              <button type="submit" className="font-semibold text-[#5b6283] underline-offset-4 hover:text-[#0f1222] hover:underline">
                 Not you? Sign out
               </button>
             </form>

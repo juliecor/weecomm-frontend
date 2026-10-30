@@ -12,7 +12,7 @@ export function NewLinkButton({ slug, id }: { slug: string; id: number }) {
   if (state.url) {
     return (
       <div className="flex max-w-full flex-col items-start gap-1.5 sm:items-end">
-        <p className="max-w-[320px] truncate font-mono text-xs text-[#6b665d]" title={state.url}>{state.url}</p>
+        <p className="max-w-[320px] truncate font-mono text-xs text-[#5b6283]" title={state.url}>{state.url}</p>
         <CopyButton text={state.url} />
       </div>
     )

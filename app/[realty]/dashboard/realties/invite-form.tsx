@@ -25,7 +25,7 @@ function InviteForm({ slug, onAnother }: { slug: string; onAnother: () => void }
           {emailed ? <CircleCheck className="h-5 w-5 text-emerald-700" /> : <TriangleAlert className="h-5 w-5 text-amber-700" />}
           {emailed ? `Invite emailed to ${email}.` : `We couldn't email ${email}. Send them this link yourself.`}
         </p>
-        <p className="mt-2 text-sm text-[#5a554d]">It opens the accreditation form and works for 7 days, once. You can also pass the link on by hand:</p>
+        <p className="mt-2 text-sm text-[#4a5070]">It opens the accreditation form and works for 7 days, once. You can also pass the link on by hand:</p>
         <p className="mt-3 break-all rounded-md rounded-2xl border border-[#e8eaed] bg-white shadow-[0_2px_12px_-2px_rgba(23,21,15,0.06)] px-3.5 py-2.5 font-mono text-sm">{url}</p>
         <div className="mt-3 flex flex-wrap gap-2">
           <CopyButton text={url} className="bg-white" />

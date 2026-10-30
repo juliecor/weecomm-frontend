@@ -15,26 +15,26 @@ export function ProjectCards({ slug, cards }: { slug: string; cards: ProjectCard
         {cards.map((p) => (
           <li key={p.id} className="flex flex-col overflow-hidden rounded-2xl border border-[#e8eaed] bg-white shadow-[0_2px_12px_-2px_rgba(23,21,15,0.06)]">
             <div className="flex flex-1 @lg:flex-col">
-              <div className="relative min-h-28 w-24 shrink-0 bg-[#f1eee9] @lg:aspect-[16/9] @lg:min-h-0 @lg:w-full">
+              <div className="relative min-h-28 w-24 shrink-0 bg-[#eff1f7] @lg:aspect-[16/9] @lg:min-h-0 @lg:w-full">
                 {p.photo ? (
                   <Photo src={p.photo} sizes="(min-width: 640px) 360px, 96px" className="absolute inset-0 h-full w-full object-cover" />
                 ) : (
                   <Building2 className="absolute left-1/2 top-1/2 h-8 w-8 -translate-x-1/2 -translate-y-1/2 text-[#c9c3b8]" />
                 )}
                 {(p.stage || !p.open) && (
-                  <span className={`rounded-md absolute left-2 top-2 px-2 py-0.5 text-[11px] font-bold uppercase tracking-[0.08em] text-white ${p.open ? "bg-[#17150f]/85" : "bg-[#8a847a]"}`}>{p.open ? p.stage : "Archived"}</span>
+                  <span className={`rounded-md absolute left-2 top-2 px-2 py-0.5 text-[11px] font-bold uppercase tracking-[0.08em] text-white ${p.open ? "bg-[#0f1222]/85" : "bg-[#7a8099]"}`}>{p.open ? p.stage : "Archived"}</span>
                 )}
               </div>
               <div className="min-w-0 flex-1 p-3 @lg:p-4">
-                <p className="text-base font-bold leading-snug text-[#17150f]">{p.name}</p>
+                <p className="text-base font-bold leading-snug text-[#0f1222]">{p.name}</p>
                 {p.location && (
-                  <p className="mt-0.5 flex items-center gap-1 text-sm text-[#6b665d]">
+                  <p className="mt-0.5 flex items-center gap-1 text-sm text-[#5b6283]">
                     <MapPin className="h-3.5 w-3.5 shrink-0 text-[var(--accent)]" /> <span className="truncate">{p.location}</span>
                   </p>
                 )}
-                <p className="mt-1.5 text-lg font-bold tabular-nums text-[#17150f]">{p.price ? (p.price.min === p.price.max ? php(p.price.min) : `${php(p.price.min)} – ${php(p.price.max)}`) : "Prices not set yet"}</p>
-                <p className="mt-0.5 text-sm text-[#5a554d]">
-                  <span className="font-bold text-[#17150f]">{p.units.available}</span> of {p.units.total} {p.units.total === 1 ? "unit" : "units"} available
+                <p className="mt-1.5 text-lg font-bold tabular-nums text-[#0f1222]">{p.price ? (p.price.min === p.price.max ? php(p.price.min) : `${php(p.price.min)} – ${php(p.price.max)}`) : "Prices not set yet"}</p>
+                <p className="mt-0.5 text-sm text-[#4a5070]">
+                  <span className="font-bold text-[#0f1222]">{p.units.available}</span> of {p.units.total} {p.units.total === 1 ? "unit" : "units"} available
                   {p.units.reserved + p.units.sold > 0 && ` · ${p.units.reserved} reserved · ${p.units.sold} sold`}
                   {p.plans > 0 && ` · ${p.plans} payment plan${p.plans === 1 ? "" : "s"}`}
                 </p>
@@ -46,7 +46,7 @@ export function ProjectCards({ slug, cards }: { slug: string; cards: ProjectCard
                   <Plus className="h-4 w-4" /> New offer
                 </Link>
               )}
-              <Link href={`/${slug}/dashboard/projects/${p.id}`} className="rounded-xl inline-flex flex-1 items-center justify-center gap-1.5 border border-[#d9d4cb] px-3 py-2 text-sm font-bold text-[#17150f] transition hover:border-[#17150f] @lg:flex-none">
+              <Link href={`/${slug}/dashboard/projects/${p.id}`} className="rounded-xl inline-flex flex-1 items-center justify-center gap-1.5 border border-[#d6dae6] px-3 py-2 text-sm font-bold text-[#0f1222] transition hover:border-[#0f1222] @lg:flex-none">
                 View project <ArrowRight className="h-3.5 w-3.5" />
               </Link>
             </div>

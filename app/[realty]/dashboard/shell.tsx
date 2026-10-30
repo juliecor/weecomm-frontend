@@ -115,18 +115,18 @@ export function DashboardShell({ slug, user, counts, superAdmin, signOutAction, 
     <Link
       href={isSite ? "/" : `/${slug}/login`}
       title={isSite ? (counts ? `${counts.publicProjects} project pages live` : `${realty.name}'s website`) : staff ? "Share it with your agents" : "Where you sign in"}
-      className="inline-flex shrink-0 items-center gap-1 rounded-full border border-[#e6e2db] px-2.5 py-1 text-xs font-semibold text-[#2b2823] outline-none transition hover:border-[#17150f] focus-visible:ring-2 focus-visible:ring-[var(--accent)]"
+      className="inline-flex shrink-0 items-center gap-1 rounded-full border border-white/15 px-2.5 py-1 text-xs font-semibold text-white/70 outline-none transition hover:border-white/50 hover:text-white focus-visible:ring-2 focus-visible:ring-[#f8b800]"
     >
       {isSite ? "Public site" : "Sign-in page"} <ArrowUpRight className="h-3.5 w-3.5" />
     </Link>
   )
 
   const panel = (
-    <div className="flex h-full flex-col border-r border-[#e8e5df] bg-white text-[#17150f]">
+    <div className="flex h-full flex-col border-r border-white/[0.06] bg-[#0f1222] text-white">
       {/* Brand */}
-      <div className="flex items-center justify-between gap-3 px-5 pt-5">
-        <Link href={`/${slug}/dashboard`} onClick={() => setOpen(false)} className="inline-flex outline-none focus-visible:ring-2 focus-visible:ring-[var(--accent)]">
-          <RealtyMark name={realty.name} logo={realty.logo_url} className="h-9" />
+      <div className="flex flex-col items-start gap-2.5 px-5 pt-5">
+        <Link href={`/${slug}/dashboard`} onClick={() => setOpen(false)} className="inline-flex outline-none focus-visible:ring-2 focus-visible:ring-[#f8b800]">
+          <RealtyMark name={realty.name} logo={isSite ? "/weecomm/logo-wide-light.png" : realty.logo_url} className={`h-8 ${isSite ? "" : "brightness-0 invert"}`} />
         </Link>
         {publicLink}
       </div>
@@ -152,7 +152,7 @@ export function DashboardShell({ slug, user, counts, superAdmin, signOutAction, 
           <Link
             href={`/${slug}/dashboard/offers/new`}
             onClick={() => setOpen(false)}
-            className="flex items-center justify-center gap-2 rounded-xl bg-[var(--accent)] px-3 py-3 text-[15px] font-semibold text-white outline-none transition hover:brightness-110 focus-visible:ring-2 focus-visible:ring-[var(--accent)] focus-visible:ring-offset-2"
+            className="flex items-center justify-center gap-2 rounded-xl bg-[#f8b800] px-3 py-3 text-[15px] font-bold text-[#0f1222] outline-none transition hover:bg-[#ffd04a] focus-visible:ring-2 focus-visible:ring-[#f8b800] focus-visible:ring-offset-2 focus-visible:ring-offset-[#0f1222]"
           >
             <Plus className="h-[18px] w-[18px]" strokeWidth={2.25} /> New offer
           </Link>
@@ -162,7 +162,7 @@ export function DashboardShell({ slug, user, counts, superAdmin, signOutAction, 
       {/* Navigation: groups split by a thin line */}
       <nav className="mt-3 min-h-0 flex-1 overflow-y-auto px-3 pb-4 [scrollbar-width:thin]">
         {groups.map((g, gi) => (
-          <ul key={g.title} aria-label={g.title} className={`space-y-0.5 ${gi > 0 ? "mt-2 border-t border-[#f0ede8] pt-2" : ""}`}>
+          <ul key={g.title} aria-label={g.title} className={`space-y-0.5 ${gi > 0 ? "mt-2 border-t border-white/[0.08] pt-2" : ""}`}>
             {g.items.map(({ href, label, icon: Icon, exact, count, alert }) => {
               const active = exact ? path === href : path.startsWith(href)
               return (
@@ -171,17 +171,17 @@ export function DashboardShell({ slug, user, counts, superAdmin, signOutAction, 
                     href={href}
                     onClick={() => setOpen(false)}
                     aria-current={active ? "page" : undefined}
-                    className={`group flex items-center gap-3 rounded-xl px-2 py-1 text-base outline-none transition focus-visible:ring-2 focus-visible:ring-[var(--accent)]/40 ${active ? "bg-[#f2f0ec] font-semibold text-[#17150f]" : "font-medium text-[#2b2823] hover:bg-[#f7f6f3] hover:text-[#17150f]"}`}
+                    className={`group flex items-center gap-3 rounded-xl px-2 py-1 text-base outline-none transition focus-visible:ring-2 focus-visible:ring-[var(--accent)]/40 ${active ? "bg-white/[0.08] font-semibold text-white" : "font-medium text-white/70 hover:bg-white/[0.05] hover:text-white"}`}
                   >
-                    <span className={`flex h-8 w-8 shrink-0 items-center justify-center rounded-lg transition ${active ? "bg-[var(--accent)] text-white shadow-[0_4px_10px_-3px_var(--accent)]" : "bg-[#f3f1ed] text-[#6b665d] group-hover:bg-[#ebe8e2] group-hover:text-[#2b2823]"}`}>
+                    <span className={`flex h-8 w-8 shrink-0 items-center justify-center rounded-lg transition ${active ? "bg-[#f8b800] text-[#0f1222] shadow-[0_4px_12px_-3px_rgba(248,184,0,0.6)]" : "bg-white/[0.06] text-white/60 group-hover:bg-white/10 group-hover:text-white"}`}>
                       <Icon className="h-[18px] w-[18px]" strokeWidth={1.9} />
                     </span>
                     <span className="min-w-0 flex-1 truncate">{label}</span>
                     {/* Something waiting gets a small red badge; otherwise a quiet count. */}
                     {alert ? (
-                      <span className="shrink-0 rounded-full bg-[var(--accent)] px-2 py-0.5 text-xs font-semibold text-white">{alert}</span>
+                      <span className="shrink-0 rounded-full bg-[#e84030] px-2 py-0.5 text-xs font-semibold text-white">{alert}</span>
                     ) : (
-                      count !== undefined && <span className="shrink-0 pr-1 text-[13px] font-medium tabular-nums text-[#6b665d]">{count}</span>
+                      count !== undefined && <span className="shrink-0 pr-1 text-[13px] font-medium tabular-nums text-white/45">{count}</span>
                     )}
                   </Link>
                 </li>
@@ -191,9 +191,9 @@ export function DashboardShell({ slug, user, counts, superAdmin, signOutAction, 
         ))}
 
         {superAdmin && (
-          <div className="mt-3 border-t border-[#f0ede8] px-2 pt-3">
-            <p className="pb-1.5 text-xs font-semibold uppercase tracking-[0.12em] text-[#8a847a]">View as</p>
-            <RoleSwitch from="realty" current={`${slug}:${user.role}`} realties={superAdmin.realties} tone="light" />
+          <div className="mt-3 border-t border-white/[0.08] px-2 pt-3">
+            <p className="pb-1.5 text-xs font-semibold uppercase tracking-[0.12em] text-white/45">View as</p>
+            <RoleSwitch from="realty" current={`${slug}:${user.role}`} realties={superAdmin.realties} tone="dark" />
           </div>
         )}
       </nav>
@@ -201,23 +201,23 @@ export function DashboardShell({ slug, user, counts, superAdmin, signOutAction, 
   )
 
   return (
-    <div className="min-h-screen bg-[#f6f4f0] text-[#17150f] lg:grid lg:grid-cols-[264px_1fr]">
+    <div className="min-h-screen bg-[#f3f5fa] text-[#0f1222] lg:grid lg:grid-cols-[264px_1fr]">
       {/* Desktop sidebar */}
       <aside className="hidden lg:sticky lg:top-0 lg:block lg:h-screen">{panel}</aside>
 
       {/* Phone top bar */}
-      <div className="sticky top-0 z-40 border-b border-[#e8e5df] bg-white lg:hidden">
+      <div className="sticky top-0 z-40 border-b border-white/10 bg-[#0f1222] lg:hidden">
         <div className="flex items-center justify-between px-4 py-3">
           <Link href={`/${slug}/dashboard`}>
-            <RealtyMark name={realty.name} logo={realty.logo_url} className="h-9" />
+            <RealtyMark name={realty.name} logo={isSite ? "/weecomm/logo-wide-light.png" : realty.logo_url} className={`h-9 ${isSite ? "" : "brightness-0 invert"}`} />
           </Link>
           <div className="flex items-center gap-2">
             {newOffer && (
-              <Link href={`/${slug}/dashboard/offers/new`} className="flex items-center gap-1.5 rounded-xl bg-[var(--accent)] px-3 py-2 text-sm font-bold text-white">
+              <Link href={`/${slug}/dashboard/offers/new`} className="flex items-center gap-1.5 rounded-xl bg-[#f8b800] px-3 py-2 text-sm font-bold text-[#0f1222]">
                 <Plus className="h-4 w-4" strokeWidth={2.5} /> Offer
               </Link>
             )}
-            <button type="button" onClick={() => setOpen(true)} aria-label={waiting ? `Open menu, ${waiting} things need you` : "Open menu"} className="relative p-2 text-[#17150f]">
+            <button type="button" onClick={() => setOpen(true)} aria-label={waiting ? `Open menu, ${waiting} things need you` : "Open menu"} className="relative p-2 text-white">
               <Menu className="h-6 w-6" />
               {!!waiting && <span aria-hidden className="absolute right-1 top-1 h-2.5 w-2.5 rounded-full border-2 border-white bg-[var(--accent)]" />}
             </button>
@@ -226,10 +226,10 @@ export function DashboardShell({ slug, user, counts, superAdmin, signOutAction, 
       </div>
       {open && (
         <div className="fixed inset-0 z-50 lg:hidden">
-          <button type="button" aria-label="Close menu" onClick={() => setOpen(false)} className="absolute inset-0 bg-[#17150f]/40" />
+          <button type="button" aria-label="Close menu" onClick={() => setOpen(false)} className="absolute inset-0 bg-[#0f1222]/40" />
           <div className="absolute inset-y-0 left-0 w-[86%] max-w-[300px] shadow-2xl">
             {panel}
-            <button type="button" onClick={() => setOpen(false)} aria-label="Close menu" className="absolute right-3 top-5 p-2 text-[#6b665d] hover:text-[#17150f]">
+            <button type="button" onClick={() => setOpen(false)} aria-label="Close menu" className="absolute right-3 top-5 p-2 text-white/60 hover:text-white">
               <X className="h-6 w-6" />
             </button>
           </div>
@@ -256,8 +256,8 @@ export function DashboardShell({ slug, user, counts, superAdmin, signOutAction, 
           {children}
         </div>
         {!wide && (
-          <p className="mt-16 text-center text-xs text-[#a39d92]">
-            Powered by <Link href="/platform" className="font-medium text-[#8a847a] hover:text-[#17150f]">jvconline</Link>
+          <p className="mt-16 text-center text-xs text-[#9aa0b5]">
+            Powered by <Link href="/platform" className="font-medium text-[#7a8099] hover:text-[#0f1222]">jvconline</Link>
           </p>
         )}
       </main>
@@ -283,7 +283,7 @@ function ProfileCard({ name, photo, role, sub, account, accountActive, signOutAc
     }
   }, [open])
 
-  const item = "flex w-full items-center gap-3 px-4 py-2.5 text-[15px] font-medium text-[#2b2823] outline-none hover:bg-[#f7f6f3] focus-visible:bg-[#f7f6f3]"
+  const item = "flex w-full items-center gap-3 px-4 py-2.5 text-[15px] font-medium text-[#1a1e33] outline-none hover:bg-[#f5f6fa] focus-visible:bg-[#f5f6fa]"
   return (
     <div ref={box} className="relative">
       <button
@@ -291,29 +291,29 @@ function ProfileCard({ name, photo, role, sub, account, accountActive, signOutAc
         onClick={() => setOpen((o) => !o)}
         aria-expanded={open}
         aria-haspopup="menu"
-        className={`flex w-full items-center gap-3 rounded-2xl border p-3 text-left outline-none transition focus-visible:ring-2 focus-visible:ring-[var(--accent)] ${open || accountActive ? "border-[#d9d4cb] bg-[#f7f6f3]" : "border-[#e8e5df] bg-[#fbfaf8] hover:border-[#d9d4cb]"}`}
+        className={`flex w-full items-center gap-3 rounded-2xl border p-3 text-left outline-none transition focus-visible:ring-2 focus-visible:ring-[var(--accent)] ${open || accountActive ? "border-white/20 bg-white/10" : "border-white/10 bg-white/[0.06] hover:border-white/25"}`}
       >
         {photo ? (
           // eslint-disable-next-line @next/next/no-img-element
           <img src={photo} alt="" className="h-12 w-12 shrink-0 rounded-full object-cover ring-2 ring-[var(--accent)]/25" />
         ) : (
-          <span aria-hidden className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-[#17150f] text-[15px] font-semibold text-white">
+          <span aria-hidden className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-[#f8b800] text-[15px] font-bold text-[#0f1222]">
             {initials(name)}
           </span>
         )}
         <span className="min-w-0 flex-1">
-          <span className="line-clamp-2 break-words text-[15px] font-bold leading-snug text-[#17150f]">{name}</span>
+          <span className="line-clamp-2 break-words text-[15px] font-bold leading-snug text-white">{name}</span>
           <span className="mt-1 flex min-w-0 items-center gap-1.5">
-            <span className="rounded-md shrink-0 px-2 py-0.5 text-[11px] font-bold uppercase tracking-[0.1em] text-[var(--accent)]" style={{ backgroundColor: "color-mix(in srgb, var(--accent) 10%, white)" }}>
+            <span className="rounded-md shrink-0 bg-[#f8b800]/15 px-2 py-0.5 text-[11px] font-bold uppercase tracking-[0.1em] text-[#f8b800]">
               {role}
             </span>
-            {sub && <span className="truncate text-xs text-[#6b665d]">{sub}</span>}
+            {sub && <span className="truncate text-xs text-white/50">{sub}</span>}
           </span>
         </span>
-        <ChevronDown className={`h-4 w-4 shrink-0 text-[#8a847a] transition ${open ? "rotate-180" : ""}`} />
+        <ChevronDown className={`h-4 w-4 shrink-0 text-white/50 transition ${open ? "rotate-180" : ""}`} />
       </button>
       {open && (
-        <div role="menu" className="absolute inset-x-0 top-full z-30 mt-1 overflow-hidden rounded-xl border border-[#e8e5df] bg-white py-1 shadow-lg">
+        <div role="menu" className="absolute inset-x-0 top-full z-30 mt-1 overflow-hidden rounded-xl border border-[#e6e9f2] bg-white py-1 shadow-lg">
           <Link
             href={account}
             role="menuitem"
@@ -323,11 +323,11 @@ function ProfileCard({ name, photo, role, sub, account, accountActive, signOutAc
             }}
             className={item}
           >
-            <UserRound className="h-[18px] w-[18px] text-[#6b665d]" strokeWidth={1.9} /> My account
+            <UserRound className="h-[18px] w-[18px] text-[#5b6283]" strokeWidth={1.9} /> My account
           </Link>
           <form action={signOutAction}>
             <button type="submit" role="menuitem" className={item}>
-              <LogOut className="h-[18px] w-[18px] text-[#6b665d]" strokeWidth={1.9} /> Sign out
+              <LogOut className="h-[18px] w-[18px] text-[#5b6283]" strokeWidth={1.9} /> Sign out
             </button>
           </form>
         </div>

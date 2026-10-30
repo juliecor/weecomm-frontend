@@ -38,7 +38,7 @@ export function UnitRow({ slug, projectId, unit, staff }: { slug: string; projec
     <li className="flex flex-col gap-3 py-4 sm:flex-row sm:items-center sm:justify-between">
       <div className="flex min-w-0 items-center gap-4">
         {thumb ? (
-          <Photo src={thumb} sizes="56px" className="h-14 w-14 shrink-0 rounded-md border border-[#e6e2db] object-cover" />
+          <Photo src={thumb} sizes="56px" className="h-14 w-14 shrink-0 rounded-md border border-[#e2e5ef] object-cover" />
         ) : (
           <div className="h-14 w-14 shrink-0 rounded-md bg-[#efece6]" />
         )}
@@ -47,7 +47,7 @@ export function UnitRow({ slug, projectId, unit, staff }: { slug: string; projec
             <p className="font-semibold">{unit.name}</p>
             <Tag tone={TONE[unit.status]}>{unit.status}</Tag>
           </div>
-          <p className="mt-0.5 text-sm text-[#6b665d]">
+          <p className="mt-0.5 text-sm text-[#5b6283]">
             {[unit.unit_type !== unit.name ? unit.unit_type : null, unit.category, unit.floor, unit.area_sqm ? sqm(unit.area_sqm) : null].filter(Boolean).join(" · ")}
             {unit.floor_plan_url && (
               <>
@@ -59,12 +59,12 @@ export function UnitRow({ slug, projectId, unit, staff }: { slug: string; projec
             )}
           </p>
           {unit.status !== "available" && unit.status_detail && <StatusLine slug={slug} status={unit.status} d={unit.status_detail} />}
-          {unit.buyer_notes && <p className="mt-1 max-w-2xl text-sm font-semibold text-[#3d3a34]">On the offer: {unit.buyer_notes}</p>}
-          {unit.notes && <p className="mt-1 line-clamp-1 max-w-2xl text-xs text-[#8a847a]" title={unit.notes}>Internal: {unit.notes}</p>}
+          {unit.buyer_notes && <p className="mt-1 max-w-2xl text-sm font-semibold text-[#2f3450]">On the offer: {unit.buyer_notes}</p>}
+          {unit.notes && <p className="mt-1 line-clamp-1 max-w-2xl text-xs text-[#7a8099]" title={unit.notes}>Internal: {unit.notes}</p>}
         </div>
       </div>
       <div className="flex shrink-0 items-center gap-4 sm:justify-end">
-        <p className="text-base font-semibold tabular-nums">{unit.price === null ? <span className="text-sm font-medium text-[#a39d92]">Price on request</span> : php(unit.price)}</p>
+        <p className="text-base font-semibold tabular-nums">{unit.price === null ? <span className="text-sm font-medium text-[#9aa0b5]">Price on request</span> : php(unit.price)}</p>
         {staff && (
           <div className="flex items-center gap-1.5">
             <button type="button" onClick={() => setEditing(true)} className={btn.ghost}>
@@ -74,7 +74,7 @@ export function UnitRow({ slug, projectId, unit, staff }: { slug: string; projec
               action={remove}
               onSubmit={confirmSubmit({ title: `Delete ${unit.name}?`, body: "The unit is removed from the project for good. A unit that already has offers can't be deleted: mark it sold or reserved instead.", confirm: "Delete unit", danger: true })}
             >
-              <button type="submit" disabled={deleting} aria-label={`Delete ${unit.name}`} className="rounded-md p-2 text-[#a39d92] transition hover:bg-red-50 hover:text-red-700 disabled:opacity-50">
+              <button type="submit" disabled={deleting} aria-label={`Delete ${unit.name}`} className="rounded-md p-2 text-[#9aa0b5] transition hover:bg-red-50 hover:text-red-700 disabled:opacity-50">
                 {deleting ? <LoaderCircle className="h-4 w-4 animate-spin" /> : <Trash2 className="h-4 w-4" />}
               </button>
             </form>
@@ -89,7 +89,7 @@ export function UnitRow({ slug, projectId, unit, staff }: { slug: string; projec
 /** Who has a reserved or sold unit: the buyer (admins see the name), the agent and the offer, and who marked it. */
 function StatusLine({ slug, status, d }: { slug: string; status: Unit["status"]; d: UnitStatusDetail }) {
   return (
-    <p className={`mt-1.5 max-w-2xl border-l-4 py-0.5 pl-2.5 text-sm font-semibold ${status === "sold" ? "border-[#17150f] text-[#17150f]" : "border-amber-500 text-amber-900"}`}>
+    <p className={`mt-1.5 max-w-2xl border-l-4 py-0.5 pl-2.5 text-sm font-semibold ${status === "sold" ? "border-[#0f1222] text-[#0f1222]" : "border-amber-500 text-amber-900"}`}>
       <span className="capitalize">{status}</span>
       {d.buyer ? ` to ${d.buyer}` : ""}
       {d.agent ? ` · agent ${d.agent}` : ""}
@@ -101,7 +101,7 @@ function StatusLine({ slug, status, d }: { slug: string; status: Unit["status"];
           </Link>
         </>
       )}
-      <span className="font-normal text-[#6b665d]">
+      <span className="font-normal text-[#5b6283]">
         {d.by ? ` · marked by ${d.by}` : ""}
         {d.at ? `, ${shortDate(d.at)}` : ""}
       </span>

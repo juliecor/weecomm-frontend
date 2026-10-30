@@ -64,7 +64,7 @@ export async function RealtiesView({ ctx, eyebrow, showStats = false }: { ctx: P
                     {r.status !== "active" ? <Tag tone="warn">Not registered</Tag> : broker ? <Tag tone="good">Accredited{r.developer ? ` by ${r.developer.name}` : ""}</Tag> : <Tag tone="accent">Developer</Tag>}
                     {r.slug === ctx.currentSlug && <Tag tone="accent">You&apos;re here</Tag>}
                   </div>
-                  <p className="mt-0.5 text-sm text-[#6b665d]">
+                  <p className="mt-0.5 text-sm text-[#5b6283]">
                     jvconline.ph/{broker ? `${r.slug}/login` : r.slug}
                     {r.email && ` · ${r.email}`}
                     {r.status === "active" ? ` · ${broker ? "accredited" : "registered"} ${shortDate(r.registered_at)} · ${r.users_count} login${r.users_count === 1 ? "" : "s"}` : ` · invited ${shortDate(r.invited_at)}`}
@@ -95,7 +95,7 @@ export async function RealtiesView({ ctx, eyebrow, showStats = false }: { ctx: P
       <div id="invite" className="scroll-mt-24">
         <Panel title="Accredit a realty" aside="Invited and accepted by the developer's admins">
           <div className="flex flex-wrap items-center justify-between gap-4 pt-6">
-            <p className="max-w-xl text-[15px] text-[#5a554d]">
+            <p className="max-w-xl text-[15px] text-[#4a5070]">
               A realty is invited by email under <strong>Team › Realties</strong> in {developer ? `${developer.name}'s` : "the developer's"} dashboard. It fills in the accreditation form, the developer&apos;s admins read it and accept it, and the realty gets its login by email.
             </p>
             {ctx.superAdmin && developer && <DashboardButton ctx={ctx} slug={developer.slug} />}

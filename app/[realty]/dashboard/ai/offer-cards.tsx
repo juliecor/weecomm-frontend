@@ -21,7 +21,7 @@ export function OfferCards({ slug, cards, onAsk }: { slug: string; cards: OfferC
       {cards.map((o) => (
         <li key={o.id} className="rounded-2xl border border-[#e8eaed] bg-white shadow-[0_2px_12px_-2px_rgba(23,21,15,0.06)]">
           <div className="flex gap-3 p-3 sm:gap-4">
-            <Link href={`/${slug}/dashboard/offers/${o.id}`} className="relative h-20 w-20 shrink-0 overflow-hidden bg-[#f1eee9] sm:h-24 sm:w-28">
+            <Link href={`/${slug}/dashboard/offers/${o.id}`} className="relative h-20 w-20 shrink-0 overflow-hidden bg-[#eff1f7] sm:h-24 sm:w-28">
               {o.photo ? (
                 <Photo src={o.photo} sizes="112px" className="absolute inset-0 h-full w-full object-cover" />
               ) : (
@@ -30,14 +30,14 @@ export function OfferCards({ slug, cards, onAsk }: { slug: string; cards: OfferC
             </Link>
             <div className="min-w-0 flex-1">
               <p className="flex flex-wrap items-baseline gap-x-2">
-                <Link href={`/${slug}/dashboard/offers/${o.id}`} className="text-base font-bold text-[#17150f] hover:text-[var(--accent)]">
+                <Link href={`/${slug}/dashboard/offers/${o.id}`} className="text-base font-bold text-[#0f1222] hover:text-[var(--accent)]">
                   {o.buyer}
                 </Link>
-                <span className="font-mono text-xs text-[#a39d92]">{o.code}</span>
+                <span className="font-mono text-xs text-[#9aa0b5]">{o.code}</span>
               </p>
               <div className="mt-1 flex flex-wrap items-center gap-1.5">
                 {o.status === "void" && <Tag>Void</Tag>}
-                {o.unit_status === "sold" && <span className="rounded-xl bg-[#17150f] px-1.5 py-0.5 text-[10px] font-bold uppercase tracking-[0.14em] text-white">Sold</span>}
+                {o.unit_status === "sold" && <span className="rounded-xl bg-[#0f1222] px-1.5 py-0.5 text-[10px] font-bold uppercase tracking-[0.14em] text-white">Sold</span>}
                 {o.unit_status === "reserved" && <Tag tone="warn">Reserved</Tag>}
                 {(o.reservation_status === "pending" || o.reservation_status === "paid") && <Tag tone="accent">Reservation to confirm</Tag>}
                 {o.status === "active" && o.approval_status === "pending" && <Tag tone="warn">Waiting for approval</Tag>}
@@ -46,11 +46,11 @@ export function OfferCards({ slug, cards, onAsk }: { slug: string; cards: OfferC
                 {o.new_answers > 0 && <NewTag />}
                 {o.requirements.required > 0 && o.status === "active" && <ReqChip r={o.requirements} />}
               </div>
-              <p className="mt-1.5 text-sm text-[#6b665d]">{[o.project, o.unit, php(o.price), o.agent ? `by ${o.agent}` : null].filter(Boolean).join(" · ")}</p>
-              <p className="mt-0.5 flex flex-wrap items-center gap-x-1.5 text-xs font-medium text-[#8a847a]">
+              <p className="mt-1.5 text-sm text-[#5b6283]">{[o.project, o.unit, php(o.price), o.agent ? `by ${o.agent}` : null].filter(Boolean).join(" · ")}</p>
+              <p className="mt-0.5 flex flex-wrap items-center gap-x-1.5 text-xs font-medium text-[#7a8099]">
                 Sent {shortDate(o.sent)} ·
                 {o.views > 0 ? (
-                  <span className="inline-flex items-center gap-1 text-[#3d3a34]">
+                  <span className="inline-flex items-center gap-1 text-[#2f3450]">
                     <Eye className="h-3.5 w-3.5" /> Opened {o.views}× · last {timeAgo(o.last_viewed_at)}
                   </span>
                 ) : (
@@ -62,11 +62,11 @@ export function OfferCards({ slug, cards, onAsk }: { slug: string; cards: OfferC
             </div>
           </div>
           <div className="flex flex-wrap gap-2 border-t border-[#efebe5] p-2.5 sm:px-3">
-            <Link href={`/${slug}/dashboard/offers/${o.id}`} className="inline-flex items-center gap-1.5 rounded-xl bg-[#17150f] px-3 py-2 text-sm font-bold text-white transition hover:bg-black">
+            <Link href={`/${slug}/dashboard/offers/${o.id}`} className="inline-flex items-center gap-1.5 rounded-xl bg-[#0f1222] px-3 py-2 text-sm font-bold text-white transition hover:bg-black">
               Open offer <ArrowRight className="h-3.5 w-3.5" />
             </Link>
             {o.url && (
-              <button type="button" onClick={() => copyLink(o.url as string)} className="inline-flex items-center gap-1.5 rounded-xl border border-[#d9d4cb] bg-white px-3 py-2 text-sm font-bold text-[#17150f] transition hover:border-[#17150f]">
+              <button type="button" onClick={() => copyLink(o.url as string)} className="inline-flex items-center gap-1.5 rounded-xl border border-[#d6dae6] bg-white px-3 py-2 text-sm font-bold text-[#0f1222] transition hover:border-[#0f1222]">
                 <Copy className="h-3.5 w-3.5" /> Copy link
               </button>
             )}

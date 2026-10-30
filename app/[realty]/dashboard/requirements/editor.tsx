@@ -8,7 +8,7 @@ import { type ReqTypeState, deleteRequirement, moveRequirement, saveRequirement,
 
 export type ReqType = { id: number; name: string; help: string | null; applies: string; sort: number; active: boolean; documents_count: number }
 
-const label = "text-xs font-bold uppercase tracking-[0.12em] text-[#5a554d]"
+const label = "text-xs font-bold uppercase tracking-[0.12em] text-[#4a5070]"
 
 export function RequirementsEditor({ slug, types, applies }: { slug: string; types: ReqType[]; applies: Record<string, string> }) {
   const [adding, setAdding] = useState(types.length === 0)
@@ -25,16 +25,16 @@ export function RequirementsEditor({ slug, types, applies }: { slug: string; typ
         }
       >
         {adding && (
-          <div className="border-b border-[#e6e2db] bg-white p-5">
+          <div className="border-b border-[#e2e5ef] bg-white p-5">
             <p className="mb-4 text-lg font-bold">New requirement</p>
             <ItemForm slug={slug} applies={applies} onDone={() => setAdding(false)} />
           </div>
         )}
-        <ol className="divide-y divide-[#e6e2db]">
+        <ol className="divide-y divide-[#e2e5ef]">
           {types.map((t, i) => (
             <Item key={t.id} slug={slug} item={t} applies={applies} first={i === 0} last={i === types.length - 1} />
           ))}
-          {types.length === 0 && !adding && <li className="py-10 text-center text-sm text-[#8a847a]">No requirements yet. Buyers won&apos;t see a requirements section until you add one.</li>}
+          {types.length === 0 && !adding && <li className="py-10 text-center text-sm text-[#7a8099]">No requirements yet. Buyers won&apos;t see a requirements section until you add one.</li>}
         </ol>
       </Panel>
     </>
@@ -45,7 +45,7 @@ function Item({ slug, item, applies, first, last }: { slug: string; item: ReqTyp
   const [editing, setEditing] = useState(false)
   const [pending, start] = useTransition()
   const [error, setError] = useState<string | null>(null)
-  const icon = "rounded-xl flex h-9 w-9 items-center justify-center text-[#6b665d] transition hover:bg-[#f1eee9] hover:text-[#17150f] disabled:opacity-30"
+  const icon = "rounded-xl flex h-9 w-9 items-center justify-center text-[#5b6283] transition hover:bg-[#eff1f7] hover:text-[#0f1222] disabled:opacity-30"
 
   return (
     <li className={`py-5 ${item.active ? "" : "opacity-60"}`}>
@@ -56,17 +56,17 @@ function Item({ slug, item, applies, first, last }: { slug: string; item: ReqTyp
           <div className="min-w-0 flex-1">
             <div className="flex flex-wrap items-center gap-2">
               <p className="text-lg font-bold">{item.name}</p>
-              <span className={`rounded-md border px-1.5 py-0.5 text-[10px] font-bold uppercase tracking-[0.12em] ${item.applies === "all" ? "border-[var(--accent)] text-[var(--accent)]" : "border-[#d9d4cb] text-[#5a554d]"}`}>
+              <span className={`rounded-md border px-1.5 py-0.5 text-[10px] font-bold uppercase tracking-[0.12em] ${item.applies === "all" ? "border-[var(--accent)] text-[var(--accent)]" : "border-[#d6dae6] text-[#4a5070]"}`}>
                 {applies[item.applies] ?? item.applies}
               </span>
-              {!item.active && <span className="rounded-md border border-[#d9d4cb] px-1.5 py-0.5 text-[10px] font-bold uppercase tracking-[0.12em] text-[#8a847a]">Hidden</span>}
+              {!item.active && <span className="rounded-md border border-[#d6dae6] px-1.5 py-0.5 text-[10px] font-bold uppercase tracking-[0.12em] text-[#7a8099]">Hidden</span>}
             </div>
-            {item.help && <p className="mt-1 max-w-2xl text-sm text-[#5a554d]">{item.help}</p>}
-            <p className="mt-1 text-xs text-[#8a847a]">{item.documents_count ? `${item.documents_count} file${item.documents_count === 1 ? "" : "s"} received` : "No files yet"}</p>
+            {item.help && <p className="mt-1 max-w-2xl text-sm text-[#4a5070]">{item.help}</p>}
+            <p className="mt-1 text-xs text-[#7a8099]">{item.documents_count ? `${item.documents_count} file${item.documents_count === 1 ? "" : "s"} received` : "No files yet"}</p>
             {error && <p className="mt-2 text-sm font-semibold text-red-700">{error}</p>}
           </div>
           <div className="flex shrink-0 items-center gap-0.5">
-            {pending && <LoaderCircle className="mr-1 h-4 w-4 animate-spin text-[#8a847a]" />}
+            {pending && <LoaderCircle className="mr-1 h-4 w-4 animate-spin text-[#7a8099]" />}
             <button type="button" aria-label="Move up" disabled={first || pending} onClick={() => start(() => moveRequirement(slug, item.id, "up"))} className={icon}>
               <ArrowUp className="h-4 w-4" />
             </button>

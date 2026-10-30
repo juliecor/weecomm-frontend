@@ -13,10 +13,10 @@ export function MapCard({ slug, card }: { slug: string; card: MapCardData }) {
   return (
     <div className="mt-4 rounded-2xl border border-[#e8eaed] bg-white shadow-[0_2px_12px_-2px_rgba(23,21,15,0.06)]">
       <div className="flex flex-wrap items-center justify-between gap-2 border-b border-[#efebe5] px-4 py-3">
-        <p className="flex items-center gap-2 text-sm font-bold text-[#17150f]">
+        <p className="flex items-center gap-2 text-sm font-bold text-[#0f1222]">
           <MapPin className="h-4 w-4 text-[var(--accent)]" />
           {card.project.name}
-          {marked.length > 0 && <span className="font-semibold text-[#6b665d]"> · {marked.length <= 3 ? marked.map((l) => lotName(l)).join(", ") : `${marked.length} lots marked`}</span>}
+          {marked.length > 0 && <span className="font-semibold text-[#5b6283]"> · {marked.length <= 3 ? marked.map((l) => lotName(l)).join(", ") : `${marked.length} lots marked`}</span>}
         </p>
         <Link href={`/${slug}/dashboard/projects/${card.project.id}#site-map`} className="inline-flex items-center gap-1 text-sm font-semibold text-[var(--accent)] hover:underline">
           Open the site map <ArrowRight className="h-4 w-4" />
