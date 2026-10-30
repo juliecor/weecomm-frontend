@@ -69,7 +69,7 @@ export function SiteHeader({ solid = false }: { solid?: boolean; light?: boolean
 
       <AnimatePresence>
         {open && (
-          <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.25 }} data-lenis-prevent className="wc-hexgrid fixed inset-0 z-50 flex flex-col overflow-y-auto bg-[#0c1020] px-6 py-4 lg:hidden">
+          <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.25 }} data-lenis-prevent className="wc-hexgrid-faint fixed inset-0 z-50 flex flex-col overflow-y-auto bg-[#0c1020] px-6 py-4 lg:hidden">
             <div className="flex items-center justify-between">
               <Image src="/weecomm/logo-wide-light.png" alt="" width={1600} height={480} className="h-8 w-auto" />
               <button type="button" onClick={() => setOpen(false)} aria-label="Close menu" className="flex h-10 w-10 items-center justify-center rounded-full border border-white/15 text-white">
