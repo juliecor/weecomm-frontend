@@ -17,10 +17,9 @@ const SOCIAL = [
 /** A compact footer: the logo, the office, where to go next, and the tagline as a watermark behind it all. */
 export function Footer() {
   return (
-    <footer className="relative overflow-hidden bg-[#0b0b0f] text-white">
+    <footer className="relative overflow-hidden bg-transparent text-white">
       <span aria-hidden className="wc-triline absolute inset-x-0 top-0 h-px" />
-      <div aria-hidden className="wc-hexgrid absolute inset-0 opacity-[0.05]" />
-      <p aria-hidden className={`${serif} wc-outline pointer-events-none absolute -bottom-6 left-1/2 w-max -translate-x-1/2 whitespace-nowrap text-[22vw] font-medium leading-none opacity-[0.14] lg:text-[16vw]`}>
+            <p aria-hidden className={`${serif} wc-outline pointer-events-none absolute -bottom-6 left-1/2 w-max -translate-x-1/2 whitespace-nowrap text-[22vw] font-medium leading-none opacity-[0.14] lg:text-[16vw]`}>
         Beyond Ordinary™
       </p>
       <div className="relative mx-auto max-w-[1440px] px-5 pb-28 pt-16 sm:px-8 sm:pb-36 sm:pt-20">

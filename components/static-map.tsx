@@ -8,7 +8,7 @@ export function StaticMap({ src, alt, className = "" }: { src: string; alt: stri
   const [broken, setBroken] = useState(false)
   if (broken) {
     return (
-      <div className={`flex items-center justify-center bg-[#15151c] text-white/25 ${className}`} role="img" aria-label={alt}>
+      <div className={`flex items-center justify-center bg-white/[0.06] text-white/25 ${className}`} role="img" aria-label={alt}>
         <MapPin className="h-10 w-10" />
       </div>
     )

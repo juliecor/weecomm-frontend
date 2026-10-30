@@ -43,7 +43,7 @@ export function SiteHeader({ solid = false }: { solid?: boolean; light?: boolean
   const bar = solid || scrolled
 
   return (
-    <header className={`fixed inset-x-0 top-0 z-50 transition-colors duration-500 ${bar ? "bg-[#0b0b0f]/85 backdrop-blur-md" : "bg-transparent"}`}>
+    <header className={`fixed inset-x-0 top-0 z-50 transition-colors duration-500 ${bar ? "bg-[#0c1020]/80 backdrop-blur-md" : "bg-transparent"}`}>
       {bar && <span aria-hidden className="wc-triline absolute inset-x-0 bottom-0 h-px opacity-70" />}
       <div className="mx-auto flex max-w-[1440px] items-center justify-between gap-6 px-5 py-3 sm:px-8">
         <Link href="/" aria-label={`${COMPANY.short} home`} className="shrink-0">
@@ -69,7 +69,7 @@ export function SiteHeader({ solid = false }: { solid?: boolean; light?: boolean
 
       <AnimatePresence>
         {open && (
-          <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.25 }} className="wc-hexgrid fixed inset-0 z-50 flex flex-col overflow-y-auto bg-[#0b0b0f] px-6 py-4 lg:hidden">
+          <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.25 }} className="wc-hexgrid fixed inset-0 z-50 flex flex-col overflow-y-auto bg-[#0c1020] px-6 py-4 lg:hidden">
             <div className="flex items-center justify-between">
               <Image src="/weecomm/logo-wide-light.png" alt="" width={1600} height={480} className="h-8 w-auto" />
               <button type="button" onClick={() => setOpen(false)} aria-label="Close menu" className="flex h-10 w-10 items-center justify-center rounded-full border border-white/15 text-white">

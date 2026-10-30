@@ -21,7 +21,7 @@ export function Inquire({ projects, preselect }: { projects: PublicProjectCard[]
       n="10"
       title="Tell us about the home you want"
       kicker="Prices, unit plans, a tripping schedule or a reservation: Wee Comm's team replies by email or phone."
-      className="bg-[#0f0f14]"
+      className="bg-white/[0.03]"
       aside={
         <dl className="space-y-4 text-[15px]">
           {[

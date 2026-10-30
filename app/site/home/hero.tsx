@@ -25,10 +25,7 @@ export function Hero() {
   const up = reduce ? false : { opacity: 0, y: 18 }
 
   return (
-    <section className="relative overflow-hidden bg-[#0b0b0f] text-white">
-      <div aria-hidden className="wc-hexgrid absolute inset-0 opacity-[0.07]" />
-      <div aria-hidden className="pointer-events-none absolute -right-40 top-20 h-[640px] w-[640px] rounded-full bg-[#4080f0]/15 blur-[180px]" />
-      <div aria-hidden className="pointer-events-none absolute -left-40 bottom-0 h-[520px] w-[520px] rounded-full bg-[#e84030]/10 blur-[180px]" />
+    <section className="relative overflow-hidden bg-transparent text-white">
 
       <div className="relative mx-auto grid min-h-[100svh] max-w-[1440px] items-center gap-12 px-5 pb-16 pt-28 sm:px-8 lg:grid-cols-[1.05fr_1fr] lg:gap-10 lg:pt-32">
         <div>

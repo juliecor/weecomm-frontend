@@ -32,7 +32,7 @@ export function Amenities({ items, project }: { items: string[]; project: string
         const Icon = iconFor(a)
         return (
           <Reveal key={a} delay={(n % 4) * 0.05}>
-            <li className="flex h-full items-start gap-4 border border-[#f3f1ea]/10 bg-[#15151c] p-5">
+            <li className="flex h-full items-start gap-4 border border-[#f3f1ea]/10 bg-white/[0.06] p-5">
               <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-none bg-[#f8b800] text-white">
                 <Icon className="h-5 w-5" />
               </span>

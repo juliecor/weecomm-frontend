@@ -64,3 +64,25 @@
     animation: none;
   }
 }
+
+/* The backdrop's glows wander a little, so the page never sits still. */
+@keyframes wc-drift {
+  0% {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+  50% {
+    transform: translate3d(-3%, 2%, 0) scale(1.06);
+  }
+  100% {
+    transform: translate3d(2%, -2%, 0) scale(1.02);
+  }
+}
+.wc-drift {
+  animation: wc-drift 40s ease-in-out infinite alternate;
+  will-change: transform;
+}
+@media (prefers-reduced-motion: reduce) {
+  .wc-drift {
+    animation: none;
+  }
+}

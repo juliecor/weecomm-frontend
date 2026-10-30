@@ -15,7 +15,7 @@ export const metadata: Metadata = {
 }
 
 const H2 = `${serif} mt-4 text-3xl font-medium leading-[1.05] tracking-tight sm:text-5xl`
-const card = "rounded-2xl border border-white/10 bg-[#0f0f14] p-6 sm:p-8"
+const card = "rounded-2xl border border-white/10 bg-white/[0.03] p-6 sm:p-8"
 const List = ({ items }: { items: readonly string[] }) => (
   <ul className="mt-4 space-y-2.5 text-[15px] leading-relaxed text-white/70">
     {items.map((t) => (
@@ -209,7 +209,7 @@ export default function BuyersGuidePage() {
               <p className={`${serif} text-3xl font-medium tracking-tight sm:text-4xl`}>Ready to look at a home?</p>
               <p className="mt-2 text-[15px] text-[#0b0b0f]/70">Ask for the price list and unit plans of any community.</p>
             </div>
-            <Link href="/#inquire" className="inline-flex items-center gap-2 rounded-full bg-[#0b0b0f] px-6 py-3.5 text-[12px] font-bold uppercase tracking-[0.14em] text-white transition hover:bg-[#2a2a33]">
+            <Link href="/#inquire" className="inline-flex items-center gap-2 rounded-full bg-transparent px-6 py-3.5 text-[12px] font-bold uppercase tracking-[0.14em] text-white transition hover:bg-[#2a2a33]">
               Inquire now <ArrowRight className="h-4 w-4" />
             </Link>
           </div>

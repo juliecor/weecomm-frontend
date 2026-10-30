@@ -24,7 +24,7 @@ export default async function ProjectsIndexPage() {
   const preselling = all.filter((p) => p.stage === "Pre-selling").length
 
   return (
-    <div className="bg-[#0f0f14] text-[#f3f1ea]">
+    <div className="bg-white/[0.03] text-[#f3f1ea]">
       <SiteHeader />
 
       <section className="border-b border-[#f3f1ea]/10 px-5 pb-10 pt-32 sm:px-8 sm:pt-40">
@@ -42,7 +42,7 @@ export default async function ProjectsIndexPage() {
                 [String(regions.length), regions.length === 1 ? "Region" : "Regions"],
                 [String(preselling), "Pre-selling"],
               ].map(([v, l]) => (
-                <div key={l} className="bg-[#15151c] p-5">
+                <div key={l} className="bg-white/[0.06] p-5">
                   <dd className={`${serif} text-3xl font-semibold tracking-tight sm:text-4xl`}>{v}</dd>
                   <dt className="mt-1 text-[11px] font-semibold uppercase tracking-[0.18em] text-[#8f8e99]">{l}</dt>
                 </div>
@@ -80,7 +80,7 @@ export default async function ProjectsIndexPage() {
                   return (
                     <li key={p.slug} className={feature ? "sm:col-span-2" : ""}>
                       <Reveal delay={(n % 2) * 0.07}>
-                        <Link href={`/projects/${p.slug}`} className={`group relative block overflow-hidden bg-[#0b0b0f] text-white ${feature ? "aspect-[4/3] sm:aspect-[21/9]" : "aspect-[4/3] sm:aspect-[16/10]"}`}>
+                        <Link href={`/projects/${p.slug}`} className={`group relative block overflow-hidden bg-transparent text-white ${feature ? "aspect-[4/3] sm:aspect-[21/9]" : "aspect-[4/3] sm:aspect-[16/10]"}`}>
                           {p.hero[0] && (
                             <Photo
                               src={p.hero[0]}
@@ -91,7 +91,7 @@ export default async function ProjectsIndexPage() {
                               className="h-full w-full object-cover transition duration-[1200ms] group-hover:scale-105"
                             />
                           )}
-                          <div aria-hidden className="absolute inset-0 bg-gradient-to-t from-[#0b0b0f]/90 via-[#0b0b0f]/20 to-transparent" />
+                          <div aria-hidden className="absolute inset-0 bg-gradient-to-t from-[#0c1020]/90 via-[#0c1020]/20 to-transparent" />
                           {p.stage && <span className="absolute left-0 top-0 bg-white px-3 py-1.5 text-[10px] font-semibold uppercase tracking-[0.16em] text-[#0b0b0f]">{p.stage}</span>}
                           <span className="absolute right-6 top-6 flex h-11 w-11 items-center justify-center bg-white/10 text-white backdrop-blur transition group-hover:bg-[#f8b800]">
                             <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />

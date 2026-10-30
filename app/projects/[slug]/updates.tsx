@@ -25,7 +25,7 @@ export function Updates({ months }: { months: PublicUpdate[] }) {
               key={m.month}
               type="button"
               onClick={() => setKey(m.month)}
-              className={`shrink-0 rounded-sm px-4 py-2 text-[12px] font-semibold tracking-wide transition ${m.month === current.month ? "bg-[#f3f1ea] text-white" : "border border-[#f3f1ea]/15 bg-[#15151c] text-[#d2d1d8] hover:border-[#f8b800] hover:text-[#f8b800]"}`}
+              className={`shrink-0 rounded-sm px-4 py-2 text-[12px] font-semibold tracking-wide transition ${m.month === current.month ? "bg-[#f3f1ea] text-white" : "border border-[#f3f1ea]/15 bg-white/[0.06] text-[#d2d1d8] hover:border-[#f8b800] hover:text-[#f8b800]"}`}
             >
               {m.label}
               <span className={`ml-2 text-[10px] ${m.month === current.month ? "text-white/60" : "text-[#8f8e99]"}`}>{m.photos.length}</span>

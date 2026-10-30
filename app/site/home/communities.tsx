@@ -72,7 +72,7 @@ export function Communities({ projects }: { projects: PublicProjectCard[] }) {
           })}
         </ol>
         <div className="sticky top-28 self-start">
-          <div className="relative aspect-[4/5] overflow-hidden rounded-sm bg-[#15151c]">
+          <div className="relative aspect-[4/5] overflow-hidden rounded-sm bg-white/[0.06]">
             <AnimatePresence initial={false}>
               {current?.hero[0] && (
                 <motion.div key={current.slug} initial={{ opacity: 0, scale: 1.04 }} animate={{ opacity: 1, scale: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.6 }} className="absolute inset-0">
@@ -82,7 +82,7 @@ export function Communities({ projects }: { projects: PublicProjectCard[] }) {
             </AnimatePresence>
             <span aria-hidden className="wc-triline absolute inset-x-0 top-0 h-1" />
             {current && (
-              <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-[#0b0b0f] to-transparent p-6 pt-20">
+              <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-[#0c1020] to-transparent p-6 pt-20">
                 <p className={`${serif} text-3xl font-medium tracking-tight`}>{current.name}</p>
                 <p className="mt-1 text-sm text-white/70">
                   {current.location} · {current.stage}

@@ -75,7 +75,7 @@ export default async function ProjectPage({ params }: Props) {
   ]
 
   const sitePlan = p.site_plans.length > 0 && (
-        <section id="site-plan" className="scroll-mt-20 bg-[#14141a] px-5 py-24 sm:px-8 sm:py-32">
+        <section id="site-plan" className="scroll-mt-20 bg-white/[0.03] px-5 py-24 sm:px-8 sm:py-32">
           <div className="mx-auto max-w-[1400px]">
             <SectionHead
               eyebrow="Site development plan"
@@ -85,7 +85,7 @@ export default async function ProjectPage({ params }: Props) {
             </SectionHead>
             {p.site_map ? (
               <>
-                <div className="mt-12 bg-[#15151c] p-4 sm:p-6">
+                <div className="mt-12 bg-white/[0.06] p-4 sm:p-6">
                   <SiteMapViewer map={p.site_map} alt={`${p.name} site development plan`} maxHeight="80vh" details modelPhotos={Object.fromEntries(p.unit_types.map((u) => [u.name, u.images]))} />
                   <div className="mt-5 flex flex-wrap items-center justify-between gap-4 border-t border-[#f3f1ea]/10 pt-5">
                     <p className="text-[15px] text-[#d2d1d8]">
@@ -106,11 +106,11 @@ export default async function ProjectPage({ params }: Props) {
   )
 
   return (
-    <div className="bg-[#0f0f14] text-[#f3f1ea]">
+    <div className="bg-white/[0.03] text-[#f3f1ea]">
       <SiteHeader light />
       <ProjectHero name={p.name} place={p.location ?? ""} status={p.stage ?? undefined} photos={hero} lots={lotsDrawn ? { available: lotsAvailable, total: p.site_map!.lots.length } : undefined} more={p.unit_types.length ? { href: "#homes", label: "See the homes" } : { href: "#location", label: "Where it is" }} />
 
-      <section className="border-b border-[#f3f1ea]/10 bg-[#15151c]">
+      <section className="border-b border-[#f3f1ea]/10 bg-white/[0.06]">
         <dl className="mx-auto grid max-w-[1400px] grid-cols-2 divide-[#f3f1ea]/10 px-5 sm:grid-cols-3 sm:divide-x sm:px-8 lg:grid-cols-6">
           {facts.map((f) => (
             <div key={f.l} className="py-7 sm:px-6 sm:first:pl-0">
@@ -157,7 +157,7 @@ export default async function ProjectPage({ params }: Props) {
         </section>
       )}
 
-      <section id="location" className="scroll-mt-20 bg-[#0b0b0f] px-5 py-24 text-white sm:px-8 sm:py-32">
+      <section id="location" className="scroll-mt-20 bg-transparent px-5 py-24 text-white sm:px-8 sm:py-32">
         <div className="mx-auto grid max-w-[1400px] gap-12 lg:grid-cols-[1fr_1.3fr] lg:items-center">
           <Reveal>
             <Eyebrow light>Location</Eyebrow>
@@ -190,7 +190,7 @@ export default async function ProjectPage({ params }: Props) {
         </section>
       )}
 
-      <section className="border-t border-[#f3f1ea]/10 bg-[#15151c] px-5 py-24 sm:px-8 sm:py-32">
+      <section className="border-t border-[#f3f1ea]/10 bg-white/[0.06] px-5 py-24 sm:px-8 sm:py-32">
         <div className="mx-auto max-w-[1400px]">
           <Reveal>
             <div className="grid gap-10 lg:grid-cols-[1.2fr_1fr] lg:items-end">
@@ -208,7 +208,7 @@ export default async function ProjectPage({ params }: Props) {
               {prev && next && (
                 <div className="grid grid-cols-2 gap-6">
                   {[prev, next].map((q, n) => (
-                    <Link key={q.slug} href={`/projects/${q.slug}`} className="group relative overflow-hidden bg-[#0b0b0f] text-white">
+                    <Link key={q.slug} href={`/projects/${q.slug}`} className="group relative overflow-hidden bg-transparent text-white">
                       <Photo src={q.hero[0]} sizes="(min-width: 1024px) 25vw, 50vw" className="aspect-[4/5] w-full object-cover opacity-70 transition duration-700 group-hover:scale-105 group-hover:opacity-85" />
                       <div className="absolute inset-x-0 bottom-0 p-5">
                         <p className="text-[10px] font-semibold uppercase tracking-[0.2em] text-white/60">{n === 0 ? "Previous" : "Next"}</p>

@@ -12,7 +12,7 @@ import { Chapter, Hex, Reveal, Ticker, TriLine, serif } from "../ui"
 export function Signature({ projects }: { projects: PublicProjectCard[] }) {
   const photo = (slug: string) => projects.find((p) => p.slug === slug)?.hero[0]
   return (
-    <Chapter id="signature" n="02" title="The Baron signature line" kicker="Five projects on San Juan's streets since 2010, where Wee Comm set its standard: elegance, class and superior quality." className="bg-[#0f0f14]">
+    <Chapter id="signature" n="02" title="The Baron signature line" kicker="Five projects on San Juan's streets since 2010, where Wee Comm set its standard: elegance, class and superior quality." className="bg-white/[0.03]">
       <ol>
         {SIGNATURE.map((s, i) => (
           <li key={s.slug} className="border-t border-white/10 last:border-b">
@@ -90,10 +90,10 @@ export function Footprint() {
   const built = FOOTPRINT.filter((c) => !c.upcoming)
   const next = FOOTPRINT.filter((c) => c.upcoming)
   return (
-    <Chapter id="footprint" n="04" title="Metro Manila to Mindanao, and growing" kicker="Wee Comm began in San Juan and grew into Mandaluyong, Quezon City, Rizal, Iloilo, Cagayan de Oro and Davao. Las Piñas and Bacolod are next." className="bg-[#0f0f14]">
+    <Chapter id="footprint" n="04" title="Metro Manila to Mindanao, and growing" kicker="Wee Comm began in San Juan and grew into Mandaluyong, Quezon City, Rizal, Iloilo, Cagayan de Oro and Davao. Las Piñas and Bacolod are next." className="bg-white/[0.03]">
       <div className="grid gap-10 md:grid-cols-[1.2fr_1fr] md:items-start">
         <Reveal>
-          <div className="relative overflow-hidden rounded-sm bg-[#0b0b0f]">
+          <div className="relative overflow-hidden rounded-sm bg-transparent">
             <Image src="/weecomm/site/footprint-dark.jpg" alt="Wee Comm's projects across the Philippines" width={2200} height={1238} className="h-auto w-full" />
             <p className="absolute bottom-3 right-4 text-[10px] font-semibold uppercase tracking-[0.18em] text-white/40">Milestones map · Wee Comm</p>
           </div>
@@ -130,7 +130,7 @@ export function Leaders() {
       <div className="grid gap-10 md:grid-cols-[300px_1fr] md:gap-14">
         <Reveal>
           <Hex className="aspect-[0.866] w-full max-w-[300px]">
-            <Photo src={FOUNDER.photo} alt={FOUNDER.name} sizes="300px" className="h-full w-full object-cover object-top" />
+            <Photo src={FOUNDER.photo} alt={FOUNDER.name} sizes="300px" unoptimized className="h-full w-full object-cover object-top" />
           </Hex>
           <p className={`${serif} mt-6 text-3xl font-medium tracking-tight`}>{FOUNDER.name}</p>
           <p className="mt-1 text-[11px] font-semibold uppercase tracking-[0.18em] text-[#f8b800]">{FOUNDER.role}</p>
@@ -149,7 +149,7 @@ export function Leaders() {
           <li key={l.name}>
             <Reveal delay={i * 0.06}>
               <Hex className="aspect-[0.866] w-full">
-                <Photo src={l.photo} alt={l.name} sizes="(min-width: 1024px) 20vw, 50vw" className="h-full w-full object-cover object-top" />
+                <Photo src={l.photo} alt={l.name} sizes="(min-width: 1024px) 20vw, 50vw" unoptimized className="h-full w-full object-cover object-top" />
               </Hex>
               <p className={`${serif} mt-4 text-2xl font-medium tracking-tight`}>{l.name}</p>
               <p className="mt-1 text-[11px] font-semibold uppercase tracking-[0.16em] text-[#f8b800]">{l.role}</p>
@@ -166,7 +166,7 @@ export function Leaders() {
 export function Awards() {
   const logos = AWARDS.filter((a) => a.logo)
   return (
-    <Chapter id="awards" n="06" title="Awarded, year after year" className="bg-[#0f0f14]">
+    <Chapter id="awards" n="06" title="Awarded, year after year" className="bg-white/[0.03]">
       <Reveal>
         <ol className="border-t border-white/10">
           {AWARDS.map((a) => (
@@ -203,7 +203,7 @@ export function Partners() {
           { icon: Users, title: "Salespersons and agents", text: "Sales agents join through their accredited broker or Wee Comm's own sales team, and send buyers a sales offer with the price, the payment schedule and their contact details.", cta: { href: "/#inquire", label: "Ask about joining" } },
         ].map((c, i) => (
           <Reveal key={c.title} delay={i * 0.08} className="h-full">
-            <div className="relative flex h-full flex-col overflow-hidden rounded-sm border border-white/10 bg-[#0f0f14] p-7 sm:p-8">
+            <div className="relative flex h-full flex-col overflow-hidden rounded-sm border border-white/10 bg-white/[0.03] p-7 sm:p-8">
               <span aria-hidden className="wc-triline absolute inset-x-0 top-0 h-1" />
               <c.icon className="h-6 w-6 text-[#f8b800]" />
               <p className={`${serif} mt-5 text-2xl font-medium tracking-tight sm:text-3xl`}>{c.title}</p>
@@ -238,7 +238,7 @@ export function GuideTeaser() {
     { icon: Landmark, title: "Financing", lines: [`${GUIDE.financing.banks.length} accredited banks`, "Pag-IBIG housing loan", "In-house loan up to 80% of the price, up to 10 years"] },
   ]
   return (
-    <Chapter id="guide" n="08" title="From reservation to turnover" kicker="How buying a Wee Comm home works, as the company sets it out." className="bg-[#0f0f14]" aside={
+    <Chapter id="guide" n="08" title="From reservation to turnover" kicker="How buying a Wee Comm home works, as the company sets it out." className="bg-white/[0.03]" aside={
       <Link href="/buyers-guide" className="inline-flex items-center gap-2 rounded-full border border-white/20 px-5 py-2.5 text-[12px] font-semibold uppercase tracking-[0.14em] text-white transition hover:border-white hover:bg-white hover:text-[#0b0b0f]">
         Read the full guide <ArrowRight className="h-4 w-4" />
       </Link>

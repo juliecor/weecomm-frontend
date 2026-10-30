@@ -13,7 +13,7 @@ export function SitePlan({ plans, name }: { plans: string[]; name: string }) {
       <div className="mt-12 grid gap-6">
         {plans.map((p, n) => (
           <Reveal key={p} delay={n * 0.1}>
-            <button type="button" onClick={() => setI(n)} className="group relative block w-full overflow-hidden border border-[#f3f1ea]/15 bg-[#15151c]" aria-label="View the site plan full screen">
+            <button type="button" onClick={() => setI(n)} className="group relative block w-full overflow-hidden border border-[#f3f1ea]/15 bg-white/[0.06]" aria-label="View the site plan full screen">
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img src={p} alt={`${name} site development plan`} loading="lazy" decoding="async" className="w-full" />
               <span className="absolute bottom-5 right-5 inline-flex items-center gap-2 rounded-sm bg-[#f3f1ea]/85 px-4 py-2 text-[11px] font-semibold uppercase tracking-[0.16em] text-white opacity-90 transition group-hover:bg-[#f8b800]">

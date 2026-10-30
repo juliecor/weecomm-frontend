@@ -32,7 +32,7 @@ export function TriLine({ className = "" }: { className?: string }) {
 
 /** A photo or anything else cut as the logo's hexagon. */
 export function Hex({ children, className = "" }: { children: React.ReactNode; className?: string }) {
-  return <div className={`wc-hex overflow-hidden bg-[#15151c] ${className}`}>{children}</div>
+  return <div className={`wc-hex overflow-hidden bg-white/[0.06] ${className}`}>{children}</div>
 }
 
 /**

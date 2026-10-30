@@ -28,7 +28,7 @@ export function Lightbox({ photos, index, caption, onClose, onIndex }: { photos:
   return (
     <AnimatePresence>
       {open && (
-        <motion.div role="dialog" aria-modal aria-label={caption ?? "Photo"} initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="fixed inset-0 z-[90] flex items-center justify-center bg-[#0b0b0f]/95 p-4 sm:p-8" onClick={onClose}>
+        <motion.div role="dialog" aria-modal aria-label={caption ?? "Photo"} initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="fixed inset-0 z-[90] flex items-center justify-center bg-transparent/95 p-4 sm:p-8" onClick={onClose}>
           <button type="button" onClick={onClose} aria-label="Close" className="absolute right-4 top-4 rounded-sm p-2.5 text-white/80 hover:bg-white/10 hover:text-white">
             <X className="h-6 w-6" />
           </button>

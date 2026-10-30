@@ -18,7 +18,7 @@ export function UnitTypes({ units, sections }: { units: PublicUnitType[]; sectio
       <div className={`mt-12 grid gap-6 ${units.length > 1 ? "lg:grid-cols-2" : ""}`}>
         {units.map((u, n) => (
           <Reveal key={u.name} delay={n * 0.08}>
-            <article className={`border border-[#f3f1ea]/10 bg-[#15151c] ${units.length === 1 ? "lg:grid lg:grid-cols-[1.35fr_1fr]" : ""}`}>
+            <article className={`border border-[#f3f1ea]/10 bg-white/[0.06] ${units.length === 1 ? "lg:grid lg:grid-cols-[1.35fr_1fr]" : ""}`}>
               {u.images[0] && (
                 <button type="button" onClick={() => setView({ photos: u.images, index: 0, name: u.name })} className="group relative block w-full overflow-hidden" aria-label={`View renders of ${u.name}`}>
                   <Photo src={u.images[0]} alt={u.name} sizes={units.length === 1 ? "(min-width: 1024px) 60vw, 100vw" : "(min-width: 1024px) 50vw, 100vw"} className={`w-full object-cover transition duration-700 group-hover:scale-[1.02] ${units.length === 1 ? "h-full min-h-[360px]" : "aspect-[16/10]"}`} />
