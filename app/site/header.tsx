@@ -20,8 +20,9 @@ const NAV = [
 ]
 
 /**
- * The bar on every public page: clear over the opening photo, solid once the page scrolls (or
- * from the start on pages without a full-screen opening). On phones the menu fills the screen.
+ * The bar on every public page: the logo, the menu in a pill in the middle, Inquire on the right.
+ * Clear at the top of the page, solid once it scrolls (or from the start on pages without an opening photo).
+ * On phones the menu fills the screen.
  */
 export function SiteHeader({ solid = false }: { solid?: boolean; light?: boolean }) {
   const path = usePathname()
@@ -42,20 +43,21 @@ export function SiteHeader({ solid = false }: { solid?: boolean; light?: boolean
   const bar = solid || scrolled
 
   return (
-    <header className={`fixed inset-x-0 top-0 z-50 transition-colors duration-500 ${bar ? "border-b border-white/[0.06] bg-[#0b0b0f]/85 backdrop-blur-md" : "bg-transparent"}`}>
+    <header className={`fixed inset-x-0 top-0 z-50 transition-colors duration-500 ${bar ? "bg-[#0b0b0f]/85 backdrop-blur-md" : "bg-transparent"}`}>
+      {bar && <span aria-hidden className="wc-triline absolute inset-x-0 bottom-0 h-px opacity-70" />}
       <div className="mx-auto flex max-w-[1440px] items-center justify-between gap-6 px-5 py-3 sm:px-8">
         <Link href="/" aria-label={`${COMPANY.short} home`} className="shrink-0">
-          <Image src="/weecomm/logo-wide-light.png" alt={COMPANY.name} width={1600} height={480} priority className="h-9 w-auto sm:h-10" />
+          <Image src="/weecomm/logo-wide-light.png" alt={COMPANY.name} width={1600} height={480} priority className="h-8 w-auto sm:h-9" />
         </Link>
-        <nav className="hidden items-center gap-7 lg:flex">
+        <nav className="hidden items-center gap-1 rounded-full border border-white/10 bg-white/[0.04] p-1 backdrop-blur lg:flex">
           {NAV.map((n) => (
-            <Link key={n.href} href={n.href} className={`text-[13px] font-semibold tracking-wide transition-colors hover:text-white ${path === n.href ? "text-white" : "text-white/70"}`}>
+            <Link key={n.href} href={n.href} className={`rounded-full px-3.5 py-1.5 text-[13px] font-semibold transition ${path === n.href ? "bg-white/10 text-white" : "text-white/70 hover:bg-white/[0.06] hover:text-white"}`}>
               {n.label}
             </Link>
           ))}
         </nav>
         <div className="flex items-center gap-2">
-          <AccountLink signIn="Sign in" dashboard="Dashboard" icon={false} className="hidden rounded-full border border-white/15 px-4 py-2 text-[12px] font-semibold uppercase tracking-[0.12em] text-white/80 transition hover:border-white/40 hover:text-white md:inline-flex" />
+          <AccountLink signIn="Sign in" dashboard="Dashboard" icon={false} className="hidden px-3 py-2 text-[12px] font-semibold uppercase tracking-[0.12em] text-white/70 transition hover:text-white md:inline-flex" />
           <Link href="/#inquire" className="hidden items-center gap-1.5 rounded-full bg-[#f8b800] px-4 py-2 text-[12px] font-bold uppercase tracking-[0.12em] text-[#0b0b0f] transition hover:bg-[#ffd04a] md:inline-flex">
             Inquire <ArrowUpRight className="h-3.5 w-3.5" />
           </Link>
@@ -67,18 +69,18 @@ export function SiteHeader({ solid = false }: { solid?: boolean; light?: boolean
 
       <AnimatePresence>
         {open && (
-          <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.25 }} className="fixed inset-0 z-50 flex flex-col overflow-y-auto bg-[#0b0b0f] px-6 py-4 lg:hidden">
+          <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.25 }} className="wc-hexgrid fixed inset-0 z-50 flex flex-col overflow-y-auto bg-[#0b0b0f] px-6 py-4 lg:hidden">
             <div className="flex items-center justify-between">
-              <Image src="/weecomm/logo-wide-light.png" alt="" width={1600} height={480} className="h-9 w-auto" />
+              <Image src="/weecomm/logo-wide-light.png" alt="" width={1600} height={480} className="h-8 w-auto" />
               <button type="button" onClick={() => setOpen(false)} aria-label="Close menu" className="flex h-10 w-10 items-center justify-center rounded-full border border-white/15 text-white">
                 <X className="h-5 w-5" />
               </button>
             </div>
-            <nav className="mt-10 flex flex-col gap-5">
+            <nav className="mt-12 flex flex-col gap-5">
               {NAV.map((n, i) => (
                 <motion.div key={n.href} initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.05 * i }}>
-                  <Link href={n.href} onClick={() => setOpen(false)} className={`${serif} text-3xl font-medium text-white`}>
-                    {n.label}
+                  <Link href={n.href} onClick={() => setOpen(false)} className={`${serif} flex items-baseline gap-4 text-3xl font-medium text-white`}>
+                    <span className="text-sm text-[#f8b800]">0{i + 1}</span> {n.label}
                   </Link>
                 </motion.div>
               ))}

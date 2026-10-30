@@ -1,18 +1,4 @@
-/* Motion for the public site (app/site). */
-
-/* The blocks on the plan "breathe" until one is picked — a hint that they're clickable. */
-@keyframes wc-breathe {
-  0%,
-  100% {
-    stroke-opacity: 0.15;
-  }
-  50% {
-    stroke-opacity: 0.7;
-  }
-}
-.wc-breathe {
-  animation: wc-breathe 2.6s ease-in-out infinite;
-}
+/* Motion and marks for the public site (app/site). */
 
 /* Photos drift slowly, like a presentation slide. */
 @keyframes wc-kenburns {
@@ -28,111 +14,7 @@
   will-change: transform;
 }
 
-/* A soft glow that sweeps the "Available" badge once. */
-@keyframes wc-shine {
-  0% {
-    transform: translateX(-120%) skewX(-18deg);
-  }
-  100% {
-    transform: translateX(220%) skewX(-18deg);
-  }
-}
-.wc-shine::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  width: 40%;
-  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.55), transparent);
-  animation: wc-shine 1.6s ease-out 0.4s 1 both;
-}
-
-/* Landing page: a faint film grain over everything. */
-@keyframes wc-grain {
-  0%,
-  100% {
-    transform: translate(0, 0);
-  }
-  25% {
-    transform: translate(-4%, 3%);
-  }
-  50% {
-    transform: translate(3%, -4%);
-  }
-  75% {
-    transform: translate(-2%, -2%);
-  }
-}
-.wc-grain {
-  inset: -20%;
-  opacity: 0.05;
-  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='180' height='180'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
-  animation: wc-grain 1s steps(4) infinite;
-}
-
-/* Footprint map: dots fall in row by row, pins pop, rings pulse. */
-@keyframes wc-dot-in {
-  from {
-    opacity: 0;
-    transform: scale(0.2);
-  }
-  to {
-    opacity: 1;
-    transform: scale(1);
-  }
-}
-@keyframes wc-fade-in {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
-}
-@keyframes wc-ring {
-  0% {
-    transform: scale(1);
-    opacity: 0.9;
-  }
-  100% {
-    transform: scale(3.4);
-    opacity: 0;
-  }
-}
-.wc-dot,
-.wc-pin {
-  opacity: 0;
-  transform-box: fill-box;
-  transform-origin: center;
-}
-.wc-on .wc-dot {
-  animation: wc-dot-in 0.7s ease-out both;
-}
-.wc-on .wc-pin {
-  animation: wc-fade-in 0.6s ease-out both;
-}
-.wc-ring {
-  transform-box: fill-box;
-  transform-origin: center;
-  animation: wc-ring 2.4s ease-out infinite;
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .wc-breathe,
-  .wc-kenburns,
-  .wc-shine::after,
-  .wc-grain,
-  .wc-ring,
-  .wc-on .wc-dot,
-  .wc-on .wc-pin {
-    animation: none;
-  }
-  .wc-dot,
-  .wc-pin {
-    opacity: 1;
-  }
-}
-
-/* The values strip drifts left without end. */
+/* A strip that drifts left without end (three copies of its content). */
 @keyframes wc-marquee {
   from {
     transform: translateX(0);
@@ -144,8 +26,41 @@
 .wc-marquee {
   animation: wc-marquee 38s linear infinite;
 }
+.wc-marquee-slow {
+  animation: wc-marquee 60s linear infinite;
+}
+
+/* The pointy-top hexagon of the logo, as a mask for photos and portraits. */
+.wc-hex {
+  clip-path: polygon(50% 0, 100% 25%, 100% 75%, 50% 100%, 0 75%, 0 25%);
+}
+
+/* Type drawn as an outline. */
+.wc-outline {
+  -webkit-text-stroke: 1.5px rgba(243, 241, 234, 0.92);
+  color: transparent;
+}
+@media (max-width: 640px) {
+  .wc-outline {
+    -webkit-text-stroke-width: 1px;
+  }
+}
+
+/* The logo's three colours as one hairline. */
+.wc-triline {
+  background: linear-gradient(90deg, #e84030 0%, #f8b800 50%, #4080f0 100%);
+}
+
+/* A faint grid of hexagons behind a section. */
+.wc-hexgrid {
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='45' height='78' viewBox='0 0 45 78'><g fill='none' stroke='white' stroke-opacity='0.5' stroke-width='0.7'><path d='M22.5 0L45 13v26L22.5 52 0 39V13z'/><path d='M45 39l22.5 13v26L45 91 22.5 78V52z'/><path d='M0 39l22.5 13v26L0 91-22.5 78V52z'/></g></svg>");
+  background-size: 45px 78px;
+}
+
 @media (prefers-reduced-motion: reduce) {
-  .wc-marquee {
+  .wc-kenburns,
+  .wc-marquee,
+  .wc-marquee-slow {
     animation: none;
   }
 }
