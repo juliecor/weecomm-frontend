@@ -86,3 +86,77 @@
     animation: none;
   }
 }
+
+/* Anchor links glide to their section. */
+html {
+  scroll-behavior: smooth;
+}
+
+/* A fine film grain over the backdrop, so the dark has texture instead of being a flat fill. */
+.wc-grain {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-size: 200px 200px;
+}
+
+/* A light sweeps across the gold word now and then. */
+@keyframes wc-shine {
+  0%,
+  58% {
+    background-position: 100% 0;
+  }
+  100% {
+    background-position: 0% 0;
+  }
+}
+.wc-shine {
+  background-image: linear-gradient(100deg, #f8b800 0%, #f8b800 42%, #fff1b8 50%, #f8b800 58%, #f8b800 100%);
+  background-size: 250% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  animation: wc-shine 7s ease-in-out infinite;
+}
+
+/* The slide indicator fills over the time a facade is shown. */
+@keyframes wc-fill {
+  from {
+    width: 0;
+  }
+  to {
+    width: 100%;
+  }
+}
+.wc-fill {
+  animation: wc-fill 6.5s linear forwards;
+}
+
+/* The decorative hexagons breathe. */
+@keyframes wc-breathe {
+  0%,
+  100% {
+    transform: scale(1) rotate(0deg);
+  }
+  50% {
+    transform: scale(1.06) rotate(2deg);
+  }
+}
+.wc-breathe {
+  animation: wc-breathe 9s ease-in-out infinite;
+}
+.wc-breathe-slow {
+  animation: wc-breathe 14s ease-in-out infinite reverse;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  .wc-shine,
+  .wc-breathe,
+  .wc-breathe-slow {
+    animation: none;
+  }
+  .wc-shine {
+    color: #f8b800;
+  }
+}

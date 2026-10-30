@@ -30,6 +30,7 @@ export function SiteShell({ children }: { children: React.ReactNode }) {
       <div aria-hidden className="pointer-events-none fixed inset-0 -z-10 overflow-hidden">
         <div className="wc-drift absolute -inset-[20%] bg-[radial-gradient(45%_40%_at_82%_12%,rgba(64,128,240,0.34),transparent_62%),radial-gradient(40%_36%_at_8%_88%,rgba(232,64,48,0.24),transparent_62%),radial-gradient(34%_30%_at_55%_58%,rgba(248,184,0,0.11),transparent_60%)]" />
         <div className="wc-hexgrid absolute inset-0 opacity-[0.06]" />
+        <div className="wc-grain absolute inset-0 opacity-[0.07] mix-blend-soft-light" />
         <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(12,16,32,0)_0%,rgba(8,11,24,0.55)_100%)]" />
       </div>
       {children}
