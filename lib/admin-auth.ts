@@ -1,0 +1,66 @@
+import "server-only"
+import { cookies } from "next/headers"
+import { redirect } from "next/navigation"
+import { api } from "./api"
+
+/**
+ * The admin's session: Laravel's Sanctum token in an httpOnly cookie that only
+ * the Next.js server reads. The token never expires; it lasts until they sign out.
+ */
+
+export const ADMIN_COOKIE = "jv_admin"
+export const ADMIN_SESSION_SECONDS = 10 * 365 * 24 * 60 * 60
+
+/** `is_superadmin`: a platform admin who can switch into any realty's dashboard; there `role` is the role they're viewing as. */
+export type AuthUser = {
+  id: number
+  name: string
+  email: string
+  /** Their profile photo (initials when there's none). */
+  photo_url?: string | null
+  role: "admin" | "realty" | "agent"
+  is_superadmin?: boolean
+  status?: "pending" | "active" | "rejected" | "disabled"
+  /** True while an accepted realty still has the temporary password it was mailed: the dashboard stays shut until it is replaced. */
+  must_change_password?: boolean
+  realty_id: number | null
+  /** A realty staff member's dashboard sections ("staff" = manages staff accounts); empty for agents. */
+  access?: string[]
+}
+
+export async function adminToken(): Promise<string | null> {
+  return (await cookies()).get(ADMIN_COOKIE)?.value ?? null
+}
+
+export async function setAdminToken(token: string): Promise<void> {
+  ;(await cookies()).set(ADMIN_COOKIE, token, {
+    httpOnly: true,
+    secure: process.env.NODE_ENV === "production",
+    sameSite: "lax",
+    path: "/admin",
+    maxAge: ADMIN_SESSION_SECONDS,
+  })
+}
+
+export async function clearAdminToken(): Promise<void> {
+  ;(await cookies()).delete({ name: ADMIN_COOKIE, path: "/admin" })
+}
+
+/** The signed-in admin, or null when the cookie is missing, expired or not an admin's. */
+export async function currentAdmin(): Promise<{ user: AuthUser; token: string } | null> {
+  const token = await adminToken()
+  if (!token) return null
+  try {
+    const user = await api<AuthUser>("/auth/me", { token })
+    return user.role === "admin" ? { user, token } : null
+  } catch {
+    return null
+  }
+}
+
+/** For pages under /admin: hands back the admin or sends the visitor to the login. */
+export async function requireAdmin(): Promise<{ user: AuthUser; token: string }> {
+  const session = await currentAdmin()
+  if (!session) redirect("/admin/login")
+  return session
+}

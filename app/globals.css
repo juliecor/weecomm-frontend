@@ -1,0 +1,79 @@
+@import "tailwindcss";
+
+:root {
+  --background: #ffffff;
+  --foreground: #171717;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #0a0a0a;
+    --foreground: #ededed;
+  }
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-geist-sans), Arial, Helvetica, sans-serif;
+}
+
+/* jvconline home (app/page.tsx): the dotted Philippines glows in a slow wave, row by row. */
+@keyframes jv-dot {
+  0%,
+  100% {
+    opacity: 0.28;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+.jv-dot {
+  animation: jv-dot 4.5s ease-in-out infinite;
+}
+@media (prefers-reduced-motion: reduce) {
+  .jv-dot {
+    animation: none;
+    opacity: 0.6;
+  }
+}
+
+/* Dashboard toasts (components/feedback.tsx) slide up into place. */
+@keyframes jv-toast-in {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* What a buyer still has to fill in, marked when they arrive from a reminder email; it stops once they do (offer/[code]/requirements.tsx). */
+@keyframes jv-pulse {
+  0%,
+  100% {
+    box-shadow: 0 0 0 0 color-mix(in srgb, var(--accent, #b4241c) 55%, transparent);
+  }
+  50% {
+    box-shadow: 0 0 0 7px color-mix(in srgb, var(--accent, #b4241c) 0%, transparent);
+  }
+}
+.jv-pulse {
+  border-color: var(--accent, #b4241c) !important;
+  animation: jv-pulse 1.6s ease-in-out infinite;
+}
+@media (prefers-reduced-motion: reduce) {
+  .jv-pulse {
+    animation: none;
+    box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent, #b4241c) 30%, transparent);
+  }
+}

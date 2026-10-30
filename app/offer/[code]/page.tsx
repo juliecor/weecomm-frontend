@@ -1,0 +1,698 @@
+import type { Metadata } from "next"
+import Link from "next/link"
+import { cache } from "react"
+import { ArrowRight, ArrowUpRight, Bath, Lock, BedDouble, CalendarDays, Car, Check, Info, Layers, Mail, MapPin, Phone, Ruler, SquareDashed, Tag as TagIcon } from "lucide-react"
+import { RealtyMark } from "@/components/form"
+import { ApiError, api } from "@/lib/api"
+import { longDate, php, phpExact, sqm } from "@/lib/format"
+import { SITE_REALTY } from "@/lib/public-projects-types"
+import type { Requirement } from "@/lib/requirements-types"
+import { type ScheduleRow, pct } from "@/lib/schedule"
+import { realtyToken } from "@/lib/realty-auth"
+import { realtyIcons } from "@/lib/realty-icon"
+import { PrintButton, Zoomable } from "./parts"
+import { RequirementsSection } from "./requirements"
+import { RespondSection } from "./respond"
+import { ReserveSection } from "./reserve"
+import type { Reservation } from "./actions"
+import { offerAccessHeaders } from "./access"
+import { OfferTabs } from "./tabs"
+import { Heading, Installments, LocationBlock } from "./shared"
+import { UnlockForm } from "./unlock-form"
+import { InterestedGate } from "./interested-gate"
+import { SiteMapViewer } from "@/components/site-map/site-map"
+import type { SiteMapData } from "@/components/site-map/geometry"
+import { type OfferSheet, SalesOfferSheet } from "./sheet"
+import { Photo } from "@/components/photo"
+
+type Milestone = ScheduleRow
+type Specs = { usable_floor_area: string | null; typical_floor_area: string | null; bedrooms: string | null; baths: string | null; floors: string | null; parking: string | null }
+type Offer = {
+  code: string
+  buyer_name: string
+  purchase_date: string
+  price: number
+  schedule: Milestone[]
+  fee_notes: string | null
+  created_at: string
+  realty: { name: string; slug: string; logo_url: string | null; accent_color: string | null; phone: string | null; email: string | null; address: string | null }
+  project: {
+    name: string
+    location: string | null
+    region: string | null
+    stage: string | null
+    lat: number | null
+    lng: number | null
+    description: string | null
+    cover_url: string | null
+    hero: string[]
+    site_plans: string[]
+    amenities: string[]
+    page_slug: string | null
+    completion_date: string | null
+  }
+  unit: { name: string; unit_type: string | null; category: string; floor: string | null; area_sqm: number | null; floor_plan_url: string | null; highlights: string | null; block?: string | null; lot?: string | null; lot_area_sqm?: number | null; photos?: string[] }
+  /** The site plan with this home marked, when its lot is drawn there. */
+  site_map?: SiteMapData | null
+  model: { name: string; specs: Specs | null; images: string[] } | null
+  agent: { name: string; email: string } | null
+  /** The accredited realty that prepared it, when it isn't Johndorf's own team. */
+  broker?: { name: string; phone: string | null; email: string | null } | null
+  requirements: Requirement[]
+  details_submitted_at: string | null
+  buyer_contact: { email: string | null; phone: string | null }
+  /** Reserving the home: the fee and how to pay it, once the agent set one. */
+  reservation: Reservation | null
+  /** Set when one of the realty's people previews custom terms that aren't approved yet. */
+  preview: "pending" | "rejected" | null
+  /** The realty's own people looking at a private offer: buyers need the login. */
+  private?: boolean
+}
+
+/** A private offer before the buyer signs in: just enough for the sign-in page. */
+type Locked = {
+  locked: true
+  code: string
+  realty: { name: string; slug: string; logo_url: string | null; accent_color: string | null }
+  project: { name: string | null; location: string | null; photo: string | null }
+  agent: string | null
+  /** The sales-offer sheet they read before signing in. */
+  sheet: OfferSheet
+}
+
+type Props = { params: Promise<{ code: string }>; searchParams?: Promise<{ guide?: string; paid?: string }> }
+
+/** One load per request, shared by the page and its metadata (each load counts as a buyer view). */
+const loadOffer = cache(async (code: string): Promise<{ offer: Offer | null; locked: Locked | null; problem: string | null }> => {
+  try {
+    const data = await api<Offer | Locked>(`/offers/${encodeURIComponent(code)}`, { token: await realtyToken(), headers: await offerAccessHeaders(code) })
+    return "locked" in data ? { offer: null, locked: data, problem: null } : { offer: data, locked: null, problem: null }
+  } catch (e) {
+    const problem = e instanceof ApiError && [404, 410, 423].includes(e.status) ? (e.status === 404 ? "We couldn't find this offer. Please check the link with your agent." : e.message) : "We couldn't load this offer right now. Please try again in a moment."
+    return { offer: null, locked: null, problem }
+  }
+})
+
+/** The realty's own tab icon, like its dashboard. */
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const { offer, locked } = await loadOffer((await params).code)
+  const slug = (offer ?? locked)?.realty.slug
+  return {
+    title: "Sales offer",
+    robots: { index: false, follow: false },
+    ...(slug ? { icons: realtyIcons(slug) } : {}),
+  }
+}
+
+const SHARE_MIN = 4 // % of the bar a tiny milestone still gets, so it stays visible
+
+/** jvconline.ph/offer/<code> — the buyer's sales offer. Public, unlisted, printable. */
+export default async function OfferPage({ params, searchParams }: Props) {
+  const { code } = await params
+  // Coming from a reminder email: the requirements tab marks what is still missing.
+  const query = await searchParams
+  const guided = query?.guide === "1"
+  // Back from PayMongo's payment page.
+  const backFromPayment = query?.paid === "1"
+  const { offer, locked, problem } = await loadOffer(code)
+
+  if (locked) {
+    return <InterestedGate accent={locked.realty.accent_color ?? "#1f2937"} sheet={<SalesOfferSheet sheet={locked.sheet} realty={locked.realty} agent={locked.agent} />} signIn={<SignIn data={locked} />} />
+  }
+
+  if (!offer) {
+    return (
+      <main className="flex min-h-screen items-center justify-center bg-[#ece9e4] px-4 text-[#17150f]">
+        <div className="max-w-md border border-[#e0dcd5] bg-white p-10 text-center">
+          <p className="text-xs font-bold uppercase tracking-[0.18em] text-[#8a847a]">Sales offer</p>
+          <h1 className="mt-3 text-2xl font-bold">Offer unavailable</h1>
+          <p className="mt-3 text-[15px] text-[#5a554d]">{problem}</p>
+        </div>
+      </main>
+    )
+  }
+
+  const { realty, project, unit, model, agent, schedule } = offer
+  const accent = realty.accent_color ?? "#1f2937"
+  const hero = project.hero[0] ?? project.cover_url
+  const first = schedule[0]
+  const dueToday = (m: Milestone) => m.date === offer.purchase_date
+  const specs = model?.specs ?? null
+  const area = unit.area_sqm ?? (specs?.usable_floor_area ? Number(specs.usable_floor_area) : null)
+  // Photos of this very lot first, then the model's renders and the unit's floor plan — once, since the plan is usually one of the renders too.
+  const modelImages = Array.from(new Set([...(unit.photos ?? []), ...(model?.images ?? []), ...(unit.floor_plan_url ? [unit.floor_plan_url] : [])]))
+  const projectPage = project.page_slug && realty.slug === SITE_REALTY ? `/projects/${project.page_slug}` : null
+  const asterisk = Object.values(specs ?? {}).some((v) => v?.includes("*"))
+  const mailto = agent?.email ? `mailto:${agent.email}?subject=${encodeURIComponent(`Sales offer ${offer.code}`)}` : null
+
+  const specRows: { icon: typeof Ruler; label: string; value: string | null }[] = [
+    { icon: SquareDashed, label: "Lot area", value: unit.lot_area_sqm ? sqm(unit.lot_area_sqm) : null },
+    { icon: Ruler, label: "Usable floor area", value: area !== null ? sqm(area) : null },
+    { icon: SquareDashed, label: "Typical floor area", value: specs?.typical_floor_area ? `${specs.typical_floor_area} sqm` : null },
+    { icon: BedDouble, label: "Bedrooms", value: specs?.bedrooms ?? null },
+    { icon: Bath, label: "Toilet & bath", value: specs?.baths ?? null },
+    { icon: Layers, label: "Floors", value: specs?.floors ?? null },
+    { icon: Car, label: "Parking", value: specs?.parking ?? null },
+    { icon: TagIcon, label: "Category", value: unit.category },
+    { icon: Layers, label: "Floor / phase", value: unit.floor },
+  ]
+  // Bar shares: every milestone gets at least SHARE_MIN %, the rest in proportion; later milestones fade.
+  const raw = schedule.map((m) => Math.max(m.percent, SHARE_MIN))
+  const rawSum = raw.reduce((a, b) => a + b, 0)
+  const shares = raw.map((r) => (r / rawSum) * 100)
+  const fade = (i: number) => 1 - i * (0.55 / Math.max(schedule.length - 1, 1))
+  let section = 2
+
+  const talkTo = agent?.name ?? realty.name
+  const hasProject = project.site_plans.length > 0 || project.amenities.length > 0 || !!project.description || (project.lat !== null && project.lng !== null) || !!project.location
+  const pad = "px-6 py-10 sm:px-10 sm:py-12"
+  const steps = [
+    { title: "Look over the home and the price", text: "The house, its floor area, and the payment schedule from your purchase date.", links: [{ id: "home", label: "The home" }, { id: "payment", label: "Payment schedule" }] },
+    { title: `Tell ${talkTo.split(" ")[0]} what you think`, text: "Interested, or have a question? It takes a minute, and they'll get back to you.", links: [{ id: "respond", label: "Respond" }] },
+    ...(offer.reservation ? [{ title: offer.reservation.status === "confirmed" ? "Reserved for you" : "Reserve this home", text: offer.reservation.status === "confirmed" ? `${unit.name} is held in your name.` : `Pay the reservation fee of ${php(offer.reservation.fee)}${offer.reservation.online ? " online, or" : ""} by bank deposit or GCash, and ${realty.name} holds the home for you.`, links: [{ id: "reserve", label: "Reserve" }] }] : []),
+    ...(offer.requirements.length > 0 ? [{ title: "Send your requirements", text: "Your details and documents, from your phone. They're needed to reserve this home.", links: [{ id: "requirements", label: "Requirements" }] }] : []),
+  ]
+
+  return (
+    <main className="min-h-screen bg-[#ece9e4] pb-16 text-[#17150f] [print-color-adjust:exact] print:bg-white print:pb-0" style={{ ["--accent" as string]: accent }}>
+      {offer.private && !offer.preview && (
+        <div className="bg-[#17150f] px-4 py-2.5 text-center text-sm font-bold text-white print:hidden">
+          Private offer: you can see it because you&apos;re signed in to {realty.name}. The buyer opens it with the username and password you set.
+        </div>
+      )}
+      {offer.preview && (
+        <div className="bg-amber-400 px-4 py-2.5 text-center text-sm font-bold text-[#17150f] print:hidden">
+          Preview: these custom terms {offer.preview === "pending" ? "are waiting for approval" : "were sent back"}. The buyer can&apos;t open this page yet.
+        </div>
+      )}
+      <OfferTabs
+        bar={
+          <div className="flex min-w-0 items-center gap-3">
+            <RealtyMark name={realty.name} logo={realty.logo_url} className="h-8" />
+            <span className="hidden h-6 w-px bg-[#e0dcd5] sm:block" />
+            <p className="hidden truncate text-sm font-semibold text-[#5a554d] sm:block">Sales offer for {offer.buyer_name}</p>
+          </div>
+        }
+        actions={
+          <>
+            {realty.phone && (
+              <a href={`tel:${realty.phone}`} className="hidden items-center gap-2 border border-[#d9d4cb] px-3.5 py-2 text-sm font-bold text-[#17150f] hover:border-[#17150f] sm:inline-flex">
+                <Phone className="h-4 w-4" /> Call
+              </a>
+            )}
+            <PrintButton className="border border-[#d9d4cb] px-3.5 py-2 text-[#17150f] hover:border-[#17150f]" />
+          </>
+        }
+        tabs={[
+          {
+            id: "overview",
+            label: "Overview",
+            short: "Offer",
+            content: (
+              <>
+                {/* Letterhead */}
+                <header className="flex flex-wrap items-start justify-between gap-6 px-6 py-7 sm:px-10">
+                  <div>
+                    <RealtyMark name={realty.name} logo={realty.logo_url} className="h-14" />
+                    {realty.logo_url && <p className="mt-2 text-sm font-semibold text-[#3d3a34]">{realty.name}</p>}
+                  </div>
+                  <dl className="grid grid-cols-[auto_auto] gap-x-6 gap-y-1 text-sm">
+                    <dt className="col-span-2 text-xs font-bold uppercase tracking-[0.2em] text-[var(--accent)] sm:text-right">Sales offer</dt>
+                    <dt className="text-[#8a847a]">Reference</dt>
+                    <dd className="text-right font-mono font-bold">{offer.code}</dd>
+                    <dt className="text-[#8a847a]">Issued</dt>
+                    <dd className="text-right font-semibold">{longDate(offer.created_at)}</dd>
+                  </dl>
+                </header>
+
+                {/* Hero — photo clean (developer renders often carry their own lettering), title set beneath it */}
+                {hero && <Photo src={hero} alt={project.name} sizes="(min-width: 1280px) 1200px, 100vw" loading="eager" className="aspect-[4/3] w-full object-cover sm:aspect-[21/9]" />}
+                <section className="flex flex-wrap items-end justify-between gap-4 border-b border-[#ebe7e1] px-6 py-7 sm:px-10">
+                  <div>
+                    <div className="flex flex-wrap items-center gap-2">
+                      <span className="bg-[var(--accent)] px-2.5 py-1 text-[11px] font-bold uppercase tracking-[0.14em] text-white">{model?.name ?? unit.unit_type ?? unit.name}</span>
+                      {project.stage && <span className="border border-[#d9d4cb] px-2.5 py-1 text-[11px] font-bold uppercase tracking-[0.14em] text-[#3d3a34]">{project.stage}</span>}
+                    </div>
+                    <h1 className="mt-3 text-4xl font-bold tracking-tight sm:text-5xl">{project.name}</h1>
+                    {project.location && (
+                      <p className="mt-2 inline-flex items-center gap-2 text-base font-semibold text-[#5a554d] sm:text-lg">
+                        <MapPin className="h-4 w-4 text-[var(--accent)]" /> {project.location}
+                      </p>
+                    )}
+                  </div>
+                  <p className="text-right text-sm font-semibold text-[#5a554d]">
+                    {unit.name}
+                    {unit.floor ? ` · ${unit.floor}` : ""}
+                  </p>
+                </section>
+
+                {/* Parties */}
+                <section className="grid border-b border-[#ebe7e1] sm:grid-cols-2">
+                  <div className="px-6 py-6 sm:px-10">
+                    <p className="text-xs font-bold uppercase tracking-[0.16em] text-[#8a847a]">Prepared for</p>
+                    <p className="mt-1.5 text-2xl font-bold tracking-tight sm:text-3xl">{offer.buyer_name}</p>
+                    <p className="mt-1 text-sm font-semibold text-[#5a554d]">Purchase date {longDate(offer.purchase_date)}</p>
+                  </div>
+                  <div className="border-t border-[#ebe7e1] px-6 py-6 sm:border-l sm:border-t-0 sm:px-10">
+                    <p className="text-xs font-bold uppercase tracking-[0.16em] text-[#8a847a]">Prepared by</p>
+                    <p className="mt-1.5 text-2xl font-bold tracking-tight sm:text-3xl">{agent?.name ?? realty.name}</p>
+                    <p className="mt-1 text-sm font-semibold text-[#5a554d]">{agent ? (offer.broker?.name ?? realty.name) : "Sales team"}</p>
+                  </div>
+                </section>
+
+                {/* Key figures */}
+                <section className="grid grid-cols-2 border-b border-[#ebe7e1] lg:grid-cols-4">
+                  <div className="col-span-2 bg-[#17150f] px-6 py-6 text-white sm:px-10 lg:col-span-1 lg:px-8">
+                    <p className="text-xs font-bold uppercase tracking-[0.16em] text-white/60">Total contract price</p>
+                    <p className="mt-2 text-3xl font-bold tabular-nums tracking-tight">{php(offer.price)}</p>
+                  </div>
+                  <div className="border-r border-[#ebe7e1] px-6 py-6 sm:px-8">
+                    <p className="text-xs font-bold uppercase tracking-[0.16em] text-[#8a847a]">{first ? (dueToday(first) ? "Due on reservation" : "First payment") : "Payment"}</p>
+                    <p className="mt-2 text-2xl font-bold tabular-nums tracking-tight text-[var(--accent)]">{first ? (first.monthly ? `${php(first.monthly)}/mo` : php(first.amount)) : "—"}</p>
+                    {first && <p className="mt-1 text-xs font-semibold text-[#6b665d]">{first.label}</p>}
+                  </div>
+                  <div className="px-6 py-6 sm:px-8 lg:border-r lg:border-[#ebe7e1]">
+                    <p className="text-xs font-bold uppercase tracking-[0.16em] text-[#8a847a]">Floor area</p>
+                    <p className="mt-2 text-2xl font-bold tabular-nums tracking-tight">{area !== null ? sqm(area) : "—"}</p>
+                    <p className="mt-1 text-xs font-semibold text-[#6b665d]">{unit.name}</p>
+                  </div>
+                  <div className="col-span-2 border-t border-[#ebe7e1] px-6 py-6 sm:px-8 lg:col-span-1 lg:border-t-0">
+                    <p className="text-xs font-bold uppercase tracking-[0.16em] text-[#8a847a]">Turnover</p>
+                    <p className="mt-2 text-2xl font-bold tracking-tight">{project.completion_date ? longDate(project.completion_date) : "Upon completion"}</p>
+                    <p className="mt-1 text-xs font-semibold text-[#6b665d]">{project.region ?? project.location ?? ""}</p>
+                  </div>
+                </section>
+                <div className={pad}>
+                  <p className="max-w-3xl text-[17px] leading-relaxed text-[#3d3a34]">
+                    Thank you for your interest in <strong className="font-bold text-[#17150f]">{project.name}</strong>. This offer covers <strong className="font-bold text-[#17150f]">{unit.name}</strong>, the total contract price and how the payment is spread out.
+                  </p>
+                  <section className="mt-10 print:hidden">
+                    <p className="text-xs font-bold uppercase tracking-[0.16em] text-[var(--accent)]">What to do next</p>
+                    <ol className={`mt-4 grid gap-px border border-[#ebe7e1] bg-[#ebe7e1] ${steps.length === 3 ? "md:grid-cols-3" : "md:grid-cols-2"}`}>
+                      {steps.map((st, i) => (
+                        <li key={st.title} className="flex flex-col bg-white p-5 sm:p-6">
+                          <span className="text-sm font-bold tabular-nums text-[var(--accent)]">{String(i + 1).padStart(2, "0")}</span>
+                          <p className="mt-2 text-lg font-bold leading-snug">{st.title}</p>
+                          <p className="mt-1.5 flex-1 text-sm leading-relaxed text-[#5a554d]">{st.text}</p>
+                          <div className="mt-5 flex flex-wrap gap-2">
+                            {st.links.map((l) => (
+                              <a key={l.id} href={`#${l.id}`} className={`inline-flex items-center gap-1.5 px-4 py-2.5 text-sm font-bold transition ${l.id === "respond" || l.id === "requirements" ? "bg-[var(--accent)] text-white hover:brightness-110" : "border border-[#d9d4cb] text-[#17150f] hover:border-[#17150f]"}`}>
+                                {l.label} <ArrowRight className="h-4 w-4" />
+                              </a>
+                            ))}
+                          </div>
+                        </li>
+                      ))}
+                    </ol>
+                  </section>
+                </div>
+              </>
+            ),
+          },
+          {
+            id: "home",
+            label: "The home",
+            short: "Home",
+            content: (
+              <div className={pad}>
+                {/* The home */}
+                <section className="break-inside-avoid">
+                  <Heading n="01" title="The home" aside={model?.name ?? unit.unit_type ?? undefined} />
+                  <div className={`mt-6 grid gap-8 ${modelImages.length ? "lg:grid-cols-[1.2fr_1fr]" : ""}`}>
+                    {modelImages.length > 0 && <Zoomable images={modelImages} alt={model?.name ?? unit.name} imgClassName="aspect-[16/10]" />}
+                    <div>
+                      <p className="text-2xl font-bold tracking-tight">{unit.name}</p>
+                      <p className="mt-1 text-[15px] font-semibold text-[#5a554d]">{[model?.name !== unit.name ? model?.name ?? unit.unit_type : null, project.name].filter(Boolean).join(" · ")}</p>
+                      <dl className="mt-6 grid grid-cols-2 gap-px border border-[#ebe7e1] bg-[#ebe7e1]">
+                        {specRows
+                          .filter((r) => r.value)
+                          .map(({ icon: Icon, label, value }, i, rows) => (
+                            <div key={label} className={`flex items-start gap-3 bg-white p-4 ${rows.length % 2 === 1 && i === rows.length - 1 ? "col-span-2" : ""}`}>
+                              <Icon className="mt-0.5 h-5 w-5 shrink-0 text-[var(--accent)]" />
+                              <div>
+                                <dt className="text-xs font-bold uppercase tracking-[0.12em] text-[#8a847a]">{label}</dt>
+                                <dd className="mt-0.5 text-lg font-bold">{value}</dd>
+                              </div>
+                            </div>
+                          ))}
+                      </dl>
+                      {unit.highlights && (
+                        <p className="mt-4 border-l-4 border-[var(--accent)] bg-[#faf8f5] px-4 py-3 text-[15px] font-semibold leading-relaxed text-[#17150f]">{unit.highlights}</p>
+                      )}
+                      {asterisk && <p className="mt-3 text-xs text-[#8a847a]">* As indicated by the developer.</p>}
+                    </div>
+                  </div>
+                </section>
+                {/* Where it is: the site plan with this lot marked. */}
+                {offer.site_map && (
+                  <section className="mt-12 break-inside-avoid print:hidden">
+                    <Heading n="02" title="Where your home is" aside={unit.block && unit.lot ? `Block ${unit.block} · Lot ${unit.lot}` : project.name} />
+                    <div className="mt-6">
+                      <SiteMapViewer map={offer.site_map} alt={`${project.name} site development plan`} maxHeight="70vh" details modelPhotos={model ? { [model.name]: model.images } : undefined} highlightPrice={offer.price} />
+                    </div>
+                    <p className="mt-2 text-xs text-[#8a847a]">Use + to zoom in. Colours show which lots are still available today.</p>
+                  </section>
+                )}
+              </div>
+            ),
+          },
+          {
+            id: "payment",
+            label: "Payment schedule",
+            short: "Price",
+            content: (
+              <div className={pad}>
+                {/* Payment schedule */}
+                <section className="break-inside-avoid">
+                  <Heading n="02" title="Payment schedule" aside={`From the purchase date, ${longDate(offer.purchase_date)}`} />
+                  {schedule.length > 1 && (
+                    <div className="mt-6">
+                      <div className="flex h-3 w-full overflow-hidden bg-[#ebe7e1]">
+                        {schedule.map((m, i) => (
+                          <div key={i} style={{ width: `${shares[i]}%`, opacity: fade(i) }} className="h-full border-r-2 border-white bg-[var(--accent)] last:border-r-0" title={`${m.label} · ${pct(m.percent)}`} />
+                        ))}
+                      </div>
+                      <div className="mt-2 flex flex-wrap gap-x-5 gap-y-1 text-xs font-semibold text-[#5a554d]">
+                        {schedule.map((m, i) => (
+                          <span key={i} className="inline-flex items-center gap-1.5">
+                            <span className="h-2.5 w-2.5 bg-[var(--accent)]" style={{ opacity: fade(i) }} />
+                            {pct(m.percent)} · {m.label}
+                          </span>
+                        ))}
+                      </div>
+                    </div>
+                  )}
+
+                  {/* Phone: one block per milestone, amount always in view */}
+                  <ol className="mt-6 divide-y divide-[#ebe7e1] border-y border-[#ebe7e1] sm:hidden">
+                    {schedule.map((m, i) => (
+                      <li key={i} className="py-4">
+                        <div className="flex items-start justify-between gap-4">
+                        <div className="min-w-0">
+                          <p className="font-bold">
+                            <span className="mr-2 tabular-nums text-[var(--accent)]">{String(i + 1).padStart(2, "0")}</span>
+                            {m.label}
+                          </p>
+                          <p className="mt-1 text-sm font-semibold text-[#5a554d]">
+                            {m.months && m.end_date ? `${m.months} monthly payments of ${phpExact(m.monthly ?? 0)}` : m.date ? longDate(m.date) : "Upon completion"} · {pct(m.percent)}
+                          </p>
+                          {m.months && m.end_date && <p className="text-sm text-[#6b665d]">{longDate(m.date)} to {longDate(m.end_date)}</p>}
+                          {dueToday(m) && <span className="mt-1.5 inline-block bg-[var(--accent)] px-1.5 py-0.5 text-[10px] font-bold uppercase tracking-[0.12em] text-white">Due on reservation</span>}
+                        </div>
+                        <p className="shrink-0 text-right font-bold tabular-nums">{phpExact(m.amount)}</p>
+                        </div>
+                        <Installments m={m} />
+                      </li>
+                    ))}
+                    <li className="flex items-center justify-between gap-4 bg-[#17150f] px-4 py-4 text-white">
+                      <p className="text-xs font-bold uppercase tracking-[0.14em]">Total contract price</p>
+                      <p className="text-lg font-bold tabular-nums">{phpExact(offer.price)}</p>
+                    </li>
+                  </ol>
+
+                  <div className="mt-6 hidden sm:block">
+                    <table className="w-full text-[15px]">
+                      <thead>
+                        <tr className="border-b border-[#ebe7e1] text-left text-xs uppercase tracking-[0.12em] text-[#8a847a]">
+                          <th className="py-3 pr-3 font-bold">#</th>
+                          <th className="py-3 pr-3 font-bold">Milestone</th>
+                          <th className="py-3 pr-3 font-bold">Due</th>
+                          <th className="py-3 pr-3 text-right font-bold">Share</th>
+                          <th className="py-3 text-right font-bold">Amount</th>
+                        </tr>
+                      </thead>
+                      <tbody className="divide-y divide-[#ebe7e1]">
+                        {schedule.map((m, i) => (
+                          <tr key={i}>
+                            <td className="py-4 pr-3 align-top font-bold tabular-nums text-[var(--accent)]">{String(i + 1).padStart(2, "0")}</td>
+                            <td className="py-4 pr-3 align-top">
+                              <p className="font-bold">{m.label}</p>
+                              {m.months && m.end_date && <p className="mt-0.5 text-sm font-semibold text-[#5a554d]">{m.months} monthly payments of {phpExact(m.monthly ?? 0)}</p>}
+                              <Installments m={m} />
+                              {dueToday(m) && <span className="mt-1 inline-block bg-[var(--accent)] px-1.5 py-0.5 text-[10px] font-bold uppercase tracking-[0.12em] text-white">Due on reservation</span>}
+                            </td>
+                            <td className="py-4 pr-3 align-top font-semibold text-[#3d3a34]">
+                              <span className="inline-flex items-center gap-1.5">
+                                <CalendarDays className="h-4 w-4 text-[#8a847a]" />
+                                {m.months && m.end_date ? `${longDate(m.date)} – ${longDate(m.end_date)}` : m.date ? longDate(m.date) : "Upon completion"}
+                              </span>
+                            </td>
+                            <td className="py-4 pr-3 text-right align-top font-semibold tabular-nums text-[#5a554d]">{pct(m.percent)}</td>
+                            <td className="py-4 text-right align-top font-bold tabular-nums">{phpExact(m.amount)}</td>
+                          </tr>
+                        ))}
+                      </tbody>
+                      <tfoot>
+                        <tr className="bg-[#17150f] text-white">
+                          <td colSpan={3} className="px-4 py-4 text-sm font-bold uppercase tracking-[0.14em]">Total contract price</td>
+                          <td className="py-4 pr-3 text-right font-semibold tabular-nums text-white/70">100%</td>
+                          <td className="py-4 pr-4 text-right text-lg font-bold tabular-nums">{phpExact(offer.price)}</td>
+                        </tr>
+                      </tfoot>
+                    </table>
+                  </div>
+
+                  {offer.fee_notes && (
+                    <div className="mt-5 flex gap-3 border border-[#ebe7e1] bg-[#faf8f5] p-4">
+                      <Info className="mt-0.5 h-5 w-5 shrink-0 text-[var(--accent)]" />
+                      <p className="whitespace-pre-line text-sm leading-relaxed text-[#5a554d]">{offer.fee_notes}</p>
+                    </div>
+                  )}
+                </section>
+              </div>
+            ),
+          },
+          ...(hasProject
+            ? [
+                {
+                  id: "project",
+                  label: "The project",
+                  short: "Site",
+                  content: (
+                    <div className={`${pad} space-y-14`}>
+                      {/* Site plan */}
+                      {project.site_plans.length > 0 && (
+                        <section className="break-inside-avoid">
+                          <Heading n={String(++section).padStart(2, "0")} title="Site development plan" aside={unit.block && unit.lot ? `Your home: Block ${unit.block} · Lot ${unit.lot}` : project.name} />
+                          {offer.site_map ? (
+                            <>
+                              <div className="mt-6 print:hidden">
+                                <SiteMapViewer map={offer.site_map} alt={`${project.name} site development plan`} maxHeight="75vh" details modelPhotos={model ? { [model.name]: model.images } : undefined} highlightPrice={offer.price} />
+                                <p className="mt-2 text-xs text-[#8a847a]">The red pin marks your home. Pinch or use + to zoom; tap any lot to see it.</p>
+                              </div>
+                              {project.site_plans.filter((s) => s !== offer.site_map?.image).length > 0 && (
+                                <Zoomable images={project.site_plans.filter((s) => s !== offer.site_map?.image)} alt={`${project.name} site development plan`} caption="Other plans" className="mt-6 border border-[#ebe7e1]" />
+                              )}
+                              <Zoomable images={[offer.site_map.image]} alt={`${project.name} site development plan`} caption="Site development plan" className="mt-6 hidden border border-[#ebe7e1] print:block" />
+                            </>
+                          ) : (
+                            <Zoomable images={project.site_plans} alt={`${project.name} site development plan`} caption="Site development plan" className="mt-6 border border-[#ebe7e1]" />
+                          )}
+                        </section>
+                      )}
+
+                      {/* Amenities, or the project description when there are none */}
+                      {project.amenities.length > 0 ? (
+                        <section className="break-inside-avoid">
+                          <Heading n={String(++section).padStart(2, "0")} title="Amenities & facilities" aside={`${project.amenities.length} in ${project.name}`} />
+                          <ul className="mt-6 grid gap-x-8 gap-y-3 sm:grid-cols-2 lg:grid-cols-3">
+                            {project.amenities.map((a) => (
+                              <li key={a} className="flex items-start gap-3 text-[15px] font-semibold text-[#3d3a34]">
+                                <span className="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center bg-[var(--accent)] text-white">
+                                  <Check className="h-3.5 w-3.5" strokeWidth={3} />
+                                </span>
+                                {a}
+                              </li>
+                            ))}
+                          </ul>
+                        </section>
+                      ) : (
+                        project.description && (
+                          <section className="break-inside-avoid">
+                            <Heading n={String(++section).padStart(2, "0")} title={`About ${project.name}`} />
+                            <p className="mt-6 whitespace-pre-line text-[15px] leading-relaxed text-[#3d3a34]">{project.description}</p>
+                          </section>
+                        )
+                      )}
+
+                      <LocationBlock n={String(++section).padStart(2, "0")} name={project.name} location={project.location} lat={project.lat} lng={project.lng} />
+                    </div>
+                  ),
+                },
+              ]
+            : []),
+          ...(offer.requirements.length > 0
+            ? [
+                {
+                  id: "requirements",
+                  label: "Requirements",
+                  short: "Docs",
+                  print: false,
+                  content: (
+                    <section className={pad}>
+                      <p className="text-xs font-bold uppercase tracking-[0.16em] text-[var(--accent)]">Reserve this home</p>
+                      <h2 className="mt-2 text-3xl font-bold tracking-tight">Your requirements</h2>
+                      <p className="mt-2 max-w-2xl text-[15px] text-[#5a554d]">
+                        Send your details and documents here, from your phone if you like. {agent?.name ?? realty.name} sees each one as it arrives and will tell you if anything needs fixing.
+                      </p>
+                      <div className="mt-6">
+                        <RequirementsSection
+                          code={offer.code}
+                          initial={offer.requirements}
+                          detailsAt={offer.details_submitted_at}
+                          prefill={{ name: offer.buyer_name, email: offer.buyer_contact.email, phone: offer.buyer_contact.phone }}
+                          realtyName={realty.name}
+                          guided={guided}
+                        />
+                      </div>
+                    </section>
+                  ),
+                },
+              ]
+            : []),
+          ...(offer.reservation
+            ? [
+                {
+                  id: "reserve",
+                  label: offer.reservation.status === "confirmed" ? "Reserved" : "Reserve",
+                  print: false,
+                  content: (
+                    <section className={`${pad} bg-[#f6f4f0]`}>
+                      <p className="text-xs font-bold uppercase tracking-[0.16em] text-[var(--accent)]">Reservation</p>
+                      <h2 className="mt-2 text-3xl font-bold tracking-tight">{offer.reservation.status === "confirmed" ? "Your home is reserved" : `Reserve ${unit.name}`}</h2>
+                      <p className="mt-2 max-w-2xl text-[15px] text-[#5a554d]">{offer.reservation.status === "confirmed" ? "Thank you. Here is where it stands." : `Pay the reservation fee and ${realty.name} holds this home for you. Nothing else is charged on this page.`}</p>
+                      <div className="mt-6">
+                        <ReserveSection code={offer.code} initial={offer.reservation} unitName={unit.name} sellerName={realty.name} backFromPayment={backFromPayment} />
+                      </div>
+                    </section>
+                  ),
+                },
+              ]
+            : []),
+          {
+            id: "respond",
+            label: "Respond",
+            print: false,
+            cta: true,
+            content: (
+              <section className={`${pad} bg-[#f6f4f0]`}>
+                <p className="text-xs font-bold uppercase tracking-[0.16em] text-[var(--accent)]">Your response</p>
+                <h2 className="mt-2 text-3xl font-bold tracking-tight">What would you like to do?</h2>
+                <p className="mt-2 max-w-2xl text-[15px] text-[#5a554d]">Choose one and {agent?.name ?? realty.name} will get back to you. It takes less than a minute.</p>
+                <div className="mt-6">
+                  <RespondSection code={offer.code} buyerName={offer.buyer_name} agentName={agent?.name ?? realty.name} />
+                </div>
+              </section>
+            ),
+          },
+        ]}
+      >
+        {/* Contact */}
+        <section className="break-inside-avoid bg-[#17150f] px-6 py-10 text-white sm:px-10">
+          <div className="grid gap-8 lg:grid-cols-[1.3fr_1fr] lg:items-end">
+            <div>
+              <p className="text-xs font-bold uppercase tracking-[0.16em] text-white/55">Questions about this offer?</p>
+              <p className="mt-2 text-3xl font-bold tracking-tight">Talk to {agent?.name ?? realty.name}.</p>
+              <div className="mt-5 space-y-2 text-[15px] text-white/80">
+                {agent?.email && mailto && (
+                  <p className="flex items-center gap-3">
+                    <Mail className="h-4 w-4 text-white/50" />
+                    <a href={mailto} className="font-semibold text-white hover:underline">{agent.email}</a>
+                  </p>
+                )}
+                {realty.phone && (
+                  <p className="flex items-center gap-3">
+                    <Phone className="h-4 w-4 text-white/50" />
+                    <a href={`tel:${realty.phone}`} className="font-semibold text-white hover:underline">{realty.phone}</a>
+                  </p>
+                )}
+                {realty.address && (
+                  <p className="flex items-center gap-3">
+                    <MapPin className="h-4 w-4 text-white/50" /> {realty.address}
+                  </p>
+                )}
+              </div>
+            </div>
+            <div className="flex flex-wrap gap-3 lg:justify-end print:hidden">
+              {agent && mailto && (
+                <a href={mailto} className="inline-flex items-center gap-2 bg-[var(--accent)] px-5 py-3 text-[15px] font-bold text-white hover:brightness-110">
+                  <Mail className="h-4 w-4" /> Email {agent.name.split(" ")[0]}
+                </a>
+              )}
+              {projectPage && (
+                <Link href={projectPage} className="inline-flex items-center gap-2 border border-white/30 px-5 py-3 text-[15px] font-bold text-white hover:bg-white/10">
+                  View {project.name} <ArrowUpRight className="h-4 w-4" />
+                </Link>
+              )}
+            </div>
+          </div>
+        </section>
+
+        <footer className="flex flex-wrap items-center justify-between gap-3 px-6 py-5 text-xs text-[#8a847a] sm:px-10">
+          <p>Reference {offer.code} · Prices and availability may change until a reservation is made.</p>
+          <p>
+            Powered by <Link href="/platform" className="font-semibold text-[#5a554d] hover:text-[#17150f]">jvconline</Link>
+          </p>
+        </footer>
+      </OfferTabs>
+    </main>
+  )
+}
+
+/** A private offer's door: the project and the realty on one side, the buyer's sign-in on the other. */
+function SignIn({ data }: { data: Locked }) {
+  const { realty, project, agent } = data
+  const who = agent ?? realty.name
+  return (
+    <main style={{ ["--accent" as string]: realty.accent_color ?? "#1f2937" }} className="min-h-screen bg-[#f6f4f0] text-[#17150f] lg:grid lg:grid-cols-[minmax(0,1.05fr)_minmax(0,1fr)]">
+      <aside className="relative isolate flex flex-col justify-between gap-8 overflow-hidden bg-[var(--accent)] px-5 pb-7 pt-6 text-white sm:px-10 sm:pb-10 sm:pt-8 lg:sticky lg:top-0 lg:h-screen lg:gap-10 lg:px-14 lg:py-12">
+        {project.photo && (
+          <>
+            <Photo src={project.photo} sizes="(min-width: 1024px) 52vw, 100vw" loading="eager" className="absolute inset-0 -z-10 h-full w-full object-cover" />
+            <div aria-hidden className="absolute inset-0 -z-10 bg-gradient-to-t from-[#120d0c] via-[#120d0c]/70 to-[#120d0c]/30" />
+          </>
+        )}
+        <div aria-hidden className="absolute inset-x-0 top-0 h-1.5 bg-[var(--accent)]" />
+        <span className="inline-flex self-start bg-white px-4 py-3 shadow-[0_10px_30px_-12px_rgba(0,0,0,0.5)]">
+          <RealtyMark name={realty.name} logo={realty.logo_url} className="h-9 sm:h-11 lg:h-14" />
+        </span>
+        <div>
+          <p className="text-xs font-bold uppercase tracking-[0.22em] text-white/75">Private sales offer</p>
+          {project.name && <h2 className="mt-3 max-w-xl text-[1.75rem] font-bold leading-[1.08] tracking-tight sm:text-5xl">{project.name}</h2>}
+          {project.location && (
+            <p className="mt-3 inline-flex items-center gap-2 text-base font-semibold text-white/85">
+              <MapPin className="h-4 w-4" /> {project.location}
+            </p>
+          )}
+        </div>
+      </aside>
+
+      <section className="flex items-center justify-center px-5 py-10 sm:px-10 sm:py-14 lg:px-14">
+        <div className="w-full max-w-[440px]">
+          <p className="text-xs font-bold uppercase tracking-[0.2em] text-[var(--accent)]">Sales offer · {data.code}</p>
+          <h1 className="mt-2 text-3xl font-bold tracking-tight sm:text-4xl">This offer is just for you.</h1>
+          <p className="mt-3 text-[15px] leading-relaxed text-[#5a554d]">
+            Enter the username and password <strong className="font-bold text-[#17150f]">{who}</strong> gave you to open it.
+          </p>
+          <div className="mt-8">
+            <UnlockForm code={data.code} />
+          </div>
+          <div className="mt-8 border-t border-[#e0dcd5] pt-6 text-sm leading-relaxed text-[#5a554d]">
+            <p>
+              <span className="font-bold text-[#17150f]">Don&apos;t have them?</span> Ask {who}. They sent you this link with your login.
+            </p>
+          </div>
+          <p className="mt-8 flex items-center gap-2 text-xs text-[#8a847a]">
+            <Lock className="h-3.5 w-3.5 shrink-0" />
+            <span>
+              Only you and {realty.name} can open this offer · Powered by{" "}
+              <Link href="/platform" className="font-semibold text-[#6b665d] hover:text-[#17150f]">
+                jvconline
+              </Link>
+            </span>
+          </p>
+        </div>
+      </section>
+    </main>
+  )
+}
